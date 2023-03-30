@@ -1,0 +1,30 @@
+# Logs
+log.html
+npm-debug.log
+
+# Dependency directories
+node_modules/
+.bundle
+
+/public/
+public/
+build/
+resources/
+!content/resources/
+!layouts/resources/
+*.css.map
+
+.DS_Store
+
+*.map
+*.js.map
+
+.sass-cache/
+.sass-cache
+.gulp-cache
+*.scssc
+
+*.sublime*
+.vscode/
+.project/
+config.codekit3
