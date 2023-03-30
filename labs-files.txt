@@ -1,3 +1,7 @@
+D = Delete
+A = Move to an archive
+R = Replaced by a page describing the same topic (check_*_health)
+
 [ ] citrus-framework
 [ ] citrus-framework/citrus-logo.png
 [ ] citrus-framework/index.md
