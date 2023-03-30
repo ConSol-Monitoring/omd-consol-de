@@ -218,3 +218,11 @@ enable = false
     path = "github.com/google/docsy/dependencies"
     disable = false    
 
+# move caches to a place inside the container
+[caches.images]
+dir = "/tmp/resources/_gen"
+maxAge = -1
+
+[caches.assets]
+dir = "/tmp/resources/_gen"
+maxAge = -1
