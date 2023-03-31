@@ -28,3 +28,6 @@ resources/
 .vscode/
 .project/
 config.codekit3
+
+go.sum
+.hugo_build.lock
