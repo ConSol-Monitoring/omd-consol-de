@@ -1,6 +1,11 @@
----
-title: check_vsphere
----
++++
+title = "check_vsphere"
+[cascade]
+github_project_repo="https://github.com/ConSol/check_vsphere"
+github_repo="https://github.com/ConSol/check_vsphere"
+github_subdir="docs"
+path_base_for_github_subdir="content/en/docs/plugins/check_vsphere/"
++++
 
 This is a monitoring plugin for naemon, nagios or icinga compatible systems that
 can check various things against the vSphere API. It is meant as a replacement
