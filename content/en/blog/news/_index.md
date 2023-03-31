@@ -1,5 +1,5 @@
-+++
-title = "News"
-linkTitle = "News"
-weight = 28
-+++
+---
+title: "News"
+linkTitle: "News"
+weight: 200
+----

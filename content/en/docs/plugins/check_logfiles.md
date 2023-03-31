@@ -1,15 +1,6 @@
 ---
-author: Gerhard Lausser
-comments: false
-date: 2009-07-14 22:13:22+00:00
-layout: page
-slug: check_logfiles
 title: check_logfiles
-wordpress_id: 103
 ---
-* TOC
-{:toc}
-
 ## Description
 check_logfiles is a Plugin for Nagios which scans log files for specific patterns.
 
@@ -30,14 +21,14 @@ The conventional plugins which scan log files are not adequate in a mission crit
 
 ## Introduction
 Usually you call the plugin with the --config option which gets the name of a configuration file:
-{% highlight bash %}
+``` bash
 nagios$ check_logfiles --config
 OK - no errors or warnings
-{% endhighlight %}
+```
 
 In it's most simple form check_logfiles can get all the essential parameters as command line options. However, not all features can be utilized in this case.
 
-{% highlight bash %}
+``` bash
 nagios$ check_logfiles --tag=ssh --logfile=/var/adm/messages \
      --rotation SOLARIS \
      --criticalpattern 'Failed password for root'
@@ -47,7 +38,7 @@ nagios$ check_logfiles --tag=ssh --logfile=/var/adm/messages \
      --rotation SOLARIS \
      --criticalpattern 'Failed password for root'
 CRITICAL - (1 errors in check_logfiles.protocol-2007-04-25-20-59-20) - Apr 25 20:59:15 srvweb8 sshd[10849]: [ID 800047 auth.info] Failed password for root from 172.16.224.11 port 24206 ssh2 |ssh=2831;0;1;0
-{% endhighlight %}
+```
 
 In principle check_logfiles scans a log file until the end-of-file is reached. The offset will then be saved in a so-called seekfile. The next time check_logfiles runs, this offset will be used as the starting position inside the log file. In the event that a rotation has occurred in the meantime, the rest of the rotated archive will be scanned also.
 
@@ -81,6 +72,8 @@ For the most simple applications it is sufficient to call check_logfile with com
 ### Format of a configuration file
 The definitions in this file are written with Perl-syntax. There is a distinction between global variables which influence check_logfiles as a whole and variables which are related to the single searches. A "search" combines where to search, what to search for, which weight a hit has, which action will be triggered in case of a hit, and so on...
 
+| variable | meaning | default |
+|----------|---------|---------|
 | $seekfilesdir |A directory where files with status information will be saved after a run of check_logfiles. This status information helps check_logfiles to remember up to which position the log file has been scanned during the last run. This way only newly written lines of log files will be read.| The default is /tmp or the directory which has been specified with the --with-seekfiles-dir of ./configure. |
 | $protocolsdir |A directory where check_logfiles writes protocol files with the matched lines.| The default is /tmp or the directory which has been specified with the --with-protocol-dir of ./configure. |
 | $protocolretention |The lifetime of protocol files in days. After these days the files are deleted automatically| The default is 7 days. |
@@ -93,6 +86,8 @@ The definitions in this file are written with Perl-syntax. There is a distinctio
 
 The single searches are further specified by the following parameters:
 
+| attribute | meaning |
+|-----------|---------|
 | tag| A unique identifier. |
 | logfile| The name of the log file to scan. |
 | archivedir| The name of the directory where archives will be moved to after a log file rotation. The default is the directory where the logfile resides. {% asset_image rotation.png %}|
@@ -112,6 +107,8 @@ The single searches are further specified by the following parameters:
 
 Options
 
+| option | meaning | default |
+|--------|---------|---------|
 | \[no\]script| Controls whether a script can be executed.| default: off |
 | \[no\]smartscript| Controls whether exitcode and output of the script shall be treated like an additional match.| default: off |
 | \[no\]supersmartscript| Controls whether exitcode and output of the script should replace the triggering match.| default: off |
@@ -141,6 +138,8 @@ Options
 
 Predefined macros
 
+| macro | meaning |
+|-------|---------|
 | $CL_USERNAME$| The name of the user executing check_logfiles |
 | $CL_HOSTNAME$| The hostname without domain |
 | $CL_DOMAIN$| The DNS-domain |
@@ -171,7 +170,7 @@ Predefined macros
 
 These macros are also available in scripts called out of check_logfiles. Their values are stored in environment variables, whose names are derived from the macro's names. The preceding CL_ is replaced by CHECK_LOGFILES_. You can also access user defined macros. Their names are also prefixed with CHECK_LOGFILES_.
 
-{% highlight bash %}
+``` bash
 nagios:~> cat check_logfiles.cfg
 $scriptpath = '/usr/bin/my_application/bin:/usr/local/nagios/contrib';
 $MACROS = {
@@ -207,12 +206,12 @@ else
   echo "$CHECK_LOGFILES_MY_FUNNY_MACRO"
 fi
 printf "Thank you, %s. You made me laugh.\n" "$CHECK_LOGFILES_USERNAME"
-{% endhighlight %}
+```
 
 ### Performance data
 The number of scanned lines as well as the number of pattern matches (critical, warning and unknown) are appended to the plugin's output in performance data format. You can suppress this by using the noperfdata option.
 
-{% highlight bash %}
+``` bash
 nagios$ check_logfiles --logfile /var/adm/messages \
      --criticalpattern 'Failed password' --tag ssh
 CRITICAL - (4 errors) - May  9 11:33:12 localhost sshd[29742] Failed password for invalid user8 ... |ssh_lines27 ssh_warnings=0 ssh_criticals=4 ssh_unknowns=0
@@ -220,7 +219,7 @@ CRITICAL - (4 errors) - May  9 11:33:12 localhost sshd[29742] Failed password fo
 nagios$ check_logfiles --logfile /var/adm/messages \
      --criticalpattern 'Failed password' --tag ssh --noperfdata
 CRITICAL - (2 errors) - May  9 11:58:48 localhost sshd[29813] Failed password for invalid user8 ...
-{% endhighlight %}
+```
 
 ### Scripts
 It is possible to execute external scripts out of check_logfiles. This can be at the startup phase ($prescript), before termination ($postscript) or every time a pattern matches a line. See example above. With the option "smartscript" output and exitcode of the script are treated like a match in the logfile and reflected in the overall result. The option "supersmartscript" makes output and exitcode of the script replace those of the triggering match. Pre- and Postscript declared as supersmart scripts directly influence the process of check_logfiles. The option "supersmartprescript" causes an immediate abort of check_logfiles if the prescript has a non-zero exit code. In this case output and exitcode of check_logfiles correspond to those of the prescript. 
@@ -231,7 +230,7 @@ With the option "supersmartpostscript" output and exitcode of check_logfiles can
 ### Integration in Nagios
 If you have just one service which uses check_logfiles you can hard-code the config file in your services.cfg/nrpe.cfg
 
-{% highlight text %}
+``` text
 define service {
   service_description   check_sanlogs
   host_name              oaschgeign.muc
@@ -249,11 +248,11 @@ define command {
 
 command[check_logfiles]=/opt/nagios/libexec/check_logfiles
      --config logdefs.cfg
-{% endhighlight %}
+```
 
 If multiple services are based on check_logfiles you need multiple config files. I propose to name them after the service_description. In the following example we would have a directory cfg.d with config files solaris_check_sanlogs and solaris_check_apachelogs.
 
-{% highlight text %}
+``` text
 define service {
   service_description  logfilescan
   register             0
@@ -286,19 +285,19 @@ define command {
   command_line         $USER1$/check_nrpe
        -H $HOSTADDRESS$ -t $ARG1$ -c $ARG2$ -a $ARG3$
 }
-{% endhighlight %}
+```
 
 The corresponding line in the host's nrpe.cfg looks like that:
 
-{% highlight text %}
+``` text
 [check_logfiles]=/opt/nagios/libexec/check_logfiles --config $ARG1$
-{% endhighlight %}
+```
 
 If you use nsclient++ under Windows, the entry in the NSC.ini looks like that:
 
-{% highlight text %}
+``` text
 check_logfiles=C:\Perl\bin\perl C:\libexec\check_logfiles --config $ARG1$
-{% endhighlight %}
+```
 
 ## Installation
 
@@ -318,7 +317,7 @@ check_logfiles=C:\Perl\bin\perl C:\libexec\check_logfiles --config $ARG1$
 ## Scanning of an Oracle-Alertlog with the operating mode "oraclealertlog"
 If you want to scan the alert log of an oracle database without having access to the database server on the operating system level (e.g. it is a Windows server or you are not allowed to log in to a Unix server for security reasons) and therefore no access to the alert file, then this file can be mapped to a database table. The contents of the file are then visible through a database connection by executing SQL SELECT statements. If you specify the type "oraclealertlog" in a check_logfiles configuration, this method is used to scan the alert log. You need some extra parameters in the configuration.
 
-{% highlight text %}
+``` text
 # extra parameters in the configuration file
 @searches = ({
   tag => 'oratest',
@@ -330,7 +329,7 @@ If you want to scan the alert log of an oracle database without having access to
   },
   criticalpatterns => [
 ...
-{% endhighlight %}
+```
 
 ### Preparations on the part of the database administrator
 Mapping external files to database tables is possible since Version 9. Use this script to prepare your database:
@@ -343,26 +342,26 @@ Installation of the Perl-Modules DBI and DBD::Oracle (http://search.cpan.org/~py
 The eventlog of Windows systems can be processed by check_logfiles like any other logfile. Each event is treated like a line. Also only those events get analyzed which appeared since the last run of check_logfiles.
 
 In it's most simple form an eventlog search looks like this:
-{% highlight text %}
+``` text
 @searches = ({
   tag => 'evt_sys',
   type => 'eventlog',
   criticalpatterns => ['error', 'fatal', 'failed', ....
   # logfile anzugeben ist hier nicht nötig, da sinnlos.
-{% endhighlight %}
+```
 
 If the evaluation of events should not be based on patterns, but the windows-internal stati WARNING and ERROR, use the option winwarncrit.
 
-{% highlight text %}
+``` text
 @searches = ({
   tag => 'evt_sys',
   type => 'eventlog',
   options => 'winwarncrit',
-{% endhighlight %}
+```
 
 It is also possible to analyze only a subset of all the events in the eventlog. You can use include- and exclude-filters for that.
 
-{% highlight text %}
+``` text
 @searches = ({
   tag => 'winupdate',
   type => 'eventlog',
@@ -377,7 +376,7 @@ It is also possible to analyze only a subset of all the events in the eventlog. 
     },
   },
   criticalpatterns => '.*',
-{% endhighlight %}
+```
 
 With these settings, only those events are fetched from the eventlog which comply with the following requirements:
 * The System-Eventlog is used
@@ -386,13 +385,13 @@ With these settings, only those events are fetched from the eventlog which compl
 * Events with the IDs 15 and 16 are discarded.
 
 Please be aware that the single include-requirements are combined by logical AND and the exclude-requirements are combined by logical OR. The comma-separated lists are always combined by OR.
-{% highlight text %}
+``` text
 filter = ((source == "Windows Update Agent") AND ((eventtype == "error") OR (eventtype == "warning"))) AND NOT ((eventid == 15) OR (eventid == 16))
-{% endhighlight %}
+```
 
 You can change this behavior with the key "operation". It takes the arguments "and" or "or".
 
-{% highlight text %}
+``` text
 @searches = ({
   tag => 'winupdate',
   type => 'eventlog',
@@ -408,11 +407,11 @@ You can change this behavior with the key "operation". It takes the arguments "a
     },
   },
   criticalpatterns => '.*',
-{% endhighlight %}
+```
 
 Now the filter means: "Windows Update Agent" OR ("error" OR "warning")
 
-{% highlight text %}
+``` text
 type => 'eventlog',
   eventlog => {
     eventlog => 'system',                 # system (default), application, security
@@ -425,17 +424,17 @@ type => 'eventlog',
       eventid => '15,16',                  # die ID des Events
     },
   },
-{% endhighlight %}
+```
 
 Filters can also be used in commandline-mode.
 
-{% highlight bash %}
+``` bash
 check_logfiles --type "eventlog:eventlog=application,include,source=Windows Update Agent,eventtype=error,eventtype=warning,exclude,eventid=15,eventid=16"
-{% endhighlight %}
+```
 
 With another option it is possible to rewrite an event's message text. Normally check_logfiles sees the field Message when it tries to match a pattern. This is also what is shown in the plugin's output. The option eventlogformat can be used to include the fields EventType, Source, Category, Timewritten and TimeGenerated in the output.
 
-{% highlight text %}
+``` text
 EventType: ERROR
 EventID: 16
 Source: W32Time
@@ -443,21 +442,21 @@ Category: None
 Timewritten: 1259431241
 TimeGenerated: 1259431241
 Message: Der NtpClient verfügt über keine Quelle mit genauer Zeit.
-{% endhighlight %}
+```
 
-{% highlight text %}
+``` text
 options => 'eventlogformat="%w src:%s id:%i %m"',
-{% endhighlight %}
+```
 
 With this eventlogformat the message text of the above event will be rewritten to:
 
-{% highlight text %}
+``` text
 2009-11-28T19:04:16 src:W32Time id:16 Der NtpClient verfügt über keine Quelle mit genauer Zeit.
-{% endhighlight %}
+```
 
 The formatstring knows the following tokens:
 
-{% highlight text %}
+``` text
 %t EventType 
 %i EventID 
 %s Source 
@@ -465,7 +464,7 @@ The formatstring knows the following tokens:
 %w Timewritten 
 %g TimeGenerated 
 %m Message 
-{% endhighlight %}
+```
 
 With %&lt;number&gt;m you can shorten the message to _number_ characters.
 
@@ -474,7 +473,7 @@ Windows operating systems prior to Windows Vista use the standard (EVT) event lo
 Examples are *Microsoft-Windows-PowerShell/Operational*, *Microsoft/Exchange/HighAvailability/Operational* and many more.
 
 Since version 3.7 check_logfiles can search these channels, too.
-{% highlight perl %}
+``` perl
 @searches = ({
     tag => "msps",
     type => "wevtutil",
@@ -484,7 +483,7 @@ Since version 3.7 check_logfiles can search these channels, too.
       eventlog => "Microsoft-Windows-PowerShell/Operational",
     }
 });
-{% endhighlight %}
+```
 
 ## Examples
 

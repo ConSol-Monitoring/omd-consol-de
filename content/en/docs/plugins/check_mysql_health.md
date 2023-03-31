@@ -1,16 +1,7 @@
 ---
-author: Admin
-comments: false
-date: 2009-07-06 00:22:05+00:00
-layout: page
-slug: check_mysql_health
 title: check_mysql_health
-wordpress_id: 37
+linkTitle: check_mysql_health
 ---
-* TOC
-{:toc}
-While i'm busy rewriting and refactoring check_mysql_health, i want to know what's your preferred algorithm to calculate the query cache hit rate. Personally, i am 100% neutral. I will implement the algorithm with the most votes. The poll will end at Jul 17.
-
 ## Description
 check_mysql_health is a plugin to check various parameters of a MySQL database.
 
@@ -107,7 +98,7 @@ The environment variables are:
 * NAGIOS__SERVICEMYSQL_SOCK (_mysql_sock in the service definition)
 
 ## Examples
-{% highlight bash %}
+``` bash
 nagios$ check_mysql_healthhostname mydb3 --username nagios --password nagios -- mode connection-time
 OK - 0.03 seconds to connect as nagios | connection_time=0.0337s;1;5
 
@@ -138,7 +129,7 @@ CRITICAL - myval: 111GB | 'myval'=111GB;1;5
 nagios$ check_mysql_healthmode sql --name select%20111%20from%20dual --name2 myval --units GB
    warning 100 --critical 110
 CRITICAL - myval: 111GB | 'myval'=111GB;100;110
-{% endhighlight %}
+```
 
 ## Installation
 The plugin requires the installation of a mysql-client packages. The installation of the perl-modules DBI and DBD::mysql is desirable, but not mandatory.

@@ -1,15 +1,6 @@
 ---
-author: Gerhard Lausser
-comments: false
-date: 2009-10-01 14:57:46+00:00
-layout: page
-slug: check_db2_health
 title: check_db2_health
-wordpress_id: 594
 ---
-* TOC
-{:toc}
-
 ## Description
 check_db2_health is a plugin, which is used to monitor various parameters of a DB2 database.
 
@@ -35,7 +26,6 @@ Using the --mode parameter with the following arguments tells the plugin what it
 
 ### Modi
 
-|-------------|---------|------------|
 | Keyword| Meaning| Thresholds|
 |-------------|---------|------------|
 | connection-time| Measures, how long it takes to connect and login.| 0..n seconds (1, 5)
@@ -77,29 +67,29 @@ In order for the plugin to retrieve the necessary information from the database,
 
 The Monitoring Switches need to be set:
 
-{% highlight sql %}
+``` sql
 update dbm cfg using dft_mon_bufpool on
 update dbm cfg using dft_mon_lock on
 update dbm cfg using dft_mon_timestamp on
-{% endhighlight %}
+```
 
 The nagios-user (to be exact: the nagios-group. Be careful, the usr nagios has to belong to a group nagios. The *nagios* in the following sql-statement is the group, not the user) gets the necessary privileges:
 
-{% highlight sql %}
+``` sql
 db2inst1$ db2 update dbm cfg using sysmon_group nagios
 db2inst1$ db2 grant select,update on table SYSTOOLS.STMG_DBSIZE_INFO to nagios
 db2inst1$ db2stop; db2start
-{% endhighlight %}
+```
 
 For version 10.5 (Caution, 10.x is not officially supported. You have to pay for the implementation) you also need the following command:
 
-{% highlight sql %}
+``` sql
 db2inst1$ db2 grant execute on function sysproc.MON_GET_DATABASE to nagios
-{% endhighlight %}
+```
 
 ## Examples
 
-{% highlight bash %}
+``` bash
 nagsrv$ check_db2_health --mode connection-time
 WARNING - 1.61 seconds to connect as DB2INST1 |  connection_time=1.6084;1;5
 
@@ -170,7 +160,7 @@ OK - 0.000000 lock waits / sec |  lock_waits_per_sec=0.000000;10;100
 
 nagsrv$ check_db2_health --mode lock-waiting
 OK - 0.000000% of the time was spent waiting for locks |  lock_percent_waiting=0.000000%;2;5
-{% endhighlight %}
+```
 
 ### Using environment variables
 The parameters --hostname, --username, --password and --port can be omitted, if the corresponding data are available via environment variables. Since version 3.x of nagios, service definitions can have custom attributes, which can be used to specify login data. During the plugin execution they are available as environment variables .

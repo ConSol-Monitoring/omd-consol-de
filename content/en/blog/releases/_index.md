@@ -1,7 +1,7 @@
-+++
-title = "New Releases"
-linkTitle = "Releases"
-weight = 20
-+++
+---
+title: "New Releases"
+linkTitle: "Releases"
+weight: 100
+---
 
-Here you can find short a descriptions of changes and new features whenever we release a new version of one of our open source projects.
+sieht so aus, als waere eine _index.md unter blog/category nur dazu da, um im Menue eine Oberueberschrift zu erzeugen

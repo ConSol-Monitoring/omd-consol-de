@@ -1,14 +1,6 @@
 ---
-author: Gerhard Lausser
-comments: false
-date: 2009-10-01 14:57:46+00:00
-layout: page
-slug: check_mssql_health
 title: check_mssql_health
 ---
-* TOC
-{:toc}
-
 ## Description ##
 check_mssql_health is a plugin, which is used to monitor different parameters of a MS SQL server.
 
@@ -96,7 +88,7 @@ In order for the plugin to operate correctly, a database user with specific priv
 The most simple way is to assign the Nagios-user the role "serveradmin". As an alternative you can use the sa-User for the database connection. Alas, this opens a serious security hole, as the (cleartext) administrator password can be found in the nagios configuration files
 
 Birk Bohne wrote the following script which allows the automated creation of a minimal, yet sufficient privileged monitoring-user.
-{% highlight sql %}
+``` sql
 declare @dbname varchar(255)
 declare @check_mssql_health_USER varchar(255)
 declare @check_mssql_health_PASS varchar(255)
@@ -169,12 +161,12 @@ declare dblist cursor for
     end
 close dblist
 deallocate dblist
-{% endhighlight %}
+```
 
 Please keep in mind that check_mssql_health’s functionality is limited when using SQL Server authentication. **This method is strongly discouraged** . Normally there is already a Nagios-(Windows-)-user which can be used for the Windows authentication method.
 
 Another script from the same author removes the monitoring user from the database.
-{% highlight sql %}
+``` sql
 declare @dbname varchar(255)
 declare @check_mssql_health_USER varchar(255)
 declare @check_mssql_health_ROLE varchar(255)
@@ -205,11 +197,11 @@ EXEC ('USE MSDB DROP USER ' + @check_mssql_health_USER)
 EXEC ('USE MASTER REVOKE VIEW SERVER STATE TO ' + @check_mssql_health_USER)
 EXEC ('DROP LOGIN ' + @check_mssql_health_USER)
 PRINT 'User ' + @check_mssql_health_USER + ' dropped.'
-{% endhighlight %}
+```
 Many thanks to Birk Bohne for the excellent scripts.
 
 ## Examples ##
-{% highlight bash %}
+``` bash
 nagsrv$ check_mssql_health --mode mem-pool-data-buffer-hit-ratio
 CRITICAL - buffer cache hit ratio is 71.21% | buffer_cache_hit_ratio=71.21%;90:;80:
 
@@ -235,7 +227,7 @@ OK - page life expectancy is 8950 seconds | page_life_expectancy=8950;300:;180:
 nagsrv$ check_mssql_health --mode database-backup-age --name AHLE_WORSCHT \
 --warning 72 --critical 120
 WARNING - AHLE_WORSCHT backupped 102h ago | 'AHLE_WORSCHT_bck_age'=102;72;120 'AHLE_WORSCHT_bck_time'=12
-{% endhighlight %}
+```
 
 ## Using environment variables ##
 You can omit the parameters --hostname, --port (or the alternative --server), --username und --password completely, if you pass the respective data via environment variables. Since version 3.x of Nagios you can add your own attributes to service definittions (custom object variables). They appear as environment variables during the runtime of a plugin.
@@ -259,16 +251,16 @@ After you unpacked the archive you have to execute ./configure aufgerufen. With 
 
 ## Security advice ##
 The Perl-module DBD::Sybase is based on an installation of FreeTDS auf. This package is responsible for the communication with the database server. The default settings use protocol version 4.x which results in cleartext passwords sent over the wire. Please do change the following parameter in the file /etc/freetds.conf.
-{% highlight ini %}
+``` ini
 [global]
 # TDS protocol version
 # tds version = 4.2
 tds version = 8.0
-{% endhighlight %}
+```
 
 ## Instances ##
 If multiple named instances are listening on the same port of your database server, you need to register them individually in the file /etc/freetds.conf.
-{% highlight ini %}
+``` ini
 [dbsrv1instance01]
         host = 192.168.1.19
         port = 1433
@@ -278,7 +270,7 @@ If multiple named instances are listening on the same port of your database serv
         host = 192.168.1.19
         port = 1433
         instance = instance02
-{% endhighlight %}
+```
 
 Now you can address the instances e.g. with **\--server dbsrv1instance02** . By using **\--host 192.168.1.19 \--port 1433** you would reach the Default instance.
 
