@@ -1,5 +1,5 @@
 baseURL = "/"
-title = "Consol Monitoring"
+title = "ConSol Monitoring"
 
 # Language settings
 contentDir = "content/en"
@@ -60,14 +60,14 @@ id = "UA-00000000-0"
 
 [languages]
 [languages.en]
-title = "Consol Monitoring"
-description = "The Consol monitoring portfolio"
+title = "ConSol Monitoring"
+description = "The ConSol monitoring portfolio"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
 #[languages.de]
-#title = "Consol Monitoring"
-#description = "Das Portfoio des Consol-Monitoringteams"
+#title = "ConSol Monitoring"
+#description = "Das Portfoio des ConSol-Monitoringteams"
 #languageName ="Deutsch"
 #contentDir = "content/de"
 #time_format_default = "02.01.2006"
@@ -90,7 +90,7 @@ weight = 1
 section = ["HTML", "print", "RSS"]
 
 [params]
-copyright = "Consol Software GmbH"
+copyright = "ConSol Software GmbH"
 privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
@@ -115,9 +115,9 @@ version = "0.0"
 url_latest_version = "https://example.com"
 
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-github_repo = "https://github.com/consol/omd-consol-de"
+github_repo = "https://github.com/ConSol/omd-consol-de"
 # An optional link to a related project repo. For example, the sibling repository where your product code lives.
-github_project_repo = "https://github.com/consol/omd"
+github_project_repo = "https://github.com/ConSol/omd"
 
 # Specify a value here if your content directory is not in your repo's root directory
 # github_subdir = ""
@@ -172,7 +172,7 @@ enable = false
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
-  name = "Consol Software"
+  name = "ConSol Software"
   url = "https://www.consol.de"
   icon = "fa fa-envelope"
   desc = "Buy consulting and support"
@@ -184,7 +184,7 @@ enable = false
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
   name = "GitHub"
-  url = "https://github.com/consol/omd"
+  url = "https://github.com/ConSol/omd"
   icon = "fab fa-github"
   desc = "Development takes place here!"
 #[[params.links.developer]]
