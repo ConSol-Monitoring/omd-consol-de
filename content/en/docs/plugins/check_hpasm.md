@@ -1,15 +1,7 @@
 ---
-author: Gerhard Lausser
-comments: false
-date: 2009-07-14 22:23:45+00:00
-layout: page
-slug: check_hpasm
 title: check_hpasm
-wordpress_id: 109
+linkTitle: check_hpasm
 ---
-* TOC
-{:toc}
-
 ## Description
 
 check_hpasm is a plugin for Nagios which checks the hardware health of Hewlett-Packard Proliant Servers. To accomplish this, you must have installed the hpasm package. The plugin checks the health of
@@ -29,7 +21,7 @@ The plugin can operate in two modes:
 * Local. The plugin runs on the server which is to be checked. The command hpasmcli (from the hpasm.rpm package) must be installed. 
 * Remote. The plugin runs on the Nagios server. It finds out the status of the remote hardware by contacting remote server with SNMP. The hpasm package must be installed on the remote server. 
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm
 OK - hardware working fine
 nagios$ check_hpasm -H 10.0.73.30 -C public
@@ -38,7 +30,7 @@ nagios$ check_hpasm -H 10.0.73.30 -C public -P 1
 OK - hardware working fine
 nagios$ check_hpasm -H 10.0.73.30 -C public --snmpwalk /usr/bin/snmpwalk
 OK - hardware working fine
-{% endhighlight %}
+```
 
 ### Comparison of the two modes: lokal und remote.
 {% asset_image check_hpasm_modes.jpg %}
@@ -46,7 +38,7 @@ OK - hardware working fine
 ### Verbosity
 For debugging purposes it can be called with the --verbose (or -v) option. It will then output the detailed status of each checked component:
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm -v
 CRITICAL - dimm module 0:5 (module 5 @ cartridge 0) needs attention (degraded), System: 'proliant dl360 g5', S/N: '3UH841N09K', ROM: 'P58 08/03/2008'
 checking cpus
@@ -85,11 +77,11 @@ physical drive 0:2 is ok
 physical drive 0:3 is ok
 physical drive 0:4 is ok
 physical drive 0:5 is ok | fan_1=50% fan_2=50% fan_3=50% temp_1_ioBoard=42;65;65 temp_2_ambient=18;40;40 temp_3_cpu=30;95;95 temp_4_cpu=30;95;95 temp_5_powerSupply=29;60;60
-{% endhighlight %}
+```
 
 --verbose (or -v) can be repeated several times or given a numerical argument. The maximum level is -vvv. Using this level you will see a complete dump of all detected hardware components with all details.
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm -vvv
 ...
 [CPU_0]
@@ -129,7 +121,7 @@ cpqDaPhyDrvSize: 1864
 cpqDaPhyDrvStatus: ok
 cpqDaPhyDrvCondition: ok
 ...
-{% endhighlight %}
+```
 
 ### Blacklisting
 If you want checks of failed/missing components to be skipped, so alerts caused by these are suppressed, then use the option --blacklist to blacklist them. With this option you give the plugin a list of items separated by / having the following format:
@@ -138,32 +130,36 @@ If you want checks of failed/missing components to be skipped, so alerts caused 
 
 where \<type> can take one of the following values:
 
-| cpu| c|
-| powersupply| p|
-| fan| f|
-| overall fan status| ofs|
-| temperature| t|
-| dimm| d|
-| da controller| daco|
-| da controller accelerator| daac|
-| da controller accelerator battery| daacb|
-| da logical drive| dald|
-| da physical drive| dapd|
-| scsi controller| scco|
-| scsi logical drive| scld|
-| scsi physical drive| scpd|
-| fcal controller| fcaco|
-| fcal accelerator| fcaac|
-| fcal host controller| fcahc|
-| fcal host controller overall condition| fcahco|
-| fcal logical drive| fcald|
-| fcal physical drive| fcapd|
-| fuse| fu|
-| enclosure manager| em|
-| iml-event| evt|
+| type | abbrev. value|
+|-----|---|
+| cpu | c |
+| powersupply | p |
+| fan | f |
+| overall fan status | ofs |
+| temperature | t |
+| dimm | d |
+| da controller | daco |
+| da controller accelerator | daac |
+| da controller accelerator battery | daacb |
+| da logical drive | dald |
+| da physical drive | dapd |
+| scsi controller | scco |
+| scsi logical drive | scld |
+| scsi physical drive | scpd |
+| fcal controller | fcaco |
+| fcal accelerator | fcaac |
+| fcal host controller | fcahc |
+| fcal host controller overall condition | fcahco |
+| fcal logical drive | fcald |
+| fcal physical drive | fcapd |
+| fuse | fu |
+| enclosure manager | em |
+| iml-event | evt |
 
 The \<nr> of a component can be found in the output of check_hpasm -v.
 
+| output | blacklist with |
+|--------|----------------|
 | checking cpus|
 | cpu 0 is ok                                                             | c:0|
 | cpu 1 is ok                                                             | c:1|
@@ -220,16 +216,16 @@ The \<nr> of a component can be found in the output of check_hpasm -v.
 
 Assumed that you want to blacklist the failed memory module and the three failed hard disks (including the logical drive they belong to), you would write
 
-{% highlight text %}
+``` text
 d:0:5/fcapd:1:128,1:130,1:132/fcald:1:1
-{% endhighlight %}
+```
 
 As an alternative you can write this string into the first line of a file and give the filename as an argument to --blacklist.
 
 ### Custom temperature thresholds
 If the system-default temperature thresholds should be overridden, use the --customthresholds option.
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm
 ...
 1 cpu temperature is 45C (62 max)
@@ -247,18 +243,18 @@ nagios$ check_hpasm --customthresholds 1:70/5:65
 4 cpu temperature is 59C (80 max)
 5 powerSupply temperature is 31C (65 max)
 ...
-{% endhighlight %}
+```
 
 ### Performance data
 With the option --perfdata you can switch on the output of performance data, if not already set as the default during installation. Should the perfdata string become too long, then use --perfdata=short which outputs a short form of the temperature tags (the location part will not be shown)
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm
 OK - hardware working fine| fan_1=8%;0;0 fan_2=8%;0;0  fan_3=15%;0;0 fan_4=15%;0;0 fan_5=8%;0;0 fan_6=8%;0;0 fan_7=20%;0;0 fan_8=20%;0;0 'temp_1_processor_zone'=38;62;62 'temp_2_cpu#1'=37;73;73 'temp_3_i/o_zone'=49;68;68 'temp_4_cpu#2'=40;73;73 'temp_5_power_supply_bay'=36;44;44
 
 nagios$ check_hpasm --perfdata short
 OK - hardware working fine| fan_1=8%;0;0 fan_2=8%;0;0  fan_3=15%;0;0 fan_4=15%;0;0 fan_5=8%;0;0 fan_6=8%;0;0 fan_7=20%;0;0 fan_8=20%;0;0 'temp_1'=38;62;62 'temp_2'=37;73;73 'temp_3'=49;68;68 'temp_4'=40;73;73 'temp_5'=36;44;44
-{% endhighlight %}
+```
 
 ### Unknown memory status
 With some Bios releases hpasmcli doesn't display the memory modules correctly. The command SHOW DIMM shows only a list of modules with status n/a which is counted as a Warning. Using the --ignore-dimms you can skip memory checking without using a blacklist to avoid this warning.
@@ -280,7 +276,7 @@ More examples for different error conditions:
 
 ### memory module failed:
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm
 CRITICAL - dimm module 2 @ cartridge 2 needs attention (dimm is degraded)
 
@@ -316,11 +312,11 @@ checking memory modules
  dimm 3@2 is ok
  dimm 4@2 is ok
 CRITICAL - dimm module 2 @ cartridge 2 needs attention (dimm is degraded)
-{% endhighlight %}
+```
 
 ### power supply module failed:
 
-{% highlight bash %}
+``` bash
 nagios$ ./check_hpasm
 CRITICAL - powersuply #2 needs attention (failed), powersuply #1 is not redundant
 nagios$ ./check_hpasm -v
@@ -361,11 +357,11 @@ checking memory modules
  dimm 1@4 is ok
  dimm 2@4 is ok
 CRITICAL - powersuply #2 needs attention (failed),  powersuply #1 is not redundant
-{% endhighlight %}
+```
 
 ### power supply module pulled:
 
-{% highlight bash %}
+``` bash
 nagios$ ./check_hpasm
 CRITICAL - powersuply #2 is missing, powersuply #1 is not redundant
 nagios$ ./check_hpasm -v
@@ -406,40 +402,40 @@ checking memory modules
  dimm 1@4 is ok
  dimm 2@4 is ok
 CRITICAL - powersuply #2 is missing, powersuply #1 is not redundant
-{% endhighlight %}
+```
 
 ### Hpasm daemon is not running:
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm
 CRITICAL - hpasmd needs to be started
-{% endhighlight %}
+```
 
 ### Hpasm software is not installed:
 
-{% highlight bash %}
+``` bash
 nagios$ check_hpasm
 OK - hardware working fine, at least i hope so because hpasm is not installed
-{% endhighlight %}
+```
 
 ### Call to participate
 Please run check_hpasm -v on as many as possible different platforms. Chances are you have a rare Proliant model whose components are not detected completely. You will then see instructions on how to report this to the author.
 
 The following line appears frequently but can be considered harmless:
 
-{% highlight text %}
+``` text
 #0 SYSTEM_BD - -
-{% endhighlight %}
+```
 
 I am always interested in test data. If you want to do me a favour, send me the output of
 
-{% highlight bash %}
+``` bash
 snmpwalk ... <ip-adress> 1.3.6.1.4.1.232
-{% endhighlight %}
+```
 
 or if you are using the local variant, i'd like to see the output of the following script:
 
-{% highlight bash %}
+``` bash
 hpasmcli=$(which hpasmcli)
 hpacucli=$(which hpacucli)
 for i in server powersupply fans temp dimm iml
@@ -458,7 +454,7 @@ if [ -x &quot;$hpacucli&quot; ]; then
     done
   done
 fi
-{% endhighlight %}
+```
 
 ## Download
 {% asset_download check_hpasm-4.8.0.2.tar.gz category:nagios %}

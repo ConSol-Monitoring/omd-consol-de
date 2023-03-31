@@ -1,14 +1,7 @@
 ---
-author: Gerhard Lausser
-comments: false
-date: 2009-10-01 14:57:46+00:00
-layout: page
-slug: check_oracle_health
 title: check_oracle_health
+linkTitle: check_oracle_health
 ---
-* TOC
-{:toc}
-
 ## Description
 check_oracle_health is a plugin to check various parameters of an Oracle database.
 
@@ -132,7 +125,7 @@ Please note, that the thresholds must be specified according to the Nagios plug-
 
 ### Preparation of the database
 In order to be able to collect the needed information from the database a database user with specific privileges is required:
-{% highlight sql %}
+``` sql
 create user nagios identified by oradbmon;
 grant create session to nagios;
 grant select any dictionary to nagios;
@@ -148,10 +141,10 @@ grant select on dba_temp_files to nagios;
 grant select on sys.v_$Temp_extent_pool to nagios;
 grant select on sys.v_$TEMP_SPACE_HEADER  to nagios;
 grant select on sys.v_$session to nagios;
-{% endhighlight %}
+```
 
 ## Examples
-{% highlight bash %}
+``` bash
 nagios$ check_oracle_health --connect bba --mode tnsping
 OK - connection established to bba.
 
@@ -321,7 +314,7 @@ nagios$ check_oracle_health --mode sql
   --name "select 'abc123' from dual" --name2 \\d
   --regexp
 OK - output abc123 matches pattern \d
-{% endhighlight %}
+```
 
 ## Authentication
 
@@ -336,7 +329,7 @@ There are two unix users:
 *  qqnagio with normal access. 
 *  dbnagio with /bin/false as login shell. 
 
-{% highlight bash %}
+``` bash
 qqnagio$ check_oracle_health --mode=connection-time
     --connect=nagios/dbmoni@BBA
 OK - 0.21 seconds to connect as NAGIOS
@@ -345,7 +338,7 @@ dbnagio$ check_oracle_health --mode=connection-time
     --connect=BBA --runas=dbnagio
     --environment ORACLE_HOME=$ORACLE_HOME
 OK - 0.17 seconds to connect as OPS$DBNAGIO
-{% endhighlight %}
+```
 
 The background for this example is the following scenario with a SAP-Server:
 

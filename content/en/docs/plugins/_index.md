@@ -1,7 +1,7 @@
 ---
 title: "Plugins"
 linkTitle: "Plugins"
-weight: 20
+weight: 30
 ---
 
 ## Detailed documentation of plugins
