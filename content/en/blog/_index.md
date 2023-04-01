@@ -1,6 +1,6 @@
 ---
 title: "Monitoring Blog"
-linkTitle: "Blog"
+linkTitle: "News"
 menu:
   main:
     weight: 30
