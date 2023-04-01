@@ -1,7 +1,7 @@
 ---
-layout: page
 title: OMD Labs
 linkTitle: OMD
+weight: 100
 ---
 
 The `OMD Labs-Edition` is a monitoring platform and a new concept of how to install, maintain and update a nagios compatible monitoring system. It contains most monitoring related components from [labs.consol.de](/) and others useful addons from companioned authors. It is _not_ another linux distribution, instead it integrates well in your current system in form of a single rpm or deb package.
