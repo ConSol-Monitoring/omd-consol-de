@@ -1,6 +1,8 @@
 ---
 title: check_mysql_health
-linkTitle: check_mysql_health
+tags:
+  - mysql
+  - database
 ---
 ## Description
 check_mysql_health is a plugin to check various parameters of a MySQL database.

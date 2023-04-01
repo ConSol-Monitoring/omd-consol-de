@@ -1,5 +1,9 @@
 ---
 title: check_mssql_health
+tags:
+  - "sql server"
+  - mssql
+  - database
 ---
 ## Description ##
 check_mssql_health is a plugin, which is used to monitor different parameters of a MS SQL server.
