@@ -2,6 +2,8 @@
 title: OMD Labs
 linkTitle: OMD
 weight: 100
+resources:
+  - rhel.png
 ---
 
 The `OMD Labs-Edition` is a monitoring platform and a new concept of how to install, maintain and update a nagios compatible monitoring system. It contains most monitoring related components from [labs.consol.de](/) and others useful addons from companioned authors. It is _not_ another linux distribution, instead it integrates well in your current system in form of a single rpm or deb package.
@@ -51,13 +53,16 @@ your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 
 There are pre-built packages available for the following systems:
 
-| A | B { colspan="3" } |
-| - | - | - | - |
+| A | <td colspan=3>B</td> |
+|:-|:-|:-|:-|
 | 1 | 0.1 | 0.5 | 1 |
 
+![x](/docs/omd/rhel.png)
 
-| System | <th colspan="2" style="text-align:left;">Version</th> | 64bit |
-| ------- |-----------------|-----------|---|
+
+| System | Version || 64bit |
+|:-------|:-----------------|:-----------|:---|
+| RHEL/Centos | 7 | | ![x](./rhel.png) |
 | RHEL/Centos | 7 | | rhel.png |
 | Debian | 10 | Buster | rhel.png |
 
