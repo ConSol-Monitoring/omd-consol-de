@@ -51,6 +51,16 @@ your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 
 There are pre-built packages available for the following systems:
 
+| A | B { colspan="3" } |
+| - | - | - | - |
+| 1 | 0.1 | 0.5 | 1 |
+
+
+| System | <th colspan="2" style="text-align:left;">Version</th> | 64bit |
+| ------- |-----------------|-----------|---|
+| RHEL/Centos | 7 | | rhel.png |
+| Debian | 10 | Buster | rhel.png |
+
 <table>
 <tr><th>System</th><th colspan="2">Version</th><th>64bit</th></tr>
 <tr><th>RHEL/Centos</th><td>7</td><td></td><td><a href="/repo/stable/#_7"><img src="/omd/rhel.png" width="24" height="24"></a></td></tr>

@@ -1,16 +1,10 @@
 ---
-author: Gerhard Lausser
-comments: true
-date: 2012-07-22 20:16:02+00:00
-layout: page
-slug: coshsh
 title: coshsh
-wordpress_id: 3737
+tags:
+  - cmdb
+  - generator
 ---
-* TOC
-{:toc}
-
-## coshsh - Config-Generator für Shinken/Nagios/Icinga
+## coshsh - Config-Generator für Naemon/Shinken/Nagios/Icinga/Prometheus
 
 ### Wie spricht man's aus?
 &#678;&#596;&#643;:
@@ -35,15 +29,15 @@ Support und Beratung ist erhältlich bei [ConSol](http:///www.consol.de/open-sou
 Das Changelog findet man auf [github](https://github.com/lausser/coshsh/blob/master/Changes)
 
 ### Wie funktioniert's?
-Coshsh liest mit Hilfe von Adaptern beliebige Datenquellen, in denen Informationen über Hosts und die auf ihnen installierten Applikationen stehen. Die Host- und Servicedefinitionen werden erzeugt, indem Platzhalter in Template-Dateien ausgefüllt werden.
+Coshsh liest mit Hilfe von Adaptern beliebige Datenquellen, in denen Informationen über Hosts und die auf ihnen installierten Applikationen stehen. Die Host- und Servicedefinitionen werden erzeugt, indem Platzhalter in Template-Dateien ausgefüllt werden. Ebenso lassen sich aber auch Scrape-Definitions erzeugen.
 
 ### Grundbegriffe von coshsh
 Coshsh unterscheidet sich von anderen Nagios-Config-Tools dadurch, dass Benutzer nicht interaktiv einzelne Objekte in einer Gui zusammenklicken. Bei Coshsh werden vorab Regeln erstellt und auf die zu überwachenden Objekte angewandt, welche aus sogenannten Datasources stammen.
 
 #### Datasource
-Die Rohdaten, die coshsh verarbeitet, stammen aus sogenannten Datasources. I.d.R. wird es pro Installation nur eine einzige Datenquelle geben. Diese kann ein Satz CSV-Dateien oder eine beliebige Datensammlung sein. Üblicherweise ist es die firmeneigene CMDB oder eine andere Datenbank, welche Hosts und Applikationen zum Zwecke des Monitorings enthält. Jeder Typ von Datasource muss auf individuelle Art ausgelesen werden. Entscheidend ist, dass der Rohdatenbestand in Listen von Host- und Applikationsobjekten umgewandelt und an coshsh geliefert wird. Dazu ist jeweils eine Datei namens *datasource_\<name\>.py* erstellt werden, die den nötigen Code enthält. Sie ist sozusagen der "Adapter", mit dessen Hilfe eine Datenquelle an coshsh angeschlossen werden kann. In der coshsh-Konfigurationsdatei werden Datasources folgendermassen beschrieben:
+Die Rohdaten, die coshsh verarbeitet, stammen aus sogenannten Datasources. I.d.R. wird es pro Installation nur eine einzige Datenquelle geben. Diese kann ein Satz CSV-Dateien oder eine beliebige Datensammlung sein. Üblicherweise ist es die firmeneigene CMDB oder eine andere Datenbank, welche Hosts und Applikationen zum Zwecke des Monitorings enthält. Jeder Typ von Datasource muss auf individuelle Art ausgelesen werden. Entscheidend ist, dass der Rohdatenbestand in Listen von Host- und Applikationsobjekten umgewandelt und an coshsh geliefert wird. Dazu ist jeweils eine Datei namens *datasource_\<name\>.py* zu erstellen, die den nötigen Code enthält. Sie ist sozusagen der "Adapter", mit dessen Hilfe eine Datenquelle an coshsh angeschlossen werden kann. In der coshsh-Konfigurationsdatei werden Datasources folgendermassen beschrieben:
 
-{% highlight ini %}
+``` ini
 [datasource_cmdb]
 type = mycmdb
 hostname = dbsrv1
@@ -53,14 +47,14 @@ password = secret
 [datasource_extraapps]
 type = csv
 files = /omd/sites/gen/data
-{% endhighlight %}
+```
 
 Die unterschiedlichen Parameter kommen natürlich daher, dass jede Datasource anders ist und auf andere Art geöffnet und ausgelesen wird.
 
 #### Class
 Im Datasource-Adapter werden Zeilen aus Datenbanktabellen oder Dateien gelesen. Diese repräsentieren Hosts und ihnen zugeordnete Applikationen. Zur weiteren Verarbeitung müssen diese in Python-Objekte umgewandelt werden. Dies geschieht, indem man die Konstruktoren Host() bzw. Application() aufruft. Für jeden Typ von Anwendung, der überwacht werden soll, muss eine Klasse definiert werden, die von der Elternklasse Application erbt.
 
-{% highlight python %}
+``` python
 import coshsh
 from coshsh.application import Application
 from coshsh.templaterule import TemplateRule
@@ -77,13 +71,13 @@ class XyApp(coshsh.application.Application):
         TemplateRule(needsattr=None,
             template="app_xy_default"),
     ]
-{% endhighlight %}
+```
 
 
 #### Template
-Bei der ganzen Generierung mit coshsh geht es darum, Konfigurationsdateien für Nagios (bzw. Shinken oder Icinga) zu erzeugen. Jede Applikation wird mit einem bestimmten Satz von Services überwacht. Diese werden thematisch zusammengefasst in sogenannten tpl-Dateien. Das sind Vorlagen für die endgültigen Konfigurationsdateien, welche Platzhalter enthalten. Über die template_rules in den Klassendefinitionen wird festgelegt, welche tpl-Datei(en) die künftigen Services für einen Typ von Applikation enthalten. In den paarweise geschweiften Klammern werden die Attribute des jeweiligen Applikationsobjektes referenziert. An dieser Stelle wird dann der reale Wert (der aus der Datasource stammt) stehen.
+Bei der ganzen Generierung mit coshsh geht es darum, Konfigurationsdateien für Nagios (bzw. Shinken oder Icinga) zu erzeugen. Jede Applikation wird mit einem bestimmten Satz von Services überwacht. Diese werden thematisch zusammengefasst in sogenannten tpl-Dateien. Das sind Vorlagen für die endgültigen Konfigurationsdateien, welche Platzhalter enthalten. Über die template\_rules in den Klassendefinitionen wird festgelegt, welche tpl-Datei(en) die künftigen Services für einen Typ von Applikation enthalten. In den paarweise geschweiften Klammern werden die Attribute des jeweiligen Applikationsobjektes referenziert. An dieser Stelle wird dann der reale Wert (der aus der Datasource stammt) stehen.
 
-{% highlight text %}
+``` text
 {{ application|service("app_xy_default_check_alive") }}
   host_name                       {{ application.host_name }}
   use                             app_xy_default
@@ -98,7 +92,7 @@ define service {
   max_check_attempts              5
   check_command                   check_xy_users!10!20
 }
-{% endhighlight %}
+```
 
 #### Recipe
 Herzstück von coshsh ist ein Recipe. Analog zu einem Kochrezept besteht es aus Zutaten. Es beschreibt, welche Zutaten nötig sind, um eine Nagios-Konfiguration zu erstellen:
@@ -114,7 +108,7 @@ Ein Kochbuch ist eine Konfigurationsdatei, welche die Rezepte beinhaltet.
 ### Beispiele
 
 #### Datasource
-{% highlight python %}
+``` python
 from coshsh.host import Host
 from coshsh.datasource import Datasource
 from coshsh.application import Application
@@ -168,7 +162,7 @@ class MyCMDB(coshsh.datasource.Datasource):
         }
         self.add('applications', coshsh.application.Application(appdata))
         ....
-{% endhighlight %}
+```
 
 [1]: https://www.consol.de/fileadmin/pdf/news/success_stories/Landeshauptstadt_Muenchen_de.pdf
 [2]: https://www.cio.de/a/lidl-standardisiert-weltweites-monitoring,3260842
