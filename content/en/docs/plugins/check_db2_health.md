@@ -1,5 +1,8 @@
 ---
 title: check_db2_health
+tags:
+  - db2
+  - database
 ---
 ## Description
 check_db2_health is a plugin, which is used to monitor various parameters of a DB2 database.

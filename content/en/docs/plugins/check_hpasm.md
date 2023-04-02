@@ -1,6 +1,5 @@
 ---
 title: check_hpasm
-linkTitle: check_hpasm
 ---
 ## Description
 

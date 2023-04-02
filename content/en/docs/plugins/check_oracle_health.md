@@ -1,6 +1,8 @@
 ---
 title: check_oracle_health
-linkTitle: check_oracle_health
+tags:
+  - oracle
+  - database
 ---
 ## Description
 check_oracle_health is a plugin to check various parameters of an Oracle database.
