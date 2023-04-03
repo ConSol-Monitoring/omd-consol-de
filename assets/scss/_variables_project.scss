@@ -11,6 +11,8 @@ $tertiary: #FBE9C6;
 /* weinrot */
 $accent-color: #97344E;
 
+/* do not load fonts from google.com as this transfers the client's ip */
+$td-enable-google-font: false;
 
 /*
 // Color variables
