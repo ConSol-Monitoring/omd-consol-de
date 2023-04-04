@@ -14,6 +14,12 @@ $accent-color: #97344E;
 /* do not load fonts from google.com as this transfers the client's ip */
 $td-enable-google-fonts: false;
 
+@import url("/assets/open-sans/font-face.css");
+
+$font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol";
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
