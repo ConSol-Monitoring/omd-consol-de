@@ -53,31 +53,18 @@ your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 
 There are pre-built packages available for the following systems:
 
-| A | <td colspan=3>B</td> |
-|:-|:-|:-|:-|
-| 1 | 0.1 | 0.5 | 1 |
 
-![x](/docs/omd/rhel.png)
-
-
-| System | Version || 64bit |
+| System | Version || Package |
 |:-------|:-----------------|:-----------|:---|
-| RHEL/Centos | 7 | | ![x](./rhel.png) |
-| RHEL/Centos | 7 | | rhel.png |
-| Debian | 10 | Buster | rhel.png |
+| RHEL/Centos | 7 | | [![rhel_7](./rhel.png)](/repo/stable/#_7) |
+| RHEL/Centos/Rocky | 8 | | [![rhel_8](./rhel.png)](/repo/stable/#_8) |
+| RHEL/Centos/Rocky | 9 | | [![rhel_9](./rhel.png)](/repo/stable/#_9) |
+| Debian | 10 | Buster | [![debian_10_0](./debian.png)](/repo/stable/#_debian_bullseye_10_0) |
+| Debian | 11 | Bullseye | [![debian_11_0](./debian.png)](/repo/stable/#_debian_bullseye_11_0) |
+| SLES | 15 SP4 | | [![sles_15_sp4](./sles.png)](/repo/stable/#_sles_15_sp4) |
+| Ubuntu | 20.04 | Focal Fossal | [![ubuntu_20_04](./ubuntu.png)](/repo/stable/#_ubuntu_focal_fossal_20_04) |
+| Ubuntu | 22.04 | Jammy Jellyfish| [![ubuntu_22_04](./ubuntu.png)](/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
 
-<table>
-<tr><th>System</th><th colspan="2">Version</th><th>64bit</th></tr>
-<tr><th>RHEL/Centos</th><td>7</td><td></td><td><a href="/repo/stable/#_7"><img src="/omd/rhel.png" width="24" height="24"></a></td></tr>
-<tr><th>RHEL/Centos/Rocky</th><td>8</td><td></td><td><a href="/repo/stable/#_8"><img src="/omd/rhel.png" width="24" height="24"></a></td></tr>
-<tr><th>RHEL/Centos/Rocky</th><td>9</td><td></td><td><a href="/repo/stable/#_9"><img src="/omd/rhel.png" width="24" height="24"></a></td></tr>
-<tr><th>Debian</th><td>10</td><td>Buster</td><td><a href="/repo/stable/#_debian_buster_10_0"><img src="/omd/debian.png" width="24" height="24"></a></td></tr>
-<tr><th>Debian</th><td>11</td><td>Bullseye</td><td><a href="/repo/stable/#_debian_bullseye_11_0"><img src="" width="24" height="24"></a></td></tr>
-<tr><th>SLES</th><td>15 SP4</td><td></td><td><a href="/repo/stable/#_sles_15_sp4"><img src="/omd/sles.png" width="24" height="24"></a></td></tr>
-<tr><th>Ubuntu</th><td>20.04</td><td>Focal Fossal</td><td><a href="/repo/stable/#_ubuntu_focal_fossal_20_04"><img src="/omd/ubuntu.png" width="24" height="24"></a></td></tr>
-<tr><th>Ubuntu</th><td>22.04</td><td>Jammy Jellyfish</td><td><a href="/repo/stable/#_ubuntu_jammy_jellyfish_22_04"><img src="/omd/ubuntu.png" width="24" height="24"></a></td></tr>
-</table>
-<br>
 
 <p class="hint">
 Rocky/Centos/Redhat will require the Epel repository. Redhat will additionally require these extra channels:<br><code>subscription-manager repos --enable=rhel-7-server-rpms \<br>--enable=rhel-7-server-extras-rpms \<br>--enable=rhel-7-server-optional-rpms</code>
