@@ -18,6 +18,8 @@ die Datei mir einer leeren Version:
 touch assets/scss/rtl/main.scss
 ```
 
+Siehe auch <https://github.com/google/docsy/issues/1494>
+
 Jetzt sieht die Navi aber bloed aus mit den System-Fonts, also:
 [Open Sans](https://gwfh.mranftl.com/fonts/open-sans?subsets=latin) runterladen:
 
@@ -44,3 +46,5 @@ $ grep -C 10 jquery layouts/partials/head.html
 $ find static/assets/jquery
 $ grep jquery config.toml
 ```
+
+Siehe auch <https://github.com/google/docsy/pull/1204>
