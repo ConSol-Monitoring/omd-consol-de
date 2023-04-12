@@ -1,0 +1,89 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omd-consol-de
+  namespace: ocd
+  labels:
+    app: omd-consol-de
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omd-consol-de
+  template:
+    metadata:
+      labels:
+        app: omd-consol-de
+    spec:
+      initContainers:
+      - name: git-sync-init
+        image: k8s.gcr.io/git-sync/git-sync:v3.2.2
+        args:
+        - "-repo=$(GIT_REPO_URL)"
+        - "-branch=$(GIT_BRANCH)"
+        - "-one-time"
+        - "-dest=ocd"
+        # clones into /tmp/git/rev-something
+        # ln -s /tmp/git/rev-something /tmp/git/ocd
+        envFrom:
+          - configMapRef:
+              name: git-repo
+        volumeMounts:
+        - name: content
+          mountPath: /tmp/git
+      containers:
+      - name: showthegit
+        image: busybox
+        command: ["/bin/sh"]
+        args:
+        - "-c"
+        - "while true; do ls -l /tmp/git/ocd/; sleep 60; done"
+        volumeMounts:
+        - name: content
+          mountPath: /tmp/git
+
+#      - name: nginx
+#        image: nginx:latest
+#        ports:
+#        - containerPort: 80
+#        volumeMounts:
+#        - name: html
+#          mountPath: /usr/share/nginx/html
+      - name: hugo
+        #image: docsy/docsy-example
+        image: lausser/omd-consol-de:1.0
+        args:
+        - "server"
+        - "--source"
+        - "/tmp/git/ocd/"
+        - "--destination"
+        - "/tmp/public"
+        - "--bind"
+        - "0.0.0.0"
+        ports:
+        - containerPort: 1313
+        volumeMounts:
+        - name: html
+          mountPath: /tmp/public
+        - name: content
+          mountPath: /tmp/git
+      - name: git-sync
+        image: k8s.gcr.io/git-sync/git-sync:v3.2.2
+        args:
+        - "-repo=$(GIT_REPO_URL)"
+        - "-branch=$(GIT_BRANCH)"
+        - "-wait=20"
+        - "-dest=ocd"
+        envFrom:
+          - configMapRef:
+              name: git-repo
+        volumeMounts:
+        - name: content
+          mountPath: /tmp/git
+      volumes:
+      - name: html
+        emptyDir: {}
+      - name: content
+        emptyDir: {}
+      restartPolicy: Always
