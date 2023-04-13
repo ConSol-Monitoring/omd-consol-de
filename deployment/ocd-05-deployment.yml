@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-config
+  namespace: ocd
+data:
+  dotgitconfig: |
+    [safe]
+            directory = *
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,6 +34,7 @@ spec:
         - "-repo=$(GIT_REPO_URL)"
         - "-branch=$(GIT_BRANCH)"
         - "-one-time"
+        - "-root=/tmp/git"
         - "-dest=ocd"
         # clones into /tmp/git/rev-something
         # ln -s /tmp/git/rev-something /tmp/git/ocd
@@ -33,47 +45,45 @@ spec:
         - name: content
           mountPath: /tmp/git
       containers:
-      - name: showthegit
-        image: busybox
-        command: ["/bin/sh"]
-        args:
-        - "-c"
-        - "while true; do ls -l /tmp/git/ocd/; sleep 60; done"
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
         volumeMounts:
-        - name: content
-          mountPath: /tmp/git
-
-#      - name: nginx
-#        image: nginx:latest
-#        ports:
-#        - containerPort: 80
-#        volumeMounts:
-#        - name: html
-#          mountPath: /usr/share/nginx/html
+        - name: html
+          mountPath: /usr/share/nginx
+        # switches to user nginx anyway.
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          allowPrivilegeEscalation: false
       - name: hugo
         #image: docsy/docsy-example
-        image: lausser/omd-consol-de:1.0
+        image: lausser/omd-consol-de:1.2
         args:
-        - "server"
+        - "--watch"
         - "--source"
         - "/tmp/git/ocd/"
         - "--destination"
-        - "/tmp/public"
-        - "--bind"
-        - "0.0.0.0"
-        ports:
-        - containerPort: 1313
+        # /tmp/public/html because /tmp/public can be written, but after
+        # writing files, hugo runs chtimes on all files including "."
+        # and for "." it has no permissions.
+        - "/tmp/public/html"
         volumeMounts:
         - name: html
           mountPath: /tmp/public
         - name: content
           mountPath: /tmp/git
+        - name: git-config
+          mountPath: /tmp/.gitconfig
+          subPath: dotgitconfig
       - name: git-sync
         image: k8s.gcr.io/git-sync/git-sync:v3.2.2
         args:
         - "-repo=$(GIT_REPO_URL)"
         - "-branch=$(GIT_BRANCH)"
         - "-wait=20"
+        - "-root=/tmp/git"
         - "-dest=ocd"
         envFrom:
           - configMapRef:
@@ -81,9 +91,19 @@ spec:
         volumeMounts:
         - name: content
           mountPath: /tmp/git
+
       volumes:
       - name: html
         emptyDir: {}
       - name: content
         emptyDir: {}
+      - name: git-config
+        configMap:
+          name: git-config
+          defaultMode: 0644
+
       restartPolicy: Always
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
