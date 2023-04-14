@@ -58,8 +58,7 @@ spec:
           runAsGroup: 0
           allowPrivilegeEscalation: false
       - name: hugo
-        #image: docsy/docsy-example
-        image: lausser/omd-consol-de:1.2
+        image: ghcr.io/consol/omd-consol-de/ocd:latest
         args:
         - "--watch"
         - "--source"
