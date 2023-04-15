@@ -7,7 +7,9 @@ tags:
 ## coshsh - Config-Generator für Naemon/Shinken/Nagios/Icinga/Prometheus
 
 ### Wie spricht man's aus?
+<span style="font-size: 2em;">
 &#678;&#596;&#643;:
+</span>
 
 ### Was ist coshsh?
 coshsh ist ein Framework, das bei der automatischen Erstellung von Konfigurationsdateien hilft.
@@ -26,7 +28,7 @@ Die [Landeshauptstadt München][1], [Lidl, Kaufland][2], [Bühler][3] und einige
 Support und Beratung ist erhältlich bei [ConSol](http:///www.consol.de/open-source-monitoring/support)
 
 ### Changelog
-Das Changelog findet man auf [github](https://github.com/lausser/coshsh/blob/master/Changes)
+Das Changelog findet man auf [github](https://github.com/lausser/coshsh/blob/master/Changelog)
 
 ### Wie funktioniert's?
 Coshsh liest mit Hilfe von Adaptern beliebige Datenquellen, in denen Informationen über Hosts und die auf ihnen installierten Applikationen stehen. Die Host- und Servicedefinitionen werden erzeugt, indem Platzhalter in Template-Dateien ausgefüllt werden. Ebenso lassen sich aber auch Scrape-Definitions erzeugen.
