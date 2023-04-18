@@ -21,6 +21,10 @@ for index in glob.glob("../../../../../../labs.consol.de/omd/packages/*/index.md
                 in_frontmatter = False
             elif in_frontmatter:
                 front_matter.append(line)
+            elif line.startswith("{% asset_image"):
+                image = line.split(" ")[2]
+                hint = image.split(".")[-1].capitalize()
+                content.append("![{}]({})".format(hint, image))
             elif line.startswith("{%"):
                 pass
             else:
@@ -33,6 +37,8 @@ for index in glob.glob("../../../../../../labs.consol.de/omd/packages/*/index.md
         with open(package+"/index.md", "w") as newix:
             newix.write("---\ntitle: {}\n---\n".format(front_matter["title"]))
             newix.write("<style>\n  thead th:empty {\n    border: thin solid red !important;\n    display: none;\n  }\n</style>\n")
+            if "logo" in front_matter:
+                newix.write("![]({})\n".format(front_matter["logo"]))
             newix.write("### Overview\n\n")
             newix.write("|||\n")
             newix.write("|---|---|\n")
