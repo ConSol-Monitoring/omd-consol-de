@@ -30,11 +30,35 @@ options:
 |---|---|
 | `--vihost HOSTNAME` | (optional) the name of the HostSystem to check, if omitted the first HostSystem found is checked, which is handy if you run this check directly against the host |
 | `--maintenance-state STATE` | one of OK, WARNING, CRITICAL, UNKNOWN. The status to use when the host is in maintenance mode, this defaults to UNKNOWN |
-| `--mode MODE` | one of adapter, lun |
-| `--allowed REGEX` | (optional) REGEX is checked against a name depending on the `--mode` |
-| `--banned REGEX` | (optional) REGEX is checked against a name depending on the `--mode` |
+| `--mode MODE` | one of objecthealth, healthtest |
+| `--include REGEX` | (optional) REGEX is checked against a name depending on the `--mode` |
+| `--exclude REGEX` | (optional) REGEX is checked against a name depending on the `--mode` |
+| `--verbose` | show also tests the where OK |
 
-On `--mode adapter` REGEX is matched against device name, the model or the device-key of the adapter.
-On `--mode lun` REGEX is matched against displayName of the scsi device
+### `--mode healthtest`
+
+REGEX of `--include`, `--exclude` is matched against cluster name, groupName or testName.
+
+This corresponds to the following in the vcenter:
+
+If you navigate to Cluster/Monitor/vSAN/Skyline Health you will see a sidebar
+with items like "Hardware compatibility", "Online Health" and so on. These are
+the several group of tests (you can ignore a whole group for example with `--exclude`).
+
+You can expand them and  see the individual names of each test.  These can be
+ignored as well.
+
+### `--mode objecthealth`
+
+REGEX of `--include`, `--exclude` is matched against cluster name.
+
+This is an in depth check of the "vSAN object health" test. It's not very well
+tested yet.
 
 ## Examples
+
+```
+$ check_vsphere vsan \
+    -s vcenter.example.com -u naemon@vsphere.local \
+    -m healthtest --include 'Cluster 1'
+```
