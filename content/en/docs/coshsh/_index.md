@@ -5,7 +5,7 @@ tags:
   - generator
 ---
 ## coshsh - Config-Generator für Naemon/Shinken/Nagios/Icinga/Prometheus
-
+![Coshsh](coshsh_logo.png)
 ### Wie spricht man's aus?
 <span style="font-size: 2em;">
 &#678;&#596;&#643;:
