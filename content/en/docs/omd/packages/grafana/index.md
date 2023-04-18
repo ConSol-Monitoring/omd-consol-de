@@ -7,6 +7,7 @@ title: Grafana
     display: none;
   }
 </style>
+![](logo.jpg)
 ### Overview
 
 |||

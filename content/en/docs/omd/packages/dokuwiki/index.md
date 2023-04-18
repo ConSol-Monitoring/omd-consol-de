@@ -7,6 +7,7 @@ title: DokuWiki
     display: none;
   }
 </style>
+![](dokuwiki.png)
 ### Overview
 
 |||

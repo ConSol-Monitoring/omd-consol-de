@@ -7,6 +7,7 @@ title: Prometheus SNMP Exporter
     display: none;
   }
 </style>
+![](prom_small.png)
 ### Overview
 
 |||

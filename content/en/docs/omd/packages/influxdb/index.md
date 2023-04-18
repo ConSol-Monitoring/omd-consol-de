@@ -7,6 +7,7 @@ title: InfluxDB
     display: none;
   }
 </style>
+![](logo.jpg)
 ### Overview
 
 |||

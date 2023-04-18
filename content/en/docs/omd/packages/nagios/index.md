@@ -7,6 +7,7 @@ title: Nagios
     display: none;
   }
 </style>
+![](Nagios.png)
 ### Overview
 
 |||

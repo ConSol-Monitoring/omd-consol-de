@@ -7,6 +7,7 @@ title: Apache HTTP Server
     display: none;
   }
 </style>
+![](apache.jpg)
 ### Overview
 
 |||

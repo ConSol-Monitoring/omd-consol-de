@@ -7,6 +7,7 @@ title: Naemon
     display: none;
   }
 </style>
+![](naemon.png)
 ### Overview
 
 |||

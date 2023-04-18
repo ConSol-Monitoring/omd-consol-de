@@ -7,6 +7,7 @@ title: PNP4Nagios
     display: none;
   }
 </style>
+![](logo.jpg)
 ### Overview
 
 |||
@@ -35,3 +36,5 @@ PNP is an addon to Nagios which analyzes performance data provided by plugins an
 | PNP4NAGIOS | **on** <br> off | Disable PNP4nagios (default on) |
 
 Own adjustments should be made in `<site>/etc/pnp4nagios/config_local.php` If this file does not exist the file `config.php` can be taken as a guideline.
+
+![Png](modes.png)

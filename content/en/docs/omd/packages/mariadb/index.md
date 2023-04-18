@@ -7,6 +7,7 @@ title: MariaDB
     display: none;
   }
 </style>
+![](mariadb.png)
 ### Overview
 
 |||

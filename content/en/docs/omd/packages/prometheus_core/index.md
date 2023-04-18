@@ -7,6 +7,7 @@ title: Prometheus
     display: none;
   }
 </style>
+![](prometheus.png)
 ### Overview
 
 |||

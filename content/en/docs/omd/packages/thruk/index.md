@@ -7,6 +7,7 @@ title: Thruk
     display: none;
   }
 </style>
+![](thruk.png)
 ### Overview
 
 |||
