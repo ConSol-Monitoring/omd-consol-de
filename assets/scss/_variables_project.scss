@@ -14,6 +14,12 @@ $accent-color: #97344E;
 /* do not load fonts from google.com as this transfers the client's ip */
 $td-enable-google-fonts: false;
 
+$navbar-dark-color:                 rgba(0,0,0, .5) !default;
+$navbar-dark-hover-color:           rgba(0,0,0, .7) !default;
+$navbar-dark-active-color:          rgba(0,0,0, 1) !default;
+$navbar-dark-disabled-color:        rgba(0,0,0, .3) !default;
+$navbar-dark-toggler-border-color:  rgba(0,0,0, .1) !default;
+
 @import url("/assets/open-sans/font-face.css");
 
 $font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
