@@ -6,24 +6,17 @@ resources:
   - rhel.png
 ---
 
-The `OMD Labs-Edition` is a monitoring platform and a new concept of how to install, maintain and update a nagios compatible monitoring system. It contains most monitoring related components from [labs.consol.de](/) and others useful addons from companioned authors. It is _not_ another linux distribution, instead it integrates well in your current system in form of a single rpm or deb package.
+The `OMD Labs-Edition` is a monitoring platform and a new concept of how to install, maintain and update a nagios compatible monitoring system (When we are talking about nagios, we mean nagios-like. Our preferred core is Naemon). It contains most monitoring related components from [omd.consol.de](/) and others useful addons from companioned authors. It is _not_ another linux distribution, instead it integrates well in your current system in form of a single rpm or deb package.
 
-Have a look at the [getting started](getting_started.html) page for first steps.
+Have a look at the [getting started](getting_started) page for first steps.
 
-<div style="float: right;">
-{% asset_image omd_logo_small.jpg %}
-</div>
 
-Labs OMD contains: (incomplete list)
-
-{% include omd_packages.md %}
-
-<br clear="both">
+Labs OMD contains a huge list of [packages](packages), a best-of from the Nagios and Prometheus ecosystems.
 
 ## The Idea
 The main idea is to make the initial installation easy and less time consuming while providing a stable and standarized platform for further activities. A nagios system without addons and plugins is mostly useless, so OMD provides a way of making the initial setup fast and painless.
 
-OMD-Labs goes a bit further and adds even more useful software. See the [differences page](differences.html) for a full list
+OMD-Labs goes a bit further and adds even more useful software. See the [differences page](differences) for a full list
 
 ## The Site Concept
 OMD comes with a site concept solution with makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independantly.
@@ -74,12 +67,12 @@ Rocky/Centos/Redhat will require the Epel repository. Redhat will additionally r
 ## Filesystem Layout
 
 OMD uses a normal linux filesystem layout for etc, lib, var... except everything is relative to the sites home folder.
-Read more in the [filesystem layout documentation]({{< relref "filesystem_layout.md" >}}).
+Read more in the [filesystem layout documentation](filesystem_layout).
 
 ## OMD Commands
 
 OMD offers a few commands to create and operate your sites.
-See an overview in the [omd command reference](commands.html).
+See an overview in the [omd command reference](commands).
 
 ## Grafana Graphing
 Besides PNP4Nagios the OMD Labs edition offers Grafana based Graphs. Read more on
