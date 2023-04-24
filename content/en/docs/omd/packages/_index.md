@@ -1,5 +1,6 @@
 ---
 title: Packages
+no_list: true
 ---
 The Open Monitoring Distribution contains: (incomplete list)
 
