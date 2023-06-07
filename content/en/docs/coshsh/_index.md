@@ -3,6 +3,7 @@ title: coshsh
 tags:
   - cmdb
   - generator
+weight: 400
 ---
 ## coshsh - Config-Generator für Naemon/Shinken/Nagios/Icinga/Prometheus
 ![Coshsh](coshsh_logo.png)
