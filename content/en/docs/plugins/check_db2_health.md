@@ -190,7 +190,7 @@ After unpacking the tar archive you have to run ./configure. With ./configure \-
 Go to [github](https://github.com/lausser/check_db2_health), clone and build.
 
 ## Changelog
-Go to [github](https://github.com/lausser/check_db2_health/ChangeLog) and have a look.
+Go to [github](https://raw.githubusercontent.com/lausser/check_db2_health/master/ChangeLog) and have a look.
 
 ### Copyright
 Gerhard Lausser
