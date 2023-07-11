@@ -11,21 +11,21 @@ check_db2_health is a plugin, which is used to monitor various parameters of a D
 
 ### Commandline parameters
 
-* *--database \<DB-Name\>* The name of the database. (If it was catalogued locally, this parameter is the only you need. Otherwise you must specify database, hostname and port)
-* *--hostname \<hostname\>* The database server
-* *--port \<port\>* The port, where DB2 listens
-* *--username \<username\>* The database user
-* *--password \<password\>* The database password
-* *--mode \<modus\>* With the mode parameter you tell the plugin what you want it to do. (See the list of possible values in the table below)
-* *--name \<objektname\>* You can limit the checks to a specific database object by using the name parameter (e.g. tablespace, buffercache). It is also used for a custom sql statement with --mode sql
-* *--name2 \<string\>* If you use --mode sql, the statement appears in the output and the performance data. Use --name2 to specify a custom string.
-* *--warning \<range\>* The warning threshold.
-* *--critical \<range\>* The critical threshold.
-* *--environment \<variable\>=\<wert\>* You can pass environment variables to the plugin by using this parameters. It can be used multiple times.
-* *--method \<connectmethode\>* This tells the plugin how to connect to the database. The only method implemented yet is "dbi" which is the default. (It means, the plugin uses the perl module DBD::DB2).
-* *--units \<%|KB|MB|GB\>* When using --mode sql you can specify a unit which will appear in the output and the performance data.
+* *\-\-database \<DB-Name\>* The name of the database. (If it was catalogued locally, this parameter is the only you need. Otherwise you must specify database, hostname and port)
+* *\-\-hostname \<hostname\>* The database server
+* *\-\-port \<port\>* The port, where DB2 listens
+* *\-\-username \<username\>* The database user
+* *\-\-password \<password\>* The database password
+* *\-\-mode \<modus\>* With the mode parameter you tell the plugin what you want it to do. (See the list of possible values in the table below)
+* *\-\-name \<objektname\>* You can limit the checks to a specific database object by using the name parameter (e.g. tablespace, buffercache). It is also used for a custom sql statement with --mode sql
+* *\-\-name2 \<string\>* If you use --mode sql, the statement appears in the output and the performance data. Use --name2 to specify a custom string.
+* *\-\-warning \<range\>* The warning threshold.
+* *\-\-critical \<range\>* The critical threshold.
+* *\-\-environment \<variable\>=\<wert\>* You can pass environment variables to the plugin by using this parameters. It can be used multiple times.
+* *\-\-method \<connectmethode\>* This tells the plugin how to connect to the database. The only method implemented yet is "dbi" which is the default. (It means, the plugin uses the perl module DBD::DB2).
+* *\-\-units \<%|KB|MB|GB\>* When using --mode sql you can specify a unit which will appear in the output and the performance data.
 
-Using the --mode parameter with the following arguments tells the plugin what it should monitor.
+Using the \-\-mode parameter with the following arguments tells the plugin what it should monitor.
 
 ### Modi
 
@@ -166,7 +166,7 @@ OK - 0.000000% of the time was spent waiting for locks |  lock_percent_waiting=0
 ```
 
 ### Using environment variables
-The parameters --hostname, --username, --password and --port can be omitted, if the corresponding data are available via environment variables. Since version 3.x of nagios, service definitions can have custom attributes, which can be used to specify login data. During the plugin execution they are available as environment variables .
+The parameters \-\-hostname, \-\-username, \-\-password and \-\-port can be omitted, if the corresponding data are available via environment variables. Since version 3.x of nagios, service definitions can have custom attributes, which can be used to specify login data. During the plugin execution they are available as environment variables .
 
 Die Environmentvariablen heissen:
 
@@ -179,23 +179,23 @@ Die Environmentvariablen heissen:
 ## Installation
 This plugin requires the installation of the *Perl-Module DBD::DB2* .
 
-After unpacking the tar archive you have to run ./configure. With ./configure --help you get the list of possible options.
+After unpacking the tar archive you have to run ./configure. With ./configure \-\-help you get the list of possible options.
 
-* --prefix=BASEDIRECTORY The base directory of the Nagios installation (default: /usr/local/nagios). The final destination for check_db2_health will be the libexec subdirectory.
-* --with-nagios-user=SOMEUSER The owner of check_db2_health. (default: nagios)
-* --with-nagios-group=SOMEGROUP The group of check_db2_health. (default: nagios)
-* --with-perl=PATHTOPERL A non-standard perl interpreter. (default: perl found in PATH)
+* \-\-prefix=BASEDIRECTORY The base directory of the Nagios installation (default: /usr/local/nagios). The final destination for check_db2_health will be the libexec subdirectory.
+* \-\-with-nagios-user=SOMEUSER The owner of check_db2_health. (default: nagios)
+* \-\-with-nagios-group=SOMEGROUP The group of check_db2_health. (default: nagios)
+* \-\-with-perl=PATHTOPERL A non-standard perl interpreter. (default: perl found in PATH)
 
 ## Download
-{% asset_download check_db2_health-1.1.3.tar.gz category:nagios %}
+Go to github, clone and build.
 
 ## Changelog
-{% embedurl url:https://raw.githubusercontent.com/lausser/check_db2_health/master/ChangeLog %}
+Go to github and have a look.
 
 ### Copyright
 Gerhard Lausser
-Check_db2_health is released under the GNU General Public License.http://www.gnu.de/documents/gpl.en.html[GPL]
+Check_db2_health is released under the GNU General Public License. [GNU GPL](https://www.gnu.org/licenses/gpl.html)
 
 ### Autor
-Gerhard Laußer (mailto:gerhard.lausser@consol.de[gerhard.lausser@consol.de]) will gladly answer your questions.
+Gerhard Laußer (mailto:gerhard.lausser@consol.de[gerhard.lausser@consol.de])
 
