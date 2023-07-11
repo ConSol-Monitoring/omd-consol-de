@@ -187,10 +187,10 @@ After unpacking the tar archive you have to run ./configure. With ./configure \-
 * \-\-with-perl=PATHTOPERL A non-standard perl interpreter. (default: perl found in PATH)
 
 ## Download
-Go to github, clone and build.
+Go to [github](https://github.com/lausser/check_db2_health), clone and build.
 
 ## Changelog
-Go to github and have a look.
+Go to [github](https://github.com/lausser/check_db2_health/ChangeLog) and have a look.
 
 ### Copyright
 Gerhard Lausser
