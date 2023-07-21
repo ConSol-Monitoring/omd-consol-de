@@ -8,6 +8,24 @@ SNClient+ tries hard to be backwards compatible with the NSClient++, however the
 
 So here is a list of things different to NSClient++.
 
+## Configuration
+![Change](../icons/changed.png "this is different in SNClient+")
+
+The way SNClient reads the ini files is different and more intuitive. Config files
+will be read from top to bottom and if the same value is encountered again it
+will be overwritten. The last value wins.
+
+That way you can have a default config with all default values and use a simple
+include at the end to customize local settings.
+
+Included files from `[/includes]` are evaluated directly in the order of appearance.
+
+SNClient supports wildcards and folders in includes as well, for example:
+
+	[/includes]
+	custom = local_*.ini
+	confd  = conf.d/
+
 ## Performance Data
 ### Threshold Ranges
 ![Feature](../icons/feature.png "this is a new thing in SNClient+")
@@ -113,3 +131,17 @@ The `check_service` adds memory and cpu metrics if the service is running.
 
 	check_service service=snclient
 	OK: All 1 service(s) are ok. |'snclient'=4;;;; 'snclient rss'=12943360B;;;; 'snclient vms'=6492160B;;;; 'snclient cpu'=0%;;;;
+
+### check_files
+![Change](../icons/changed.png "this is different in SNClient+")
+
+`check_files` now only has one metric for `access, creation and written` time instead of multiple for local and utc timezones. As a replacement it has the option to set the timezone by using the timezone argument. The default is the local timezone.
+
+Example:
+
+	check_files path=c:/windows warn=size>2MB max-depth=1 timezone=Europe/Berlin
+
+### check_tasksched
+![Feature](../icons/feature.png "this is a new thing in SNClient+")
+
+`check_tasksched` also has the option to set the timezone using the timezone argument. The default is still local time.
