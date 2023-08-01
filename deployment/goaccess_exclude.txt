@@ -1,0 +1,5 @@
+GET /favicons
+GET /js/
+GET /assets/
+GET /scss/
+GET /webfonts/
