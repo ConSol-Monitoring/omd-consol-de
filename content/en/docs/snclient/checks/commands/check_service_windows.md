@@ -1,37 +1,37 @@
 ﻿---
-title: check_service (Linux)
+title: service (Windows)
 ---
 
-# check_service (Linux)
+# check_service (Windows)
 
-Check the state of one or more of the linux (systemctl) services.
+Check the state of one or more of the windows computer services.
 
 - [Examples](#examples)
 - [Argument Defaults](#argument-defaults)
-- [Metrics](#metrics)
+- [Attributes](#attributes)
 
 ### Implementation
 
 | Windows | Linux | FreeBSD | MacOSX |
 |:-------:|:-----:|:-------:|:------:|
-|  :x:  |  :white_check_mark:  |  :x:  |  :x:  |
+|  :white_check_mark:  |  :x:  |  :x:  |  :x:  |
 
-There is a [check_service for windows](check_service_windows) as well.
+There is a [check_service for linux](check_service_linux) as well.
 
 ## Examples
 
-### **Default check**
+### Default check
 
     check_service
     OK: All 15 service(s) are ok.
 
 Checking a single service:
 
-    check_service service=postfix
+    check_service service=dhcp
     OK: All 1 service(s) are ok.
 
 
-### Example using **NRPE** and **Naemon**
+### Example using NRPE and Naemon
 
 Naemon Config
 
@@ -43,25 +43,27 @@ Naemon Config
     define service {
             host_name               testhost
             service_description     check_service_testhost
-            check_command           check_nrpe!check_service!'service=postfix' 'crit=status != running'
+            check_command           check_nrpe!check_service!'service=dhcp' 'crit=status = dead'
     }
 
 Return
 
     OK: All 1 service(s) are ok.
 
+
 ## Argument Defaults
 
 | Argument | Default Value |
 | --- | --- |
 filter | none |
-warning | none |
-critical | state not in ('running', 'oneshot', 'static') && preset != 'disabled' |
+warning | state != 'running' && start_type = 'delayed' |
+critical | state != 'running' && start_type = 'auto' |
 empty-state | 3 (Unknown) |
-top-syntax | %(status): %(crit_list) |
+top-syntax | %(status): %(crit_list), delayed (%(warn_list)) |
 ok-syntax | %(status): All %(count) service(s) are ok. |
 empty-syntax | %(status): No services found |
 detail-syntax | \${name}=\${state} (${start_type}) |
+
 
 ### **Check specific arguments**
 
@@ -79,8 +81,9 @@ detail-syntax | \${name}=\${state} (${start_type}) |
 | ---------------- | ----------- |
 | name | The name of the service |
 | service | Same as name |
+| state | The state of the service, one of: stopped, starting, stopping, running, continuing, pausing, paused or unknown |
 | desc | Description of the service |
-| state | The state of the service, one of: stopped, starting, oneshot, running or unknown |
-| preset | The preset attribute of the service, one of: enabled or disabled |
+| delayed | If the service is delayed, can be 0 or 1 |
+| classification | Classification of the service, one of: kernel-driver, system-driver, service-adapter, driver, service-own-process, service-shared-process, service or interactive |
 | pid | The pid of the service |
-| mem | The memory usage |
+| start_type | The configured start type, one of: boot, system, delayed, auto, demand, disabled or unknown |
