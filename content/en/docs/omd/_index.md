@@ -47,16 +47,16 @@ your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 There are pre-built packages available for the following systems:
 
 
-| System | Version || Package |
-|:-------|:-----------------|:-----------|:---|
-| RHEL/Centos | 7 | | [![rhel_7](./rhel.png)](https://labs.consol.de/repo/stable/#_7) |
-| RHEL/Centos/Rocky | 8 | | [![rhel_8](./rhel.png)](https://labs.consol.de/repo/stable/#_8) |
-| RHEL/Centos/Rocky | 9 | | [![rhel_9](./rhel.png)](https://labs.consol.de/repo/stable/#_9) |
-| Debian | 10 | Buster | [![debian_10_0](./debian.png)](https://labs.consol.de/repo/stable/#_debian_bullseye_10_0) |
-| Debian | 11 | Bullseye | [![debian_11_0](./debian.png)](https://labs.consol.de/repo/stable/#_debian_bullseye_11_0) |
-| SLES | 15 SP4 | | [![sles_15_sp4](./sles.png)](https://labs.consol.de/repo/stable/#_sles_15_sp4) |
-| Ubuntu | 20.04 | Focal Fossal | [![ubuntu_20_04](./ubuntu.png)](https://labs.consol.de/repo/stable/#_ubuntu_focal_fossal_20_04) |
-| Ubuntu | 22.04 | Jammy Jellyfish| [![ubuntu_22_04](./ubuntu.png)](https://labs.consol.de/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
+|| System | Version || Package |
+|:--:|:-------|:-----------------:|:---------------|:---|
+| <img src="rhel.png" alt="rhel" width="30"/> | RHEL/Centos | 7 | | [download](https://labs.consol.de/repo/stable/#_7) |
+| <img src="rhel.png" alt="rhel" width="30"/> | RHEL/Centos/Rocky | 8 | | [download](https://labs.consol.de/repo/stable/#_8) |
+| <img src="rhel.png" alt="rhel" width="30"/> | RHEL/Centos/Rocky | 9 | | [download](https://labs.consol.de/repo/stable/#_9) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian | 10 | Buster | [download](https://labs.consol.de/repo/stable/#_debian_bullseye_10_0) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian | 11 | Bullseye | [download](https://labs.consol.de/repo/stable/#_debian_bullseye_11_0) |
+| <img src="sles.png" alt="sles" width="40"/> | SLES | 15 SP4 | | [download](https://labs.consol.de/repo/stable/#_sles_15_sp4) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu | 20.04 | Focal Fossal | [download](https://labs.consol.de/repo/stable/#_ubuntu_focal_fossal_20_04) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu | 22.04 | Jammy Jellyfish| [download](https://labs.consol.de/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
 
 
 <p class="hint">
