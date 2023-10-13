@@ -1,4 +1,4 @@
-FROM klakegg/hugo:ext-alpine
+FROM klakegg/hugo:ext-ubuntu
 
-RUN apk add git && \
+RUN apt-get install git && \
   git config --global --add safe.directory /src
