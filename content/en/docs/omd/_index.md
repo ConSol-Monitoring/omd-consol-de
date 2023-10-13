@@ -25,9 +25,9 @@ OMD comes with a site concept solution with makes it possible to create and run 
 There is usually one stable release every 6 months. Every day there are nightly builds with the [latest changes](https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog).
 
 <div class="btn-group btn-group-lg releaseplan" role="group" aria-label="Release plan" style="width:100%;">
-  <a class="btn btn-success" href="#download" role="button" style="width:50%;">Stable: 5.10</a>
-  <a class="btn btn-info" href="builds.html" role="button" style="width:25%;">Nightly</a>
-  <a class="btn btn-warning" href="https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog" role="button" target="_blank" style="width:25%;">Next: Aug 2023</a>
+  <a class="btn btn-success" href="#download" role="button" style="width:50%;">Stable: 5.20</a>
+  <a class="btn btn-info" href="https://labs.consol.de/omd/builds.html" role="button" style="width:25%;">Nightly</a>
+  <a class="btn btn-warning" href="https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog" role="button" target="_blank" style="width:25%;">Next: Dec 2023</a>
 </div>
 <br clear="both">
 
@@ -37,11 +37,11 @@ components. There are no planned changes for OMD itself.
 ## Download
 Best practice is to use the prebuild packages from our repository as described in the [installation section](#installation).
 
-The nightly builds are available via our [testing repository](/repo/testing/).
+The nightly builds are available via our [testing repository](https://labs.consol.de/repo/testing/).
 
 ## Installation
 
-The installation is quite easy when using our [Labs Repository](/repo/stable/). Just follow the steps for your operating system. After that use
+The installation is quite easy when using our [Labs Repository](https://labs.consol.de/repo/stable/). Just follow the steps for your operating system. After that use
 your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 
 There are pre-built packages available for the following systems:
@@ -49,14 +49,14 @@ There are pre-built packages available for the following systems:
 
 | System | Version || Package |
 |:-------|:-----------------|:-----------|:---|
-| RHEL/Centos | 7 | | [![rhel_7](./rhel.png)](/repo/stable/#_7) |
-| RHEL/Centos/Rocky | 8 | | [![rhel_8](./rhel.png)](/repo/stable/#_8) |
-| RHEL/Centos/Rocky | 9 | | [![rhel_9](./rhel.png)](/repo/stable/#_9) |
-| Debian | 10 | Buster | [![debian_10_0](./debian.png)](/repo/stable/#_debian_bullseye_10_0) |
-| Debian | 11 | Bullseye | [![debian_11_0](./debian.png)](/repo/stable/#_debian_bullseye_11_0) |
-| SLES | 15 SP4 | | [![sles_15_sp4](./sles.png)](/repo/stable/#_sles_15_sp4) |
-| Ubuntu | 20.04 | Focal Fossal | [![ubuntu_20_04](./ubuntu.png)](/repo/stable/#_ubuntu_focal_fossal_20_04) |
-| Ubuntu | 22.04 | Jammy Jellyfish| [![ubuntu_22_04](./ubuntu.png)](/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
+| RHEL/Centos | 7 | | [![rhel_7](./rhel.png)](https://labs.consol.de/repo/stable/#_7) |
+| RHEL/Centos/Rocky | 8 | | [![rhel_8](./rhel.png)](https://labs.consol.de/repo/stable/#_8) |
+| RHEL/Centos/Rocky | 9 | | [![rhel_9](./rhel.png)](https://labs.consol.de/repo/stable/#_9) |
+| Debian | 10 | Buster | [![debian_10_0](./debian.png)](https://labs.consol.de/repo/stable/#_debian_bullseye_10_0) |
+| Debian | 11 | Bullseye | [![debian_11_0](./debian.png)](https://labs.consol.de/repo/stable/#_debian_bullseye_11_0) |
+| SLES | 15 SP4 | | [![sles_15_sp4](./sles.png)](https://labs.consol.de/repo/stable/#_sles_15_sp4) |
+| Ubuntu | 20.04 | Focal Fossal | [![ubuntu_20_04](./ubuntu.png)](https://labs.consol.de/repo/stable/#_ubuntu_focal_fossal_20_04) |
+| Ubuntu | 22.04 | Jammy Jellyfish| [![ubuntu_22_04](./ubuntu.png)](https://labs.consol.de/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
 
 
 <p class="hint">
