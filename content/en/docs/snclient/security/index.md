@@ -26,6 +26,15 @@ SNClient is written in golang which comes which some benefits regarding security
     need to set them manually.
 
 
+## Code Signing
+
+The windows builds (both snclient.exe and the .msi installer) and can be verified
+with the signtool.exe from the windows developer sdk, ex.:
+
+    signtool.exe verify /pa snclient.exe
+
+
+
 ## Recommendations
 
 
