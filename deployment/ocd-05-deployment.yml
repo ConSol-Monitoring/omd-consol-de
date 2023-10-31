@@ -118,7 +118,7 @@ spec:
           allowPrivilegeEscalation: false
       - name: goaccess
         command: ["/bin/sh"]
-        args: ["-c", "while true; do cat /var/log/nginx/access.log | grep -v -f /tmp/excludes.txt | /bin/goaccess -o /var/log/nginx/index.html --log-format=COMBINED --persist --restore --db-path /var/tmp/goaccess-db -; sleep 60; done"]
+        args: ["-c", "while true; do cat /var/log/nginx/access.log | grep -v -f /tmp/excludes.txt | /bin/goaccess -o /var/log/nginx/index.html --log-format=COMBINED --persist --restore --db-path /var/tmp/goaccess-db --html-report-title omd.consol.de --tz Europe/Berlin  --hl-header --with-mouse -; sleep 60; done"]
 #        command:
 #        - goaccess
 #        - /var/log/nginx/access.log
