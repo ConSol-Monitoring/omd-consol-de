@@ -61,7 +61,7 @@ Start all components:
 ## Continue Reading
 
 OMD uses a normal linux filesystem layout for etc, lib, var... except everything is relative to the sites home folder.
-Read more in the [filesystem layout documentation](filesystem_layout.html).
+Read more in the [filesystem layout documentation](../filesystem_layout).
 
 OMD offers a few commands to create and operate your sites.
-See an overview in the [omd command reference](commands.html).
+See an overview in the [omd command reference](../commands).
