@@ -5,65 +5,37 @@ menu:
   main:
     weight: 40
 ---
-
-
-
-
-{{% pageinfo %}}
-Instructions how to register the omd repository and how to install the omd package
-{{% /pageinfo %}}
-
-
-[Debian / Ubuntu](#_debian_ubuntu)
-
-[Install GPG Key](#_install_gpg_key)
-
-[Debian Buster (10.0)](#_debian_buster_10_0)
-
-[Debian Bullseye (11.0)](#_debian_bullseye_11_0)
-
-[Debian Bookworm (12.0)](#_debian_bookworm_12_0)
-
-[Ubuntu Bionic Beaver (18.04)](#_ubuntu_bionic_beaver_18_04)
-
-[Ubuntu Focal Fossa (20.04)](#_ubuntu_focal_fossa_20_04)
-
-[Ubuntu Jammy Jellyfish (22.04)](#_ubuntu_jammy_jellyfish_22_04)
-
-[Centos / Redhat](#_centos_redhat)
-
-[7](#_7)
-
-[8](#_8)
-
-[9](#_9)
-
-[Suse Linux Enterprise](#_suse_linux_enterprise)
-
-[SLES 11 SP4](#_sles_11_sp4)
-
-[SLES 12 SP2](#_sles_12_sp2)
-
-[SLES 12 SP3](#_sles_12_sp3)
-
-[SLES 12 SP4](#_sles_12_sp4)
-
-[SLES 15 SP4](#_sles_15_sp4)
+<div style="height:5rem;"></div>
 
 Installing ConSol Labs software has never been easier. Just follow the steps for your linux distribution.
 
 Currently the following software is part of this repository. Note that we do not package everything for every system, if something is missing, don’t hesitate to contact us.
 
 *   OMD-Labs Edition
-    
 *   Thruk
-    
 *   Gearman
-    
 *   Mod-Gearman
-    
 *   Naemon
-    
+
+### Distributions
+- [Debian / Ubuntu](#_debian_ubuntu)
+  - [Install GPG Key](#_install_gpg_key)
+  - [Debian Buster (10.0)](#_debian_buster_10_0)
+  - [Debian Bullseye (11.0)](#_debian_bullseye_11_0)
+  - [Debian Bookworm (12.0)](#_debian_bookworm_12_0)
+  - [Ubuntu Bionic Beaver (18.04)](#_ubuntu_bionic_beaver_18_04)
+  - [Ubuntu Focal Fossa (20.04)](#_ubuntu_focal_fossa_20_04)
+   - [Ubuntu Jammy Jellyfish (22.04)](#_ubuntu_jammy_jellyfish_22_04)
+- [Centos / Redhat](#_centos_redhat)
+  - [7](#_7)
+  - [8](#_8)
+  - [9](#_9)
+- [Suse Linux Enterprise](#_suse_linux_enterprise)
+  - [SLES 11 SP4](#_sles_11_sp4)
+  - [SLES 12 SP2](#_sles_12_sp2)
+  - [SLES 12 SP3](#_sles_12_sp3)
+  - [SLES 12 SP4](#_sles_12_sp4)
+  - [SLES 15 SP4](#_sles_15_sp4)
 
 ## Debian / Ubuntu {#_debian_ubuntu}
 
@@ -204,7 +176,7 @@ You can use zypper to add the repository:
       zypper addrepo -f https://labs.consol.de/repo/testing/sles12sp4/consol-labs.repo
 ```
 
-### SLES 15 SP4 {i#_sles_15_sp4}
+### SLES 15 SP4 {#_sles_15_sp4}
 
 You can use zypper to add the repository:
 

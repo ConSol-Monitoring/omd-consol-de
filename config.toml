@@ -180,17 +180,12 @@ enable = false
 [[params.links.user]]
   name = "ConSol Software"
   url = "https://www.consol.de"
-  icon = "fa fa-envelope"
+  icon = "fa fa-house"
   desc = "Buy consulting and support"
-[[params.links.user]]
-  name ="Twitter"
-  url = "https://twitter.com/consol_de"
-  icon = "fab fa-twitter"
-  desc = "Follow us on Twitter to get the latest news!"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
   name = "GitHub"
-  url = "https://github.com/ConSol-Monitoring/omd"
+  url = "https://github.com/ConSol-Monitoring/"
   icon = "fab fa-github"
   desc = "Development takes place here!"
 #[[params.links.developer]]
@@ -198,11 +193,11 @@ enable = false
 #  url = "https://example.org/slack"
 #  icon = "fab fa-slack"
 #  desc = "Chat with other project developers"
-[[params.links.developer]]
-  name = "Developer mailing list"
-  url = "https://example.org/mail"
-  icon = "fa fa-envelope"
-  desc = "Discuss development issues around the project"
+#[[params.links.developer]]
+#  name = "Developer mailing list"
+#  url = "https://example.org/mail"
+#  icon = "fa fa-envelope"
+#  desc = "Discuss development issues around the project"
 
 # hugo module configuration
 
