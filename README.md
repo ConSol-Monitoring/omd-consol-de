@@ -1,5 +1,5 @@
 # omd-consol-de
-Website omd.consol.de
+Website https://omd.consol.de
 
 ```
 docker build -t consol/omd-consol-de .
