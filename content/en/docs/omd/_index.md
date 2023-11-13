@@ -16,6 +16,9 @@ The main idea is to make the initial installation easy and less time consuming w
 
 OMD-Labs goes a bit further and adds even more useful software. See the [differences page](differences) for a full list
 
+## The real life
+![A large OMD installation](osmc-omd.jpg)
+
 ## The Site Concept
 OMD comes with a site concept solution with makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independantly.
 
