@@ -1,4 +1,5 @@
 GET /favicons
+GET /favicon.ico
 GET /js/
 GET /assets/
 GET /scss/
