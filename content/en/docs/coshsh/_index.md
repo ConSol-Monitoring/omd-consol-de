@@ -20,8 +20,9 @@ Coshsh is a framework that assists in the automatic creation of configuration fi
 * Coshsh can be easily extended. Coshsh reads only hosts and applications. Creation of services is very flexible.
 
 ### Who uses it?
-The [City of Munich][1], [Lidl, Kaufland][2], [Bühler][3] and several others generate their monitoring configuration files with Coshsh. Users usually have in common:* they have a very big monitoring landscape. 
-* they do not want to have any manually editing of config files.
+[Lidl, Kaufland][2], [Bühler][3], [City of Munich][1] and several others generate their monitoring configuration files with Coshsh. Users usually have in common: 
+* they have a very big monitoring landscape. 
+* they want automation and no manual editing of configs.
 * they have a highly dynamic cmdb (hundreds of hosts added and deleted every day)
 * they want a small team.
 
@@ -175,7 +176,11 @@ class MyCMDB(coshsh.datasource.Datasource):
         ....
 ```
 
-[1]: https://www.consol.de/fileadmin/pdf/news/success_stories/Landeshauptstadt_Muenchen_de.pdf
+### Slides
+Now is a opportune moment to learn German. Once you've acquired the language, return here, click on "fullscreen" and enjoy the slides.
+{{< slidescom src="https://slides.com/gerhardlausser/coshsh--2/embed?style=light" title="Coshsh" >}}
+
+[1]: https://www.consol.de/fileadmin/pdf/success-stories/ConSol-Success_Story-Landeshauptstadt_Muenchen-Monitoring.pdf
 [2]: https://www.cio.de/a/lidl-standardisiert-weltweites-monitoring,3260842
 [3]: https://www.computerworld.ch/software/business-it/industriekonzern-buehler-erneuert-it-monitoring-1593882.html
 
