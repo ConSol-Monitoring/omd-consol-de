@@ -7,5 +7,5 @@ menu:
     weight: 20
 ---
 
-This section is where the documentation for OMD and our other project lives.
+This section is where the documentation for OMD and our other projects live.
 
