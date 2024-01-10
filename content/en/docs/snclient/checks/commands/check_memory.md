@@ -21,7 +21,7 @@ Checks the memory usage on the host.
 ### Default Check
 
     check_memory
-    OK: physical = 6.98 GiB, committed = 719.32 MiB|...
+    OK - physical = 6.98 GiB, committed = 719.32 MiB|...
 
 Changing the return syntax to get more information:
 
@@ -49,10 +49,10 @@ Naemon Config
 | Argument      | Default Value                                         |
 | ------------- | ----------------------------------------------------- |
 | warning       | used > 80%                                            |
-| critcal       | used > 90%                                            |
+| critical      | used > 90%                                            |
 | empty-state   | 0 (OK)                                                |
 | empty-syntax  |                                                       |
-| top-syntax    | \${status}: \${list}                                  |
+| top-syntax    | %(status) - \${list}                                  |
 | ok-syntax     |                                                       |
 | detail-syntax | %(type) = %(used)/%(size) (%(used_pct \| fmt=%.1f )%) |
 

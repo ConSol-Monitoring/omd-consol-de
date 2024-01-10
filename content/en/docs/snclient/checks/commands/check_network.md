@@ -21,7 +21,7 @@ Checks the state and metrics of network interfaces.
 ### Default Check
 
     check_network device=eth0
-    OK: eth0 >12 kB/s <28 kB/s |...
+    OK - eth0 >12 kB/s <28 kB/s |...
 
 ### Example using NRPE and Naemon
 
@@ -43,12 +43,12 @@ Naemon Config
 
 | Argument      | Default Value                 |
 | ------------- | ----------------------------- |
-| warning       | total > 10000                 |
-| critcal       | total > 100000                |
+| warning       | total > 80GB                  |
+| critical      | total > 90GB                  |
 | empty-state   | 3 (UNKNOWN)                   |
-| empty-syntax  | %(status): No devices found   |
-| top-syntax    | %(status): %(list)            |
-| ok-syntax     | %(status): %(list)            |
+| empty-syntax  | %(status) - No devices found  |
+| top-syntax    | %(status) - %(list)           |
+| ok-syntax     | %(status) - %(list)           |
 | detail-syntax | %(name) >%(sent) <%(received) |
 
 ## Check Specific Arguments
@@ -76,6 +76,6 @@ these can be used in filters and thresholds (along with the default attributes):
 | total_received    | Total bytes received                                     |
 | sent              | Bytes sent per second (calculated over the last 30s)     |
 | total_sent        | Total bytes sent                                         |
-| speed             | Network interface speed                                  |
+| speed             | Network interface speed (in Mbits/sec)                   |
 | flags             | Interface flags                                          |
 | total             | Sum of sent and received bytes per second                |

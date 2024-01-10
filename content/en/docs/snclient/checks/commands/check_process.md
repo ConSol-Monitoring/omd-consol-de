@@ -20,8 +20,22 @@ Checks the state and metrics of one or multiple processes.
 
 ### Default Check
 
-    check_process process=explorer.exe
-    OK: explorer.exe=started
+    check_process
+    OK - 417 processes. |'count'=417;;;0
+
+Check specific process by name (adding some metrics as well)
+
+    check_process \
+        process=httpd \
+        warn='count < 1 || count > 10' \
+        crit='count < 0 || count > 20' \
+        top-syntax='%{status} - %{count} processes, memory %{rss|h}B, cpu %{cpu:fmt=%.1f}%, started %{oldest:age|duration} ago'
+    WARNING - 12 processes, memory 62.58 MB, started 01:11h ago |...
+
+If zero is a valid threshold, set the empty-state to ok
+
+    check_process process=qemu warn='count <= 0 || count > 10' crit='count <= 0 || count > 20' empty-state=0
+    OK - check_process failed to find anything with this filter.
 
 ### Example using NRPE and Naemon
 
@@ -36,18 +50,18 @@ Naemon Config
         host_name            testhost
         service_description  check_process
         use                  generic-service
-        check_command        check_nrpe!check_process!'warn=used > 80%' 'crit=used > 95%'
+        check_command        check_nrpe!check_process!warn='count <= 0 || count > 10' crit='count <= 0 || count > 20'
     }
 
 ## Argument Defaults
 
-| Argument      | Default Value                                           |
-| ------------- | ------------------------------------------------------- |
-| empty-state   | 3 (UNKNOWN)                                             |
-| empty-syntax  | check_process failed to find anything with this filter. |
-| top-syntax    | \${status}: \${problem_list}                            |
-| ok-syntax     | %(status): all processes are ok.                        |
-| detail-syntax | \${exe}=\${state}                                       |
+| Argument      | Default Value                                                       |
+| ------------- | ------------------------------------------------------------------- |
+| empty-state   | 3 (UNKNOWN)                                                         |
+| empty-syntax  | %(status) - check_process failed to find anything with this filter. |
+| top-syntax    | %(status) - \${problem_list}                                        |
+| ok-syntax     | %(status) - all %{count} processes are ok.                          |
+| detail-syntax | \${exe}=\${state}                                                   |
 
 ## Check Specific Arguments
 
@@ -73,9 +87,11 @@ these can be used in filters and thresholds (along with the default attributes):
 | pid              | Process id                                                                                                 |
 | uid              | User if of process owner (linux only)                                                                      |
 | username         | User name of process owner (linux only)                                                                    |
+| cpu              | CPU usage in percent                                                                                       |
 | virtual          | Virtual memory usage in bytes                                                                              |
-| rss              | Resident memory usage in bytes (linux only)                                                                |
+| rss              | Resident memory usage in bytes                                                                             |
 | pagefile         | Swap memory usage in bytes                                                                                 |
+| oldest           | Unix timestamp of oldest process                                                                           |
 | peak_pagefile    | Peak swap memory usage in bytes (windows only)                                                             |
 | handles          | Number of handles (windows only)                                                                           |
 | kernel           | Kernel time in seconds (windows only)                                                                      |
