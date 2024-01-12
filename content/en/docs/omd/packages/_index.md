@@ -27,6 +27,8 @@ The Open Monitoring Distribution contains: (incomplete list)
     * [Coshsh](coshsh/ "Coshsh package")
     * [LMD](lmd/ "LMD - Livestatus Multitool Daemon")
     * [Downtime-API](downtimeapi/ "Downtime API")
+    * [Loki](loki_core/ "Grafana Loki")
+    * [Promtail](loki_promtail/ "Grafana Loki Promtail")
   * Prometheus
     * [Prometheus](prometheus_core/ "Prometheus package")
     * [SNMP Exporter](prometheus_snmp_exporter/ "SNMP Exporter package")
