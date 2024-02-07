@@ -32,7 +32,7 @@ Loki is a horizontally scalable, highly available, multi-tenant log aggregation 
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | LOKI | on <br> **off** | Enable Loki |

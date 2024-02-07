@@ -33,8 +33,7 @@ MariaDB is a community-developed fork of the MySQL relational database managemen
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | MYSQL | on <br> **off** | enable MariaDB (default off) |
-

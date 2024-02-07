@@ -29,7 +29,7 @@ Nagflux writes perfromance data from Nagios/Icinga to InfluxDB for visualizing u
 |Logfiles:|&lt;site&gt;/var/log/nagflux/|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | NAGFLUX | **on** <br> off | enable nagflux (default off) |

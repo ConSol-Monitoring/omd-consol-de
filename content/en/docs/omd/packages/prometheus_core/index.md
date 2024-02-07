@@ -32,7 +32,7 @@ Prometheus is an open-source systems monitoring and alerting toolkit originally 
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | PROMETHEUS | on <br> **off** | Enable Prometheus |

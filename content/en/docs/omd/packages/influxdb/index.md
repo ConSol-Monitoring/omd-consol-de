@@ -29,7 +29,7 @@ InfluxDB is a time series, metrics, and analytics database to store Nagios/Icing
 |Logfiles:|&lt;site&gt;/var/log/influxdb.log|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | INFLUXDB | **on** <br> off | enable influxdb database (default off) |

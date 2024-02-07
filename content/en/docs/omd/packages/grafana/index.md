@@ -29,7 +29,7 @@ Grafana is a leading open source application for visualizing large-scale measure
 |Logfiles:|&lt;site&gt;/var/log/grafana/|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | GRAFANA | **on** <br> off | enable grafana (default off) |

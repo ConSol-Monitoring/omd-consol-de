@@ -34,7 +34,7 @@ The Apache HTTP Server, colloquially called Apache (/əˈpætʃiː/ ə-PA-chee),
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | APACHE_MODE | **ssl** <br> own <br> none | |

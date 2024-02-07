@@ -30,7 +30,7 @@ PNP is an addon to Nagios which analyzes performance data provided by plugins an
 |Logfiles:|&lt;site&gt;/var/pnp4nagios/log|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | PNP4NAGIOS | **on** <br> off | Disable PNP4nagios (default on) |

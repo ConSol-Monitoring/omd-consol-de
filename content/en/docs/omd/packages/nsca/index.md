@@ -30,7 +30,7 @@ NSCA is a Linux/Unix daemon allows you to integrate passive alerts and checks fr
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | NSCA | on <br> **off** | default disabled |

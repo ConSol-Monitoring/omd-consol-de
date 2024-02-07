@@ -31,7 +31,7 @@ Nagios, an open-source software application, monitors systems, networks and infr
 |Logfiles:|&lt;site&gt;/var/nagios/|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | CORE |  none <br> **nagios** <br> naemon <br> icinga  | to disable core <br>  core to use |

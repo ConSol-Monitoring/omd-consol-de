@@ -33,7 +33,7 @@ DokuWiki is a simple to use and highly versatile Open Source wiki software that 
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | DOKUWIKI_AUTH | on <br> **off** | Change userauth from default (Nagios) htpasswd to managed by DokuWiki WUI |

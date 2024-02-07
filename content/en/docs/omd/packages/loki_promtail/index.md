@@ -32,7 +32,7 @@ OMD shipps with scrape configs for Apache, mod-gearman, Grafana, InfluxDB, Lives
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | LOKI_PROMTAIL | on <br> **off** | Enable Promtail |

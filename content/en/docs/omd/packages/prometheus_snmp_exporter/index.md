@@ -32,7 +32,7 @@ This is an exporter that exposes information gathered from SNMP for use by the P
 
 &#x205F;
 
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | PROMETHEUS_SNMP_EXPORTER | on <br> **off** | Enable SNMP Exporter |

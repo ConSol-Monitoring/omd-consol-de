@@ -31,7 +31,7 @@ Thruk is a multibackend monitoring webinterface which currently supports Naemon,
 |Customizing files:|&lt;site&gt;/etc/thruk/usercontent|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 |  DEFAULT_GUI | welcome <br> **thruk** <br> nagios <br> icinga <br> none | Default GUI on startup |

@@ -31,7 +31,7 @@ The Naemon core is a network monitoring tool based on the Nagios 4 core, but wit
 |Logfiles:|&lt;site&gt;/var/naemon/|
 
 &#x205F;
-### OMD Options & vars
+### OMD Options & Vars
 | Option | Value | Description |
 | ------ |:-----:| ----------- |
 | CORE |  none <br> **naemon** <br> icinga2  | to disable core <br>  core to use |
