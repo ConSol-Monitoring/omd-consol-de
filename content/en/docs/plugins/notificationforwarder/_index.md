@@ -43,7 +43,7 @@ define command{
                         --eventopt SERVICESTATE='$SERVICESTATE$' \
                         --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
                         --eventopt LONGSERVICEOUTPUT='$LONGSERVICEOUTPUT$' \
-                    >> $USER4$/var/log/notificationforwarder_victorops.log 2>&1
+                    >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
 }
 ```
 Your service notifications should be sent to some ticket tool. The notification script will talk to a REST api and upload a a well-formatted Json payload. Therefore the notifcation framework has two jobs. 
