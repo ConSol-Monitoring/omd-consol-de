@@ -116,6 +116,7 @@ Builtin runners you can just use without writing code yourself are:
 
 All the attributs you initialize in the *\_\_init__* method will be overwritten if they exist in the *event.payload* created by the decider. (Precedence: default set by *\_\_init__*, argument from *runneropt*, key/value from *event.payload*)
 
+There is a decider *default*, which triggers the runner on SOFT;1. This and the runner *nsc_web* or *ssh* can be used without any need to write you own code if you call **eventhandler** with a suitable list or *\-\-runneropt* parameters..
 
 
 
