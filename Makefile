@@ -6,8 +6,9 @@ local-docker-server:
 
 test:
 	docker compose up -d --build --wait
-	go install github.com/raviqqe/muffet/v2@latest
-	muffet http://localhost:1313 \
+	mkdir -p .bin
+	GOBIN=$(shell pwd)/.bin go install github.com/raviqqe/muffet/v2@latest
+	./.bin/muffet http://localhost:1313 \
 		-i 'http://localhost:1313/' \
 		--max-connections=50 \
 		--max-connections-per-host=50 \
@@ -18,3 +19,4 @@ clean:
 	docker compose kill -s INT
 	docker compose kill
 	docker compose rm -f
+	rm -rf .bin

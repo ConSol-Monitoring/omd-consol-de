@@ -31,3 +31,5 @@ config.codekit3
 
 go.sum
 .hugo_build.lock
+
+.bin/
