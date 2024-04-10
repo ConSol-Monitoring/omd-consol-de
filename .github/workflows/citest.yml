@@ -9,6 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: preparetest tests
+        run: |
+          make preparetest
+
       - name: run tests
         run: |
           make test
+
+      - name: cleanup
+        run: |
+          make clean
