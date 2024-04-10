@@ -15,31 +15,26 @@ Right now, OMD-Labs only adds new software components and does not remove any wh
 
 Besides the stable Nagios 3, OMD-Labs contains two new extra cores:
 
- - Naemon
- - Icinga2
+- Naemon
+- Icinga2
 
 While Naemon is fully compatible to Nagios 3 config format, Icinga 2 uses a complete new config file format.
 
-
 ### Grafana/Influxdb Graphing
 
-Next to PNP4Nagios OMD comes with Grafana graphs based on a Influxdb. In order to create template based graphs, there is [histou](../packages/histou/) included. The interface between the monitoring core and the influxdb is implemented in the [nagflux](packages/nagflux/) component. Read more on the [graphing page](../howtos/grafana/).
-
+Next to PNP4Nagios OMD comes with Grafana graphs based on a Influxdb. In order to create template based graphs, there is [histou](../packages/histou/) included. The interface between the monitoring core and the influxdb is implemented in the [nagflux](../packages/nagflux/) component. Read more on the [graphing page](../howtos/grafana/).
 
 ### Prometheus Subsystem
 
 Next to the traditional monitoring, OMD-Labs ships with prometheus including alert manager, pushgateway and a blackbox exporter.
 
-
 ### LMD - Livestatus Multitool Daemon
 
 LMD makes thruk way faster when using a lot of backends/sites or if the remote sites have a bad connection. Read more on the [lmd page](../packages/lmd/).
 
-
 ### New Check Plugins
 
 There are several additional plugins packaged with OMD-Labs, for example a whole new bunch of check_*_health plugins.
-
 
 ## Changed Default Settings
 
@@ -54,7 +49,6 @@ To revert to the original setting, run:
     #> omd config set CORE nagios
 
 (Since version 3.x Nagios is no longer part of OMD Labs. See the [migration guide](../migration_3))
-
 
 ### Apache SSL/TLS Mode
 

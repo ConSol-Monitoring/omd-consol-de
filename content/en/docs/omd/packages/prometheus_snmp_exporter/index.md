@@ -1,13 +1,9 @@
 ---
 title: Prometheus SNMP Exporter
 ---
-<style>
-  thead th:empty {
-    border: thin solid red !important;
-    display: none;
-  }
-</style>
-![](prom_small.png)
+
+![](images.png)
+
 ### Overview
 
 |||

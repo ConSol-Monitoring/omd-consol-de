@@ -1,13 +1,7 @@
 ---
 title: NSCA
 ---
-<style>
-  thead th:empty {
-    border: thin solid red !important;
-    display: none;
-  }
-</style>
-![](None)
+
 ### Overview
 
 |||
