@@ -487,7 +487,7 @@ Since version 3.7 check_logfiles can search these channels, too.
 
 ## Examples
 
-[Here](examples) you can find example configurations for several scenarios.
+[Here]({{<ref "./examples/" >}}) you can find example configurations for several scenarios.
 
 ## Download
 {% asset_download check_logfiles-4.1.1.tar.gz category:nagios %}
