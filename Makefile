@@ -11,7 +11,7 @@ test: preparetest .bin/muffet
 		--max-connections-per-host=50 \
 		--timeout=30
 
-preparetest:
+preparetest: .bin/muffet
 	docker compose up -d --build --wait
 
 .bin/muffet:
