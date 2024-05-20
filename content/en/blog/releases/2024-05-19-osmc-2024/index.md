@@ -13,7 +13,7 @@ Nach der Einführung folgte Simon Meggle, der das ROBOT Framework vorstellte. Di
 
 Nach einer kurzen Pause berichteten H. Bogner, S. Rauh und O. Gnapp über ihre Reise zum Aufbau eines Cloud-Observability-Services. Die drei gehören zum Geschäftsbereich StackIT, dem Cloud-Angebot von Schwarz. Mittel der Wahl beim Monitoring der Cloud und des physikalischen Unterbaus ist Prometheus.
 
-Die darauf folgende Mittagspause verbrachten wir in der tolle Kantine von Lidl Digital. Vielen Dank nochmal dafür, daß wir eingeladen waren.
+Die darauf folgende Mittagspause verbrachten wir in der tollen Kantine von Lidl Digital. Vielen Dank nochmal dafür, daß wir eingeladen waren.
 
 Gerhard Laußer gab einen Einblick in die Komponenten des Konfigurationsgenerators Coshsh. Tobias Kempf erzählte von der Implementierung von OMD Labs als Monitoring-Lösung für die Schwarz Gruppe und zeigte mit aktuellen Zahlen das immense Wachstum der Landschaft.  {{< figure src="./osmw2024-schwarz-omd.jpg" width="100%" alt="Gravel Calls" class="left" >}} Sven Nierlein schloss den Tag mit einem Vortrag über Windows-Monitoring mit SNClient+ ab. Dieses Tool schafft die Securityprobleme mit dem Vorgänger NSClient++ aus der Welt und hat auch in Sachen Features und Performance mehr zu bieten.
 
