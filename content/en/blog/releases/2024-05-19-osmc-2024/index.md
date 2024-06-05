@@ -24,4 +24,4 @@ Michael Kraus entwickelt Monitoring bei Witty, einem Hersteller von Schwimmbadte
 Nach der Mittagspause gab Matthias Gallinger einen Überblick über die Verarbeitung und Analyse von Zeitreihenmetriken innerhalb von OMD. PNP, InfluxDB und Victoriametrics sind die Produkte, welche von Naemon und Prometheus mit Meßwerten befüllt und von Grafana wieder ausgelesen werden.
 
 Zwei Tage hatten Entwickler und Anwender zum regen Austausch genutzt und das sicher nicht zum letzten Mal.
-
+Wer hat Lust, 2025 Gastgeber zu sein? Wir brauchen dazu Räumlichkeiten (wenn möglich nicht in Bayern, wir waren schon zu oft an der Reihe) und eine Kaffeemaschine. Bei der Organisation des Anmeldeprozesses können wir behilflich sein.
