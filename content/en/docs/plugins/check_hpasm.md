@@ -78,7 +78,7 @@ physical drive 0:4 is ok
 physical drive 0:5 is ok | fan_1=50% fan_2=50% fan_3=50% temp_1_ioBoard=42;65;65 temp_2_ambient=18;40;40 temp_3_cpu=30;95;95 temp_4_cpu=30;95;95 temp_5_powerSupply=29;60;60
 ```
 
---verbose (or -v) can be repeated several times or given a numerical argument. The maximum level is -vvv. Using this level you will see a complete dump of all detected hardware components with all details.
+\-\-verbose (or -v) can be repeated several times or given a numerical argument. The maximum level is -vvv. Using this level you will see a complete dump of all detected hardware components with all details.
 
 ``` bash
 nagios$ check_hpasm -vvv
@@ -123,7 +123,7 @@ cpqDaPhyDrvCondition: ok
 ```
 
 ### Blacklisting
-If you want checks of failed/missing components to be skipped, so alerts caused by these are suppressed, then use the option --blacklist to blacklist them. With this option you give the plugin a list of items separated by / having the following format:
+If you want checks of failed/missing components to be skipped, so alerts caused by these are suppressed, then use the option \-\-blacklist to blacklist them. With this option you give the plugin a list of items separated by / having the following format:
 
 \<typ>:\<nr>[,\<nr>...][/\<typ>:\<nr>[,\<nr>...]]...
 
