@@ -8,27 +8,30 @@ The `OMD Labs-Edition` is a monitoring platform and a new concept of how to inst
 
 Have a look at the [getting started](getting_started) page for first steps.
 
-
 Labs OMD contains a huge list of [packages](packages), a best-of from the Nagios and Prometheus ecosystems.
 
 ## The Idea
+
 The main idea is to make the initial installation easy and less time consuming while providing a stable and standarized platform for further activities. A nagios system without addons and plugins is mostly useless, so OMD provides a way of making the initial setup fast and painless.
 
 OMD-Labs goes a bit further and adds even more useful software. See the [differences page](differences) for a full list
 
 ## The real life
+
 ![A large OMD installation](osmc-omd.jpg)
 
 ## The Site Concept
+
 OMD comes with a site concept solution with makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independantly.
 
 ## Roadmap
+
 There is usually one stable release every 6 months. Every day there are nightly builds with the [latest changes](https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog).
 
 <div class="btn-group btn-group-lg releaseplan" role="group" aria-label="Release plan" style="width:100%;">
-  <a class="btn btn-success" href="#download" role="button" style="width:50%;">Stable: 5.30</a>
+  <a class="btn btn-success" href="#download" role="button" style="width:50%;">Stable: 5.40</a>
   <a class="btn btn-info" href="https://labs.consol.de/omd/builds.html" role="button" style="width:25%;">Nightly</a>
-  <a class="btn btn-warning" href="https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog" role="button" target="_blank" style="width:25%;">Next: Sep 2024</a>
+  <a class="btn btn-warning" href="https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog" role="button" target="_blank" style="width:25%;">Next: Nov 2024</a>
 </div>
 <br clear="both">
 
@@ -36,6 +39,7 @@ Since OMD itself is rather complete, upcoming releases mostly update the shipped
 components. There are no planned changes for OMD itself.
 
 ## Download
+
 Best practice is to use the prebuild packages from our repository as described in the [installation section](#installation).
 
 The nightly builds are available via our [testing repository](https://labs.consol.de/repo/testing/).
@@ -46,7 +50,6 @@ The installation is quite easy when using our [Labs Repository](https://labs.con
 your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 
 There are pre-built packages available for the following systems:
-
 
 || System | Version || Package |
 |:--:|:-------|:-----------------:|:---------------|:---|
@@ -59,11 +62,9 @@ There are pre-built packages available for the following systems:
 | <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu | 20.04 | Focal Fossal | [download](https://labs.consol.de/repo/stable/#_ubuntu_focal_fossal_20_04) |
 | <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu | 22.04 | Jammy Jellyfish| [download](https://labs.consol.de/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
 
-
 <p class="hint">
 Rocky/Centos/Redhat will require the Epel repository. Redhat will additionally require these extra channels:<br><code>subscription-manager repos --enable=rhel-7-server-rpms \<br>--enable=rhel-7-server-extras-rpms \<br>--enable=rhel-7-server-optional-rpms</code>
 </p>
-
 
 ## Filesystem Layout
 
@@ -76,6 +77,7 @@ OMD offers a few commands to create and operate your sites.
 See an overview in the [omd command reference](commands).
 
 ## Grafana Graphing
+
 Besides PNP4Nagios the OMD Labs edition offers Grafana based Graphs. Read more on
 that topic on the [graphing page](howtos/grafana/).
 
