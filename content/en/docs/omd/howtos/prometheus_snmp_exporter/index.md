@@ -112,7 +112,7 @@ You can add as many individual labels as you like. Just extend the "labels" sect
 Restart both Prometheus and the Prometheus SNMP Exporter:
 ``` bash
 omd reload prometheus
-omd reload prometheus_snmp_exporter
+omd reload snmp_exporter
 ```
 
 Open prometheus WebUI in your browser
