@@ -103,6 +103,18 @@ Returns:
         "localtime": 1702398235
     }
 
+### /api/v1/inventory/{module}
+
+Returns the check inventory for a specific modules json. Available modules
+are the keys from the inventory hash map as returned from `/api/v1/inventory`.
+
+Example:
+
+    curl \
+        -u user:changeme \
+        -X POST \
+        https://127.0.0.1:8443/api/v1/inventory/memory
+
 ## Prometheus Endpoints
 
 These endpoints are available if the `PrometheusServer` is enabled in the modules section.
@@ -141,7 +153,12 @@ Returns metrics for given exporter.
 
 These endpoints are available if the `WEBAdminServer` is enabled in the modules section.
 
-It is best practice to use a separate password for the administrative tasks.
+It is best practice to use a separate password for the administrative tasks, for example:
+
+```ini
+[/settings/WEBAdmin/server]
+password = mysecretadminpassword
+```
 
 ### /api/v1/admin/reload
 
@@ -174,3 +191,22 @@ Example:
 Returns
 
     {"success":true}
+
+### /api/v1/admin/updates/install
+
+Trigger checking for updates.
+
+Example:
+
+    curl \
+        -u user:changeme \
+        -X POST \
+        https://127.0.0.1:8443/api/v1/admin/updates/install
+
+Returns
+
+    {
+        "success":  true,
+        "message": "update found and installed",
+        "version": "v0.27.0024"
+    }
