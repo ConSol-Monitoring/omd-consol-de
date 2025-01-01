@@ -84,6 +84,9 @@ spec:
         # writing files, hugo runs chtimes on all files including "."
         # and for "." it has no permissions.
         - "/tmp/public/html"
+        env:
+        - name: HUGO_ENVIRONMENT
+        - value: "production"
         volumeMounts:
         - name: html
           mountPath: /tmp/public
