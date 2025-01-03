@@ -43,13 +43,13 @@ spec:
     spec:
       initContainers:
       - name: git-sync-init
-        image: k8s.gcr.io/git-sync/git-sync:v3.2.2
+        image: k8s.gcr.io/git-sync/git-sync:v4.4.0
         args:
-        - "-repo=$(GIT_REPO_URL)"
-        - "-branch=$(GIT_BRANCH)"
-        - "-one-time"
-        - "-root=/tmp/git"
-        - "-dest=ocd"
+        - "--repo=$(GIT_REPO_URL)"
+        - "--branch=$(GIT_BRANCH)"
+        - "--one-time"
+        - "--root=/tmp/git"
+        - "--link=ocd"
         # clones into /tmp/git/rev-something
         # ln -s /tmp/git/rev-something /tmp/git/ocd
         envFrom:
@@ -74,7 +74,7 @@ spec:
           runAsGroup: 0
           allowPrivilegeEscalation: false
       - name: hugo
-        image: ghcr.io/consol/omd-consol-de/ocd:latest
+        image: ghcr.io/consol-monitoring/ocd:0.140.2-1
         args:
         - "--watch"
         - "--source"
@@ -84,9 +84,8 @@ spec:
         # writing files, hugo runs chtimes on all files including "."
         # and for "." it has no permissions.
         - "/tmp/public/html"
-        env:
-        - name: HUGO_ENVIRONMENT
-        - value: "production"
+        - "--environment"
+        - "production"
         volumeMounts:
         - name: html
           mountPath: /tmp/public
