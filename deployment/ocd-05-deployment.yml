@@ -95,13 +95,13 @@ spec:
           mountPath: /tmp/.gitconfig
           subPath: dotgitconfig
       - name: git-sync
-        image: k8s.gcr.io/git-sync/git-sync:v3.2.2
+        image: k8s.gcr.io/git-sync/git-sync:v4.4.0
         args:
-        - "-repo=$(GIT_REPO_URL)"
-        - "-branch=$(GIT_BRANCH)"
-        - "-wait=20"
-        - "-root=/tmp/git"
-        - "-dest=ocd"
+        - "--repo=$(GIT_REPO_URL)"
+        - "--branch=$(GIT_BRANCH)"
+        - "--one-time"
+        - "--root=/tmp/git"
+        - "--link=ocd"
         envFrom:
           - configMapRef:
               name: git-repo
