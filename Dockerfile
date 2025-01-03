@@ -10,3 +10,7 @@ RUN apk add git && \
 RUN npm install -g postcss-cli
 RUN npm install autoprefixer
 RUN npm audit fix
+USER hugo
+RUN npm install -g postcss-cli
+RUN npm install autoprefixer
+RUN npm audit fix
