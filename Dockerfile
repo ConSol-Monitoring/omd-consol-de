@@ -11,6 +11,7 @@ RUN npm install -g postcss-cli
 RUN npm install autoprefixer
 RUN npm audit fix
 USER hugo
+RUN npm config set prefix "/home/hugo/vendor/node_modules"
 RUN npm install -g postcss-cli
 RUN npm install autoprefixer
 RUN npm audit fix
