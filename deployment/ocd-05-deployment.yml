@@ -128,7 +128,7 @@ spec:
 #        - /var/log/nginx/index.html
 #        - --log-format=COMBINED
 #        - --real-time-html
-        image: allinurl/goaccess:1.8
+        image: allinurl/goaccess:1.9.3
         imagePullPolicy: Always
         resources:
           requests:
