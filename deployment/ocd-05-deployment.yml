@@ -46,7 +46,7 @@ spec:
         image: k8s.gcr.io/git-sync/git-sync:v4.4.0
         args:
         - "--repo=$(GIT_REPO_URL)"
-        - "--branch=$(GIT_BRANCH)"
+        - "--ref=$(GIT_BRANCH)"
         - "--one-time"
         - "--root=/tmp/git"
         - "--link=ocd"
@@ -98,8 +98,7 @@ spec:
         image: k8s.gcr.io/git-sync/git-sync:v4.4.0
         args:
         - "--repo=$(GIT_REPO_URL)"
-        - "--branch=$(GIT_BRANCH)"
-        - "--one-time"
+        - "--ref=$(GIT_BRANCH)"
         - "--root=/tmp/git"
         - "--link=ocd"
         envFrom:
