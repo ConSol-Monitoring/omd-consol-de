@@ -460,8 +460,6 @@ fi
 
 ## Externe Links
 
-* [hpasm RPM-Pakete](ftp://ftp.compaq.com/pub/products/servers/supportsoftware/linux)
-* [hpacucli RPM-Pakete](ftp://ftp.compaq.com/pub/products/servers/supportsoftware/linux)
 * [Win2003 System Management Driver](http://h20000.www2.hp.com/bizsupport/TechSupport/SoftwareDescription.jsp?swItem=MTX-3bbefa4d3f0547c3b81acbddb8&amp;lang=en&amp;cc=us&amp;mode=3&amp;)
 * [Win2003 Insight Management Agents](http://h20000.www2.hp.com/bizsupport/TechSupport/SoftwareDescription.jsp?lang=en&amp;cc=US&amp;swItem=MTX-ed4b332887f945a383fe2b06e7)
 * [Managing Proliant Servers with Linux](http://h20000.www2.hp.com/bc/docs/support/SupportManual/c00223285/c00223285.pdf)
