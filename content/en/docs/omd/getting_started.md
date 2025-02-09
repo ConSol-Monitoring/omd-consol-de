@@ -58,6 +58,8 @@ Start all components:
 
     OMD[demosite@host]:~$ omd start
 
+You should be able to access your new site with the URL `/demosite`, e.g. https://host/demosite.  See the output from `omd create` above for the initial password and how to change it.
+
 ## Continue Reading
 
 OMD uses a normal linux filesystem layout for etc, lib, var... except everything is relative to the sites home folder.
