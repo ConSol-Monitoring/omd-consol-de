@@ -11,11 +11,19 @@ SNMP Traps and Nagios (or any other related systems) is one of those topics that
 Let's start with a picture. A network device sends traps to the OMD server. Here we have a process [samplicate](https://github.com/sleinen/samplicator) listening on port 162 which duplicates the udp packets and forwards them to the OMD sites which are configured as trap recipients, Such sites have an *snmptrapd* process, which writes the contents of an incoming trap in a logfile, *traps.log*. (we see three traps here, arriving at port 162 in the order blue, green, red. In the same order they arrive at the sites' snmptrap daemons and in the same order they are written to the logfile)  
 That's all. Later you will learn how the logfile is scanned for incoming traps, how these are evaluated, how the trap sender is identified among the monitored host objects and how the right service is set into an alarm state.
 
-
 ![trap distribution](./samplicate-omd.png)
+<!--
+You need:
+ a PC which acts as the trap sender
+ a VM with OMD which acts as trap destination and monitoring server
+create an omd site
+edit etc/environment OMD_LANDSCAPE=lab
+share/coshsh/contrib/coshsh-prepar-landscape
+-->
+
 
 ## Setup trap processing on an OMD server
-The first part of this article focuses on preparing an OMD server. Specifically, it explains how to ensure that an incoming trap is simultaneously forwarded to multiple OMD sites (e.g., testing, production, etc.).
+The first part of this article focuses on preparing an OMD server. Specifically, in the end it will explains how to ensure that an incoming trap is simultaneously forwarded to multiple OMD sites (e.g., testing, production, etc.).
 
 First, any existing snmptrapd process must be stopped, and its associated init script or systemd service must be removed. With most distributions this is achieved by running the following commands as the root user:
 ```bash
@@ -121,6 +129,58 @@ Done
 Total translations:        1
 Successful translations:   1
 Failed translations:       0
+```
+
+### Prepare Coshsh and create a trap-sending host
+You probably executed the **snmptrap** command on a Windows or Linux host. Let's configureCoshsh and OMD so that this host ist being monitored and its traps are triggering an alarm.  
+The "CMDB" we will use is a set of CSV files, located in *etc/coshsh/data*. The first one describes attributes of the host will be used to shape the host object in Naemon. For the example we fake a notional appliance of type *Blackenbox* running the *HeartbeatOS*
+```csv
+# host_name,address,type,os,hardware,virtual,notification_period,location,department
+sender,192.168.1.1,appliance,heartbeat,rpi,0,24x7,lab,rnd
+```
+_File: etc/coshsh/conf.d/trapdemo_hosts.csv_
+
+We describe the firmware/operating system in the following file:
+```csv
+# host_name,name,type,component,version,check_period
+sender,os,heartbeatos,,1.0,24x7
+```
+_File: etc/coshsh/conf.d/trapdemo_applications.csv_
+
+Then we need a Python class for *HeartbeatOS*, for which we create a file *etc/coshsh/recipes/trapdemo/classes/os_heartbeatos.py* with the following content:
+
+```python
+import coshsh
+from coshsh.application import Application
+from coshsh.templaterule import TemplateRule
+from coshsh.util import compare_attr, is_attr
+
+def __mi_ident__(params={}):
+    if coshsh.util.is_attr("name", params, "os") and coshsh.util.compare_attr("type", params, ".*heartbeatos.*"):
+        return HeartbeatOS
+
+
+class HeartbeatOS(Application):
+    template_rules = []
+    implements_mibs = ['NET-SNMP-EXAMPLES-MIB']
+```
+_File: etc/coshsh/recipes/trapdemo/classes/os_heartbeatos.py_
+
+```ini
+[datasource_trapdemo]
+type = csv
+dir = %OMD_ROOT%/etc/coshsh/data
+
+[recipe_trapdemo]
+datasources = trapdemo,snmptt
+objects_dir = %OMD_ROOT%/var/coshsh/configs/trapdemo/
+```
+_File: etc/coshsh/conf.d/trapdemo.conf_
+
+```bash
+OMD[demo@pxmxmon]:~$ coshsh-cook --cookbook $HOME/etc/coshsh/conf.d/trapdemo.conf \
+    --recipe trapdemo
+OMD[demo@pxmxmon]:~$ check_git_updates
 ```
 <!--
 SORRY FROM HERE ON THERE IS WORK-IN-PROGRESS BECAUSE I GO HOME NOW AND CONTINUE FROM THERE
