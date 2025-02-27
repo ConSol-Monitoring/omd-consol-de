@@ -1,18 +1,11 @@
 ### Installation
 
-#### Create a k8s cluster inside docker
-``` bash
-curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-K3D_FIX_DNS=1 k3d cluster create omd -p "8081:80@loadbalancer"
-```
+#### New container image
+If the Dockerfile or anything which will be copied into the image has changed, then a tag image-<version> has to be applied and pushed.
+A github acion "Create and publish a docker image" will be triggered and the new image will be produced.
+In the deployment folder there is a file ocd-05-deployment.yml, where the image tag of ghcr.io/consol-monitoring/ocd:<new-version> has to be updated.
 
-#### Build the container image and import it in the cluster
-``` bash
-docker build -t consol/omd-consol-de:latest .
-# images with tag "latest" can not be imported, it must have a version
-docker tag consol/omd-consol-de:latest consol/omd-consol-de:1.1
-k3d image import consol/omd-consol-de:1.1 -c omd
-```
-
+#### New deployment
+The deployment folder has to be copied to the omd.consol.de server and kubectl apply -f . has to be run.
 
 
