@@ -12,6 +12,12 @@ tags:
   - alloy
   - snclient
 ---
+### Forwarding Windows Eventlogs to a central log console
+In system monitoring, logs are a valuable source where signs of upcoming or existing problems can be found. Especially for Windows, it was not easy to collect all of the computer's logs in one place. Forwarding Windows event logs with syslog to a syslog server, which then wrote the logs to files, was one way—but this is a very old-fashioned approach. Here, we present a state-of-the-art solution based on modern observability tools.
+
+On the client side, we have the agent SNClient+ with its helper, Grafana Alloy. On the monitoring side, we are using the Open Monitoring Distribution with Loki.
+
+Schemazeichnung
 
 ```
 loki.source.windowsevent "application"  {
