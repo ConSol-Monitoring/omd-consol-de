@@ -36,21 +36,28 @@ Also, by default Loki listens only on the loopback interface. In order to make i
 <IfModule !mod_proxy_http.c>
     LoadModule proxy_http_module /usr/lib64/httpd/modules/mod_proxy_http.so
 </IfModule>
-<IfModule !mod_ssl.c>
-    LoadModule ssl_module /usr/lib64/httpd/modules/mod_ssl.so
-</IfModule>
 
 <Location /${OMD_SITE}/loki>
-    RequestHeader set Authorization "Basic ${VMUI_AUTH}"
-    ProxyPass ${VMPROTOCOL}://${CONFIG_VICTORIAMETRICS_TCP_ADDR}:${CONFIG_VICTORIAMETRICS_PORT}/vmui retry=0 disablereuse=On
-    ProxyPassReverse ${VMPROTOCOL}://127.0.0.1:${CONFIG_VICTORIAMETRICS_PORT}/vmui/
+    ProxyPassInterpolateEnv on
+    ProxyPass http://127.0.0.1:${CONFIG_LOKI_HTTP_PORT}/loki
+    ProxyPassReverse http://127.0.0.1:${CONFIG_LOKI_HTTP_PORT}/loki
+    RequestHeader set X-WEBAUTH-USER %{REMOTE_USER}e
 
-    ErrorDocument 404 /503.html?VICTORIAMETRICS=on
-    ErrorDocument 502 /503.html?VICTORIAMETRICS=on
-    ErrorDocument 503 /503.html?VICTORIAMETRICS=on
+    ErrorDocument 503 /503.html?LOKI=on
 </Location>
-
 ```
+
+The Loki API can now be accessed from outside of the OMD server by using the url *https://\<omd-server\>/demo/loki*  
+Access is controlled by the Thruk login page. Using basic auth with a username and a password makes the login transparent. The client will think it's directly talking with the API.
+```bash
+htpasswd ~/etc/htpasswd loki L0k1
+```
+
+Finally start the OMD site and Loki is now ready to receive Windows events.
+```bash
+omd start
+```
+
 
 ### Step two - Install the SNClient+ on the Windows server
 I won't repeat the base installation, follow simply the instructions you can find [here](/docs/snclient/install/windows/)
@@ -67,7 +74,26 @@ The password is saved here in its hashed representation. See the [Security page]
 After you saved the file, restart the service **snclient** with the service manager or by running **net stop snclient** and **net start snclient**.  
 Now you're able to monitor the Windows host with Naemon and the plugin check_nsc_web, but that's not what we cover in this article.
 
-### 
+### Step three - Add Alloy to SNClient+'s exporters
+Create a file *C:\Program Files\snclient\snclient_local_alloy.ini* with the following contents:
+```ini
+[/modules]
+ManagedExporterServer = enabled
+
+[/settings/ManagedExporter/alloy]
+;password =
+agent path = ${shared-path}/exporter/alloy-windows-amd64.exe
+agent args = run ./alloy
+agent address = 127.0.0.1:12345
+;;agent max memory = 256M
+url prefix = /alloy
+
+```
+This config tells snclient to start (and eventually restart) Grafana Alloy.
+
+Next, go to the [download page](https://github.com/grafana/alloy/releases), download *alloy-windows-amd64.exe.zip*, unpack it and move the extracted file *alloy-windows-amd64.exe* to *C:\Program Files\nclient\exporter*.  
+Then create a folder *C:\Program Files\snclient\alloy* and put the file *windows_event.alloy* inside. The contents of this file are:
+
 ```
 loki.source.windowsevent "application"  {
     eventlog_name = "Application"
@@ -180,11 +206,16 @@ loki.process "windows_eventlog" {
 
 loki.write "endpoint" {
     endpoint {
+        // CHANGE THIS URL
+        // Use the hostname of your OMD server and
+        // replace the sitename.
         url ="https://omd-thruk.demodemo.svc.cluster.local/demo/loki/api/v1/push"
         tls_config {
             insecure_skip_verify = true
         }
         basic_auth {
+            // These are the credentials we created with
+            // the htpasswd command.
             username = "loki"
             password = "L0ki"
         } 
