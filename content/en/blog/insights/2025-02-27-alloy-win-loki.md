@@ -15,10 +15,59 @@ tags:
 ### Forwarding Windows Eventlogs to a central log console
 In system monitoring, logs are a valuable source where signs of upcoming or existing problems can be found. Especially for Windows, it was not easy to collect all of the computer's logs in one place. Forwarding Windows event logs with syslog to a syslog server, which then wrote the logs to files, was one way—but this is a very old-fashioned approach. Here, we present a state-of-the-art solution based on modern observability tools.
 
-On the client side, we have the agent SNClient+ with its helper, Grafana Alloy. On the monitoring side, we are using the Open Monitoring Distribution with Loki.
+On the client side, we have the agent [SNClient+](/docs/snclient) with its helper, [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/). On the monitoring side, we are using the [Open Monitoring Distribution](/docs/omd) with [Loki](https://grafana.com/oss/loki/).
 
-Schemazeichnung
+Schemazeichnung, Teaser-Screenshot
 
+### Step one - Install OMD and open the Loki API.
+To keep things short, i assume that you already have an installation of OMD and have created a site. Let's give the site the name *demo*, which is used in the samples here.
+Loki is not enabled by default, so you have to run the following commands:
+```bash
+omd stop
+omd config set GRAFANA on
+omd config set LOKI on
+```
+
+Also, by default Loki listens only on the loopback interface. In order to make it reachable by Windows servers, you need to add the file *~/etc/apacke/conf.d/loki.conf* with the following content:
+```apache
+<IfModule !mod_proxy.c>
+    LoadModule proxy_module /usr/lib64/httpd/modules/mod_proxy.so
+</IfModule>
+<IfModule !mod_proxy_http.c>
+    LoadModule proxy_http_module /usr/lib64/httpd/modules/mod_proxy_http.so
+</IfModule>
+<IfModule !mod_ssl.c>
+    LoadModule ssl_module /usr/lib64/httpd/modules/mod_ssl.so
+</IfModule>
+
+<Location /${OMD_SITE}/loki>
+    RequestHeader set Authorization "Basic ${VMUI_AUTH}"
+    ProxyPass ${VMPROTOCOL}://${CONFIG_VICTORIAMETRICS_TCP_ADDR}:${CONFIG_VICTORIAMETRICS_PORT}/vmui retry=0 disablereuse=On
+    ProxyPassReverse ${VMPROTOCOL}://127.0.0.1:${CONFIG_VICTORIAMETRICS_PORT}/vmui/
+
+    ErrorDocument 404 /503.html?VICTORIAMETRICS=on
+    ErrorDocument 502 /503.html?VICTORIAMETRICS=on
+    ErrorDocument 503 /503.html?VICTORIAMETRICS=on
+</Location>
+
+```
+
+### Step two - Install the SNClient+ on the Windows server
+I won't repeat the base installation, follow simply the instructions you can find [here](/docs/snclient/install/windows/)
+
+Next, change the default password. This can be best achieved by creating a new file *C:\Program Files\snclient\snclient_local_auth.ini* with the following content:
+
+```ini
+[/settings/default]
+allowed hosts = 127.0.0.1, 10.0.1.2
+password = SHA256:9f86d081884...
+```
+The password is saved here in its hashed representation. See the [Security page](https://omd.consol.de/docs/snclient/security/) for instructions.
+
+After you saved the file, restart the service **snclient** with the service manager or by running **net stop snclient** and **net start snclient**.  
+Now you're able to monitor the Windows host with Naemon and the plugin check_nsc_web, but that's not what we cover in this article.
+
+### 
 ```
 loki.source.windowsevent "application"  {
     eventlog_name = "Application"
