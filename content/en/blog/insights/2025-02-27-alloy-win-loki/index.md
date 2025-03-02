@@ -245,3 +245,4 @@ Then, open the url *https://omd-server/demo/grafana*, click on *Explore* on the 
 
 ### Conclusion
 This setup provides a modern and efficient solution for centralizing Windows Event Logs using state-of-the-art observability tools. By integrating SNClient+, Grafana Alloy, and Loki within an OMD environment, logs can be seamlessly collected, processed, and analyzed in a scalable and structured way. This approach eliminates outdated methods such as simple syslog forwarding, offering a robust and future-proof logging pipeline for Windows environments.
+
