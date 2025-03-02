@@ -17,7 +17,7 @@ In system monitoring, logs are a valuable source for detecting upcoming or exist
 
 On the client side, you will use the agent [SNClient+](/docs/snclient) with its helper, [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/). On the monitoring side, you will use the [Open Monitoring Distribution](/docs/omd) with [Loki](https://grafana.com/oss/loki/).
 
-Schemazeichnung, Teaser-Screenshot
+![event forwarding](./snclient-alloy-omd-loki.drawio.png)
 
 ### Step one - Install OMD and open the Loki API.
 To keep things short, I assume that you already have OMD installed and have created a site. In this example, use the site name *demo*. (And the OMD server is called *omd-server*)  
@@ -240,6 +240,8 @@ On the Windows server, open a PowerShell and run the command
 eventcreate /t INFORMATION /id 100 /so MyApp /d "Application started successfully"
 ```
 
-Then, open the url https://omd-server/demo/grafana and you should see the event.
-Looking for EventID 817
-{channel="Application"} | json | event_id=817 
+Then, open the url *https://omd-server/demo/grafana*, click on *Explore* on the left hand side, select datasource *Loki* and, finally, here is your event:
+![loki view](./snclient-alloy-omd-loki-grafana.png)
+
+### Conclusion
+This setup provides a modern and efficient solution for centralizing Windows Event Logs using state-of-the-art observability tools. By integrating SNClient+, Grafana Alloy, and Loki within an OMD environment, logs can be seamlessly collected, processed, and analyzed in a scalable and structured way. This approach eliminates outdated methods such as simple syslog forwarding, offering a robust and future-proof logging pipeline for Windows environments.
