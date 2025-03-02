@@ -13,22 +13,23 @@ tags:
   - snclient
 ---
 ### Forwarding Windows Eventlogs to a central log console
-In system monitoring, logs are a valuable source where signs of upcoming or existing problems can be found. Especially for Windows, it was not easy to collect all of the computer's logs in one place. Forwarding Windows event logs with syslog to a syslog server, which then wrote the logs to files, was one way—but this is a very old-fashioned approach. Here, we present a state-of-the-art solution based on modern observability tools.
+In system monitoring, logs are a valuable source for detecting upcoming or existing issues. Especially for Windows, collecting all logs in one place has not been easy. Forwarding Windows event logs to a syslog server, which then writes the logs to files, was one approach—but this is quite outdated. Here, you will set up a modern solution based on state-of-the-art observability tools.
 
-On the client side, we have the agent [SNClient+](/docs/snclient) with its helper, [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/). On the monitoring side, we are using the [Open Monitoring Distribution](/docs/omd) with [Loki](https://grafana.com/oss/loki/).
+On the client side, you will use the agent [SNClient+](/docs/snclient) with its helper, [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/). On the monitoring side, you will use the [Open Monitoring Distribution](/docs/omd) with [Loki](https://grafana.com/oss/loki/).
 
 Schemazeichnung, Teaser-Screenshot
 
 ### Step one - Install OMD and open the Loki API.
-To keep things short, i assume that you already have an installation of OMD and have created a site. Let's give the site the name *demo*, which is used in the samples here.
-Loki is not enabled by default, so you have to run the following commands:
+To keep things short, I assume that you already have OMD installed and have created a site. In this example, use the site name *demo*. (And the OMD server is called *omd-server*)  
+
+Loki is not enabled by default, so you need to run the following commands:
 ```bash
 omd stop
 omd config set GRAFANA on
 omd config set LOKI on
 ```
 
-Also, by default Loki listens only on the loopback interface. In order to make it reachable by Windows servers, you need to add the file *~/etc/apacke/conf.d/loki.conf* with the following content:
+In an OMD setup, Loki listens by default only on the loopback interface. To make it accessible from Windows servers, create the file *~/etc/apache/conf.d/loki.conf* with the following content:
 ```apache
 <IfModule !mod_proxy.c>
     LoadModule proxy_module /usr/lib64/httpd/modules/mod_proxy.so
@@ -47,32 +48,39 @@ Also, by default Loki listens only on the loopback interface. In order to make i
 </Location>
 ```
 
-The Loki API can now be accessed from outside of the OMD server by using the url *https://\<omd-server\>/demo/loki*  
-Access is controlled by the Thruk login page. Using basic auth with a username and a password makes the login transparent. The client will think it's directly talking with the API.
+The Loki API is now accessible externally via *https://omd-server/demo/loki/api/v1/push*.
+Access is controlled via the Thruk login page. Using basic authentication makes the login transparent, so the client believes it is communicating directly with the API:
 ```bash
 htpasswd ~/etc/htpasswd loki L0k1
 ```
 
-Finally start the OMD site and Loki is now ready to receive Windows events.
+Finally start the OMD site.
 ```bash
 omd start
 ```
+Loki is now ready to receive Windows events. (Or any other data sent by Alloy/journald, Open Telemetry Logs, Fluent Bit, Docker, Promtail,...)
 
 
 ### Step two - Install the SNClient+ on the Windows server
-I won't repeat the base installation, follow simply the instructions you can find [here](/docs/snclient/install/windows/)
+For the base installation, follow the instructions [here](/docs/snclient/install/windows/).
 
-Next, change the default password. This can be best achieved by creating a new file *C:\Program Files\snclient\snclient_local_auth.ini* with the following content:
+Next, change the default password by creating a new file *C:\Program Files\snclient\snclient_local_auth.ini* with the following content:
 
 ```ini
 [/settings/default]
 allowed hosts = 127.0.0.1, 10.0.1.2
 password = SHA256:9f86d081884...
 ```
-The password is saved here in its hashed representation. See the [Security page](https://omd.consol.de/docs/snclient/security/) for instructions.
+The password is stored as a hashed value. Refer to the [Security page](https://omd.consol.de/docs/snclient/security/) for instructions.  
+(*allowed hosts* restricts access to the snclient agent, i suggest you edit the list so that it consists of 127.0.0.1 and yout omd-server's ip address)
 
-After you saved the file, restart the service **snclient** with the service manager or by running **net stop snclient** and **net start snclient**.  
-Now you're able to monitor the Windows host with Naemon and the plugin check_nsc_web, but that's not what we cover in this article.
+After saving the file, restart the service **snclient** using the service manager or by running
+```powershell
+net stop snclient
+net start snclient
+```
+
+At this point, you can monitor the Windows host with *Naemon* and the *check_nsc_web* plugin, but this article focuses on log forwarding.
 
 ### Step three - Add Alloy to SNClient+'s exporters
 Create a file *C:\Program Files\snclient\snclient_local_alloy.ini* with the following contents:
@@ -89,11 +97,10 @@ agent address = 127.0.0.1:12345
 url prefix = /alloy
 
 ```
-This config tells snclient to start (and eventually restart) Grafana Alloy.
+This config instructs snclient to start (and eventually restart) Grafana Alloy.
 
-Next, go to the [download page](https://github.com/grafana/alloy/releases), download *alloy-windows-amd64.exe.zip*, unpack it and move the extracted file *alloy-windows-amd64.exe* to *C:\Program Files\nclient\exporter*.  
-Then create a folder *C:\Program Files\snclient\alloy* and put the file *windows_event.alloy* inside. The contents of this file are:
-
+Next, go to the [Grafana Alloy release page](https://github.com/grafana/alloy/releases), download *alloy-windows-amd64.exe.zip*, unpack it and move the extracted *alloy-windows-amd64.exe* to *C:\Program Files\snclient\exporter*.  
+Then, create a folder *C:\Program Files\snclient\alloy* and add the file *windows_event.alloy* with the following content:
 ```
 loki.source.windowsevent "application"  {
     eventlog_name = "Application"
@@ -223,5 +230,16 @@ loki.write "endpoint" {
 }
 ```
 
+When you have saved the file, you have to restart snclient again with **net stop snclient** and **net start snclient**.  
+Now, your Windows event logs are forwarded to Loki via Grafana Alloy.
+
+### Step four - Testing and Searching
+
+On the Windows server, open a PowerShell and run the command
+```powershell
+eventcreate /t INFORMATION /id 100 /so MyApp /d "Application started successfully"
+```
+
+Then, open the url https://omd-server/demo/grafana and you should see the event.
 Looking for EventID 817
 {channel="Application"} | json | event_id=817 
