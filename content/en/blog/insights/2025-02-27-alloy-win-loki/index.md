@@ -48,7 +48,7 @@ In an OMD setup, Loki listens by default only on the loopback interface. To make
 ```
 
 The Loki API is now accessible externally via *https://omd-server/demo/loki/api/v1/push*.
-Access is controlled via the Thruk login page. Using basic authentication makes the login transparent, so the client believes it is communicating directly with the API:
+Access is controlled via the Thruk login page. Using basic authentication makes the login transparent, so the client believes it is communicating directly with the API. It means, would you open this url in a browser, you would see a login page presented by OMD's default gui, Thruk. Alloy will add credentials when sending POST request to the API and Thruk will immediately let them pass. A dedicated user and its password are created like this:
 ```bash
 htpasswd ~/etc/htpasswd loki L0k1
 ```
@@ -215,13 +215,14 @@ loki.write "endpoint" {
         // CHANGE THIS URL
         // Use the hostname of your OMD server and
         // replace the sitename.
-        url ="https://omd-thruk.demodemo.svc.cluster.local/demo/loki/api/v1/push"
+        url ="https://YOUR-OMD-SERVER/YOUR-SITE/loki/api/v1/push"
         tls_config {
             insecure_skip_verify = true
         }
         basic_auth {
             // These are the credentials we created with
             // the htpasswd command.
+            // CHANGE THEM! RUN htpasswd AGAIN!
             username = "loki"
             password = "L0ki"
         } 
@@ -239,8 +240,13 @@ On the Windows server, open a PowerShell and run the command
 eventcreate /t INFORMATION /id 100 /so MyApp /d "Application started successfully"
 ```
 
-Then, open the url *https://omd-server/demo/grafana*, click on *Explore* on the left hand side, select datasource *Loki* and, finally, here is your event:
+In Grafana, go to Explore, select the Loki data source, and then enter a LogQL query like {job="windows_eventlog", instance="YOUR_WINDOWS_SERVER_HOSTNAME"} in the query field.
+The url is *https://YOUR-OMD-SERVER/YOUR-SITE/grafana*. And here is your event!
 ![loki view](./snclient-alloy-omd-loki-grafana.png)
+
+#### Troubleshooting
+Logs not appearing in Grafana? Check the *C:\Program Files\snclient\snclient.log*, verify the Loki URL, and ensure the SNClient+ service is running.  
+Make sure there is no firewall blocking the traffic between Windows and OMD.
 
 ### Conclusion
 This setup provides a modern and efficient solution for centralizing Windows Event Logs using state-of-the-art observability tools. By integrating SNClient+, Grafana Alloy, and Loki within an OMD environment, logs can be seamlessly collected, processed, and analyzed in a scalable and structured way. This approach eliminates outdated methods such as simple syslog forwarding, offering a robust and future-proof logging pipeline for Windows environments.
