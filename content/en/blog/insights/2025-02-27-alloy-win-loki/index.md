@@ -48,7 +48,7 @@ In an OMD setup, Loki listens by default only on the loopback interface. To make
 ```
 
 The Loki API is now accessible externally via *https://omd-server/demo/loki/api/v1/push*.
-Access is controlled via the Thruk login page. Using basic authentication makes the login transparent, so the client believes it is communicating directly with the API. It means, would you open this url in a browser, you would see a login page presented by OMD's default gui, Thruk. Alloy will add credentials when sending POST request to the API and Thruk will immediately let them pass. A dedicated user and its password are created like this:
+Access is controlled via the Thruk login page. Using basic authentication makes the login transparent, so the client believes it is communicating directly with the API. It means, would you open this url in a browser, you would see a login page presented by OMD's default gui, Thruk. Alloy will add credentials when sending POST requests to the API and Thruk will immediately let them pass. A dedicated user and its password are created like this:
 ```bash
 htpasswd ~/etc/htpasswd loki L0k1
 ```
