@@ -94,6 +94,7 @@ agent args = run ./alloy
 agent address = 127.0.0.1:12345
 ;;agent max memory = 256M
 url prefix = /alloy
+port = ${/settings/WEB/server/port}
 
 ```
 This config instructs snclient to start (and eventually restart) Grafana Alloy.
