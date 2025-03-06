@@ -39,6 +39,15 @@ $font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 	max-height: calc(100vh - 2rem) !important;
 }
 
+DIV.td-search--offline > DIV.td-search__icon {
+	color: #555 !important;
+}
+
+DIV.td-search--offline > INPUT.td-search__input {
+	background-color: #fff !important;
+	color: #555 !important;
+}
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
