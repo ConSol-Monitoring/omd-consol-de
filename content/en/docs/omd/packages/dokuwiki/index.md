@@ -12,7 +12,7 @@ title: DokuWiki
 
 |||
 |---|---|
-|Homepage:|http://www.dokuwiki.org/dokuwiki#|
+|Homepage:|https://www.dokuwiki.org/dokuwiki#|
 |Changelog:|https://www.dokuwiki.org/changes|
 |Documentation:|https://www.dokuwiki.org/manual|
 |Get version:|Is displayed at the footer of every WUI page|

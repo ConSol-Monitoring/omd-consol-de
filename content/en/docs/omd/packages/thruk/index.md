@@ -12,9 +12,9 @@ title: Thruk
 
 |||
 |---|---|
-|Homepage:|http://thruk.org|
-|Changelog:|http://thruk.org/changelog.html|
-|Documentation:|http://thruk.org/documentation/|
+|Homepage:|https://thruk.org|
+|Changelog:|https://thruk.org/changelog.html|
+|Documentation:|https://thruk.org/documentation/|
 |Get version:|Version is displayed at WUI or type &quot;thruk --version&quot; on CLI|
 |OMD URL:|/&lt;site&gt;/thruk|
 

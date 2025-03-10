@@ -12,9 +12,9 @@ title: Apache HTTP Server
 
 |||
 |---|---|
-|Homepage:|http://httpd.apache.org/|
-|Changelog:|http://www.apache.org/dist/httpd/CHANGES_2.2|
-|Documentation:|http://httpd.apache.org/docs/|
+|Homepage:|https://httpd.apache.org/|
+|Changelog:|https://www.apache.org/dist/httpd/CHANGES_2.2|
+|Documentation:|https://httpd.apache.org/docs/|
 |Get version:|apachectl -v|
 |OMD default:|shared mode|
 |OMD connectivity:|Start at TCP:5000 (increasing with creating new sites)|

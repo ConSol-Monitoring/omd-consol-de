@@ -15,40 +15,40 @@ check_oracle_health is a plugin to check various parameters of an Oracle databas
 ### Command line parameters
 
 * --connect
-  The database name 
+  The database name
 * --user
-  The database user 
+  The database user
 * --password
-  Password of the database user. 
+  Password of the database user.
 * --connect
-  Alternativ to the parameters above. 
-* --connect=sysdba@ Login with / as sysdba (if the user that executes the plugin is privileged to do this) 
-* --connect=/@token Login with help of the Password Store (assumes --method=sqlplus) 
+  Alternativ to the parameters above.
+* --connect=sysdba@ Login with / as sysdba (if the user that executes the plugin is privileged to do this)
+* --connect=/@token Login with help of the Password Store (assumes --method=sqlplus)
 * --mode
-  With the mode-parameter you tell the plugin what it should do. See the list of possible values further down. 
+  With the mode-parameter you tell the plugin what it should do. See the list of possible values further down.
 * --tablespace
-  With this you can limit the check of a single tablespace. If this parameter is omitted all tablespaces are checked. 
+  With this you can limit the check of a single tablespace. If this parameter is omitted all tablespaces are checked.
 * --datafile
-  With this you can limit the check of a single datafile. If this parameter is omitted all datafiles are checked. 
+  With this you can limit the check of a single datafile. If this parameter is omitted all datafiles are checked.
 * --name
-  Here the check can be limited to a single object (Latch, Enqueue, Tablespace, Datafile). If this parameter is omitted all objects are checked. (Instead of --tablespace or --datafile this parameter can and should be used. It servers the purpose to standardize the CLI interface.) 
+  Here the check can be limited to a single object (Latch, Enqueue, Tablespace, Datafile). If this parameter is omitted all objects are checked. (Instead of --tablespace or --datafile this parameter can and should be used. It servers the purpose to standardize the CLI interface.)
 * --name2
-  If you use --mode=sql, then the SQL-Statement appears in the output and performance values. With the parameter name2 you're able to specify a custom string for this. 
-* --regexp Through this switch the value of the --name Parameters will be interpreted as regular expression. 
+  If you use --mode=sql, then the SQL-Statement appears in the output and performance values. With the parameter name2 you're able to specify a custom string for this.
+* --regexp Through this switch the value of the --name Parameters will be interpreted as regular expression.
 * --warning
-  Determined values outside of this range trigger a WARNING. 
+  Determined values outside of this range trigger a WARNING.
 * --critical
-  Determined values outside of this range trigger a CRITICAL. 
-* --absolute Without --absolute values that increase in the course of time will show the increase per second or with --absolute show the difference between the current and last run. 
+  Determined values outside of this range trigger a CRITICAL.
+* --absolute Without --absolute values that increase in the course of time will show the increase per second or with --absolute show the difference between the current and last run.
 * --runas
-  With this parameter it is possible to run the script under a different user. (Calls sudo internally: sudo -u . 
-* --environment 
-  With this you can pass environment variables to the script. For example: --environment ORACLE_HOME=/u01/oracle. Multiple declarations are possible. 
+  With this parameter it is possible to run the script under a different user. (Calls sudo internally: sudo -u .
+* --environment
+  With this you can pass environment variables to the script. For example: --environment ORACLE_HOME=/u01/oracle. Multiple declarations are possible.
 * --method
-  With this parameter you tell the plugin how it should connect to the database. (**dbi** for using DBD::Oracle (default), **sqlplus** for using the sqlplus-Tool). 
-* --units=\<%\|KB\|MB\|GB> The declaration from units servers the "beautification" of the output from mode=sql and simplification from threshold values when using mode=tablespace-free 
-* --dbthresholds With this parameter thresholds are read from the database table check_oracle_health_thresholds 
-* --statefilesdir This parameter tells the plugin not do use the default directory for temporary files, but a user-specified one. It can be important in a clustered environment with shared filesystems. 
+  With this parameter you tell the plugin how it should connect to the database. (**dbi** for using DBD::Oracle (default), **sqlplus** for using the sqlplus-Tool).
+* --units=\<%\|KB\|MB\|GB> The declaration from units servers the "beautification" of the output from mode=sql and simplification from threshold values when using mode=tablespace-free
+* --dbthresholds With this parameter thresholds are read from the database table check_oracle_health_thresholds
+* --statefilesdir This parameter tells the plugin not do use the default directory for temporary files, but a user-specified one. It can be important in a clustered environment with shared filesystems.
 * --morphmessage This parameter allows subsequently changing the plugin output.
 
 Use the option --mode with various keywords to tell the Plugin which values it should determine and check.
@@ -104,7 +104,7 @@ Use the option --mode with various keywords to tell the Plugin which values it s
 | sysstat | Changes/sec for any value from v$sysstat | n/sec (10,10)
 | sql | Result of any SQL-Statement that returns a number. The statement itself is passed over with the parameter --name. A Label for the performance data output can be passed over with the parameter --name2.  | n (1,5)
 | sql-runtime | The time an sql command needs to run | Seconds (1, 5)
-| list-tablespaces | Prints a list of tablespaces 
+| list-tablespaces | Prints a list of tablespaces
 | list-datafiles | Prints a list of datafiles
 | list-latches | Prints a list with latchnames and latchnumbers
 | list-enqueues | Prints a list with the Enqueue-Names
@@ -323,13 +323,13 @@ OK - output abc123 matches pattern \d
 ### Example with --runas and an "external user"
 There are to users in the database:
 
-*  OPS$DBNAGIO IDENTIFIED EXTERNALLY 
-*  NAGIOS IDENTIFIED BY 'DBMONI' 
+*  OPS$DBNAGIO IDENTIFIED EXTERNALLY
+*  NAGIOS IDENTIFIED BY 'DBMONI'
 
 There are two unix users:
 
-*  qqnagio with normal access. 
-*  dbnagio with /bin/false as login shell. 
+*  qqnagio with normal access.
+*  dbnagio with /bin/false as login shell.
 
 ``` bash
 qqnagio$ check_oracle_health --mode=connection-time
@@ -357,19 +357,19 @@ It is possible to omit --connect (and if not needed --user and --password) compl
 
 The environment variables are:
 
-*  NAGIOS__SERVICEORACLE_SID (_oracle_sid in the service definition) 
-*  NAGIOS__SERVICEORACLE_USER (_oracle_user in the service definition) 
-*  NAGIOS__SERVICEORACLE_PASS (_oracle_pass in the service definition) 
+*  NAGIOS__SERVICEORACLE_SID (_oracle_sid in the service definition)
+*  NAGIOS__SERVICEORACLE_USER (_oracle_user in the service definition)
+*  NAGIOS__SERVICEORACLE_PASS (_oracle_pass in the service definition)
 
 ## Installation
 The installation of the perl-modules DBI and DBD::Oracle is required.
 
 After unpacking the archive ./configure is called. With ./configure --help some options can be printed which show some default values for compiling the plugin.
 
-*  --prefix=BASEDIRECTORY Specify a directory in which check_oracle_health should be stored. (default: /usr/local/nagios) 
-*  --with-nagios-user=SOMEUSER This User will be the owner of the check_oracle_health file. (default: nagios) 
-*  --with-nagios-group=SOMEGROUP The group of the check_oracle_health plugin. (default: nagios) 
-*  --with-perl=PATHTOPERL Specify the path to the perl interpreter you wish to use. (default: perl in PATH) 
+*  --prefix=BASEDIRECTORY Specify a directory in which check_oracle_health should be stored. (default: /usr/local/nagios)
+*  --with-nagios-user=SOMEUSER This User will be the owner of the check_oracle_health file. (default: nagios)
+*  --with-nagios-group=SOMEGROUP The group of the check_oracle_health plugin. (default: nagios)
+*  --with-perl=PATHTOPERL Specify the path to the perl interpreter you wish to use. (default: perl in PATH)
 
 ## Download
 {% asset_download check_oracle_health-3.3.2.1.tar.gz category:nagios %}
@@ -379,10 +379,10 @@ After unpacking the archive ./configure is called. With ./configure --help some 
 
 ## Copyright
 2008-3000 Gerhard Laußer
-Check_oracle_health is published under the GNU General Public License. [GPL](http://www.gnu.de/documents/gpl.html)
+Check_oracle_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ## Author
 Gerhard Laußer (mailto:gerhard.lausser@consol.de) gladly answers questions to this plugin.
 
 ## Translation
-Thanks to [Christian Lauf](http://www.monitoring-portal.org/wbb/index.php?page=User&amp;userID=6045) there is finally an english translation of this page :-)
+Thanks to Christian Lauf there is finally an english translation of this page :-)

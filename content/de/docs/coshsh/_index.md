@@ -20,13 +20,13 @@ coshsh ist ein Framework, das bei der automatischen Erstellung von Konfiguration
 * coshsh kann sehr einfach erweitert werden. coshsh liest nur Hosts und Applikationen. Services kommen später dazu.
 
 ### Wer verwendet es?
-Die [Landeshauptstadt München][1], [Lidl, Kaufland][2], [Bühler][3] und einige mehr generieren ihre Monitoring-Konfigurationsdateien mit Coshsh. 
+Die [Landeshauptstadt München][1], [Lidl, Kaufland][2], [Bühler][3] und einige mehr generieren ihre Monitoring-Konfigurationsdateien mit Coshsh.
 
 ### Download
 {% asset_download coshsh-9.1.2.tar.gz category:nagios %}
 
 ### Support
-Support und Beratung ist erhältlich bei [ConSol](http:///www.consol.de/open-source-monitoring/support)
+Support und Beratung ist erhältlich bei [ConSol](https://www.consol.de/product-solutions/open-source-monitoring)
 
 ### Changelog
 Das Changelog findet man auf [github](https://github.com/lausser/coshsh/blob/master/Changelog)

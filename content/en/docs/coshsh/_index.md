@@ -20,19 +20,19 @@ Coshsh is a framework that assists in the automatic creation of configuration fi
 * Coshsh can be easily extended. Coshsh reads only hosts and applications. Creation of services is very flexible.
 
 ### Who uses it?
-[Lidl, Kaufland][2], [Bühler][3], [City of Munich][1] and several others generate their monitoring configuration files with Coshsh. Users usually have in common: 
-* they have a very big monitoring landscape. 
+[Lidl, Kaufland][2], [Bühler][3], [City of Munich][1] and several others generate their monitoring configuration files with Coshsh. Users usually have in common:
+* they have a very big monitoring landscape.
 * they want automation and no manual editing of configs.
 * they have a highly dynamic cmdb (hundreds of hosts added and deleted every day)
 * they want a small team.
 
 ### Download
-[github releases](https://github.com/lausser/coshsh/releases)  
-[Python Package Index](https://github.com/lausser/coshsh/releases)  
+[github releases](https://github.com/lausser/coshsh/releases)
+[Python Package Index](https://github.com/lausser/coshsh/releases)
 The suggested and supported (if i am having a good day) way to use Coshsh is installing [OMD](https://omd.consol.de/docs/omd/). With OMD, batteries and everything else you need to run Coshsh is included.
 
 ### Support
-Support and consulting are available from [ConSol](http:///www.consol.de/open-source-monitoring/support)
+Support and consulting are available from [ConSol](https:///www.consol.de/open-source-monitoring/support)
 
 ### Changelog
 The Changelog can be found on [github](https://github.com/lausser/coshsh/blob/master/Changelog)

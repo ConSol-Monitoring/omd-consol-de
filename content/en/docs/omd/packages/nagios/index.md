@@ -14,7 +14,7 @@ title: Nagios
 |---|---|
 |Homepage:|https://www.nagios.org/|
 |Changelog:|https://www.nagios.org/projects/nagioscore/history|
-|Documentation:|http://nagios.sourceforge.net/docs/nagioscore/3/en/toc.html|
+|Documentation:|https://nagios.sourceforge.net/docs/nagioscore/3/en/toc.html|
 |Get version:|nagios --version|
 |OMD default:|enabled|
 |OMD URL:|/&lt;site&gt;/nagios|

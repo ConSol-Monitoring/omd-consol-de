@@ -5,20 +5,20 @@ title: check_hpasm
 
 check_hpasm is a plugin for Nagios which checks the hardware health of Hewlett-Packard Proliant Servers. To accomplish this, you must have installed the hpasm package. The plugin checks the health of
 
-* Processors 
-* Power supplies 
-* Memory modules 
-* Fans 
-* CPU- and board-temperatures 
-* Raids (ide and sas only when using SNMP) 
+* Processors
+* Power supplies
+* Memory modules
+* Fans
+* CPU- and board-temperatures
+* Raids (ide and sas only when using SNMP)
 
 and alerts you if one of these components is faulty or operates outside its normal parameters.
 
 ## Documentation
 The plugin can operate in two modes:
 
-* Local. The plugin runs on the server which is to be checked. The command hpasmcli (from the hpasm.rpm package) must be installed. 
-* Remote. The plugin runs on the Nagios server. It finds out the status of the remote hardware by contacting remote server with SNMP. The hpasm package must be installed on the remote server. 
+* Local. The plugin runs on the server which is to be checked. The command hpasmcli (from the hpasm.rpm package) must be installed.
+* Remote. The plugin runs on the Nagios server. It finds out the status of the remote hardware by contacting remote server with SNMP. The hpasm package must be installed on the remote server.
 
 ``` bash
 nagios$ check_hpasm
@@ -265,10 +265,10 @@ Unfortunately it is not possible to show fan speed (or percent of max. speed) in
 
 ## Installation
 
-* After unpacking the Archive, call the ./configure command. Attention should be paid to the --with-noinst-level option which defines the exit code of the plugin if no hpasm rpm was installed. With the option --with-degrees you tell the plugin whether you want temperature values displayed in celsius or fahrenheit. With the option --enable-perfdata you tell check_hpasm to add performance data to it's output by default. If you don't want to see type, serial number and biosrelease in the output, you can switch this off by using --disable-hwinfo. With --enable-hpacucli you activate checking of raid controllers. 
-* Grab the hpasm package suitable for your Linux distribution and install it. See the list of links below where to find it. 
-* If you run check_hpasm (in local mode) as a non-root user you will need sudo-privileges which allow you to call /sbin/hpasmcli as root without providing a password. 
-* Note: if you want to run check_hpasm under Debian with SNMP v3, you must install some additional packages: aptitude install libtie-encryptedhash-perl libdigest-hmac-perl (Thanks Tony Wolf) 
+* After unpacking the Archive, call the ./configure command. Attention should be paid to the --with-noinst-level option which defines the exit code of the plugin if no hpasm rpm was installed. With the option --with-degrees you tell the plugin whether you want temperature values displayed in celsius or fahrenheit. With the option --enable-perfdata you tell check_hpasm to add performance data to it's output by default. If you don't want to see type, serial number and biosrelease in the output, you can switch this off by using --disable-hwinfo. With --enable-hpacucli you activate checking of raid controllers.
+* Grab the hpasm package suitable for your Linux distribution and install it. See the list of links below where to find it.
+* If you run check_hpasm (in local mode) as a non-root user you will need sudo-privileges which allow you to call /sbin/hpasmcli as root without providing a password.
+* Note: if you want to run check_hpasm under Debian with SNMP v3, you must install some additional packages: aptitude install libtie-encryptedhash-perl libdigest-hmac-perl (Thanks Tony Wolf)
 
 ## Examples
 More examples for different error conditions:
@@ -464,11 +464,11 @@ fi
 * [Win2003 Insight Management Agents](http://h20000.www2.hp.com/bizsupport/TechSupport/SoftwareDescription.jsp?lang=en&amp;cc=US&amp;swItem=MTX-ed4b332887f945a383fe2b06e7)
 * [Managing Proliant Servers with Linux](http://h20000.www2.hp.com/bc/docs/support/SupportManual/c00223285/c00223285.pdf)
 * [HPASM for Debian](http://gentoo-wiki.com/HOWTO_Use_Hpasm)
-* [Nagios Homepage](http://www.nagios.org/)
-* [Nagios Plugins Exchange](http://exchange.nagios.org/)
+* [Nagios Homepage](https://www.nagios.org/)
+* [Nagios Plugins Exchange](https://exchange.nagios.org/)
 * [German Nagios Portal](http://www.nagios-portal.de/)
 * [German Nagios Wiki](http://www.nagios-wiki.de/)
-* [EBuild for Gentoo](http://bugs.gentoo.org/show_bug.cgi?id=202867)
+* [EBuild for Gentoo](https://bugs.gentoo.org/show_bug.cgi?id=202867)
 
 ## Changelog
 {% embedurl url:https://raw.githubusercontent.com/lausser/check_hpasm/master/ChangeLog %}
@@ -476,7 +476,7 @@ fi
 ## Copyright
 Gerhard Lausser
 
-Check_hpasm is released under the [GNU General Public License](http://www.gnu.de/documents/gpl.de.html).
+Check_hpasm is released under the [GNU General Public License](https://www.gnu.org/licenses/licenses.html#GPL).
 
 ## Author
 Gerhard Lausser (gerhard.lausser@consol.de) will gladly answer your questions.

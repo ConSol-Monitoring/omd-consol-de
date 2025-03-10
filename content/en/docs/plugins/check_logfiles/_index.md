@@ -222,7 +222,7 @@ CRITICAL - (2 errors) - May  9 11:58:48 localhost sshd[29813] Failed password fo
 ```
 
 ### Scripts
-It is possible to execute external scripts out of check_logfiles. This can be at the startup phase ($prescript), before termination ($postscript) or every time a pattern matches a line. See example above. With the option "smartscript" output and exitcode of the script are treated like a match in the logfile and reflected in the overall result. The option "supersmartscript" makes output and exitcode of the script replace those of the triggering match. Pre- and Postscript declared as supersmart scripts directly influence the process of check_logfiles. The option "supersmartprescript" causes an immediate abort of check_logfiles if the prescript has a non-zero exit code. In this case output and exitcode of check_logfiles correspond to those of the prescript. 
+It is possible to execute external scripts out of check_logfiles. This can be at the startup phase ($prescript), before termination ($postscript) or every time a pattern matches a line. See example above. With the option "smartscript" output and exitcode of the script are treated like a match in the logfile and reflected in the overall result. The option "supersmartscript" makes output and exitcode of the script replace those of the triggering match. Pre- and Postscript declared as supersmart scripts directly influence the process of check_logfiles. The option "supersmartprescript" causes an immediate abort of check_logfiles if the prescript has a non-zero exit code. In this case output and exitcode of check_logfiles correspond to those of the prescript.
 
 With the option "supersmartpostscript" output and exitcode of check_logfiles can be determined by the postscript. Thus a more meaningful output is possible.
 
@@ -336,7 +336,7 @@ Mapping external files to database tables is possible since Version 9. Use this 
 {% asset_download create_alert_log_table.sql category:nagios %}
 
 ### Preparations on the part of the Nagios administrator
-Installation of the Perl-Modules DBI and DBD::Oracle (http://search.cpan.org/~pythian/DBD-Oracle-1.74/lib/DBD/Oracle.pm).
+Installation of the Perl-Modules DBI and DBD::Oracle (https://search.cpan.org/~pythian/DBD-Oracle-1.74/lib/DBD/Oracle.pm).
 
 ## Scanning the Windows EventLog with the operating mode "eventlog"
 The eventlog of Windows systems can be processed by check_logfiles like any other logfile. Each event is treated like a line. Also only those events get analyzed which appeared since the last run of check_logfiles.
@@ -457,13 +457,13 @@ With this eventlogformat the message text of the above event will be rewritten t
 The formatstring knows the following tokens:
 
 ``` text
-%t EventType 
-%i EventID 
-%s Source 
-%c Category 
-%w Timewritten 
-%g TimeGenerated 
-%m Message 
+%t EventType
+%i EventID
+%s Source
+%c Category
+%w Timewritten
+%g TimeGenerated
+%m Message
 ```
 
 With %&lt;number&gt;m you can shorten the message to _number_ characters.
@@ -496,7 +496,7 @@ Since version 3.7 check_logfiles can search these channels, too.
 {% embedurl url:https://raw.githubusercontent.com/lausser/check_logfiles/master/ChangeLog %}
 
 ## Gerhard Laußer
-Check_logfiles wird unter der [GNU General Public License](https://www.gnu.org/licenses/gpl-2.0.html) zur Verfügung gestellt.
+Check_logfiles wird unter der [GNU General Public License](https://www.gnu.org/licenses/licenses.html#GPL) zur Verfügung gestellt.
 
 ## Autor
 Gerhard Laußer (gerhard.lausser@consol.de) beantwortet gerne Fragen zu diesem Plugin.

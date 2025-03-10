@@ -238,20 +238,20 @@ You can omit the parameters --hostname, --port (or the alternative --server), --
 
 The environment variables are:
 
-* NAGIOS__SERVICEMSSQL_HOST (_mssql_host in the servicedefinition) 
-* NAGIOS__SERVICEMSSQL_USER (_mssql_user in the servicedefinition) 
-* NAGIOS__SERVICEMSSQL_PASS (_mssql_pass in the servicedefinition) 
-* NAGIOS__SERVICEMSSQL_PORT (_mssql_port in the servicedefinition) 
-* NAGIOS__SERVICEMSSQL_SERVER (_mssql_server in the servicedefinition) 
+* NAGIOS__SERVICEMSSQL_HOST (_mssql_host in the servicedefinition)
+* NAGIOS__SERVICEMSSQL_USER (_mssql_user in the servicedefinition)
+* NAGIOS__SERVICEMSSQL_PASS (_mssql_pass in the servicedefinition)
+* NAGIOS__SERVICEMSSQL_PORT (_mssql_port in the servicedefinition)
+* NAGIOS__SERVICEMSSQL_SERVER (_mssql_server in the servicedefinition)
 
 ## Installation ##
 This Plugin requires the installation of the **Perl-module DBD::Sybase**.
 After you unpacked the archive you have to execute ./configure aufgerufen. With ./configure --help you get a list of possible options.
 
-* --prefix=BASEDIRECTORY - The directory where check_mssql_health will be installed (default: /usr/local/nagios) 
-* --with-nagios-user=SOMEUSER - The user who owns check_mssql_health sein. (default: nagios) 
-* --with-nagios-group=SOMEGROUP - The group which owns check_mssql_health Binaries. (default: nagios) 
-* --with-perl=PATHTOPERL - The path to a perl interpreter if you want to use a non-standard one. (default: the perl found in $PATH) 
+* --prefix=BASEDIRECTORY - The directory where check_mssql_health will be installed (default: /usr/local/nagios)
+* --with-nagios-user=SOMEUSER - The user who owns check_mssql_health sein. (default: nagios)
+* --with-nagios-group=SOMEGROUP - The group which owns check_mssql_health Binaries. (default: nagios)
+* --with-perl=PATHTOPERL - The path to a perl interpreter if you want to use a non-standard one. (default: the perl found in $PATH)
 
 ## Security advice ##
 The Perl-module DBD::Sybase is based on an installation of FreeTDS auf. This package is responsible for the communication with the database server. The default settings use protocol version 4.x which results in cleartext passwords sent over the wire. Please do change the following parameter in the file /etc/freetds.conf.
@@ -288,7 +288,7 @@ With recent versions of fteetds it is no longer necessary to maintain a freetds.
 
 ## Copyright ##
 Gerhard Laußer
-Check_mssql_health is published under the GNU General Public License. [GPL](http://www.gnu.de/documents/gpl.html)
+Check_mssql_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ## Author
 Gerhard Laußer (mailto:gerhard.lausser@consol.de) will gladly sell you consulting for MS SQL monitoring.

@@ -12,7 +12,7 @@ title: coshsh
 
 |||
 |---|---|
-|Homepage:|http://labs.consol.de/nagios/coshsh|
+|Homepage:|https://labs.consol.de/nagios/coshsh|
 |Changelog:|https://github.com/lausser/coshsh/blob/master/Changelog|
 |OMD default:|enabled|
 

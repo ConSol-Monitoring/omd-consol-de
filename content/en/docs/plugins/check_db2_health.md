@@ -194,7 +194,7 @@ Go to [github](https://raw.githubusercontent.com/lausser/check_db2_health/master
 
 ### Copyright
 Gerhard Lausser
-Check_db2_health is released under the GNU General Public License. [GNU GPL](https://www.gnu.org/licenses/gpl.html)
+Check_db2_health is released under the GNU General Public License. [GNU GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ### Autor
 Gerhard Laußer (mailto:gerhard.lausser@consol.de[gerhard.lausser@consol.de])

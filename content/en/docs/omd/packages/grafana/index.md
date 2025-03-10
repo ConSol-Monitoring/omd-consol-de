@@ -12,9 +12,9 @@ title: Grafana
 
 |||
 |---|---|
-|Homepage:|http://grafana.org/|
+|Homepage:|https://grafana.org/|
 |Changelog:|https://github.com/grafana/grafana/blob/master/CHANGELOG.md|
-|Documentation:|http://docs.grafana.org/|
+|Documentation:|https://docs.grafana.org/|
 |OMD default:|disabled|
 
 Grafana is a leading open source application for visualizing large-scale measurement data.

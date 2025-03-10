@@ -12,8 +12,8 @@ title: PNP4Nagios
 
 |||
 |---|---|
-|Homepage:|http://docs.pnp4nagios.org|
-|Changelog:|http://docs.pnp4nagios.org/pnp-0.6/dwnld#changelog|
+|Homepage:|https://docs.pnp4nagios.org|
+|Changelog:|https://docs.pnp4nagios.org/pnp-0.6/dwnld#changelog|
 |Documentation:|https://docs.pnp4nagios.org/pnp-0.6/start|
 |Get version:|Is displayed at the footer of every WUI page|
 |OMD default:|enabled|
