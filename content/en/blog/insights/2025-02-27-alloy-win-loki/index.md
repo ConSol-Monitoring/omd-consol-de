@@ -19,7 +19,7 @@ On the client side, you will use the agent [SNClient+](/docs/snclient) with its 
 ![event forwarding](./snclient-alloy-omd-loki.drawio.png)
 
 ### Step one - Install OMD and open the Loki API.
-To keep things short, I assume that you already have OMD installed and have created a site. In this example, use the site name *demo*. (And the OMD server is called *omd-server*)  
+To keep things short, I assume that you already have OMD installed and have created a site. In this example, use the site name *demo*. (And the OMD server is called *omd-server*)
 
 Loki is not enabled by default, so you need to run the following commands:
 ```bash
@@ -70,7 +70,7 @@ Next, change the default password by creating a new file *C:\Program Files\sncli
 allowed hosts = 127.0.0.1, 10.0.1.2
 password = SHA256:9f86d081884...
 ```
-The password is stored as a hashed value. Refer to the [Security page](https://omd.consol.de/docs/snclient/security/) for instructions.  
+The password is stored as a hashed value. Refer to the [Security page](https://omd.consol.de/docs/snclient/security/) for instructions.
 (*allowed hosts* restricts access to the snclient agent, i suggest you edit the list so that it consists of 127.0.0.1 and yout omd-server's ip address)
 
 After saving the file, restart the service **snclient** using the service manager or by running
@@ -99,29 +99,29 @@ port = ${/settings/WEB/server/port}
 ```
 This config instructs snclient to start (and eventually restart) Grafana Alloy.
 
-Next, go to the [Grafana Alloy release page](https://github.com/grafana/alloy/releases), download *alloy-windows-amd64.exe.zip*, unpack it and move the extracted *alloy-windows-amd64.exe* to *C:\Program Files\snclient\exporter*.  
+Next, go to the [Grafana Alloy release page](https://github.com/grafana/alloy/releases), download *alloy-windows-amd64.exe.zip*, unpack it and move the extracted *alloy-windows-amd64.exe* to *C:\Program Files\snclient\exporter*.
 Then, create a folder *C:\Program Files\snclient\alloy* and add the file *windows_event.alloy* with the following content:
-```
+```alloy
 loki.source.windowsevent "application"  {
     eventlog_name = "Application"
     use_incoming_timestamp = true
-    exclude_event_data = true 
+    exclude_event_data = true
     forward_to = [loki.process.windows_eventlog.receiver]
-    labels = {    
-       job = "windows_eventlog", 
+    labels = {
+       job = "windows_eventlog",
        instance = constants.hostname,
-    }             
-}                 
+    }
+}
 
 loki.source.windowsevent "security"  {
     eventlog_name = "Security"
     use_incoming_timestamp = true
     forward_to = [loki.process.windows_eventlog.receiver]
-    labels = { 
+    labels = {
        job = "windows_eventlog",
        instance = constants.hostname,
-    }             
-}                 
+    }
+}
 
 loki.source.windowsevent "system"  {
     eventlog_name = "System"
@@ -130,8 +130,8 @@ loki.source.windowsevent "system"  {
     labels = {
        job = "windows_eventlog",
        instance = constants.hostname,
-    } 
-}     
+    }
+}
 
 loki.source.windowsevent "setup"  {
     eventlog_name = "Setup"
@@ -141,7 +141,7 @@ loki.source.windowsevent "setup"  {
        job = "windows_eventlog",
        instance = constants.hostname,
     }
-} 
+}
 
 loki.process "windows_eventlog" {
 
@@ -158,10 +158,10 @@ loki.process "windows_eventlog" {
   // Loki has a builtin parser for windows messages. If it finds a field
   // in the message which already existed, then it will overwrite its value
   // instead of creating a new label.
-  stage.eventlogmessage { 
-      source = "message"  
+  stage.eventlogmessage {
+      source = "message"
       overwrite_existing = true
-  }    
+  }
   // at this moment stage.windowsevent is experimental, but soon it will
   // replace the deprecated stage.eventlogmessage
   //stage.windowsevent {
@@ -171,7 +171,7 @@ loki.process "windows_eventlog" {
 
   // Select (as few as possible) fields in an event which should be used
   // as labels for Loki.
-  // Syntax is: 
+  // Syntax is:
   // The symbol on the left side will be a key name in the json.
   // The symbol on the right side is the name of an existing event field.
   // "" means, that you expect a field with the same name as the left side
@@ -208,7 +208,7 @@ loki.process "windows_eventlog" {
   }
 
   forward_to = [loki.write.endpoint.receiver]
-} 
+}
 
 
 loki.write "endpoint" {
@@ -226,12 +226,12 @@ loki.write "endpoint" {
             // CHANGE THEM! RUN htpasswd AGAIN!
             username = "loki"
             password = "L0ki"
-        } 
+        }
     }
 }
 ```
 
-When you have saved the file, you have to restart snclient again with **net stop snclient** and **net start snclient**.  
+When you have saved the file, you have to restart snclient again with **net stop snclient** and **net start snclient**.
 Now, your Windows event logs are forwarded to Loki via Grafana Alloy.
 
 ### Step four - Testing and Searching
@@ -246,7 +246,7 @@ The url is *https://YOUR-OMD-SERVER/YOUR-SITE/grafana*. And here is your event!
 ![loki view](./snclient-alloy-omd-loki-grafana.png)
 
 #### Troubleshooting
-Logs not appearing in Grafana? Check the *C:\Program Files\snclient\snclient.log*, verify the Loki URL, and ensure the SNClient+ service is running.  
+Logs not appearing in Grafana? Check the *C:\Program Files\snclient\snclient.log*, verify the Loki URL, and ensure the SNClient+ service is running.
 Make sure there is no firewall blocking the traffic between Windows and OMD.
 
 ### Conclusion
