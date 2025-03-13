@@ -67,10 +67,10 @@ Naemon Config
 
 ## Check Specific Arguments
 
-| Argument | Description                                                                        |
-| -------- | ---------------------------------------------------------------------------------- |
-| exclude  | List of services to exclude from the check (mainly used when service is set to \*) |
-| service  | Name of the service to check (set to \* to check all services). Default: \*        |
+| Argument | Description                                                                                           |
+| -------- | ----------------------------------------------------------------------------------------------------- |
+| exclude  | List of services to exclude from the check (mainly used when service is set to \*) (case insensitive) |
+| service  | Name of the service to check (set to \* to check all services). (case insensitive) Default: \*        |
 
 ## Attributes
 
@@ -86,7 +86,7 @@ these can be used in filters and thresholds (along with the default attributes):
 | active    | The active attribute of a service, one of: active, inactive or failed                    |
 | state     | The state of the service, one of: stopped, starting, oneshot, running, static or unknown |
 | pid       | The pid of the service                                                                   |
-| created   | Date when service was started (unix timestamp)                                           |
+| created   | Date when service was started                                                            |
 | age       | Seconds since service was started                                                        |
 | rss       | Memory rss in bytes (main process)                                                       |
 | vms       | Memory vms in bytes (main process)                                                       |
