@@ -12,7 +12,9 @@ tags:
   - osx
 ---
 
-<img class="pb-4" src="logo/snclient.png" alt="SNClient" width="200px"/>
+<div class="pb-4">
+  <img src="logo/snclient.svg" alt="SNClient" width="200px" style="background-color: white"/>
+</div>
 
 **SNClient+** is an open-source (drop-in for most use cases) general purpose monitoring agent as replacement for the well-known NSClient++.
 
