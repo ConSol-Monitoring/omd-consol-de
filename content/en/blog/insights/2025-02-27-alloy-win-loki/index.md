@@ -14,7 +14,7 @@ tags:
 ### Forwarding Windows Eventlogs to a central log console
 In system monitoring, logs are a valuable source for detecting upcoming or existing issues. Especially for Windows, collecting all logs in one place has not been easy. Forwarding Windows event logs to a syslog server, which then writes the logs to files, was one approach—but this is quite outdated. Here, you will set up a modern solution based on state-of-the-art observability tools.
 
-On the client side, you will use the agent [SNClient+](/docs/snclient) with its helper, [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/). On the monitoring side, you will use the [Open Monitoring Distribution](/docs/omd) with [Loki](https://grafana.com/oss/loki/).
+On the client side, you will use the agent [SNClient](/docs/snclient) with its helper, [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/). On the monitoring side, you will use the [Open Monitoring Distribution](/docs/omd) with [Loki](https://grafana.com/oss/loki/).
 
 ![event forwarding](./snclient-alloy-omd-loki.drawio.png)
 
@@ -60,7 +60,7 @@ omd start
 Loki is now ready to receive Windows events. (Or any other data sent by Alloy/journald, Open Telemetry Logs, Fluent Bit, Docker, Promtail,...)
 
 
-### Step two - Install the SNClient+ on the Windows server
+### Step two - Install the SNClient on the Windows server
 For the base installation, follow the instructions [here](/docs/snclient/install/windows/).
 
 Next, change the default password by creating a new file *C:\Program Files\snclient\snclient_local_auth.ini* with the following content:
@@ -81,7 +81,7 @@ net start snclient
 
 At this point, you can monitor the Windows host with *Naemon* and the *check_nsc_web* plugin, but this article focuses on log forwarding.
 
-### Step three - Add Alloy to SNClient+'s exporters
+### Step three - Add Alloy to SNClients exporters
 Create a file *C:\Program Files\snclient\snclient_local_alloy.ini* with the following contents:
 ```ini
 [/modules]
@@ -246,9 +246,8 @@ The url is *https://YOUR-OMD-SERVER/YOUR-SITE/grafana*. And here is your event!
 ![loki view](./snclient-alloy-omd-loki-grafana.png)
 
 #### Troubleshooting
-Logs not appearing in Grafana? Check the *C:\Program Files\snclient\snclient.log*, verify the Loki URL, and ensure the SNClient+ service is running.
+Logs not appearing in Grafana? Check the *C:\Program Files\snclient\snclient.log*, verify the Loki URL, and ensure the SNClient service is running.
 Make sure there is no firewall blocking the traffic between Windows and OMD.
 
 ### Conclusion
-This setup provides a modern and efficient solution for centralizing Windows Event Logs using state-of-the-art observability tools. By integrating SNClient+, Grafana Alloy, and Loki within an OMD environment, logs can be seamlessly collected, processed, and analyzed in a scalable and structured way. This approach eliminates outdated methods such as simple syslog forwarding, offering a robust and future-proof logging pipeline for Windows environments.
-
+This setup provides a modern and efficient solution for centralizing Windows Event Logs using state-of-the-art observability tools. By integrating SNClient, Grafana Alloy, and Loki within an OMD environment, logs can be seamlessly collected, processed, and analyzed in a scalable and structured way. This approach eliminates outdated methods such as simple syslog forwarding, offering a robust and future-proof logging pipeline for Windows environments.

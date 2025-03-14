@@ -64,7 +64,7 @@ The string you assign to *event.summary* is used for logging. If you want to abo
 
 ### Runner
 The Runner component executes the appropriate script when an event meets the defined conditions, using the parameters the Decider puts into the dict *event.payload*. Either the runner executes python code in order to fix the problem or it creates a command line which will be executed by the framework in a subprocess.
-Here is an example for a runner. 
+Here is an example for a runner.
 ```python
 from eventhandler.baseclass import EventhandlerRunner
 
@@ -91,24 +91,24 @@ class SshRunner(EventhandlerRunner):
 
 ```
 
-The previous example with runner *ssh* and decider *omd_site_self_heal* can be used out of the box in an OMD environment. (There are *~/lib/python/eventhandler/ssh/runner.py* and *~/lib/python/eventhandler/omd_site_self_heal/decider.py*)  
+The previous example with runner *ssh* and decider *omd_site_self_heal* can be used out of the box in an OMD environment. (There are *~/lib/python/eventhandler/ssh/runner.py* and *~/lib/python/eventhandler/omd_site_self_heal/decider.py*)
 For your own deciders and runners, create a folder in *~/local/lib/python/eventhandler* and put a decider.py or runner.py in it.
 
 
 Builtin runners you can just use without writing code yourself are:
-* ssh  
-  The ssh runner takes these parameters (either through *--runneropt* or *event.payload*)  
-  hostname - mandatory, the name of the ssh server.  
-  username - the username on the ssh server side. (default: the client username)  
-  port - the port where sshd is listening. (default: 22)  
-  identity_file - the private ke file.  
+* ssh
+  The ssh runner takes these parameters (either through *--runneropt* or *event.payload*)
+  hostname - mandatory, the name of the ssh server.
+  username - the username on the ssh server side. (default: the client username)
+  port - the port where sshd is listening. (default: 22)
+  identity_file - the private ke file.
   command - the command with arguments which will be executed on the ssh server side.
-  
+
 * nsc_web
-  hostname - mandatory, the host where NSClient++/SNClient+ is running.  
-  port - the port, where SNClient+ is listening.  
-  password - the SCNlient+ password.  
-  command - the command to call on the SNClient+.  
+  hostname - mandatory, the host where NSClient++/SNClient is running.
+  port - the port, where SNClient is listening.
+  password - the SCNlient+ password.
+  command - the command to call on the SNClient.
   arguments - the arguments for the command.
 
 * bash
@@ -117,6 +117,3 @@ Builtin runners you can just use without writing code yourself are:
 All the attributs you initialize in the *\_\_init__* method will be overwritten if they exist in the *event.payload* created by the decider. (Precedence: default set by *\_\_init__*, argument from *runneropt*, key/value from *event.payload*)
 
 There is a decider *default*, which triggers the runner on SOFT;1. This and the runner *nsc_web* or *ssh* can be used without any need to write you own code if you call **eventhandler** with a suitable list or *\-\-runneropt* parameters..
-
-
-
