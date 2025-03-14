@@ -1,8 +1,11 @@
 ---
 title: Configuration
 weight: 200
+no_list: true
 ---
 
+## [NEB Module/ Server Options](module/_index.md)
+## [Worker Options](worker/_index.md)
 ## Common Options
 
 ### Shared options for the NEB module and the worker

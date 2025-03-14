@@ -1,5 +1,6 @@
 ---
 title: Howtos
+no_list: true
 ---
 
 There are a lot of useful workflows with `OMD Labs-Edition`:
