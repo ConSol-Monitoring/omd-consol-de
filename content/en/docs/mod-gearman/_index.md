@@ -8,7 +8,7 @@ tags:
 weight: 600
 ---
 
-[Mod_Gearman](https://mod-gearman.org/) is an easy way of distributing active Naemon checks across your network and increasing Naemon scalability.
+**[Mod_Gearman](https://mod-gearman.org/)** is an easy way of distributing active Naemon checks across your network and increasing Naemon scalability.
 
 It can even help to reduce the load on a single Naemon host, because its much smaller and more efficient in executing checks.
 
