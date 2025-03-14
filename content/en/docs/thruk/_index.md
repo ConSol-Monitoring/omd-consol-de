@@ -39,6 +39,7 @@ You can find more details [here](https://www.thruk.org/documentation/introductio
 A full knowledgebase for users and developers can be found [here](https://www.thruk.org/documentation/).
 
 ## Download
+
 Thruk is included in [OMD](docs/omd/) but you can find all packages [here](https://www.thruk.org/download.html).
 
 ## Changelog
