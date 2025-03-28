@@ -1,6 +1,8 @@
 ---
 title: check_mysql_health
 tags:
+  - plugins
+  - check_mysql_health
   - mysql
   - database
 ---
@@ -11,27 +13,27 @@ check_mysql_health is a plugin to check various parameters of a MySQL database.
 
 ### Command line parameters
 
-* \--hostname 
+* \--hostname
 The database server which should be monitored. In case of "localhost" this parameter can be omitted.
-* \--username 
+* \--username
 The database user.
-* \--password 
+* \--password
 Password of the database user.
-* \--database 
+* \--database
 The database the plugin will connect to. Default: information_schema.
-* \--mode 
+* \--mode
 With the mode-parameter you tell the plugin what it should do. See the list of possible values further down.
-* \--name 
+* \--name
 Here the check can be limited to a single object. (Momentarily this parameter is only used for mode=sql)
-* \--name2 
+* \--name2
 If you use \--mode=sql, then the SQL-Statement appears in the output and performance values. With the parameter name2 you're able to specify a string for this..
-* \--warning 
+* \--warning
 Determined values outside of this range trigger a WARNING.
-* \--critical 
+* \--critical
 Determined values outside of this range trigger a CRITICAL.
 * \--environment =
 With this you can pass environment variables to the script. Multiple declarations are possible.
-* \--method 
+* \--method
 With this parameter you tell the plugin how it should connect to the database. (dbi for using DBD::mysql (default), mysql for mysql-Tool).
 * \--units <%|KB|MB|GB>
 The declaration from units serves the "beautification" of the output from mode=sql
@@ -65,7 +67,7 @@ Use the option \--mode with various keywords to tell the Plugin which values it 
 | cluster-ndb-running |  Checks if all cluster nodes are running. |    |
 
 
-The Hitrate of the Query-Cache is calculated from Qcache_hits / ( Qcache_hits + Com_select ). This values are continuously increased. 
+The Hitrate of the Query-Cache is calculated from Qcache_hits / ( Qcache_hits + Com_select ). This values are continuously increased.
 This value is calculated through the difference (delta) between Qcache_hits and Com_select (actual value of the variables minus the value since the last run from check_mysql_health).
 Several other metrics are also calculated based on the delta of their underlieing counters. By default it's the delta between the value at current timestamp and the counter value when the plugin was last run.
 Here the command line parameterlookback can be used. It takes seconds as an argument. The calculation then uses the delta between now and the counter value at this specific amount of seconds in the past.
@@ -155,21 +157,15 @@ The group of the check_mysql_health plugin. (default: nagios)
 Specify the path to the perl interpreter you wish to use. (default: perl in PATH)
 
 ## Download
-
-{% asset_download check_mysql_health-2.2.2.tar.gz category:nagios %}
+[Github](https://github.com/lausser/check_mysql_health/tags)
 
 ## Changelog
-
-{% embedurl url:https://raw.githubusercontent.com/lausser/check_mysql_health/master/ChangeLog %}
+You can find the changelog [here](https://github.com/lausser/check_mysql_health/blob/master/ChangeLog).
 
 ## Copyright
-
 Gerhard Laußer
 
-Check_mysql_health is published under the GNU General Public License. GPL</p>
+Check_mysql_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
-## Autor
-
-Gerhard Laußer (gerhard.lausser@consol.de) gladly answers questions to this plugin. You got two minutes for free. If the answer takes longer than that you need a support contract.
-
-
+## Author
+Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) gladly answers questions to this plugin. You got two minutes for free. If the answer takes longer than that you need a support contract.

@@ -1,6 +1,8 @@
 ---
 title: check_oracle_health
 tags:
+  - plugins
+  - check_oracle_health
   - oracle
   - database
 ---
@@ -372,17 +374,18 @@ After unpacking the archive ./configure is called. With ./configure --help some 
 *  --with-perl=PATHTOPERL Specify the path to the perl interpreter you wish to use. (default: perl in PATH)
 
 ## Download
-{% asset_download check_oracle_health-3.3.2.1.tar.gz category:nagios %}
+[Github](https://github.com/lausser/Check_oracle_health/tags)
 
 ## Changelog
-{% embedurl url:https://raw.githubusercontent.com/lausser/check_oracle_health/master/ChangeLog %}
+You can find the changelog [here](https://github.com/lausser/Check_oracle_health/blob/master/ChangeLog).
 
 ## Copyright
 2008-3000 Gerhard Laußer
+
 Check_oracle_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ## Author
-Gerhard Laußer (mailto:gerhard.lausser@consol.de) gladly answers questions to this plugin.
+Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) gladly answers questions to this plugin.
 
 ## Translation
 Thanks to Christian Lauf there is finally an english translation of this page :-)

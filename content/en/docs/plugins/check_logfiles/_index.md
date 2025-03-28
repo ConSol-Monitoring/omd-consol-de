@@ -1,5 +1,8 @@
 ---
 title: check_logfiles
+tags:
+  - plugins
+  - check_logfiles
 ---
 ## Description
 check_logfiles is a Plugin for Nagios which scans log files for specific patterns.
@@ -485,19 +488,14 @@ Since version 3.7 check_logfiles can search these channels, too.
 });
 ```
 
-## Examples
-
-[Here]({{<ref "./examples/" >}}) you can find example configurations for several scenarios.
-
 ## Download
-{% asset_download check_logfiles-4.1.1.tar.gz category:nagios %}
+[Github](https://github.com/lausser/check_logfiles/tags)
 
 ## Changelog
-{% embedurl url:https://raw.githubusercontent.com/lausser/check_logfiles/master/ChangeLog %}
+You can find the changelog [here](https://github.com/lausser/check_logfiles/blob/master/ChangeLog).
 
 ## Gerhard Laußer
-Check_logfiles wird unter der [GNU General Public License](https://www.gnu.org/licenses/licenses.html#GPL) zur Verfügung gestellt.
+Check_logfiles is released under the GNU General Public License. [GNU GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
-## Autor
-Gerhard Laußer (gerhard.lausser@consol.de) beantwortet gerne Fragen zu diesem Plugin.
-
+## Author
+Gerhard Lausser ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) will gladly answer your questions.

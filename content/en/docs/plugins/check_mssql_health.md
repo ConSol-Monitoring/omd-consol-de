@@ -1,7 +1,9 @@
 ---
 title: check_mssql_health
 tags:
-  - "sql server"
+  - plugins
+  - check_mssql_health
+  - sql server
   - mssql
   - database
 ---
@@ -280,16 +282,17 @@ Now you can address the instances e.g. with **\--server dbsrv1instance02** . By 
 
 With recent versions of fteetds it is no longer necessary to maintain a freetds.conf. With **\--server \<FQDN>\\\<Instanz>** it should be possible to establish a connection. This requires a running Service Browser on the database server.
 
-## Download ##
-{% asset_download check_mssql_health-2.7.4.tar.gz category:nagios %}
+## Download
+[Github](https://github.com/lausser/check_mssql_health/tags)
 
 ## Changelog
-{% embedurl url:https://raw.githubusercontent.com/lausser/check_mssql_health/master/ChangeLog %}
+You can find the changelog [here](https://github.com/lausser/check_mssql_health/blob/master/ChangeLog).
 
 ## Copyright ##
 Gerhard Laußer
+
 Check_mssql_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ## Author
-Gerhard Laußer (mailto:gerhard.lausser@consol.de) will gladly sell you consulting for MS SQL monitoring.
+Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) will gladly sell you consulting for MS SQL monitoring.
 

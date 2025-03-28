@@ -1,8 +1,10 @@
 ---
 title: check_db2_health
 tags:
+  - plugins
   - db2
   - database
+  - check_db2_health
 ---
 ## Description
 check_db2_health is a plugin, which is used to monitor various parameters of a DB2 database.
@@ -27,7 +29,7 @@ check_db2_health is a plugin, which is used to monitor various parameters of a D
 
 Using the \-\-mode parameter with the following arguments tells the plugin what it should monitor.
 
-### Modi
+### Modes
 
 | Keyword| Meaning| Thresholds|
 |-------------|---------|------------|
@@ -187,15 +189,14 @@ After unpacking the tar archive you have to run ./configure. With ./configure \-
 * \-\-with-perl=PATHTOPERL A non-standard perl interpreter. (default: perl found in PATH)
 
 ## Download
-Go to [github](https://github.com/lausser/check_db2_health), clone and build.
+Go to [Github](https://github.com/lausser/check_db2_health), clone and build.
 
 ## Changelog
-Go to [github](https://raw.githubusercontent.com/lausser/check_db2_health/master/ChangeLog) and have a look.
+You can find the changelog [here](https://github.com/lausser/check_db2_health/blob/master/ChangeLog).
 
 ### Copyright
 Gerhard Lausser
 Check_db2_health is released under the GNU General Public License. [GNU GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
-### Autor
-Gerhard Laußer (mailto:gerhard.lausser@consol.de[gerhard.lausser@consol.de])
-
+### Author
+Gerhard Laußer [gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)

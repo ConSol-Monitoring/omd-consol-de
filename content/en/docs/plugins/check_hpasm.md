@@ -456,7 +456,7 @@ fi
 ```
 
 ## Download
-{% asset_download check_hpasm-4.8.0.2.tar.gz category:nagios %}
+[Github](https://github.com/lausser/check_hpasm/tags)
 
 ## Externe Links
 
@@ -471,7 +471,7 @@ fi
 * [EBuild for Gentoo](https://bugs.gentoo.org/show_bug.cgi?id=202867)
 
 ## Changelog
-{% embedurl url:https://raw.githubusercontent.com/lausser/check_hpasm/master/ChangeLog %}
+Go to [Github](https://github.com/lausser/check_hpasm/blob/master/ChangeLog) and have a look.
 
 ## Copyright
 Gerhard Lausser
@@ -479,5 +479,4 @@ Gerhard Lausser
 Check_hpasm is released under the [GNU General Public License](https://www.gnu.org/licenses/licenses.html#GPL).
 
 ## Author
-Gerhard Lausser (gerhard.lausser@consol.de) will gladly answer your questions.
-
+Gerhard Lausser ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) will gladly answer your questions.

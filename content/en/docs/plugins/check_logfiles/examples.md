@@ -1,8 +1,8 @@
 ---
 linkTitle: Examples
-toc_hide: true
 tags:
   - plugins
+  - check_logfiles
 ---
 
 ### Example 1: Error messages from FCAL-Devices
@@ -705,7 +705,7 @@ The Perl module on which check_logfiles relies on under Windows unfortunately ca
     warningpatterns => [
       '.*'
   ],
-}); 
+});
 
 $options = 'report=long';
 
@@ -713,10 +713,10 @@ __END__
 
 Eventlognamen ermitteln
 eventlog = In der Computerverwaltung auf das Eventlog gehen und unter Eigenschaften den "Vollstaendigen Namen" ermitteln
-    
+
 Beispiele fuer die Filterung/Herabstufung von Events:
 id:0003 so:Microsoft-Windows-Kernel-EventTracing.* ca:Microsoft-Windows-Kernel-EventTracing/Admin msg:Die Sitzung "ReadyBoot" .*
 id:0002 so:Microsoft-Windows-Kernel-EventTracing'_Guid='{B675EC37....   # Hier beachten \ vor ' sonst gibt es einen Syntax Fehler
-    
+
 ```
 
