@@ -27,7 +27,7 @@ check_oracle_health is a plugin to check various parameters of an Oracle databas
 * --connect=sysdba@ Login with / as sysdba (if the user that executes the plugin is privileged to do this)
 * --connect=/@token Login with help of the Password Store (assumes --method=sqlplus)
 * --mode
-  With the mode-parameter you tell the plugin what it should do. See the list of possible values further down.
+  With the mode-parameter you tell the plugin what it should do. See list below for possible values.
 * --tablespace
   With this you can limit the check of a single tablespace. If this parameter is omitted all tablespaces are checked.
 * --datafile
@@ -53,7 +53,7 @@ check_oracle_health is a plugin to check various parameters of an Oracle databas
 * --statefilesdir This parameter tells the plugin not do use the default directory for temporary files, but a user-specified one. It can be important in a clustered environment with shared filesystems.
 * --morphmessage This parameter allows subsequently changing the plugin output.
 
-Use the option --mode with various keywords to tell the Plugin which values it should determine and check.
+### Modes ###
 
 | Keyword | Description | Range
 |---------|-------------|--------------|

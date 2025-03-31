@@ -22,7 +22,7 @@ Password of the database user.
 * \--database
 The database the plugin will connect to. Default: information_schema.
 * \--mode
-With the mode-parameter you tell the plugin what it should do. See the list of possible values further down.
+With the mode-parameter you tell the plugin what it should do. See list below for possible values.
 * \--name
 Here the check can be limited to a single object. (Momentarily this parameter is only used for mode=sql)
 * \--name2
@@ -38,7 +38,7 @@ With this parameter you tell the plugin how it should connect to the database. (
 * \--units <%|KB|MB|GB>
 The declaration from units serves the "beautification" of the output from mode=sql
 
-Use the option \--mode with various keywords to tell the Plugin which values it should determine and check.
+### Modes ###
 
 | Keyword |  Description |  Range |
 |---------|-------------|--------------|

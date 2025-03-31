@@ -42,7 +42,7 @@ check_mssql_health is a plugin, which is used to monitor different parameters of
 * --dbthresholds
   With this parameter thresholds are read from the database table check_mssql_health_thresholds
 
-### Modi ###
+### Modes ###
 
 | Keyword | Meaning | Threshold range
 |---------|---------|----------------|
