@@ -1,6 +1,6 @@
 ---
 title: "Repository"
-linkTitle: "Repo"
+linkTitle: "Repository"
 menu:
   main:
     weight: 40
@@ -17,27 +17,46 @@ menu:
   <p>
     There are detailed instructions available after choosing the repository of choice.
   </p>
-  <p>
-    Choose from:
-  </p>
+  <h2 class="mt-5">Choose from:</h2>
 
-  <div style="display: flex; justify-content: center;">
-    <div style="text-align:left;">
-      <div class="mb-3">
-        <a class="btn btn-lg btn-primary mr-2" style="color:black; width: 250px;" href="https://labs.consol.de/repo/stable/">Stable Releases</a>
-        - stable releases.
-      </div>
-      <div class="mb-3">
-        <a class="btn btn-lg btn-primary mr-2" style="color:black; width: 250px;" href="https://labs.consol.de/repo/stream/">Stream Releases</a>
-        - intermediate releases.
-      </div>
-      <div class="mb-3">
-        <a class="btn btn-lg btn-primary mr-2" style="color:black; width: 250px;" href="https://labs.consol.de/repo/testing/">Testing Builds</a>
-        - daily updated development snapshots.
+  <div class="container my-4">
+    <div class="row">
+        <div class="col-md-4 d-flex mb-4">
+            <div class="card flex-fill">
+                <div class="card-body d-flex flex-column">
+                  <h4 class="card-title">Stable Releases</h4>
+                  <h6 class="card-title">usually every 6 months</h6>
+                  <a class="btn btn-lg btn-primary m-1" href="https://labs.consol.de/repo/stable/">
+                    Download <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+                  </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex mb-4">
+            <div class="card flex-fill">
+                <div class="card-body d-flex flex-column">
+                  <h4 class="card-title">Stream Releases</h4>
+                  <h6 class="card-title">intermediate releases</h6>
+                  <a class="btn btn-lg btn-primary m-1" href="https://labs.consol.de/repo/stream/">
+                    Download <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+                  </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex mb-4">
+            <div class="card flex-fill">
+                <div class="card-body d-flex flex-column">
+                  <h4 class="card-title">Testing Builds</h4>
+                  <h6 class="card-title">daily updated development snapshots</h6>
+                  <a class="btn btn-lg btn-primary m-1" href="https://labs.consol.de/repo/testing/">
+                    Download <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+                  </a>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
 
 {{< /blocks/lead >}}
