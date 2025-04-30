@@ -12,6 +12,16 @@ A few omd commands work without context and can be run by any user:
 | omd versions              | %> omd versions       | List all available versions on this host. |
 | omd sites                 | %> omd sites          | Show list of sites. |
 
+{{% alert title="Note" color="info" %}}
+All commands have a "\-\-help" flag, which lists all possible options. For example:
+
+    $ omd update --help
+    Usage: omd update [SITE] [options...]
+    Description: Update site to other version of OMD
+    Options for the 'update' command:
+    --conflict                 ARG  non-interactive conflict resolution. ARG is install, keepold, abort or ask
+    -n,--dry-run                    do not update, but list upcoming changes and potential conflicts.
+{{% /alert %}}
 
 ## Root user commands
 
