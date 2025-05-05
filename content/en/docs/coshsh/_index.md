@@ -32,7 +32,7 @@ The suggested and supported (if I am having a good day) way to use Coshsh is by 
 
 [Github releases](https://github.com/lausser/coshsh/releases)
 ### Support
-Support and consulting are available from [ConSol](https:///www.consol.de/open-source-monitoring/support)
+Support and consulting are available from [ConSol](https:///www.consol.com/monitoring)
 
 ### Changelog
 The Changelog can be found on [Github](https://github.com/lausser/coshsh/blob/master/Changelog)

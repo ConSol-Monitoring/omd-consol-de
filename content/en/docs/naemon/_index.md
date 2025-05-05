@@ -44,4 +44,4 @@ The changelog is available on [Github](https://github.com/naemon/naemon-core/blo
 
 ## Support
 
-Professional support and consulting is available from [ConSol](https://www.consol.de/product-solutions/open-source-monitoring).
+Professional support and consulting is available from [ConSol](https://www.consol.com/monitoring).

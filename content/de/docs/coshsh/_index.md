@@ -26,10 +26,10 @@ Die [Landeshauptstadt München][1], [Lidl, Kaufland][2], [Bühler][3] und einige
 {% asset_download coshsh-9.1.2.tar.gz category:nagios %}
 
 ### Support
-Support und Beratung ist erhältlich bei [ConSol](https://www.consol.de/product-solutions/open-source-monitoring)
+Support und Beratung ist erhältlich bei [ConSol](https://www.consol.de/monitoring)
 
 ### Changelog
-Das Changelog findet man auf [github](https://github.com/lausser/coshsh/blob/master/Changelog)
+Das Changelog findet man auf [Github](https://github.com/lausser/coshsh/blob/master/Changelog)
 
 ### Wie funktioniert's?
 Coshsh liest mit Hilfe von Adaptern beliebige Datenquellen, in denen Informationen über Hosts und die auf ihnen installierten Applikationen stehen. Die Host- und Servicedefinitionen werden erzeugt, indem Platzhalter in Template-Dateien ausgefüllt werden. Ebenso lassen sich aber auch Scrape-Definitions erzeugen.
