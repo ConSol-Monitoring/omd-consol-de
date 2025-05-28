@@ -4,7 +4,7 @@ title: pdh
 
 ## check_pdh
 
-Checks pdh paths and handles wildcard expansion. Also available with the alias CheckCounter
+Checks pdh paths and handles wildcard expansion.
 
 - [Examples](#examples)
 - [Attributes](#attributes)
@@ -41,15 +41,15 @@ Naemon Config
 
 ## Check Specific Arguments
 
-| Argument     | Description                                                                                            |
-| ------------ | ------------------------------------------------------------------------------------------------------ |
-| Counter      | The fully qualified Counter Name                                                                       |
-| counter      | The fully qualified Counter Name                                                                       |
-| english      | Using English Names Regardless of system Language requires Windows Vista or higher                     |
-| expand-index | Should Indices be translated?                                                                          |
-| host         | The Name Of the Host Mashine in Network where the Counter should be searched, defults to local mashine |
-| instances    | Expand WildCards And Fethch all instances                                                              |
-| type         | this can be large or float depending what you expect, default is large                                 |
+| Argument     | Description                                                                                        |
+| ------------ | -------------------------------------------------------------------------------------------------- |
+| Counter      | The fully qualified counter name                                                                   |
+| counter      | The fully qualified counter name                                                                   |
+| english      | Using english names regardless of system language (requires Windows Vista or higher)               |
+| expand-index | Should indices be translated?                                                                      |
+| host         | The name of the machine in the network where the counter should be searched, defaults to localhost |
+| instances    | Expand wildcards and fetch all instances                                                           |
+| type         | This can be large or float depending on what you expect, default is large                          |
 
 ## Attributes
 
