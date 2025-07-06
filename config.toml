@@ -94,8 +94,24 @@ weight = 1
 [outputs]
 #section = ["HTML", "print", "RSS"]
 section = ["HTML", "RSS"]
+home = ["html", "rss", "llms", "llmsfull"]
+
+[outputFormats.llms]
+baseName = "llms"
+isPlainText = true
+mediaType = "text/plain"
+rel = "alternate"
+root = true
+
+[outputFormats.llmsfull]
+baseName = "llms-full"
+isPlainText = true
+mediaType = "text/plain"
+rel = "alternate"
+root = true
 
 [params]
+description = "The ConSol monitoring portfolio"
 copyright = "ConSol Software GmbH"
 # privacy_policy = "https://policies.google.com/privacy"
 

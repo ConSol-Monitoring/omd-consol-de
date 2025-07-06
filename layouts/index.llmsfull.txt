@@ -1,0 +1,50 @@
+# {{ .Site.Title }}
+
+> {{ .Site.Params.Description }}
+
+
+## Releases
+{{ $yearMonthGroups := slice -}}
+{{ $pages := where (where (.Site.GetPage "/blog/releases").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ if $pages }}
+{{ range (sort $pages "Date" "desc") -}}
+{{ if .Date -}}
+--------------------------------------------------------------------------------
+title: "{{ .Title }}"
+date: "{{ .Date.Format "2006-01-02" }}"
+--------------------------------------------------------------------------------
+{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
+{{- end }}
+{{- end }}
+{{ else }}
+* No releases found
+{{- end }}
+## Insights
+{{ $yearMonthGroups := slice -}}
+{{ $pages := where (where (.Site.GetPage "/blog/insights").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ if $pages }}
+{{ range (sort $pages "Date" "desc") -}}
+{{ if .Date -}}
+--------------------------------------------------------------------------------
+title: "{{ .Title }}"
+date: "{{ .Date.Format "2006-01-02" }}"
+--------------------------------------------------------------------------------
+{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
+{{- end }}
+{{- end }}
+{{ else }}
+* No insights found
+{{- end }}
+
+
+
+{{/* Others */}}
+{{ range slice "about" -}}
+{{ with site.GetPage . -}}
+--------------------------------------------------------------------------------
+title: "{{ .Title }}"
+lastmod: "{{ .Date.Format "2006-01-02" }}"
+--------------------------------------------------------------------------------
+{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
+{{ end -}}
+{{ end -}}
