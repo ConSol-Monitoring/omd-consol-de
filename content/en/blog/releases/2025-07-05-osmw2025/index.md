@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2025-07-05T00:00:00.000Z
 title: "Das war der Open-Source-Monitoring-Workshop 2025"
 linkTitle: "Rueckblick Monitoring-Workshop 2025"
