@@ -42,8 +42,8 @@ Das Foto sagt wohl alles. Es war ein ziemlich heißer Sommertag.
 
 ---
 
-**Umbrella Monitoring - Jens Michelson, Allgeier**  
-Jens Michelson, Produktmanager von openITCOCKPIT, ließ Bastlerherzen höher schlagen. Er monitort sein Balkonkraftwerk wie andere ihr Rechenzentrum, mit detaillierten Metriken und Dashboards. Dazu zapft er die Api seines Home Assistant mit openITCOCKPIT an.  
+**Umbrella Monitoring - Jens Michelsons, Allgeier**  
+Jens Michelsons, Produktmanager von openITCOCKPIT, ließ Bastlerherzen höher schlagen. Er monitort sein Balkonkraftwerk wie andere ihr Rechenzentrum, mit detaillierten Metriken und Dashboards. Dazu zapft er die Api seines Home Assistant mit openITCOCKPIT an.  
 Balkone sind weit verbreitet, Balkonkraftwerke mittlerweile auch immer mehr, aber wer Monitoring-Know-How besitzt, kann mehr draus machen. Was dem einen die Geranienkästen, sind dem anderen die Dashboards. Jens hatte am Abend viele neugierige Fragen zu beantworten.   
 
 ---
