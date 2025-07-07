@@ -10,10 +10,13 @@
 {{ range (sort $pages "Date" "desc") -}}
 {{ if .Date -}}
 --------------------------------------------------------------------------------
-title: "{{ .Title }}"
+title: "{{ .Title | safeHTML }}"
 date: "{{ .Date.Format "2006-01-02" }}"
 --------------------------------------------------------------------------------
-{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
+{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent | safeHTML }}
+[Read more]({{ .Permalink }})
+
+---
 {{- end }}
 {{- end }}
 {{ else }}
@@ -26,10 +29,13 @@ date: "{{ .Date.Format "2006-01-02" }}"
 {{ range (sort $pages "Date" "desc") -}}
 {{ if .Date -}}
 --------------------------------------------------------------------------------
-title: "{{ .Title }}"
+title: "{{ .Title | safeHTML }}"
 date: "{{ .Date.Format "2006-01-02" }}"
 --------------------------------------------------------------------------------
-{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
+{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent | safeHTML }}
+[Read more]({{ .Permalink }})
+
+---
 {{- end }}
 {{- end }}
 {{ else }}

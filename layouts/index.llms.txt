@@ -13,8 +13,7 @@
 * {{ $yearMonth -}}
 {{ $yearMonthGroups = $yearMonthGroups | append $yearMonth -}}
 {{ end }}
-    * [{{ .Title }}]({{ .Permalink }})
-lrsch
+    * [{{ .Title | safeHTML }}]({{ .Permalink }})
 {{- end }}
 {{- end }}
 {{ else }}
@@ -32,7 +31,7 @@ lrsch
 * {{ $yearMonth -}}
 {{ $yearMonthGroups = $yearMonthGroups | append $yearMonth -}}
 {{ end }}
-    * [{{ .Title }}]({{ .Permalink }})
+    * [{{ .Title | safeHTML }}]({{ .Permalink }})
 {{- end }}
 {{- end }}
 {{ else }}
