@@ -22,16 +22,16 @@ OMD-Labs goes a bit further and adds even more useful software. See the [differe
 
 ## The Site Concept
 
-OMD comes with a site concept solution with makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independantly.
+OMD comes with a site concept solution with makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independently.
 
 ## Roadmap
 
 There is usually one stable release every 6 months. Every day there are nightly builds with the [latest changes](https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog).
 
 <div class="btn-group btn-group-lg releaseplan" role="group" aria-label="Release plan" style="width:100%;">
-  <a class="btn btn-success" href="#download" role="button" style="width:50%;">Stable: 5.50</a>
+  <a class="btn btn-success" href="#download" role="button" style="width:50%;">Stable: 5.60</a>
   <a class="btn btn-info" href="https://labs.consol.de/omd/builds.html" role="button" style="width:25%;">Nightly</a>
-  <a class="btn btn-warning" href="https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog" role="button" target="_blank" style="width:25%;">Next: May 2025</a>
+  <a class="btn btn-warning" href="https://github.com/ConSol-Monitoring/omd/blob/labs/Changelog" role="button" target="_blank" style="width:25%;">Next: Dec 2025</a>
 </div>
 <br clear="both">
 
