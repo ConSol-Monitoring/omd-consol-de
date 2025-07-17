@@ -1,0 +1,47 @@
+# {{ .Site.Title }}
+
+> {{ .Site.Params.Description }}
+
+## Releases
+{{ $yearMonthGroups := slice -}}
+{{ $pages := where (where (.Site.GetPage "/blog/releases").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ if $pages }}
+{{ range (sort $pages "Date" "desc") -}}
+{{ if .Date -}}
+{{ $yearMonth := .Date.Format "2006/01" -}}
+{{ if not (in $yearMonthGroups $yearMonth) }}
+* {{ $yearMonth -}}
+{{ $yearMonthGroups = $yearMonthGroups | append $yearMonth -}}
+{{ end }}
+    * [{{ .Title | safeHTML }}]({{ .Permalink }})
+{{- end }}
+{{- end }}
+{{ else }}
+* No releases found
+{{- end }}
+
+## Insights
+{{ $yearMonthGroups := slice -}}
+{{ $pages := where (where (.Site.GetPage "/blog/insights").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ if $pages }}
+{{ range (sort $pages "Date" "desc") -}}
+{{ if .Date -}}
+{{ $yearMonth := .Date.Format "2006/01" -}}
+{{ if not (in $yearMonthGroups $yearMonth) }}
+* {{ $yearMonth -}}
+{{ $yearMonthGroups = $yearMonthGroups | append $yearMonth -}}
+{{ end }}
+    * [{{ .Title | safeHTML }}]({{ .Permalink }})
+{{- end }}
+{{- end }}
+{{ else }}
+* No insights found
+{{- end }}
+
+## Others
+{{- $baseURL := .Site.BaseURL | strings.TrimSuffix "/" }}
+* [About]({{ $baseURL }}/about/): Abut the ConSol Monitoring Team
+* [Docs]({{ $baseURL }}/docs/): The documentation for our software (OMD, Thruk, coshsh, SNClient,...)
+* [Releases]({{ $baseURL }}/blog/releases/): Release notes for our software and events
+* [Insight]({{ $baseURL }}/blog/insights/): Blog posts about or software
+* [Repository]({{ $baseURL }}/repo/): The installation packages for the Open Monitoring Distribution
