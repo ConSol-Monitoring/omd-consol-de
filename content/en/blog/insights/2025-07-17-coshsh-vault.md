@@ -48,6 +48,7 @@ The credentials are used in a data source of type *svcnow_cmdb_ci*.
 (FYI, the datasource of type *svcnow_cmdb_ci*, which connects coshsh to the ServiceNow CMDB, also creates the definition for a contact named *servicenow*. This contact is using a notification script which creates incidents via the */api/now/table/incident* endpoint of ServiceNow. In order to separate the CMDB interface from the Incident interface, the datasource can take two different urls, *cmdb_url* and *incident_url*)
 
 ```
+#
 # etc/coshsh/conf.d/example.cfg
 #
 [vault_naemon]
