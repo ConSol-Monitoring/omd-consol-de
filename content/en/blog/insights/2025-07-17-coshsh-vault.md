@@ -48,14 +48,39 @@ The credentials are used in a data source of type *svcnow_cmdb_ci*.
 (FYI, the datasource of type *svcnow_cmdb_ci*, which connects coshsh to the ServiceNow CMDB, also creates the definition for a contact named *servicenow*. This contact is using a notification script which creates incidents via the */api/now/table/incident* endpoint of ServiceNow. In order to separate the CMDB interface from the Incident interface, the datasource can take two different urls, *cmdb_url* and *incident_url*)
 
 ```
-#
+###############################
 # etc/coshsh/conf.d/example.cfg
+###############################
+
+#
+# A vault is a file or database where secrets are stored (in encrypted or
+# at least not publicly accessible form)
+# This section defines a vault of type Naemon Vault, which can be opened and
+# read using the environment variable $NAEMON_VIM_MASTER_PASSWORD as the key.
 #
 [vault_naemon]
 type = naemon_vault
 file = ./etc/naemon/vault.cfg
 key = %NAEMON_VIM_MASTER_PASSWORD%
 
+#
+# A mapping is like a key-value store. It has a name ("svcnow" in this case)
+# and can be used in recipes', datasources' and datarecipients' attributes.
+# @{MAPPING_SVCNOW[svcnow_url_prod]} for example will resolve to
+# https://svcnow.example.com
+# {@MAPPING_NAMEINCAPITALLETTERS[key]} -> value
+#
+[mapping_svcnow]
+svcnow_user_prod = monitoring
+svcnow_user_nonprod = monitordev
+svcnow_url_prod = https://svcnow.example.com
+svcnow_url_nonprod = https://svcnow-dev.example.com
+
+#
+# This is the datasource the inventory data are read from.
+# The type svcnow_cmdb_ci references the Python code which actually
+# communicates with the ServiceNow API.
+#
 [datasource_servicenow]
 type = svcnow_cmdb_ci
 username = @{MAPPING_SVCNOW[svcnow_user_%RECIPE_NAME%]}
@@ -65,6 +90,11 @@ cmdb_url = @{MAPPING_SVCNOW[svcnow_url_prod]}
 # Incidents are created either in the main or the dev ServiceNow
 incident_url = @{MAPPING_SVCNOW[svcnow_url_%RECIPE_NAME%]}
 
+#
+# This is a recipe which can't be cooked (watch the double \_).
+# It's sole purpose is to be inherited by the prod and nonprod recipes in
+# order to avoid repetitive attributes.
+#
 [recipe__vault]
 objects_dir = %OMD_ROOT%/var/coshsh/configs/%RECIPE_NAME%
 classes_dir = %OMD_ROOT%/etc/coshsh/recipes/example/classes
@@ -72,17 +102,20 @@ templates_dir = %OMD_ROOT%/etc/coshsh/recipes/example/templates
 datasources = servicenow
 vaults = naemon
 
+#
+# These are the actual recipes. You can run
+# coshsh-cook --cookbook ~/etc/coshsh/conf.d/example.cfg --recipe prod
+# coshsh-cook --cookbook ~/etc/coshsh/conf.d/example.cfg --recipe nonprod
+# which will read inventory data from the main dev servicenow and include
+# a contact which will create incidents in the main resp. the dev servicenow.
+# The config files will be written to
+# ~/var/coshsh/configs/prod/dynamic or ~/var/coshsh/configs/nonprod/dynamic
+#
 [recipe_prod]
 isa = recipe__vault
 
 [recipe_nonprod]
 isa = recipe__vault
-
-[mapping_svcnow]
-svcnow_user_prod = monitoring
-svcnow_user_nonprod = monitordev
-svcnow_url_prod = https://svcnow.example.com
-svcnow_url_nonprod = https://svcnow-dev.example.com
 ```
 
 When we cook a recipe, the data source's attributes are first updated with the actual recipe name, so we get the correct references to the mapping and vault variables. Then, these references are looked up in *mapping_svcnow* and *vault_naemon*, and are resolved to their final values.
