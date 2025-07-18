@@ -65,7 +65,7 @@ cmdb_url = @{MAPPING_SVCNOW[svcnow_url_prod]}
 # Incidents are created either in the main or the dev ServiceNow
 incident_url = @{MAPPING_SVCNOW[svcnow_url_%RECIPE_NAME%]}
 
-[recipe_vault]
+[recipe__vault]
 objects_dir = %OMD_ROOT%/var/coshsh/configs/%RECIPE_NAME%
 classes_dir = %OMD_ROOT%/etc/coshsh/recipes/example/classes
 templates_dir = %OMD_ROOT%/etc/coshsh/recipes/example/templates
@@ -73,10 +73,10 @@ datasources = servicenow
 vaults = naemon
 
 [recipe_prod]
-isa = recipe_vault
+isa = recipe__vault
 
 [recipe_nonprod]
-isa = recipe_vault
+isa = recipe__vault
 
 [mapping_svcnow]
 svcnow_user_prod = monitoring
