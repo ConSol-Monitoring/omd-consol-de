@@ -57,6 +57,11 @@ The credentials are used in a data source of type *svcnow_cmdb_ci*.
 # at least not publicly accessible form)
 # This section defines a vault of type Naemon Vault, which can be opened and
 # read using the environment variable $NAEMON_VIM_MASTER_PASSWORD as the key.
+# Thanks to a vault, secrets have not to be written in cleartext in this
+# config file. Instead, we reference them using the notation @{VAULT[key]}
+# Vault contents are kept inside coshsh in form of a key-value-dictionary.
+# In this example, an occurrence of @{VAULT[svcnow_pw_prod]} will be replaced
+# by "v3rys3cr3t".
 #
 [vault_naemon]
 type = naemon_vault
