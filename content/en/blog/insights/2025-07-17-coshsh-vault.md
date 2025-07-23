@@ -58,9 +58,9 @@ The credentials are used in a data source of type *svcnow_cmdb_ci*.
 # This section defines a vault of type Naemon Vault, which can be opened and
 # read using the environment variable $NAEMON_VIM_MASTER_PASSWORD as the key.
 # Thanks to a vault, secrets have not to be written in cleartext in this
-# config file. Instead, we reference them using the notation @{VAULT[key]}
+# config file. Instead, we reference them using the notation @VAULT[key]
 # Vault contents are kept inside coshsh in form of a key-value-dictionary.
-# In this example, an occurrence of @{VAULT[svcnow_pw_prod]} will be replaced
+# In this example, an occurrence of @VAULT[svcnow_pw_prod] will be replaced
 # by "v3rys3cr3t".
 #
 [vault_naemon]
@@ -71,9 +71,9 @@ key = %NAEMON_VIM_MASTER_PASSWORD%
 #
 # A mapping is like a key-value store. It has a name ("svcnow" in this case)
 # and can be used in recipes', datasources' and datarecipients' attributes.
-# @{MAPPING_SVCNOW[svcnow_url_prod]} for example will resolve to
+# @MAPPING_SVCNOW[svcnow_url_prod] for example will resolve to
 # https://svcnow.example.com
-# {@MAPPING_NAMEINCAPITALLETTERS[key]} -> value
+# @MAPPING_NAMEINCAPITALLETTERS[key] -> value
 #
 [mapping_svcnow]
 svcnow_user_prod = monitoring
@@ -88,12 +88,12 @@ svcnow_url_nonprod = https://svcnow-dev.example.com
 #
 [datasource_servicenow]
 type = svcnow_cmdb_ci
-username = @{MAPPING_SVCNOW[svcnow_user_%RECIPE_NAME%]}
-password = @{VAULT[svcnow_pw_%RECIPE_NAME%]}
+username = @MAPPING_SVCNOW[svcnow_user_%RECIPE_NAME%]
+password = @VAULT[svcnow_pw_%RECIPE_NAME%]
 # Inventory always comes from the main ServiceNow
-cmdb_url = @{MAPPING_SVCNOW[svcnow_url_prod]}
+cmdb_url = @MAPPING_SVCNOW[svcnow_url_prod]
 # Incidents are created either in the main or the dev ServiceNow
-incident_url = @{MAPPING_SVCNOW[svcnow_url_%RECIPE_NAME%]}
+incident_url = @MAPPING_SVCNOW[svcnow_url_%RECIPE_NAME%]
 
 #
 # This is a recipe which can't be cooked (watch the double \_).
