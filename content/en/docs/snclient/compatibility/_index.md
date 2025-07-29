@@ -3,7 +3,9 @@ title: Compatibility
 linkTitle: Compatibility
 ---
 
-SNClient tries hard to be backwards compatible with the NSClient++, however there are a couple of things different. Some things which seemed useful and do no harm, others do not make sense anymore.
+SNClient tries hard to be backwards compatible with the NSClient++, however
+there are a couple of things different. Some things which seemed useful and do
+no harm, others do not make sense anymore.
 
 So here is a list of things different to NSClient++.
 
@@ -18,6 +20,39 @@ will be overwritten. The last value wins.
 That way you can have a default config with all default values and use a simple
 include at the end to customize local settings.
 
+### Modules
+
+![Feature](../icons/feature.png "this is a new thing in SNClient")
+
+In addition to the global `[/modules]` section, most modules which have their
+own configuration section can also be enabled in that section. So you can keep
+related settings in one place.
+
+For example:
+
+```ini
+[/modules]
+NodeExporterServer = enabled
+```
+
+is the same as
+
+```ini
+[/settings/NodeExporter/server]
+NodeExporterServer = enabled
+```
+
+If the later setting in the specific category exists, it will always override the
+value from the modules section.
+
+### Includes
+
+The SNClient supports including configuration files, either from a local folder or by https.
+
+This helps keeping your configuration organized. Best practice is to keep the
+default configuration as it is and override custom values from a separate new
+file.
+
 Included files from `[/includes]` are evaluated directly in the order of appearance.
 
 SNClient supports wildcards and folders in includes as well, for example:
@@ -27,6 +62,8 @@ SNClient supports wildcards and folders in includes as well, for example:
 custom = local_*.ini
 confd  = conf.d/
 ```
+
+Read more about includes on the [configuration page](../configuration/#includes).
 
 ## Performance Data
 
@@ -98,14 +135,14 @@ In addition to the existing characters, SNClient does not allow the `$` characte
 The list of not allowed nasty characters is therefore:
 
 ```txt
-$|`&><'\"\\[]{}
+$|`&><'"\[]{}
 ```
 
 Change the list of nasty chars with the `nasty characters` configuration option.
 
 ```ini
 [/settings/default]
-nasty characters = $|`&><'\"\\[]{}
+nasty characters = $|`&><'"\[]{}
 ```
 
 ## Allowed Hosts Handling
