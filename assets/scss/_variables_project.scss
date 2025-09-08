@@ -472,6 +472,58 @@ h5, h6 {
   }
 }
 
+// --- Mobile Menu Improvements ---
+.td-sidebar-nav {
+  @media (max-width: 768px) {
+    background-color: var(--bs-body-bg, #fff);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    z-index: 1040;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    &.show {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Mobile menu backdrop
+.mobile-backdrop {
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1039;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// Improved mobile toggle button
+.navbar-toggler {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+}
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
