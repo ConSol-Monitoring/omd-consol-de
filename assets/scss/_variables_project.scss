@@ -255,6 +255,66 @@ LI.td-light-dark-menu > UL.dropdown-menu.show {
 /* GenericUnderline */ .chroma .gl { color:#000;text-decoration:underline }
 /* TextWhitespace */ .chroma .w { }
 
+// ===== Modern Look and Feel Improvements =====
+
+// --- CSS Custom Properties for Modern Architecture ---
+:root {
+  // Corporate Colors as CSS Custom Properties
+  --color-primary: #F8CE39;
+  --color-secondary: #383838;
+  --color-tertiary: #FBE9C6;
+  --color-accent: #97344E;
+
+  // Spacing System
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  // Border Radius System
+  --border-radius-sm: 0.2rem;
+  --border-radius-md: 0.3rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 1rem;
+
+  // Transitions
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  // Font Weights
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  // Fluid Typography Scale
+  --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.125rem + 0.625vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+  --font-size-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 3rem);
+}
+
+// Dark mode color overrides
+[data-bs-theme="dark"] {
+  --color-background: var(--color-secondary);
+  --color-text: #ffffff;
+}
+
+// --- Legacy SCSS Variables (for compatibility) ---
+$border-radius: var(--border-radius-md);
+$border-radius-sm: var(--border-radius-sm);
+$border-radius-lg: var(--border-radius-lg);
+
+// --- Smooth Transitions ---
+$transition-base: var(--transition-normal);
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
