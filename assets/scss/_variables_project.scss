@@ -447,6 +447,31 @@ h5, h6 {
     transform: translateX(4px);
 }
 
+// --- Enhanced Dark Mode ---
+[data-bs-theme="dark"] {
+  .td-navbar {
+    background-color: rgba(45, 55, 72, 0.85); // Semi-transparent dark
+    border-color: #4a5568;
+
+    .navbar-brand, .nav-link {
+      color: #ffffff !important;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      color: #F8CE39 !important; // Use your primary yellow on hover
+    }
+  }
+
+  .card, .alert {
+    background-color: #2d3748; // A slightly lighter dark shade
+    border-color: #4a5568;
+  }
+
+  .td-sidebar-nav {
+      background-color: #2d3748;
+  }
+}
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
