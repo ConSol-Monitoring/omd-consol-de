@@ -327,6 +327,28 @@ $transition-base: var(--transition-normal);
   transition: var(--transition-fast);
 }
 
+// --- Sidebar Navigation Improvements ---
+.td-sidebar-nav__section .ul-1 {
+  font-size: 0.95rem;
+}
+
+.td-sidebar-nav__section .ul-1 a {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+// Enhanced active item indicator
+.td-sidebar-nav__section .ul-1 .active {
+  background-color: var(--bs-tertiary-bg);
+  border-left: 3px solid var(--bs-primary);
+  font-weight: bold;
+}
+
+// More specific selector to override existing padding
+.td-sidebar-nav .td-sidebar-nav__section .ul-1 .active {
+  padding-left: 3px !important;
+}
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
