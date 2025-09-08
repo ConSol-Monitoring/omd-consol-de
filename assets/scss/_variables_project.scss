@@ -315,6 +315,18 @@ $border-radius-lg: var(--border-radius-lg);
 // --- Smooth Transitions ---
 $transition-base: var(--transition-normal);
 
+// --- Navbar Enhancement ---
+.td-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  border-bottom: 1px solid var(--bs-border-color);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  backdrop-filter: blur(10px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.85);
+  transition: var(--transition-fast);
+}
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
