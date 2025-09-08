@@ -349,6 +349,104 @@ $transition-base: var(--transition-normal);
   padding-left: 3px !important;
 }
 
+// --- Content Area Enhancement ---
+body {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+blockquote {
+  border-left: 4px solid $tertiary;
+  padding: 1rem 1.5rem;
+  background-color: var(--bs-tertiary-bg);
+  border-radius: $border-radius;
+}
+
+// --- Code Blocks ---
+.highlight {
+  border-radius: $border-radius;
+}
+
+// --- Dynamic Button Styling ---
+.btn {
+  border-radius: 9999px; // pill-shaped buttons
+  font-weight: 600;
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+  min-height: 44px; // iOS accessibility guideline for touch targets
+  padding: var(--space-sm) var(--space-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+// Touch-friendly navigation links
+.td-sidebar-nav a, .nav-link {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// --- Refined Typography ---
+body {
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+}
+
+// Modern fluid typography scale
+h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.25px;
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.25px;
+}
+
+h5, h6 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0;
+}
+
+// --- Interactive Sidebar Links ---
+.td-sidebar-nav__section a {
+    position: relative;
+    transition: all 0.2s;
+}
+
+.td-sidebar-nav__section a:hover {
+    background-color: var(--bs-tertiary-bg);
+    transform: translateX(4px);
+}
+
 /*
 // Color variables
 $primary-color: #5e5e5e !default;
