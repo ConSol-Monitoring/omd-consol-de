@@ -1,0 +1,64 @@
+{{ $cover := and
+  (.HasShortcode "blocks/cover")
+  (not .Site.Params.ui.navbar_translucent_over_cover_disable)
+-}}
+{{ $baseURL := urls.Parse $.Site.Params.Baseurl -}}
+
+<nav class="td-navbar js-navbar-scroll {{- if $cover }} td-navbar-cover {{- end }}" data-bs-theme="dark">
+  <div class="container-fluid flex-column flex-md-row">
+    <a class="navbar-brand" href="/">
+    {{- /**/ -}}
+      <span class="navbar-brand__logo navbar-logo">
+        {{- if ne .Site.Params.ui.navbar_logo false -}}
+          {{ with resources.Get "icons/logo.svg" -}}
+            {{ ( . | minify).Content | safeHTML -}}
+          {{ end -}}
+        {{ end -}}
+      </span>
+    {{- /**/ -}}
+      <span class="navbar-brand__name">
+        {{- .Site.Title -}}
+      </span>
+    {{- /**/ -}}
+    </a>
+    <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+      <ul class="navbar-nav">
+        {{ $p := . -}}
+        {{ range site.Sites }}
+          {{ if eq .Language.Lang "en" }}
+            {{ range .Menus.main }}
+              {{ $isActive := false }}
+              {{ if or (eq $.Page.RelPermalink .URL) (eq $.Page.Permalink .URL) }}
+                {{ $isActive = true }}
+              {{ end }}
+              <li><a class="nav-link {{ if $isActive }}active{{ end }}" href="{{ .URL }}">{{ .Name }}</a></li>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ if .Site.Params.versions -}}
+          <li class="nav-item dropdown d-none d-lg-block">
+            {{ partial "navbar-version-selector.html" . -}}
+          </li>
+        {{ end -}}
+
+        {{ if .IsTranslated }}
+          {{ if gt (index .Translations 0).WordCount 0 }}
+            <li class="nav-item dropdown d-none d-lg-block">
+              {{ partial "navbar-lang-selector.html" . -}}
+            </li>
+          {{ end }}
+        {{ end }}
+
+        {{ if .Site.Params.ui.showLightDarkModeMenu -}}
+          <li class="td-light-dark-menu nav-item dropdown">
+            {{ partial "theme-toggler" . }}
+          </li>
+        {{ end -}}
+      </ul>
+    </div>
+    <div class="d-none d-lg-block">
+      {{ partial "search-input.html" . }}
+    </div>
+  </div>
+</nav>

@@ -2,7 +2,7 @@ baseURL = "https://omd.consol.de"
 title = "ConSol Monitoring"
 
 # Language settings
-contentDir = "content/en"
+contentDir = "content/"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 # Useful when translating.
@@ -69,13 +69,11 @@ description = "The ConSol monitoring portfolio"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
-#[languages.de]
-#title = "ConSol Monitoring"
-#description = "Das Portfoio des ConSol-Monitoringteams"
-#languageName ="Deutsch"
-#contentDir = "content/de"
-#time_format_default = "02.01.2006"
-#time_format_blog = "02.01.2006"
+[languages.de]
+title = "ConSol Monitoring"
+description = "Das Portfolio des ConSol Monitoring Teams"
+languageName ="Deutsch"
+weight = 2
 
 [markup]
   [markup.goldmark]

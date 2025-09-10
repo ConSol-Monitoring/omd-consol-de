@@ -1,12 +1,13 @@
 ---
-title: coshsh
+title: Coshsh
 tags:
   - cmdb
   - generator
 weight: 400
 ---
-## coshsh - Config-Generator für Naemon/Shinken/Nagios/Icinga/Prometheus
-![Coshsh](coshsh_logo.png)
+## Coshsh - Config-Generator für Naemon/Shinken/Nagios/Icinga/Prometheus
+<img src="coshsh_logo.png" alt="Coshsh" width="300"/>
+
 ### Wie spricht man's aus?
 <span style="font-size: 2em;">
 &#678;&#596;&#643;:
@@ -23,7 +24,7 @@ coshsh ist ein Framework, das bei der automatischen Erstellung von Konfiguration
 Die [Landeshauptstadt München][1], [Lidl, Kaufland][2], [Bühler][3] und einige mehr generieren ihre Monitoring-Konfigurationsdateien mit Coshsh.
 
 ### Download
-{% asset_download coshsh-9.1.2.tar.gz category:nagios %}
+[Github](https://github.com/lausser/coshsh/releases)
 
 ### Support
 Support und Beratung ist erhältlich bei [ConSol](https://www.consol.de/monitoring)
