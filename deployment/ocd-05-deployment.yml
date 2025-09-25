@@ -74,7 +74,7 @@ spec:
           runAsGroup: 0
           allowPrivilegeEscalation: false
       - name: hugo
-        image: ghcr.io/consol-monitoring/ocd:0.145.0-1
+        image: ghcr.io/consol-monitoring/ocd:0.150.0-1
         args:
         - "--watch"
         - "--source"
