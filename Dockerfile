@@ -4,7 +4,7 @@
 # any changes here in this Dockerfile. (it is not actually a pre-release,
 # but the tag has to conform to the semver scheme, where only 3 numbers
 # are allowed)
-FROM docker.io/floryn90/hugo:0.145.0-ext-alpine
+FROM docker.io/floryn90/hugo:0.150.0-ext-alpine
 USER root
 RUN apk add git && \
   git config --global --add safe.directory /src

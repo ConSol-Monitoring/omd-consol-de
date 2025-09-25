@@ -21,7 +21,7 @@
     {{ .Site.Title -}}
   {{ end -}}
 </title>
-<meta name="description" content="{{ template "partials/page-description.html" . }}">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 {{ template "_internal/opengraph.html" . -}}
 {{ template "_internal/schema.html" . -}}
 {{ template "_internal/twitter_cards.html" . -}}
