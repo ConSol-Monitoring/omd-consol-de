@@ -6,6 +6,19 @@ title: logfile
 
 Checks logfiles or any other text format file for errors or other general patterns
 
+    In order to use this plugin, you need to enable 'CheckLogFile' in the '[/modules]' section of the snclient_local.ini.
+
+    Also, to avoid security issues, you need to set 'allowed pattern' in the '[/settings/check/logfile]'
+    section of the snclient_local.ini to a comma separated list of allowed glob patterns.
+
+    Example:
+    [/settings/check/logfile]
+    allowed pattern  = /var/log/**      # This allows all files recursively in /var/log/
+    allowed pattern += /opt/logs/*.log  # This allows all files with .log extension in /opt/logs/
+
+    See https://github.com/bmatcuk/doublestar#patterns for details on the pattern syntax.
+
+
 - [Examples](#examples)
 - [Argument Defaults](#argument-defaults)
 - [Attributes](#attributes)
@@ -17,6 +30,13 @@ Checks logfiles or any other text format file for errors or other general patter
 | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Examples
+
+### Default Check
+
+Alert if there are errors in the snclient log file:
+
+    check_files files=/var/log/snclient/snclient.log 'warn=line like Warn' 'crit=line like Error'"
+    OK - All 1787 / 1787 Lines OK
 
 ### Example using NRPE and Naemon
 
@@ -31,7 +51,7 @@ Naemon Config
         host_name            testhost
         service_description  check_logfile
         use                  generic-service
-        check_command        check_nrpe!check_logfile!
+        check_command        check_nrpe!check_logfile!'files=/var/log/snclient/snclient.log' 'warn=line like Warn'
     }
 
 ## Argument Defaults
@@ -42,7 +62,7 @@ Naemon Config
 | empty-syntax  | %(status) - No files found                                             |
 | top-syntax    | %(status) - %(problem_count)/%(count) lines (%(count)) %(problem_list) |
 | ok-syntax     | %(status) - All %(count) / %(total) Lines OK                           |
-| detail-syntax | %(line)                                                                |
+| detail-syntax | %(line \| chomp \| cut=200)                                            |
 
 ## Check Specific Arguments
 
