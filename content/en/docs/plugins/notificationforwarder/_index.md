@@ -7,7 +7,8 @@ tags = [
 
 In this framework, two aspects are in the focus. How to transport a notification to the recipient system and in which format.
 In the beginning, Naemon or one of the other monitoring cores will execute a command line. The actual script and the individual command line parameters are defined in a command definition. Typical parameters are (i use the notation of Nagios macros) HOSTNAME, SERVICEDESC, SERVICESTATE, SERVICEOUTPUT. These snippets need to be put together to some kind of payload suitable for the receiving system. And then this payload must be transported to it. We call the two components *formatter* and *forwarder*. The formatter takes the raw input data and creates a payload and the forwarder transmits the payload to the destination.
-What the framework does for you behind the scenes: when forwarding to a recipient fails, the event is saved in a local sqlite database for a certain time and re-sent when the script is called next time and the recipient is available again. Logging of successful and of course failed deliveries is also done automatically.
+What the framework does for you behind the scenes: When forwarding to a recipient fails, the event is saved in a local sqlite database for a certain time and re-sent when the script is called next time and the recipient is available again. Logging of successful and of course failed deliveries is also done automatically.  
+There is also a component *reporter* which will rarely be used. It's purpose is to run additional code after a successful or failed delivery.  
 
 Let me list some of the formatter/forwarder combinations which are usually found in enterprise environments:
 
@@ -65,8 +66,13 @@ class MyspecialreceiverFormatter(NotificationFormatter):
        
         event.payload = json_payload
         event.summary = "this is a one-line summary which will be used to write a log"
+        if event.eventopts['NOTIFICATIONTYPE'] == "DOWNTIMEEND":
+            event.discard()
+        elif event.eventopts['NOTIFICATIONTYPE'] == "DOWNTIMECANCELLED":
+            event.discard(silently=False)
 ```
-The class name is by default the argument of the *\-\-forwarder* parameter with the first letter in upper case plus "Formatter". An alternative is to use the parameter *\-\-formatter*. The formatter class must have a method *format_event*. This method is called with an event object, which has an attribute *event.eventopts*. This is a dictionary where keys and values are taken from the *\-\-eventopt* parameters of the **\\$USER1\\$/notificationforwarder** command. The method shall set the attributes *payload* and *summary* of the event object.
+The class name is, by default, derived from the argument provided to the *\-\-forwarder* parameter with the first letter capitalized, followed by "Formatter". Alternatively, the parameter *\-\-formatter* can be used. The formatter class must have a method *format_event*. This method is called with an event object, which has an attribute *event.eventopts*. This is a dictionary consisting of keys and values extracted from the *\-\-eventopt* parameters of the **\\$USER1\\$/notificationforwarder** command. The method should then set the attributes *payload* and *summary* of the event object.  
+The formatter also has the ability to decide not forwarded an event at all. If if chooses to halt the processing of an event, it can invoke the method *discard()*. The event will then simply be dropped without any trace. Invoking *discard* with the parameter *silently=False* will log a discard message in the log file. If event.summary has not yet been created, a dump of the raw event will be written.
 
 A skeleton for the *forwarder.py* looks like this:
 
@@ -101,6 +107,12 @@ class MyspecialreceiverForwarder(NotificationForwarder):
 
 Again, the class name has to be the argument of the *\-\-forwarder* parameter with the first letter in upper case, but this time with "Forwarder" appended. This class must have a method *submit()*, which gets the event object which was supplied with payload and summary in the formatting step. If submit() returns a False value, the framework will spool the event in a database.
 The next time Naemon is executing the notificationforwarder script for this receiver, it will try to submit the events which have been spooled so far. If the Forwarder class has an optional method *probe()*, it will first check if the receiver is now up again before it flushes the spooled events with the *submit()* method.
+
+There are two special *forwarderopt* parameters.
+* \-\-forwarderopt logfile_backups=n  
+  Besides the default logfile *var/log/notificationforwarder_...* there will be n rotated archive files. (Rotation takes place after the logfile reaches 20MB, default is 3 archives)  
+* \-\-forwarderopt max_spool_minutes=n  
+  When submitting an event fails, it will be spooled for n minutes. Within this time re-submitting will be attempted on every call to notificationforwarder. (Default is 5)  
 
 ## Forwarders/Formatters which come with the module
 
@@ -144,7 +156,7 @@ And this one shows how to set additional headers.
                         --eventopt HOSTNAME='$HOSTNAME$' \
 ```
 
-What's missing here is *\-\-formatter myownpayload*, where you call a formatter specifically written for the payload format your api wants.
+What's missing here is *--formatter myownpayload*, where you call a formatter specifically written for the payload format your api wants.
 
 #### Demo setup
 
@@ -165,7 +177,7 @@ define command {
                      --eventopt SERVICESTATE='$SERVICESTATE$' \
                      --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
                      --eventopt LONGSERVICEOUTPUT='$LONGSERVICEOUTPUT$' \
-                     >> $USER4$/var/log/notificationforwarder_webhook.log 2>&1
+                     >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
 }
 
 define command {
@@ -178,7 +190,7 @@ define command {
                      --eventopt HOSTSTATE='$HOSTSTATE$' \
                      --eventopt HOSTADDRESS='$HOSTADDRESS$' \
                      --eventopt HOSTOUTPUT='$HOSTOUTPUT$' \
-                     >> $USER4$/var/log/notificationforwarder_webhook.log 2>&1
+                     >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
 }
 ```
 
@@ -218,7 +230,7 @@ Also check the logfile *var/log/notificationforwarder_webhook.log*
 
 ### SyslogForwarder
 
-The SyslogForwarder class takes a simple event, where the payload is one line of text. It sends this text to a syslog server. The possible value for *\-\-forwarderopts*  are:
+The SyslogForwarder class takes a simple event, where the payload is one line of text. It sends this text to a syslog server. The possible value for *--forwarderopts*  are:
 
 |parameter|description                          |default   |
 |---------|-------------------------------------|----------|
@@ -231,6 +243,122 @@ The SyslogForwarder class takes a simple event, where the payload is one line of
 There is also a SyslogFormatter, which creates the log line as:  
 *host: \<HOSTNAME\>, service: \<SERVICEDESC\>, state: \<SERVICESTATE\>, output: \<SERVICEOUTPUT\>*
 
-If you want a different format, then copy *lib/python/notificationforwarder/syslog/formatter.py* to *local/lib/python/notificationforwarder/syslog/formatter.py* and modify it like you want. Or, with *\-\-formatter*, you can use whatever formatter is suitable, as long as it's payload attribute consists of a line of text.
+If you want a different format, then copy *lib/python/notificationforwarder/syslog/formatter.py* to *local/lib/python/notificationforwarder/syslog/formatter.py* and modify it like you want. Or, with *--formatter*, you can use whatever formatter is suitable, as long as it's payload attribute consists of a line of text.
+
+## Loggers
+
+The framework uses a modular logging architecture similar to formatters, forwarders, and reporters. By default, notificationforwarder uses **text format logging** - you don't need to do anything, logging works exactly as it did before. The traditional text format is backward compatible with all existing installations.
+
+### Why JSON Logging?
+
+In enterprise environments, the gateway from monitoring systems to incident management platforms like Remedy, ServiceNow, or other ITSM tools is crucial for operational reliability. For comprehensive monitoring and troubleshooting of this critical path, logs need to be ingested into log aggregation systems like Splunk for analysis, alerting, and correlation.
+
+The JSON logger provides structured logging optimized for ingestion into Splunk and other log management systems. It outputs single-line JSON with:
+- Splunk-friendly underscore field naming (e.g., `event_host_name`, `event_service_name`)
+- Complete event details including state, output, and summary
+- Operational metrics (queue length, spool counts, retry attempts)
+- Structured exception traces
+- Timezone-aware timestamps
+
+### Usage
+
+**Default (text logging):**
+```bash
+$USER1$/notificationforwarder \
+    --forwarder webhook \
+    --forwarderopt url=https://api.example.com/tickets \
+    --eventopt HOSTNAME='$HOSTNAME$' \
+    --eventopt SERVICESTATE='$SERVICESTATE$'
+```
+
+**JSON logging for Splunk ingestion:**
+```bash
+$USER1$/notificationforwarder \
+    --forwarder webhook \
+    --forwarderopt url=https://api.example.com/tickets \
+    --logger json \
+    --eventopt HOSTNAME='$HOSTNAME$' \
+    --eventopt SERVICESTATE='$SERVICESTATE$'
+```
+
+**Custom logger:**
+```bash
+$USER1$/notificationforwarder \
+    --forwarder webhook \
+    --logger mycustomlogger \
+    --eventopt HOSTNAME='$HOSTNAME$'
+```
+
+### Example Log Output
+
+**Text format (default):**
+```
+2025-11-13 17:00:57,987 3468977 - INFO - forwarded dbserver02.example.com/MySQL: WARNING - Slow queries
+```
+
+**JSON format:**
+```json
+{
+  "timestamp": "2025-11-13T17:00:57.987487+01:00",
+  "host_name": "oasch.example.com",
+  "version": "2.9",
+  "level": "INFO",
+  "logger": "notificationforwarder_webhook",
+  "omd_site": "demo_site",
+  "event_host_name": "dbserver02.example.com",
+  "event_service_name": "MySQL",
+  "event_state": "WARNING",
+  "event_notification_type": "PROBLEM",
+  "event_service_output": "MySQL WARNING - Slow queries detected",
+  "event_summary": "dbserver02.example.com/MySQL: WARNING - Slow queries",
+  "msg": {
+    "message": "forwarded",
+    "status": "success"
+  }
+}
+```
+
+### Custom Loggers
+
+You can create custom loggers by:
+1. Creating `~/local/lib/python/notificationforwarder/mylogger/logger.py`
+2. Inheriting from `NotificationLogger` base class
+3. Implementing the `log(level, message, context)` method
+
+```python
+from notificationforwarder.baseclass import NotificationLogger
+
+class MyloggerLogger(NotificationLogger):
+    def log(self, level, message, context=None):
+        # Custom logging implementation
+        pass
+```
+
+## Reporters
+
+Like *forwarder* and *formatter*, a *reporter* is an instance of a *NotificationReporter* class defined in a file named *reporter.py*. There is one class coming with notificationforwarder, the *NaemonlogReporter*. It's purpose it to write a message to the Naemon logfile. When notificationforwarder is run as a standalone script (and not triggered as a notificationhandler by Naemon), the *NaemonlogReporter* can nevertheless leave a line in the Naemon log.
+Or you can write an extra log showing success or failure of the notification delivery.
+
+```
+define command{
+    command_name    notify-service-servicenow
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder webhook \
+                        --forwarderopt username='$_CONTACTUSERNAME$' \
+                        --forwarderopt password='$_CONTACTPASSWORD$' \
+                        --forwarderopt url='$_CONTACTURL$' \
+...
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+                        --eventopt HOSTSTATE='$HOSTSTATE$' \
+                        --eventopt HOSTADDRESS='$HOSTADDRESS$' \
+                        --eventopt SERVICEDESC='$SERVICEDESC$' \
+                        --eventopt SERVICESTATE='$SERVICESTATE$' \
+                        --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
+                        --eventopt LONGSERVICEOUTPUT='$LONGSERVICEOUTPUT$' \
+....
+                        --reporter naemonlog \
+                    >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
+}
+```
 
 
