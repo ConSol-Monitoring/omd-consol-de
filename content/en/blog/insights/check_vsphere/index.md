@@ -88,10 +88,10 @@ There are several host checks in `check_vsphere`:
   flags VMs without guest tools installed.
 * **[vm‑net‑dev](/docs/plugins/check_vsphere/cmd/vmnetdev/)** –
   finds VMs that contain unused network devices.
-* **[snapshots](/docs/plugins/check‑vsphere/cmd/snapshots/)** –
+* **[snapshots](/docs/plugins/check_vsphere/cmd/snapshots/)** –
   reports VMs with an unexpected number of snapshots or snapshots
   that are too old.
-* **[vm‑guestfs](/docs/plugins/check‑vsphere/cmd/vmguestfs/)** –
+* **[vm‑guestfs](/docs/plugins/check_vsphere/cmd/vmguestfs/)** –
   monitors filesystem usage of VM volumes via vCenter.
 
 ### PerfCounters
