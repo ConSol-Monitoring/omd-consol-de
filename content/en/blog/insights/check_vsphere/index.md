@@ -1,5 +1,5 @@
 ---
-date: 2025-11-27T10:00:00.000Z
+date: 2025-11-18T10:00:00.000Z
 title: A Brief Overview Of The check_vsphere Plugin
 tags:
 - omd
