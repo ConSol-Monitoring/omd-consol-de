@@ -377,5 +377,5 @@ Consult your SAP Basis team to create an appropriate monitoring user with restri
 
 ## See Also
 
-* [Using check_sap_health with SNC](/blog/insights/check-sap-health-snc/) - Detailed guide for setting up SNC
+* [Using check_sap_health with SNC](/blog/2025/12/02/using-check_sap_health-with-snc/) - Detailed guide for setting up SNC
 * [OMD Packages](/docs/omd/packages/) - Overview of included monitoring plugins
