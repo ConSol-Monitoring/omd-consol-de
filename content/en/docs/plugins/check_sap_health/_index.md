@@ -46,7 +46,7 @@ The plugin requires the SAP NetWeaver RFC SDK and the Perl module `sapnwrfc`. In
    ```
 4. Copy the shared libraries to your OMD site's library directory
 
-For detailed SNC setup instructions, see our blog post: [Using check_sap_health with SNC](/blog/insights/check-sap-health-snc/)
+For detailed SNC setup instructions, see our blog post: [Using check_sap_health with SNC](/blog/2025/12/02/using-check_sap_health-with-snc/)
 
 ## Command Line Parameters
 
