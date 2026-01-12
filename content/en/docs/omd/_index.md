@@ -58,6 +58,7 @@ There are pre-built packages available for the following systems:
 | <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 9      |                | [download](https://labs.consol.de/repo/stable/#_9) |
 | <img src="debian.png" alt="debian" width="20"/> | Debian            | 11     | Bullseye       | [download](https://labs.consol.de/repo/stable/#_debian_bullseye_11_0) |
 | <img src="debian.png" alt="debian" width="20"/> | Debian            | 12     | Bookworm       | [download](https://labs.consol.de/repo/stable/#_debian_bookworm_12_0) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian            | 13     | Trixie         | [download](https://labs.consol.de/repo/stable/#_debian_trixie_13_0)  |
 | <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP4 |                | [download](https://labs.consol.de/repo/stable/#_sles_15_sp4) |
 | <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP5 |                | [download](https://labs.consol.de/repo/stable/#_sles_15_sp5) |
 | <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP6 |                | [download](https://labs.consol.de/repo/stable/#_sles_15_sp6) |
