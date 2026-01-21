@@ -26,7 +26,7 @@ menu:
                 <div class="card-body d-flex flex-column">
                   <h4 class="card-title">Stable Releases</h4>
                   <h6 class="card-title">usually every 6 months</h6>
-                  <a class="btn btn-lg btn-primary m-1" href="https://labs.consol.de/repo/stable/">
+                  <a class="btn btn-lg btn-primary m-1" href="/repo/stable/">
                     Download <i class="fas fa-arrow-alt-circle-right ml-2"></i>
                   </a>
                 </div>
@@ -37,7 +37,7 @@ menu:
                 <div class="card-body d-flex flex-column">
                   <h4 class="card-title">Stream Releases</h4>
                   <h6 class="card-title">intermediate releases</h6>
-                  <a class="btn btn-lg btn-primary m-1" href="https://labs.consol.de/repo/stream/">
+                  <a class="btn btn-lg btn-primary m-1" href="/repo/stream/">
                     Download <i class="fas fa-arrow-alt-circle-right ml-2"></i>
                   </a>
                 </div>
@@ -48,7 +48,7 @@ menu:
                 <div class="card-body d-flex flex-column">
                   <h4 class="card-title">Testing Builds</h4>
                   <h6 class="card-title">daily updated development snapshots</h6>
-                  <a class="btn btn-lg btn-primary m-1" href="https://labs.consol.de/repo/testing/">
+                  <a class="btn btn-lg btn-primary m-1" href="/repo/testing/">
                     Download <i class="fas fa-arrow-alt-circle-right ml-2"></i>
                   </a>
                 </div>
