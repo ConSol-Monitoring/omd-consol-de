@@ -2,7 +2,7 @@
 author: Tobias Schneck
 author_url: https://twitter.com/toschneck
 date: '2017-11-17T17:00:00+02:00'
-featured_image: omd_error_grafana_small.png
+featured_image: ./omd_error_grafana_small.png
 meta_description: Sakuli Tutorial of docker based E2E application monitoring with
   Xfce UI and OMD Labs. Implemented with headless VNC environments for Ubuntu, Centos.
   Provides Docker, Openshift, Kubernetes, Continuous Integration. Testautomation.
@@ -11,7 +11,7 @@ tags:
 title: Sakuli Tutorial - Docker based E2E application monitoring
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em; width: 40%;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em; width: 40%;"><img src="./omd_error_grafana_small.png" style="float: right; margin: 0 1em 1em; max-width: 200px;"></div>
 
 The Tutorial "Docker based E2E application monitoring with Xfce UI and OMD Labs" describes how to:
 
@@ -291,7 +291,7 @@ To add the above service configuration to the OMD, we will use the predefined Do
 
 - name: Copy mod-gearman config file
   copy:
-    src: "{{ item }}"
+    src: "{{ "{{" }}item }}"
     dest: /opt/omd/sites/demo/etc/mod-gearman/
     owner: demo
   with_fileglob:

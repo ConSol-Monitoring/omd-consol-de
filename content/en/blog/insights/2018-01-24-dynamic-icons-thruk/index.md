@@ -2,7 +2,7 @@
 author: Simon Meggle
 author_url: https://twitter.com/simonmeggle
 date: '2018-01-24'
-featured_image: thruk_firewallcluster.png
+featured_image: ./thruk_firewallcluster.png
 meta_description: Wie man mit check_nwc_health und Thruk eine visuelle Statusanzeige
   von Firewall-Clusternodes baut
 tags:
@@ -10,7 +10,7 @@ tags:
 title: Visualisierung von Firewall-Clusternodes mit Thruk und check_nwc_health
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="./thruk_firewallcluster.png" style="float: right; margin: 0 1em 1em; max-width: 200px;"></div>
 
 In diesem Blogartikel wird gezeigt, wie das Monitoring-Plugin [check_nwc_health](https://labs.consol.de/de/nagios/check_nwc_health/) auf eigene Bedürfnisse angepasst bzw. erweitert werden kann.
 

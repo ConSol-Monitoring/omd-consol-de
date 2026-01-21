@@ -2,14 +2,14 @@
 author: Sven Hettwer
 author_url: https://twitter.com/SvenHettwer
 date: '2018-03-01'
-featured_image: /assets/images/citrus_logo.png
+featured_image: ./citrus_logo.png
 meta_description: Learn how to test your database communication with citrus
 tags:
 - citrus
 title: Database testing with Citrus
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="./citrus_logo.png" style="float: right; margin: 0 1em 1em; max-width: 200px;"></div>
 
 Database communication is an essential part of many applications, when persistent data storage is required. May it be orders, customer data, product recommendations or product information, if persistent storage is in place, the data contains a certain business value. Therefore it's important that your software handles your persistent storage the right way.
 

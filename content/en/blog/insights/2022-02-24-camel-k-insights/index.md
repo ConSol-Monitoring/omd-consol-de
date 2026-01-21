@@ -2,15 +2,14 @@
 author: Andy Degenkolbe
 author_url: https://twitter.com/andy_degenkolbe
 date: '2022-02-24'
-extra_css: /2022-02-24-camel-k-insights/camel-k.css
-featured_image: /assets/2022-02-24-camel-k-insights/camel-k.png
+featured_image: ./camel-k.png
 meta_description: Camel Camel-k
 tags:
 - Camel
 title: A look insight Camel K
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<img src="./camel-k.png" style="float: right; margin: 0 1em 1em; max-width: 200px;">
 
 Today software often needs to be run in cloud environments. Newly developed software, especially microservices are developed with cloud readiness in mind.
 But we not only have microservices in business environments, we also have integration software. This type of software is developed and designed to connect external services to internal ones.
@@ -44,7 +43,7 @@ So for example there are components for HTTP (inbound and outbound), FTP, Mail a
 ### Basic Camel Architecture
 First I will start with a short overview of the basic Camel architecture and a short explanation of each single part.
 
-[<img src="/assets/2022-02-24-camel-k-insights/camel-architecture.png">](/assets/2022-02-24-camel-k-insights/camel-architecture.png)
+[<img src="./camel-architecture.png">](./camel-architecture.png)
 *Camel Architectural Overview from [https://camel.apache.org/manual/architecture.html](https://camel.apache.org/manual/architecture.html)*
 
 The main component of Camel is the Camel Context. It holds up all the features which Camel has to offer e.g.
@@ -63,7 +62,7 @@ The Camel context also holds the routing engine which is responsible for running
 ### A Camel Route
 The following graphic shows an example workflow for a Camel route.
 
-[<img src="/assets/2022-02-24-camel-k-insights/camel_route_example.png">](/assets/2022-02-24-camel-k-insights/camel_route_example.png)
+[<img src="./camel_route_example.png">](./camel_route_example.png)
 *Schema of the example route*
 
 In the example we start with a http call from system A in the top left corner. The system sends a POST request with a xml body to an endpoint provided from the Camel example application.
@@ -193,7 +192,7 @@ With the `--dev` your terminal get attached to the log output of the running int
 You should see the log output of the pod which is spinning up. Depending on the speed of your cluster this might take a moment to finish.
 After the pod is started you should see something like this:
 
-[<img src="/assets/2022-02-24-camel-k-insights/camel-k-startup.png">](/assets/2022-02-24-camel-k-insights/camel-k-startup.png)
+[<img src="./camel-k-startup.png">](./camel-k-startup.png)
 *Example Route startup log*
 
 As the integration is now successfully deployed, we are able to issue the first request.
@@ -205,7 +204,7 @@ kubectl get service
 ```
 The output should look like something like this:
 
-[<img src="/assets/2022-02-24-camel-k-insights/route-service-port.png">](/assets/2022-02-24-camel-k-insights/route-service-port.png)
+[<img src="./route-service-port.png">](./route-service-port.png)
 *The port our Integration is listening at*
 
 In the above picture you can see that the port for this application is 32522 and that the type is a container port. This means by sending request to this port, the request will be handled by this particular container.
@@ -225,7 +224,7 @@ curl --location --request POST 'http://CLUSTER_IP:32522/myapp/myservice' \
 Don't forget to replace *CLUSTER_IP* with the actual IP address or name of your cluster.
 
 And that's how the output in the log should look like:
-[<img src="/assets/2022-02-24-camel-k-insights/example-message-log-output.png">](/assets/2022-02-24-camel-k-insights/example-message-log-output.png)
+[<img src="./example-message-log-output.png">](./example-message-log-output.png)
 
 After we have the integration running we should have a look under the hood to see how things work together.
 
@@ -233,7 +232,7 @@ After we have the integration running we should have a look under the hood to se
 To get a good impression about how many components are building up Camel K, we should take look at the 
 following architectural overview from the Camel K website:
 
-[<img src="/assets/2022-02-24-camel-k-insights/camel-k-high-level.svg">](/assets/2022-02-24-camel-k-insights/camel-k-high-level.svg)
+[<img src="./camel-k-high-level.svg">](./camel-k-high-level.svg)
 *Architectural overview from [https://camel.apache.org/Camel-k/1.8.x/architecture/architecture.html](https://camel.apache.org/Camel-k/1.8.x/architecture/architecture.html)*
 
 We will focus on the following components, as they are the most important ones:
@@ -253,7 +252,7 @@ This pattern is based on the idea that the operator will try to get the resource
 Therefore, it will apply changes, monitor and reconcile the resource until this state is reached.
 When the state is reached it will go along monitoring the resources and check if there are any changes need to be applied.
 
-[<img src="/assets/2022-02-24-camel-k-insights/operator-pattern.png">](/assets/2022-02-24-camel-k-insights/operator-pattern.png)
+[<img src="./operator-pattern.png">](./operator-pattern.png)
 *Operator Pattern*
 
 The operator is responsible for creating and gathering all the resources needed for the *Camel K Runtime* to do their work.
@@ -324,7 +323,7 @@ It is needed to run the container image as it holds the run configuration for th
 
 #### Build
 The *Build* resource describes the process of combining the *Image*,  *Integration Kit* and the *Integration* to get a running container.
-[<img src="/assets/2022-02-24-camel-k-insights/camel-k-build.png">](/assets/2022-02-24-camel-k-insights/camel-k-build.png)
+[<img src="./camel-k-build.png">](./camel-k-build.png)
 *The build process*
 
 #### Camel Catalog
@@ -346,7 +345,7 @@ After the image is build it is pushed to the *Container Registry* of the cluster
 ### Startup of an integration ###
 After we looked at all the resources involved to get an integration running in *Camel K* we will finally take a look at the process of running an integration.
 
-[<img src="/assets/2022-02-24-camel-k-insights/integration-startup-process.png">](/assets/2022-02-24-camel-k-insights/integration-startup-process.png)
+[<img src="./integration-startup-process.png">](./integration-startup-process.png)
 *Startup Process of an Integration in Camel K*
 
 1. When we run the `kamel run Example.java` command, the source code and optional parameters like dependencies (only if your route needs dependencies which are not part of Camel or in particular camel-quarkus)

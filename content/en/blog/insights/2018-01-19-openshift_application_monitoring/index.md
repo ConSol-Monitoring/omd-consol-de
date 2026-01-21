@@ -2,7 +2,7 @@
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
 date: '2018-01-19'
-featured_image: OpenShift-Logo.png
+featured_image: ./OpenShift-Logo.png
 meta_description: Monitoring of applications running on OpenShift with Prometheus
   and Grafana without cluster wide permissions.
 tags:
@@ -10,7 +10,7 @@ tags:
 title: Application monitoring in OpenShift with Prometheus and Grafana
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="./OpenShift-Logo.png" style="float: right; margin: 0 1em 1em; max-width: 200px;"></div>
 
 There are a lot of articles that show how to monitor an [OpenShift](https://www.openshift.com/) cluster (including the monitoring of Nodes and the underlying hardware) with [Prometheus](https://prometheus.io/) running in the same OpenShift cluster. This article however is based on a different scenario: You are responsible for an application on an [OpenShift](https://www.openshift.org/) cluster and want to monitor just this application, but you don't have any administrative permission on it. The reason for this can be that you are working in a big company where the operation of the OpenShift environment is outsourced or the process to introduce a new monitoring solution takes way too long or the current monitoring solution doesn't match your requirements and so on. 
 
