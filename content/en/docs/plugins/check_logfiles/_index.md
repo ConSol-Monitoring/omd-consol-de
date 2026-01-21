@@ -314,8 +314,66 @@ check_logfiles=C:\Perl\bin\perl C:\libexec\check_logfiles --config $ARG1$
 * --with-trusted-path=PATH_YOU_TRUST The path where you expect your triggered scripts. (default: /sbin:/usr/sbin:/bin:/usr/bin)
 * --with-seekfiles-dir=SEEKFILES_DIR The directory where status files will be kept. (default: /tmp)
 * --with-protocols-dir=PROTOCOLS_DIR The directory where protocol files will be written to. (default: /tmp)
-* Under Windows you build the plugin with perl winconfig.pl. This will result in plugins-scripts/check_logfiles.
-* The file README.exe contains instructions how to build a Windows ninary check_logfiles.exe.
+* Under Windows you build the plugin with `perl winconfig.pl`. This will result in plugins-scripts/check_logfiles.
+
+### Creating a Windows Binary check_logfiles.exe
+
+Installing check_logfiles on a Windows machine typically requires a Perl interpreter. This is not always desirable and can lead to significant administrative overhead with a large number of Nagios clients. To minimize this overhead, it's useful to convert check_logfiles into a native binary that runs without additional software.
+
+#### Installing Strawberry Perl
+
+Strawberry Perl is a 100% open source implementation of Perl. It installs to the C:\strawberry directory and includes a mingw32 environment with gcc.
+Alternatively, there's also a standalone version of Strawberry Perl available.
+
+For all subsequent steps, it's important that Strawberry Perl is found first in the PATH (in case there are other Perl installations, e.g., ActiveState, VMware Tools, Cygwin, etc.).
+
+``` bash
+C:\> echo %PATH%
+C:\Programme\VMware\VMware VI Remote CLI\Perl\site\bin;C:\Programme\VMware\VMware VI Remote CLI\Perl\bin;c:\ruby\bin;C:\Perl\site\bin;C:\Perl\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\strawberry\c\bin;C:\strawberry\perl\bin;C:\strawberry\c\bin;C:\strawberry\perl\bin;C:\Programme\Gemeinsame Dateien\Adobe\AGL
+
+C:\>set PATH=C:\strawberry\c\bin;C:\strawberry\perl\bin;%PATH%
+C:\>perl -V
+Summary of my perl5 (revision 5 version 10 subversion 0) configuration:
+  Platform:
+    osname=MSWin32, osvers=5.1, archname=MSWin32-x86-multi-thread
+...
+...
+  Built under MSWin32
+  Compiled at Apr 17 2008 11:36:20
+  @INC:
+    C:/strawberry/perl/lib
+    C:/strawberry/perl/site/lib
+    .
+```
+
+#### Installing PAR::Packer
+
+To generate the binary, you need the Perl modules PAR and PAR::Packer.
+
+``` bash
+perl -MCPAN -eshell
+install PAR
+install PAR::Packer
+```
+
+#### Building the Windows Plugin
+
+First, create the Windows variant of the plugin in the *check_logfiles* directory (created by unpacking the tar archive). This will then be located in the plugins-scripts subdirectory.
+
+``` bash
+PS C:\path\to\check_logfiles> perl winconfig.pl
+```
+
+#### Creating the Binary
+
+PAR::Packer provides the pp program, which can package a Perl script into a single exe file.
+
+``` bash
+PS C:\path\to\check_logfiles> cd plugins-scripts
+PS C:\path\to\check_logfiles\plugins-scripts> pp -M PerlIO -M Digest::MD5 -M Encode::Encoding -M Encode::Unicode -M Encode::Unicode::UTF7 -M Net::Domain -M Win32::NetResource -M Win32::Daemon -M Time::Piece -M Time::Local -M Win32::EventLog -M Win32::TieRegistry -M Win32::WinError -M Date::Manip -M Win32::OLE -o check_logfiles.exe check_logfiles
+PS C:\path\to\check_logfiles\plugins-scripts> .\check_logfiles -V
+check_logfiles.exe v2.4.1.7
+```
 
 ## Scanning of an Oracle-Alertlog with the operating mode "oraclealertlog"
 If you want to scan the alert log of an oracle database without having access to the database server on the operating system level (e.g. it is a Windows server or you are not allowed to log in to a Unix server for security reasons) and therefore no access to the alert file, then this file can be mapped to a database table. The contents of the file are then visible through a database connection by executing SQL SELECT statements. If you specify the type "oraclealertlog" in a check_logfiles configuration, this method is used to scan the alert log. You need some extra parameters in the configuration.
