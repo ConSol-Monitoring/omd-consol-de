@@ -1,0 +1,8 @@
+---
+author: Gerhard Laußer
+date: '2013-04-21T21:57:41+00:00'
+slug: die-monitoring-minutes-0313-sind-erschienen-netzwerkmonitoring
+title: Die Monitoring Minutes 03/13 sind erschienen - Netzwerkmonitoring
+---
+
+<p align="left"><a href="/assets/2013-04-21-die-monitoring-minutes-0313-sind-erschienen-netzwerkmonitoring/mm_mg.png"><img class="size-medium wp-image-4270 alignright" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; margin: 3px 20px 7px; border-top-width: 0px" alt="mm_mg" src="/assets/2013-03-04-mod-gearman-in-den-monitoring-minutes-213/mm_mg-300x206.png" width="300" height="206" /></a> Vor ein paar Minuten habe ich die <a href="http://www.youtube.com/watch?v=0WZh6j9gTdE" target="_blank">dritte Folge</a> der <strong>ConSol Monitoring Minutes</strong> bei YouTube hochgeladen. In dieser Ausgabe geht es um die Überwachung von Netzwerkkomponenten mit dem Plugin check_nwc_health. Am Beispiel von Cisco-Geräten wird gezeigt, wie man mit einem einzigen Plugin Hardware, Betriebssystem und Interfaces prüfen kann.</p>  <p align="left">&#160;</p>  <p align="left">&#160;</p>  <p align="left">&#160;</p>  <p style="text-align: center"></p><!--more--><iframe title="YouTube video player" type="opt-in" data-name="youtube" class="youtube-player" height="295" data-src="http://www.youtube.com/embed/0WZh6j9gTdE?wmode=transparent&amp;fs=1&amp;hl=en&amp;modestbranding=1&amp;iv_load_policy=3&amp;showsearch=0&amp;rel=1&amp;theme=dark&amp;hd=1" frameborder="0" width="480" allowfullscreen="allowfullscreen" type="text/html"></iframe>

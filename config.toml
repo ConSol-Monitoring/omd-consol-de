@@ -173,6 +173,8 @@ navbar_logo = true
 navbar_translucent_over_cover_disable = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = true
+# Increase from default 100 to accommodate all blog posts
+sidebar_menu_truncate = 400
 # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
 sidebar_search_disable = true
 # Enable dark mode toggle
