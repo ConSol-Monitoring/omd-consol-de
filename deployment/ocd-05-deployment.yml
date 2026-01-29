@@ -43,7 +43,7 @@ spec:
     spec:
       initContainers:
       - name: git-sync-init
-        image: k8s.gcr.io/git-sync/git-sync:v4.4.0
+        image: k8s.gcr.io/git-sync/git-sync:v4.5.0
         args:
         - "--repo=$(GIT_REPO_URL)"
         - "--ref=$(GIT_BRANCH)"
@@ -58,9 +58,16 @@ spec:
         volumeMounts:
         - name: content
           mountPath: /tmp/git
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "50m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
       containers:
       - name: nginx
-        image: nginx:latest
+        image: nginx:1.27
         ports:
         - containerPort: 80
         volumeMounts:
@@ -73,6 +80,13 @@ spec:
           runAsUser: 0
           runAsGroup: 0
           allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
       - name: hugo
         image: ghcr.io/consol-monitoring/ocd:0.150.0-1
         args:
@@ -94,8 +108,15 @@ spec:
         - name: git-config
           mountPath: /tmp/.gitconfig
           subPath: dotgitconfig
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
       - name: git-sync
-        image: k8s.gcr.io/git-sync/git-sync:v4.4.0
+        image: k8s.gcr.io/git-sync/git-sync:v4.5.0
         args:
         - "--repo=$(GIT_REPO_URL)"
         - "--ref=$(GIT_BRANCH)"
@@ -107,8 +128,15 @@ spec:
         volumeMounts:
         - name: content
           mountPath: /tmp/git
+        resources:
+          requests:
+            memory: "16Mi"
+            cpu: "10m"
+          limits:
+            memory: "32Mi"
+            cpu: "50m"
       - name: logger
-        image: busybox
+        image: busybox:1.36
         args: [/bin/sh, -c, 'tail -n+1 -F /var/log/nginx/access.log']
         volumeMounts:
         - name: nginx-logs
@@ -117,6 +145,13 @@ spec:
           runAsUser: 0
           runAsGroup: 0
           allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "8Mi"
+            cpu: "5m"
+          limits:
+            memory: "16Mi"
+            cpu: "20m"
       - name: goaccess
         command: ["/bin/sh"]
         args: ["-c", "while true; do cat /var/log/nginx/access.log | grep -v -f /tmp/excludes.txt | /bin/goaccess -o /var/log/nginx/index.html --log-format=COMBINED --persist --restore --db-path /var/tmp/goaccess-db --html-report-title omd.consol.de --tz Europe/Berlin  --hl-header --with-mouse -; sleep 60; done"]
@@ -127,12 +162,15 @@ spec:
 #        - /var/log/nginx/index.html
 #        - --log-format=COMBINED
 #        - --real-time-html
-        image: allinurl/goaccess:1.9.3
+        image: allinurl/goaccess:1.9.4
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 200m
+            cpu: 50m
             memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -148,17 +186,19 @@ spec:
         - python
         - -m
         - http.server
-        image: python
+        image: python:3.12-slim
         imagePullPolicy: Always
-        name: goaccess-web
         ports:
         - containerPort: 8000
           name: goaccess
           protocol: TCP
         resources:
           requests:
-            cpu: 200m
+            cpu: 50m
             memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
         volumeMounts:
         - mountPath: /var/log/nginx
           name: nginx-logs
