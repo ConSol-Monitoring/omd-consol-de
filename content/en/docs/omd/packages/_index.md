@@ -35,6 +35,9 @@ The Open Monitoring Distribution contains: (incomplete list)
     * Alertmanager
     * Pushgateway
     * Blackbox exporter
+  * Victoriametrics
+    * [Victoriametrics](victoriametrics_core/ "Victoriametrics package")
+    * [VMauth](vmauth/ "VMauth package")
   * Monitoring-Plugins
     * [Standard Plugins](plugins/ "Monitoring Plugins")
     * JMX4Perl
