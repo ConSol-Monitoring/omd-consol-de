@@ -6,7 +6,7 @@ tags:
 title: Monitoring von Background-Jobs in SAP
 ---
 
-Beim Monitoring von SAP mit [check_sap_health]({{ page.language_prefix }}/nagios/check_sap_health) wurden bisher die Bereiche CCMS, Verbuchungssystem und Shortdumps abgedeckt. Mit der neuen Version können nun auch Hintergrundjobs überwacht werden. Folgende Anforderungen wurden implementiert:
+Beim Monitoring von SAP mit [check_sap_health]({{ page.language_prefix }}/docs/plugins/check_sap_health) wurden bisher die Bereiche CCMS, Verbuchungssystem und Shortdumps abgedeckt. Mit der neuen Version können nun auch Hintergrundjobs überwacht werden. Folgende Anforderungen wurden implementiert:
 
 * check_sap_health soll Jobs melden, welche einen fehlerhaften Status haben. Würde man in SM37 nachschauen, dann würde man bei diese(n) Job(s) den Status *aborted* angezeigt bekommen
 * Defaultmäßig interessiert sich das Plugin nur für die vergangenen 60 Minuten, also die Jobs die in der letzten Stunde fertig geworden (oder abgebrochen) sind. Eine andere Zeitspanne ist einstellbar (so gibt es das auch beim Shortdump-Check).  Dadurch hat der Service bei einem üblichen 5-Minuten-Check-1-Minute-Retry-Intervall die Gelegenheit, kritisch zu werden und eine Notification zu verschicken und nach kurzer Zeit wieder grün zu werden.

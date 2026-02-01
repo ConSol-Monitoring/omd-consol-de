@@ -1,0 +1,25 @@
+From 168f5c910e386744c58305d0c5562a15a3f3eee1 Mon Sep 17 00:00:00 2001
+From: Gerhard Lausser <gerhard.lausser@consol.de>
+Date: Mon, 16 Jun 2014 11:01:59 +0200
+Subject: [PATCH] mk_sap: recalculate alrelevval if decimals is set
+
+---
+ agents/plugins/mk_sap |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/agents/plugins/mk_sap b/agents/plugins/mk_sap
+index c762daf..636bec4 100755
+--- a/agents/plugins/mk_sap
++++ b/agents/plugins/mk_sap
+@@ -262,6 +262,8 @@ def mon_perfdata(node):
+         'EXTERNAL_USER_NAME': cfg['user'],
+         'TID': tid(node),
+     })
++    if f.PROPERTIES.value['DECIMALS'] != 0:
++        value = (value + 0.0) / 10**f.PROPERTIES.value['DECIMALS']
+     uom = f.PROPERTIES.value['VALUNIT'].strip()
+ 
+     return value, uom
+-- 
+1.7.1
+

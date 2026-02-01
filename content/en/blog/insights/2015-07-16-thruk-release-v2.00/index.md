@@ -1,7 +1,7 @@
 ---
 author: Sven Nierlein
 author_email: sven.nierlein@consol.de
-date: '2015-07-16'
+date: '2015-07-16T00:00:00+00:00'
 tags:
 - Nagios
 title: Thruk just released new major version v2.00

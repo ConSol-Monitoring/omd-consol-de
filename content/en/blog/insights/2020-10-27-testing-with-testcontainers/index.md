@@ -1,6 +1,6 @@
 ---
 author: Martin Kurz
-date: '2020-10-27'
+date: '2020-10-27T00:00:00+00:00'
 featured_image: testcontainers-logo.png
 meta_description: When to use Testcontainers
 tags:
@@ -8,7 +8,7 @@ tags:
 title: Integration testing with Testcontainers
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="testcontainers-logo.png"></div>
 
 Automatic integration tests as part of the development life cycle can save a lot of time and money. Not only when dealing with other service APIs or offering some, also if the application uses a database or other infrastructure services.
 

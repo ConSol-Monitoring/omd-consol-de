@@ -1,7 +1,7 @@
 ---
 author: Christoph Deppisch
-date: '2017-09-22'
-featured_image: /assets/images/citrus-logo.png
+date: '2017-09-22T00:00:00+00:00'
+featured_image: citrus-logo.png
 tags:
 - spring
 title: Simulating 3rd party services with Spring Boot and Citrus

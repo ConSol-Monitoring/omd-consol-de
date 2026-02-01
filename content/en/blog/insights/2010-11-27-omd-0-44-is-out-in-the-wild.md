@@ -28,8 +28,8 @@ Please give OMD a try. You will be suprised how easy the installation of a full 
   [1]: http://www.omdistro.org
   [2]: http://www.thruk.org
   [3]: http://mathias-kettner.de/checkmk_multisite.html
-  [4]: /nagios/check_logfiles
-  [5]: /nagios/check_mysql_health
-  [6]: /nagios/check_oracle_health
-  [7]: /nagios/check_webinject
+  [4]: /docs/plugins/check_logfiles
+  [5]: /docs/plugins/check_mysql_health
+  [6]: /docs/plugins/check_oracle_health
+  [7]: /docs/plugins/check_webinject
   [8]: http://www.jmx4perl.org

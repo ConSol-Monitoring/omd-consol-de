@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2016-09-09'
-featured_image: /assets/images/prometheus-logo.png
+date: '2016-09-09T00:00:00+00:00'
+featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
 title: PromCon Video&#58; grok_exporter
@@ -19,7 +19,7 @@ All conference videos are available on the [PromCon Youtube playlist].
 
 Watch the [grok_exporter] introduction here:
 
-{% youtube jFX8BVT4V_g %}
+{{< youtube jFX8BVT4V_g >}}
 
 ---
 

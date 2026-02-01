@@ -12,7 +12,7 @@ tags:
 title: Configuring remote JMX access for Weblogic Server
 ---
 
-In our series of articles about configuring remote JMX access for the [jmx4perl proxy mode](/jmx4perl/2009/11/20/agentless-jmx4perl.html), this article tackles how to enable  JMX remoting for Weblogic Server 9 and 10. It is not specific to jmx4perl and explains several different setups and possible problems.
+In our series of articles about configuring remote JMX access for the [jolokia proxy mode](/blog/2009/11/20/agentless-jmx4perl/), this article tackles how to enable  JMX remoting for Weblogic Server 9 and 10. It is not specific to jmx4perl and explains several different setups and possible problems.
 
 <!-- --><!--more-->But before we start, kudos to this excellent [blog post][3] and Weblogic's own [documentation][2] which helped me quite a lot during my journey through the depth of Weblogic JMX export.
 
@@ -216,7 +216,7 @@ and on the WLS console:
 
 For setting up Weblogic for remote JMX access quite some configuration is needed. There are traps, but at least for normal monitoring needs everything should work fine at the end. Nevertheless, if you have the chance to operate jmx4perl in agent mode (without the need for remote JSR-160 connectors), I still recommend to connect directly to the server via the `j4p.war` running as an agent and not as a proxy ;-).
 
-  [1]: /jmx4perl/2009/11/23/jboss-remote-jmx.html
+  [1]: /blog/2009/11/23/jboss-remote-jmx/
   [2]: http://download.oracle.com/docs/cd/E15051_01/wls/docs103/jmx/accessWLS.html
   [3]: http://www.performanceengineer.com/blog/monitoring-weblogic-using-jmx/
   [4]: http://download.oracle.com/docs/cd/E13222_01/wls/docs100/config_scripting/using_WLST.html

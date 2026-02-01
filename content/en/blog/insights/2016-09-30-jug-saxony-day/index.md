@@ -1,7 +1,7 @@
 ---
 author: Tobias Schneck
-date: '2016-09-30'
-featured_image: /assets/images/jsd2016.png
+date: '2016-09-30T00:00:00+00:00'
+featured_image: jsd2016.png
 tags:
 - Sakuli
 title: Containerized End-2-End Testing beim &#35;JSD2016

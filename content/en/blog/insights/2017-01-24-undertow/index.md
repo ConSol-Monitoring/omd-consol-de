@@ -1,6 +1,6 @@
 ---
 author: Philipp Renoth
-date: '2017-01-24'
+date: '2017-01-24T00:00:00+00:00'
 tags:
 - undertow
 title: Undertow - How to setup a HTTP server

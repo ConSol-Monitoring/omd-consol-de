@@ -5,7 +5,7 @@ slug: webcast-java-monitoring-in-der-praxis-jmx4perl-jolokia
 title: Webcast "Java Monitoring in der Praxis – Jmx4Perl / Jolokia"
 ---
 
-Am Donnerstag senden wir einen <a href="http://www.consol.de/news/27-9-2012-webcast-java-monitoring-in-der-praxis-jmx4perl-jolokia/">Webcast</a> rund um das Thema Java Monitoring mit Nagios im Allgemeinen und dem Plugin hier beheimateten <code>check_jmx4perl</code> im Speziellen. Roland Huß als Referent unt Author von <a href="/de/jmx4perl/">jmx4perl</a> und Gerhard Laußer als Moderator erklären 45 Minuten, wie man Nagios am besten mit JEE Servern zusammenbekommt:
+Am Donnerstag senden wir einen <a href="http://www.consol.de/news/27-9-2012-webcast-java-monitoring-in-der-praxis-jmx4perl-jolokia/">Webcast</a> rund um das Thema Java Monitoring mit Nagios im Allgemeinen und dem Plugin hier beheimateten <code>check_jmx4perl</code> im Speziellen. Roland Huß als Referent und Author von jmx4perl und Gerhard Laußer als Moderator erklären 45 Minuten, wie man Nagios am besten mit JEE Servern zusammenbekommt:
 
 <ul>
 	 <li>Was ist JMX und warum ist JMX mit Nagios so schwer zu überwachen?

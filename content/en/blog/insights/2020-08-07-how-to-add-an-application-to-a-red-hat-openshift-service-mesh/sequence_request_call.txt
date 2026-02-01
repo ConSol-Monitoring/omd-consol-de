@@ -1,0 +1,14 @@
+@startuml
+actor User
+User -> MessagerEntrypoint: get message with param message and counter 
+
+MessagerEntrypoint -> MessagerBackend: get message with param message and counter
+activate MessagerBackend
+
+MessagerBackend -> MessagerBackend: Call recursive get message with param message and counter until counter == 0 
+
+MessagerBackend --> MessagerEntrypoint: Response as text
+deactivate MessagerBackend
+
+MessagerEntrypoint --> User: Response as text
+@enduml

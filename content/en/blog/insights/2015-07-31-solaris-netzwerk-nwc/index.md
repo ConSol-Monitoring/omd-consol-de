@@ -27,4 +27,4 @@ OK - interface e1000g0 usage is in:0.04% (0.05MB/s) out:1.93% (2.31MB/s) | 'e100
 
 Wichtig ist die Angabe von *--servertype solarislocal*.
 
-[1]: https://labs.consol.de/nagios/check_nwc_health/index.html
+[1]: /docs/plugins/check_nwc_health/index.html

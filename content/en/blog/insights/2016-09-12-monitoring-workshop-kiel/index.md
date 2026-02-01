@@ -1,6 +1,6 @@
 ---
 author: Matthias Gallinger
-date: '2016-09-12'
+date: '2016-09-12T00:00:00+00:00'
 featured_image: labskaus.gif
 tags:
 - Sakuli

@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2018-05-11'
-featured_image: /assets/images/kubernetes-logo.png
+date: '2018-05-11T00:00:00+00:00'
+featured_image: kubernetes-logo.png
 tags:
 - Kubernetes
 title: CIFS Flexvolume Plugin for Kubernetes

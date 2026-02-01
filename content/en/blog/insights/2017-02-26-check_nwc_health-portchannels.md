@@ -103,5 +103,5 @@ OK - interface Eth-Trunk5 has 2 sub-layers, interface Eth-Trunk1 has 2 sub-layer
 
 
 
-[check_nwc_health]: https://labs.consol.de/nagios/check_nwc_health/index.html
+[check_nwc_health]: /docs/plugins/check_nwc_health/index.html
 [VSD]: http://help.juniper.net/help/english/6.2.0/nsrp_vsd_group_cnt.htm

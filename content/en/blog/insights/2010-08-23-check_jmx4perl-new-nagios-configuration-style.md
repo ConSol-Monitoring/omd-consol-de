@@ -224,5 +224,5 @@ So, what is the take away of this post ? (and BTW, congratulations that you made
 
 For more information, please consult the [man page][2] of `check_jmx4perl`.  Looking back, writing these 30+ pages seemed to be the hardest part for version 0.70. Writing documentation (man pages or books) is tough business. Am I right, Gerhard ? ;-)
 
- [1]: /jmx4perl/2009/10/08/check_jmx4perl-einfache-servicedefinitionen.html
+ [1]: /blog/2009/10/08/check_jmx4perl-einfache-servicedefinitionen/
  [2]: http://search.cpan.org/~roland/jmx4perl/scripts/check_jmx4perl

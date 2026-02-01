@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2017-02-07'
-featured_image: /assets/images/gopher.png
+date: '2017-02-07T00:00:00+00:00'
+featured_image: gopher.png
 tags:
 - golang
 title: FOSDEM Video&#58; Implementing 'tail -f'

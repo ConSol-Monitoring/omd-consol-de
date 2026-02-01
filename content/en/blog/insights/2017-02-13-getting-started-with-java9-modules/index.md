@@ -1,7 +1,7 @@
 ---
 author: Jens Klingen
 author_url: https://twitter.com/jklingen
-date: '2017-02-13'
+date: '2017-02-13T00:00:00+00:00'
 featured_image: duke-thinking.jpg
 meta_description: In July 2017, Java 9 will be released including the brand-new module
   system. This short introduction gets you started with modular development in Java
@@ -168,4 +168,4 @@ We saw how Java 9 is an enabler to structure our code in a more modular way by p
 [JDK 9 is feature complete]: https://twitter.com/mreinhold/status/822209640037425154
 [documentation of ModuleFinder]: http://download.java.net/java/jigsaw/docs/api/java/lang/module/ModuleFinder.html#of-java.nio.file.Path...-
 [Java 9 Modules Example with Maven and JUnit]: https://github.com/ConSol/java9-modules-maven-junit-example
-[`java.httpclient`]: /development/2017/03/14/getting-started-with-java9-httpclient.html
+[`java.httpclient`]: /blog/2017/03/14/getting-started-with-java-9s-new-http-client/

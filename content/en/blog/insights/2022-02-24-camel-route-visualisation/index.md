@@ -1,6 +1,6 @@
 ---
 author: Martin Kurz
-date: '2022-02-24'
+date: '2022-02-24T00:00:00+00:00'
 featured_image: logo.png
 meta_description: What can be used to visualise and/or debug Apache Camel routes
 tags:
@@ -8,7 +8,7 @@ tags:
 title: Visualisation and debugging of Apache Camel routes
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="logo.png"></div>
 
 The documentation of software is an everyday business of a software developer and engineer. Especially for integration scenarios a diagram on the flow of a message through the system or the whole landscape is an essential illustration. Fortunately there are [standardised messaging patterns](https://www.enterpriseintegrationpatterns.com/patterns/messaging/toc.html){:target="_blank"} which can be used. Unfortunately, however, there is no tool which can create such visualizations out of the box directly of source code. In this article we will have a look at [Apache Camel](https://camel.apache.org/){:target="_blank"} and how it is possible to get a graphical representation of an integration route. We will also discuss about debugging it, as some tools have the feature to do this.
 <!--more-->
@@ -99,7 +99,7 @@ skinparam queue<<dynamic>> {
   BackgroundColor #D5E8D4
 }
 
-footer Generated with camel-plantuml on %date("dd-MM-yyyy HH:mm")
+footer Generated with camel-plantuml on &#37;date("dd-MM-yyyy HH:mm")
 
 ' === Some useful settings for tweaking diagram layout ===
 'left to right direction

@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2017-11-07'
-featured_image: /assets/images/prometheus-logo.png
+date: '2017-11-07T00:00:00+00:00'
+featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
 title: Devoxx Video&#58; Prometheus Monitoring for Java Web Applications w/o Modifying
@@ -16,7 +16,7 @@ At this year's [Devoxx] conference, Fabian Stäber did a [talk] on how to instru
 
 <!--more-->
 
-{% youtube BjyI93c8ltA %}
+{{< youtube BjyI93c8ltA >}}
 
 <p/>
 This talk focuses on how to use the [Byte Buddy] library to write a Java agent instrumenting Java applications with Prometheus metrics. **If you are looking for a general introduction to Prometheus monitoring for Java developers**, you might want to watch my talk on [Prometheus Monitoring for Java Developers] from last year's Devoxx.

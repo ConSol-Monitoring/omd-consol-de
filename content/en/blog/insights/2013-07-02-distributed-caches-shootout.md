@@ -17,6 +17,6 @@ Dr. Fabian Stäber gave a talk a [JayDay 2013](http://www.jayday.de) where he in
 
 Based on a simple example application, the basic functionality is presented, and the specific strengths and weaknesses of the different cache architectures are highlighted and compared.
 
-The results of this 'shootout' and an executive summary can be found here at [/java-caches](/java-caches) and the example application is available from [GitHub](https://github.com/ConSol/java-caches-demo).
+The results of this 'shootout' and an executive summary can be found here at Java caches and the example application is available from [GitHub](https://github.com/ConSol/java-caches-demo).
 
-[Start here ...](/java-caches)
+[Start here ...](https://github.com/ConSol/java-caches-demo)

@@ -27,4 +27,4 @@ CRITICAL - Sat Feb&#160; 9 18:45:43 2013 Back_Door_Probe (TCP 3128) under-attack
 
 <p>Mit den Parameter –lookback gibt man an, wieviele Sekunden das Plugin in die Vergangenheit blicken soll, um security-relevante Incidents zu zählen. Der Defaultwert ist 3600, also eine Stunde. Im Beispiel habe ich den Wert 3600*24*2, also zwei Tage, gewählt, weil es aktuell keine Vorfälle gab. </p>
 
-<p>Das Plugin gibts <a href="/de/nagios/check_nwc_health" target="_blank">hier...</a></p>
+<p>Das Plugin gibts <a href="/docs/plugins/check_nwc_health" target="_blank">hier...</a></p>

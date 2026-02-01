@@ -1,0 +1,295 @@
+#!/bin/sh
+#
+# Resource script for ndo2db daemon
+#
+# Description:  Manages ndo2db daemon as an OCF resource in 
+#               an High Availability setup.
+#
+# Author:       Gerhard Lausser <gerhard.lausser@consol.de>
+# License:      GNU General Public License (GPL) 
+# Copyright:    (C) ConSol Software GmbH
+#
+# Changelog:
+#
+# 2009-11-13 1.0	initial release
+#
+#
+#
+#	usage: $0 {start|stop|status|monitor|validate-all|meta-data}
+#
+#	The "start" arg starts ndo2db.
+#
+#	The "stop" arg stops it.
+#
+# OCF parameters:
+# OCF_RESKEY_binpath
+# OCF_RESKEY_conffile
+# OCF_RESKEY_pidfile
+#
+# Note:This RA requires that the ndo2db config files has a "lock_file" 
+# entry so that it is able to act on the correct process
+##########################################################################
+# Initialization:
+
+. ${OCF_ROOT}/resource.d/heartbeat/.ocf-shellfuncs
+
+##########################################################################
+
+DEFAULT_binpath=/usr/local/nagios/bin/ndo2db
+DEFAULT_conffile=/usr/local/nagios/etc/ndo2db.cfg
+DEFAULT_pidfile=/usr/local/nagios/var/ndo2db.lock
+
+usage() {
+  cat <<-!
+usage: $0 {start|stop|status|monitor|validate-all|meta-data}
+
+action:
+        start   start the ndo2db daemon
+
+        stop    stop the ndo2db daemon
+
+        status  return the status of the ndo2db daemon, running or down
+
+        methods return the set of commands we support
+
+        monitor return TRUE if the ndo2db daemon appears to be working.
+                There must be a process with the pid which can be found
+                in the lockfile.
+
+        meta-data       show meta data message
+
+        validate-all    validate the instance parameters
+	!
+  exit $OCF_ERR_ARGS
+}
+
+
+meta_data() 
+{
+cat <<END
+<?xml version="1.0"?>
+<!DOCTYPE resource-agent SYSTEM "ra-api-1.dtd">
+<resource-agent name="ndo2db">
+<version>1.0</version>
+<longdesc lang="en">
+This script manages the ndo2db daemon
+</longdesc>
+<shortdesc lang="en">OCF Resource Agent compliant ndo2db daemon script.</shortdesc>
+
+<parameters>
+
+<parameter name="binpath">
+<longdesc lang="en">
+The ndo2db binary path.
+</longdesc>
+<shortdesc lang="en">Full path to the ndo2db binary</shortdesc>
+<content type="string" default="$DEFAULT_binpath"/>
+</parameter>
+
+<parameter name="conffile">
+<longdesc lang="en">
+The ndo2db daemon configuration file name with full path. 
+For example, "$DEFAULT_conffile"
+</longdesc>
+<shortdesc lang="en">Configuration file name with full path</shortdesc>
+<content type="string" default="$DEFAULT_conffile" />
+</parameter>
+
+<parameter name="pidfile">
+<longdesc lang="en">
+The ndo2db daemon pid file name with full path. 
+For example, "$DEFAULT_pidfile"
+</longdesc>
+<shortdesc lang="en">Pid file name with full path. </shortdesc>
+<content type="string" default="$DEFAULT_pidfile" />
+</parameter>
+
+</parameters>
+
+<actions>
+<action name="start" timeout="90"/>
+<action name="stop" timeout="100"/>
+<action name="monitor" depth="10" timeout="30s" interval="60s" start-delay="1s" />
+<action name="validate-all" timeout="30s"/>
+<action name="meta-data"  timeout="5s"/>
+</actions>
+</resource-agent>
+END
+exit $OCF_SUCCESS
+}
+
+get_pid_and_bin_and_conf_file()
+{
+	if [ -n "$OCF_RESKEY_conffile" ]; then
+		CONF_FILE=$OCF_RESKEY_conffile
+	else
+		CONF_FILE=$DEFAULT_conffile
+	fi
+	if [ -n "$OCF_RESKEY_binpath" ]; then
+		BIN_FILE=$OCF_RESKEY_binpath
+	else
+		BIN_FILE=$DEFAULT_binpath
+	fi
+        if [ -f "$CONF_FILE" ]; then
+                grep -v "^#" "$CONF_FILE" 2>/dev/null | grep "^lock_file" > /dev/null
+                if [ $? -eq 0 ]; then
+                        PID_FILE=`awk -F= '/^lock_file/ {print $2}' $CONF_FILE`
+                fi
+        else
+                PID_FILE=
+        fi
+
+}
+
+ndo2db_status()
+{
+        
+	if [ -n "$PID_FILE" ] && [ -f $PID_FILE ]; then
+		# ndo2db is probably running
+		PID=`cat $PID_FILE`
+		if [ -n "$PID" ]; then
+			if ps -p $PID | grep ndo2db >/dev/null ; then
+				ocf_log info "ndo2db running"
+				return $OCF_SUCCESS
+			else
+				rm $PID_FILE 2>/dev/null
+				ocf_log info "orphan pid file removed"
+				return $OCF_SUCCES
+			fi
+		else
+			ocf_log err "PID file empty!"
+			return $OCF_ERR_GENERIC
+		fi
+	fi
+		
+	# ndo2db is not running
+	ocf_log info "ndo2db is not running"
+	return $OCF_NOT_RUNNING
+}
+
+ndo2db_start()
+{
+	# if ndo2db is running return success
+	ndo2db_status
+	retVal=$?
+	if [ $retVal -eq $OCF_SUCCESS ]; then
+		exit $OCF_SUCCESS
+	elif [ $retVal -ne $OCF_NOT_RUNNING ]; then
+		ocf_log err "Error. Unknown status."
+		exit $OCF_ERR_GENERIC
+	fi
+
+	COMMAND="$BIN_FILE -c $CONF_FILE"
+
+        if [ -x "$BIN_FILE" -a -f "$CONF_FILE" ]; then
+                if  grep -v "^#" "$CONF_FILE" | grep "lock_file" > /dev/null ; then
+                        $COMMAND;
+                        if [ $? -ne 0 ]; then
+                                ocf_log err "Error. ndo2db returned error $?."
+                                exit $OCF_ERR_GENERIC
+                        fi
+                else
+                        ocf_log err "Error. \"lock_file\" entry required in the ndo2db config file by ndo2db OCF RA."
+                        return $OCF_ERR_GENERIC
+                fi
+        
+        	ocf_log info "Started ndo2db daemon."
+        	exit $OCF_SUCCESS
+        else
+                ocf_log err "Error. Cannot start without $BIN_FILE and $CONF_FILE"
+                exit $OCF_ERR_CONFIGURED
+        fi
+}
+
+
+ndo2db_stop()
+{
+	if ndo2db_status ; then
+		PID=`cat $PID_FILE`
+		if [ -n "$PID" ] ; then
+			kill $PID
+			if [ $? -ne 0 ]; then
+				kill -SIGKILL $PID
+				if [ $? -ne 0 ]; then
+					ocf_log err "Error. Could not stop ndo2db."
+					return $OCF_ERR_GENERIC
+				fi
+			fi
+			rm $PID_FILE 2>/dev/null
+		else
+			ocf_log err "Error. Don't know which pid to kill."
+			exit $OCF_ERR_GENERIC
+		fi
+	fi
+	ocf_log info "Stopped ndo2db."
+	exit $OCF_SUCCESS
+}
+
+ndo2db_monitor()
+{
+	ndo2db_status
+}
+
+ndo2db_validate_all()
+{
+	if [ -n "$BIN_FILE" -a ! -x "$BIN_FILE" ]; then
+		ocf_log err "Binary path $BIN_FILE does not exist."
+		exit $OCF_ERR_ARGS
+	fi
+	if [ -n "$CONF_FILE" -a ! -f "$CONF_FILE" ]; then
+		ocf_log err "Config file $CONF_FILE does not exist."
+		exit $OCF_ERR_ARGS
+	fi
+        if  grep -v "^#" "$CONF_FILE" | grep "^lock_file" > /dev/null ; then 
+                :
+        else
+                ocf_log err "Error. \"lock_file\" entry required in the ndo2db config file by ndo2db OCF RA."
+                return $OCF_ERR_GENERIC
+        fi
+
+	return $OCF_SUCCESS
+}
+
+
+#
+# Main
+#
+ 
+if [ $# -ne 1 ]; then
+	usage
+	exit $OCF_ERR_ARGS
+fi
+
+case $1 in
+	start)	get_pid_and_bin_and_conf_file
+		ndo2db_start
+		;;
+	
+	stop)	get_pid_and_bin_and_conf_file
+		ndo2db_stop
+		;;
+
+	status)	get_pid_and_bin_and_conf_file
+		ndo2db_status
+		;;
+
+	monitor)get_pid_and_bin_and_conf_file
+		ndo2db_monitor
+		;;
+
+	validate-all)	get_pid_and_bin_and_conf_file
+			ndo2db_validate_all
+			;;
+
+	meta-data)	meta_data
+			;;
+
+	usage)	usage
+		exit $OCF_SUCCESS
+		;;
+
+	*)	usage
+		exit $OCF_ERR_UNIMPLEMENTED
+		;;
+esac
+

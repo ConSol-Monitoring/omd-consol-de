@@ -1,0 +1,128 @@
+From 531b61ee3036605acf4423fcc54df0e70e8d484f Mon Sep 17 00:00:00 2001
+From: Gerhard Lausser <gerhard.lausser@consol.de>
+Date: Sat, 21 Jun 2014 07:22:30 +0200
+Subject: [PATCH] check_sap: recalculate alrelevval if decimals is set
+
+---
+ plugins/check_sap/Makefile.in |    2 +-
+ plugins/check_sap/check_sap.c |   50 ++++++++++++++++++++++++++++++----------
+ 2 files changed, 38 insertions(+), 14 deletions(-)
+
+diff --git a/plugins/check_sap/Makefile.in b/plugins/check_sap/Makefile.in
+index 1503218..9e23a56 100644
+--- a/plugins/check_sap/Makefile.in
++++ b/plugins/check_sap/Makefile.in
+@@ -15,7 +15,7 @@ CFLAGS += -DSAP -g -O0 @EXTRACFLAGS@ @DEFS@
+ # shared library flags (assumes gcc)
+ DLFLAGS=-fPIC -shared
+ # BUILDLIBS=-lrfcum -lsapu16
+-BUILDLIBS=@BUILDLIBS@
++BUILDLIBS=@BUILDLIBS@ -lm
+ 
+ .PHONY: debug clean all install
+ all: build strip
+diff --git a/plugins/check_sap/check_sap.c b/plugins/check_sap/check_sap.c
+index ef41a2a..a3132c6 100644
+--- a/plugins/check_sap/check_sap.c
++++ b/plugins/check_sap/check_sap.c
+@@ -22,6 +22,7 @@
+ #include <regex.h>
+ #include <sys/types.h>
+ #include <inttypes.h>
++#include <math.h>
+ #include "mt.h"
+ 
+ 
+@@ -179,9 +180,15 @@ int main(int argc, char **argv)
+     wchar_t         *cleanstr;
+ 
+     /* thresholds returned by SAP */
+-    int             warn_threshold = 0;
+-    int             crit_threshold = 0;
++    float             warn_threshold = 0;
++    float             crit_threshold = 0;
+ 
++    float             alrelevval = 0; /* floating point copy of ALRELEVVAL */
++    int               dec = 1; /* factor by which ALRELEVVAL needs to be divided */
++    float             treshy2g = 0;
++    float             treshg2y = 0;
++    float             treshr2y = 0;
++    float             treshy2r = 0;
+ 
+ 
+ 
+@@ -481,10 +488,15 @@ int main(int argc, char **argv)
+                                 exit(3);
+                             }
+ 
++                            alrelevval = (float)perfval.Alrelevval;
++                            if (perfprop.Decimals > 0) {
++                                dec = pow(10, perfprop.Decimals);
++                                alrelevval /= dec;
++                            }
+ #ifdef DEBUG
+                             snprintf(tmpbuf, sizeof(tmpbuf), ": %d(warn %d ~ %d, crit %d ~ %d)", perfval.Alrelevval, perfprop.Treshg2y, perfprop.Treshy2g, perfprop.Treshy2r, perfprop.Treshr2y);
+ #else
+-                            snprintf(tmpbuf, sizeof(tmpbuf), ": %d", perfval.Alrelevval);
++                            snprintf(tmpbuf, sizeof(tmpbuf), ": %.*f", perfprop.Decimals, alrelevval);
+ #endif /* DEBUG */
+                             STRADD(output, tmpbuf);
+ 
+@@ -508,19 +520,29 @@ int main(int argc, char **argv)
+                              * But if it can then use the '@x:y' format, which is also not correct but brings us closer...
+                              */
+ 
++                            treshy2g = (float)perfprop.Treshy2g;
++                            treshg2y = (float)perfprop.Treshg2y;
++                            treshr2y = (float)perfprop.Treshr2y;
++                            treshy2r = (float)perfprop.Treshy2r;
++                            if (perfprop.Decimals > 0) {
++                                treshy2g /= dec;
++                                treshg2y /= dec;
++                                treshr2y /= dec;
++                                treshy2r /= dec;
++                            }
+                             switch(data.Value)
+                             {
+                                 case 1:
+-                                    warn_threshold = perfprop.Treshg2y;
+-                                    crit_threshold = perfprop.Treshy2r;
++                                    warn_threshold = treshg2y;
++                                    crit_threshold = treshy2r;
+                                     break;
+                                 case 2:
+-                                    warn_threshold = perfprop.Treshy2g;
+-                                    crit_threshold = perfprop.Treshy2r;
++                                    warn_threshold = treshy2g;
++                                    crit_threshold = treshy2r;
+                                     break;
+                                 case 3:
+-                                    warn_threshold = perfprop.Treshy2g;
+-                                    crit_threshold = perfprop.Treshr2y;
++                                    warn_threshold = treshy2g;
++                                    crit_threshold = treshr2y;
+                                     break;
+                             }
+ 
+@@ -541,12 +563,14 @@ int main(int argc, char **argv)
+                             strcpy_nospaces(valstr, perfstr);
+                             if (flag_ranges)
+                             {
+-                                snprintf(tmpbuf, sizeof(tmpbuf), "%s=%d%s;@%d:%d;@%d:%d ", valstr, perfval.Alrelevval, valunit?valunit:"",
+-                                    perfprop.Treshy2g, perfprop.Treshg2y, perfprop.Treshr2y, perfprop.Treshy2r);
++                                snprintf(tmpbuf, sizeof(tmpbuf), "%s=%.*f%s;@%.*f:%.*f;@%.*f:%.*f ", valstr, perfprop.Decimals, alrelevval, valunit?valunit:"",
++                                    perfprop.Decimals, treshy2g, perfprop.Decimals, treshg2y,
++                                    perfprop.Decimals, treshr2y, perfprop.Decimals, treshy2r);
+                             } else if (flag_thresholds) {
+-                                snprintf(tmpbuf, sizeof(tmpbuf), "%s=%d%s;%d;%d ", valstr, perfval.Alrelevval, valunit?valunit:"", warn_threshold, crit_threshold);
++                                snprintf(tmpbuf, sizeof(tmpbuf), "%s=%.*f%s;%.*f;%.*f ", valstr, perfprop.Decimals, alrelevval, valunit?valunit:"",
++                                    perfprop.Decimals, warn_threshold, perfprop.Decimals, crit_threshold);
+                             } else {
+-                                snprintf(tmpbuf, sizeof(tmpbuf), "%s=%d%s ", valstr, perfval.Alrelevval, valunit?valunit:"");
++                                snprintf(tmpbuf, sizeof(tmpbuf), "%s=%.*f%s ", valstr, perfprop.Decimals, alrelevval, valunit?valunit:"");
+                             }
+                             FREE(valunit);
+                             FREE(valstr);
+-- 
+1.7.1
+

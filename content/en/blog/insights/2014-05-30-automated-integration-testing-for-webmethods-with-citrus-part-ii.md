@@ -8,7 +8,7 @@ title: Automated Integration Testing for webMethods  with Citrus Part II
 ---
 
 <h2>Achieving Continuous Integration for ESB Projects with Citrus (Part II: Basic Project Setup)</h2>
-In <a title="Part I" href="/citrus/2014/03/06/automated-integration-testing-for-webmethods-achieving-continuous-integration-for-esb-projects-with-citrus-part-i-introduction.html" target="_blank">Part I</a> of this tutorial I introduced the basic concepts and benefits of Citrus as a test driver for ESB projects in general and webMethods in particular. In this second part I want to discuss some Citrus project setup options and provide a quickstart template project for Ant users.
+In Part I of this tutorial I introduced the basic concepts and benefits of Citrus as a test driver for ESB projects in general and webMethods in particular. In this second part I want to discuss some Citrus project setup options and provide a quickstart template project for Ant users.
 
 <!--more-->
 

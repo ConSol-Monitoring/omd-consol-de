@@ -1,7 +1,7 @@
 ---
 author: Michael Kraus
-date: '2017-03-08'
-featured_image: /assets/images/prometheus-logo.png
+date: '2017-03-08T00:00:00+00:00'
+featured_image: prometheus-logo.png
 summary: null
 tags:
 - PrometheusIO
@@ -336,7 +336,7 @@ Man kann den node_exporter auf weitere Server im Heimnetzwerk installieren. Um d
 
 Um schöne und nützliche Grafana-Dashboards zu erstellen, braucht man etwas Übung. Glücklicherweise gibt es schon etliche fertige Dashboards bei [grafana.net] zum Herunterladen, zum Beispiel das sehr nützliche [node_exporter dashboard].
 
-Ein Dashboard auf Basis der Daten dieses Tutorials könnt Ihr <a href="/assets/2017-03-08-prometheus-und-die-fritzbox/dashboard.json">hier</a> herunterladen und in Grafana importieren.
+Ein Dashboard auf Basis der Daten dieses Tutorials könnt Ihr <a href="dashboard.json">hier</a> herunterladen und in Grafana importieren.
 
 Und so sieht das Dashboard momentan bei mir aus:
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="dashboard.png" alt=""></div>

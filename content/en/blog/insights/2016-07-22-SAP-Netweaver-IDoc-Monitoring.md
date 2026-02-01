@@ -7,7 +7,7 @@ tags:
 title: IDoc-Monitoring mit check_sap_health
 ---
 
-IDoc ist das Austauschformat von SAP ERP-Systemen, welches benutzt wird, um per Import und Export Daten sowohl untereinander als auch mit Fremdsystemen auszutauschen. Typische Beispiele solcher Daten sind Bestellungen, Lieferscheine, Überweisungen, Stundenbuchungen, etc. Ein IDoc besitzt neben Control- und Data-Records auch Status-Records, in denen jeder einzelne Verarbeitungsschritt protokolliert wird. Diese Status-Records werden in der Tabelle *EDIDS* gespeichert. Die neue Version 1.9 von [check_sap_health](https://labs.consol.de/nagios/check_sap_health/index.html) kennt den Mode *failed-idocs*, mit dem in *EDIDS* nach Fehlermeldungen gesucht wird. 
+IDoc ist das Austauschformat von SAP ERP-Systemen, welches benutzt wird, um per Import und Export Daten sowohl untereinander als auch mit Fremdsystemen auszutauschen. Typische Beispiele solcher Daten sind Bestellungen, Lieferscheine, Überweisungen, Stundenbuchungen, etc. Ein IDoc besitzt neben Control- und Data-Records auch Status-Records, in denen jeder einzelne Verarbeitungsschritt protokolliert wird. Diese Status-Records werden in der Tabelle *EDIDS* gespeichert. Die neue Version 1.9 von [check_sap_health](/docs/plugins/check_sap_health/index.html) kennt den Mode *failed-idocs*, mit dem in *EDIDS* nach Fehlermeldungen gesucht wird. 
 <!--more-->
 Dabei wird der Zeitraum der letzten Stunde betrachtet. Will man den CRITICAL-Status länger aufrecht erhalten, so kann man mit \--lookback <Sekunden> die Suche nach Fehlern (Status *E* oder *W*) in den Status-Records weiter in die Vergangenheit ausdehnen.
 ```bash

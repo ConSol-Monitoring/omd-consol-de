@@ -59,7 +59,7 @@ Besagte Plugins können solche encodierten Passwörter intern wieder decodieren.
 Lautet beispielsweise ein Datenbank-Passwort **Die Gold Hühner's** (Gefunden auf [Deppenapostroph](http://www.deppenapostroph.info)), so musste man bisher das einfache Hochkomma mit einem Backslash entwerten, oder das Passwort in doppelte Hochkommas packen, was aber wiederum die Verwendung  eines doppelten Hochkommas als Bestandteil des Passworts auschließt, oder sonstige Verrenkungen machen.
 Einfacher ist es, gleich **\--password rfc3986://Die%20Gold%27%20H%fchners** zu schreiben, das Plugin kümmert sich dann um den Rest.
 
-Und im Grunde genommen muss man auch gar nichts selber schreiben, denn verwendet man [coshsh](/nagios/coshsh), so können DBAs und Applikationsbenutzer etc. in der CMDB oder irgendwelchen Inventar-Sheets die wüstesten Passwörter eintragen, der Generator encodiert sie automatisch. So sieht es beispielsweise in einer Class *app_db_mssql.py* aus:
+Und im Grunde genommen muss man auch gar nichts selber schreiben, denn verwendet man [coshsh](/docs/coshsh), so können DBAs und Applikationsbenutzer etc. in der CMDB oder irgendwelchen Inventar-Sheets die wüstesten Passwörter eintragen, der Generator encodiert sie automatisch. So sieht es beispielsweise in einer Class *app_db_mssql.py* aus:
 ```python
 ...
         # url encode sql statement, remove trailing semicolon

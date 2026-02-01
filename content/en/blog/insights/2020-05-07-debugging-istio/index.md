@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2020-05-07'
+date: '2020-05-07T00:00:00+00:00'
 featured_image: OpenShift-Logo.jpg
 meta_description: Debugging Istio (Maistra 1.1) with the command line istioctl, Envoy
   and Kiali
@@ -10,9 +10,9 @@ tags:
 title: Debugging Istio
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="OpenShift-Logo.jpg"></div>
 
-In the article, I'm going to describe what we can do, if we configured our application to use Istio, but it is not working like intended. Originally, I wanted to give a detailed description what problems I encountered during the creation of my webinar and how I fixed them. However, I came to a point where this would be a very long one. I hope that you don't mind that I shortened it and just describe which tools are available to `debug` the Istio configuration. In my previous [article](/development/2020/05/07/istio-and-keycloak.html) I described how to configure Keycloak for my webinar. So without further ado, let's start.
+In the article, I'm going to describe what we can do, if we configured our application to use Istio, but it is not working like intended. Originally, I wanted to give a detailed description what problems I encountered during the creation of my webinar and how I fixed them. However, I came to a point where this would be a very long one. I hope that you don't mind that I shortened it and just describe which tools are available to `debug` the Istio configuration. In my previous [article](/blog/2020/05/07/simple-example-how-to-use-istio-and-keycloak/) I described how to configure Keycloak for my webinar. So without further ado, let's start.
 <!--more-->
 <br/>
 

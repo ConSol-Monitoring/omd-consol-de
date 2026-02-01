@@ -12,7 +12,7 @@ tags:
 title: Jmx4Perl without agent servlet
 ---
 
-Big news around: [jmx4perl](http://www.jmx4perl.org) supports now an agentless mode in which the target platform can be monitored without installing the j4p agent servlet. This works by using `j4p.war` as a *JMX Proxy*, which translates our JSON/HTTP protocol on the frontside to JSR-160 JMX remote requests on the backend and vice versa.
+Big news around: jmx4perl supports now an agentless mode in which the target platform can be monitored without installing the j4p agent servlet. This works by using `j4p.war` as a *JMX Proxy*, which translates our JSON/HTTP protocol on the frontside to JSR-160 JMX remote requests on the backend and vice versa.
 
 <!-- -->
 <!--more-->Version [0.50][1] has been submitted to CPAN.  If you want to try out the proxy mode, here is a recipe to set it up. In this example I use JBoss 4.2.3, but you are encouraged to try it out for a different application server of your choice (in which case I'm really keen to know your feedback ;-)
@@ -90,4 +90,4 @@ I recommend the agent servlet mode over the proxy mode. The proxy mode should be
  [2]: http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip
  [3]: http://apache.easy-webs.de/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.tar.gz
  [4]: http://sourceforge.net/projects/jboss/files/JBoss/JBoss-4.2.3.GA/jboss-4.2.3.GA.zip/download
- [5]: /jmx4perl/2009/11/23/jboss-remote-jmx.html
+ [5]: /blog/2009/11/23/jboss-remote-jmx/

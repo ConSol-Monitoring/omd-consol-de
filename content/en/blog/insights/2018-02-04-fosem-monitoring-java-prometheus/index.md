@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2018-02-04'
-featured_image: /assets/images/prometheus-logo.png
+date: '2018-02-04T00:00:00+00:00'
+featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
 title: FOSDEM Video&#58; Monitoring Legacy Java Applications with Prometheus

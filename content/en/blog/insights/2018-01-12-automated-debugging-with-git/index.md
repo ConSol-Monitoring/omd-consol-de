@@ -1,7 +1,7 @@
 ---
 author: Sven Hettwer
 author_url: https://twitter.com/SvenHettwer
-date: '2018-01-12'
+date: '2018-01-12T00:00:00+00:00'
 featured_image: assets/automated-debugging-with-git/git_logo.png
 meta_description: Learn how to debug your code automatically using git
 tags:

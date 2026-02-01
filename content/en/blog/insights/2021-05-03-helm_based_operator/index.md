@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2021-05-03'
+date: '2021-05-03T00:00:00+00:00'
 featured_image: helm-operator-logo.jpg
 meta_description: Simple example how to create OLM supported Helm operator by using
   the operator skd. It is using bundle format and is tested with Scorecard and KUTTL
@@ -11,7 +11,7 @@ tags:
 title: A journey of a Helm operator to OperatorHub.io and back again
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="helm-operator-logo.jpg"></div>
 
 Some time ago, I started a project to create a Helm based operator for an OpenShift application. I used the Operator SDK to create the Helm operator. The Operator SDK documentation describes the parameters  pretty good, and it contains a simple tutorial. it does not, however, describe the complete development cycle. This article aims to describe everything from creating the operator to the point where you can upload your operator to <a href="https://operatorhub.io/" target="blank">OperatorHub.io</a>. We start with a basic Helm Chart. With this, you can install <a href="https://www.nginx.com/" target="blank">Nginx</a> as a <a href="https://docs.openshift.com/container-platform/4.7/rest_api/workloads_apis/statefulset-apps-v1.html" target="blank">StatefulSet</a>. You can find the source code in my github repo. Before we can start with creating an operator, we need to fulfill some prerequisites.
 <!--more-->

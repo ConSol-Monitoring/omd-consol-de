@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2020-05-07'
+date: '2020-05-07T00:00:00+00:00'
 featured_image: OpenShift-Logo.jpg
 meta_description: An example how to integrate Istio and Keycloak
 tags:
@@ -9,9 +9,9 @@ tags:
 title: Simple example how to use Istio and Keycloak
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="OpenShift-Logo.jpg"></div>
 
-Some time ago, I did a webinar about the RedHat Service Mesh, which is based on Istio. For this webinar, I prepared a demo application. Among other things, I wanted to show how to do the authentication with JWT token in general and, more specific, with Keycloak. This article will describe how to configure Keycloak. In the second article, I will show you what problems I encountered running the application in Istio and how I figured out what was wrong in my configuration. You can find the article [here](/development/2020/05/07/debugging-istio.html)
+Some time ago, I did a webinar about the RedHat Service Mesh, which is based on Istio. For this webinar, I prepared a demo application. Among other things, I wanted to show how to do the authentication with JWT token in general and, more specific, with Keycloak. This article will describe how to configure Keycloak. In the second article, I will show you what problems I encountered running the application in Istio and how I figured out what was wrong in my configuration. You can find the article [here](/blog/2020/05/07/debugging-istio/)
 <!--more-->
 <br/>
 
@@ -109,4 +109,4 @@ The access token of my user looks like this:
 
 ![](screenshot_access_token5.jpg)
 
-As you can see, the access token has a new attribute `roles` with `offline_access`,`uma_authorization` and `customer`. With theses changes, we should able to log into Istio with the access token. In the second article, I will show you what problems I encountered running the application in Istio and how I figured out what was wrong in my configuration.You can find the article [here](/development/2020/05/07/debugging-istio.html)
+As you can see, the access token has a new attribute `roles` with `offline_access`,`uma_authorization` and `customer`. With theses changes, we should able to log into Istio with the access token. In the second article, I will show you what problems I encountered running the application in Istio and how I figured out what was wrong in my configuration.You can find the article [here](/blog/2020/05/07/debugging-istio/)

@@ -1,7 +1,7 @@
 ---
 author: Andy Degenkolbe
 author_url: https://twitter.com/andy_degenkolbe
-date: '2022-02-24'
+date: '2022-02-24T00:00:00+00:00'
 featured_image: ./camel-k.png
 meta_description: Camel Camel-k
 tags:

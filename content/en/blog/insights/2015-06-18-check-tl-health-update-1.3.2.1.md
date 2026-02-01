@@ -6,9 +6,9 @@ tags:
 title: Neues von check_tl_health
 ---
 
-Das Tape-Library-Plugin [check_tl_health](/nagios/check_tl_health) kann mittlerweile die meisten Geräte überwachen, die bei unseren Kunden im Einsatz sind. Kommen neue Modellvarianten hinzu, so werden diese i.d.R. vom Plugin erkannt. Möglich ist dies, weil gängige MIBs wie QUANTUM-SMALL-TAPE-LIBRARY-MIB, SEMI-MIB, SL-HW-LIB-T950-MIB, UCD-SNMP-MIB, ADIC-INTELLIGENT-STORAGE-MIB, ADIC-INTELLIGENT-STORAGE-MIB, BDT-MIB, ... bereits enthalten sind. Durch Prüfen charakteristischer OIDs wird ermittelt, welche MIBs die zu überwachende Library implementiert hat, danach wird der entsprechende Zweig mit den spezifischen Abfragen ausgeführt.
+Das Tape-Library-Plugin [check_tl_health](/docs/plugins/check_tl_health) kann mittlerweile die meisten Geräte überwachen, die bei unseren Kunden im Einsatz sind. Kommen neue Modellvarianten hinzu, so werden diese i.d.R. vom Plugin erkannt. Möglich ist dies, weil gängige MIBs wie QUANTUM-SMALL-TAPE-LIBRARY-MIB, SEMI-MIB, SL-HW-LIB-T950-MIB, UCD-SNMP-MIB, ADIC-INTELLIGENT-STORAGE-MIB, ADIC-INTELLIGENT-STORAGE-MIB, BDT-MIB, ... bereits enthalten sind. Durch Prüfen charakteristischer OIDs wird ermittelt, welche MIBs die zu überwachende Library implementiert hat, danach wird der entsprechende Zweig mit den spezifischen Abfragen ausgeführt.
 <!--more-->
-Seit dem letzten Release von [check_tl_health](/nagios/check_tl_health) auf Labs wurden die Libraries **Quantum i6000** und **BDT FlexStorII** in die Liste der unterstützten Hardware aufgenommen. Durch die automatische Erkennung stehen die Chancen gut, daß auch das Monitoring "naher Verwandter" dieser Modelle auf Anhieb funktioniert.
+Seit dem letzten Release von [check_tl_health](/docs/plugins/check_tl_health) auf Labs wurden die Libraries **Quantum i6000** und **BDT FlexStorII** in die Liste der unterstützten Hardware aufgenommen. Durch die automatische Erkennung stehen die Chancen gut, daß auch das Monitoring "naher Verwandter" dieser Modelle auf Anhieb funktioniert.
 
 **Die Implementierung des Laufwerkstyps BDT FlexStor II wurde von der Firma [pinguin AG](http://www.pinguin.ag), einem Unternehmen für agile Softwareentwicklung mit Sitz in Berlin, in Auftrag gegeben und somit gesponsort. Herzlichen Dank dafür!**
 

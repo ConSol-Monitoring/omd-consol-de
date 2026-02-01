@@ -5,12 +5,12 @@ slug: consol-labs-forum
 title: ConSol Labs Forum
 ---
 
-labs.consol.de hat nun ein [Forum](/forum) für Fragen rund um labs.consol.de
+labs.consol.de hat nun ein Forum für Fragen rund um labs.consol.de
 und unsere Open Source Projekte.
 
 <!--more-->
 
-labs.consol.de now hosts a [forum](/forum) for discussions
+labs.consol.de now hosts a forum for discussions
 related to our open source projects.
 
 <!--more-->
@@ -39,7 +39,7 @@ questions to Nagios should be put there.
 Have fun -->
 
 <div style="margin: 20px; border: 1px solid #AAA; background: #EEE; font-size: 15pt; padding: 10px; text-align: center;">
-    <a href="/forum">ConSol Labs Forum</a>
+    <a href="http://forums.consol.de">ConSol Labs Forum</a>
 </div>
 
 Some hints:
@@ -50,6 +50,6 @@ Some hints:
   languages can be specified as well.
 
  [1]: http://www.nagios-portal.org
- [2]: /nagios/check_logfiles
+ [2]: /docs/plugins/check_logfiles
  [3]: /forum
  [4]: http://daringfireball.net/projects/markdown/

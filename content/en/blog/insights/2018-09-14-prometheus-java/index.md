@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2018-09-14'
-featured_image: /assets/images/prometheus-logo.png
+date: '2018-09-14T00:00:00+00:00'
+featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
 title: JavaZone Video&#58; Prometheus Monitoring without Modifying Source Code Using

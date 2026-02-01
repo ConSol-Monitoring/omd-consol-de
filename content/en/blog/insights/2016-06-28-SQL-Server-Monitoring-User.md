@@ -7,7 +7,7 @@ tags:
 title: Schnelles Anlegen eines Monitoring-Users mit check_mssql_health
 ---
 
-Seit der Version 2.6.3 von [check_mssql_health](https://labs.consol.de/nagios/check_mssql_health/index.html) ist es möglich, den für das Monitoring benötigten Datenbankbenutzer direkt vom Plugin erzeugen zu lassen. Angenommen, der Benutzer soll *NAGIOS* heißen und das dazugehörige Passwort *ES_ku_el*. Der Plugin-Aufruf lautet dann:
+Seit der Version 2.6.3 von [check_mssql_health](/docs/plugins/check_mssql_health/index.html) ist es möglich, den für das Monitoring benötigten Datenbankbenutzer direkt vom Plugin erzeugen zu lassen. Angenommen, der Benutzer soll *NAGIOS* heißen und das dazugehörige Passwort *ES_ku_el*. Der Plugin-Aufruf lautet dann:
 ```bash
 $ check_mssql_health --hostname dbsrv1 --port 1433 \
     --username sa --password 'Str3ng!g3heim' \

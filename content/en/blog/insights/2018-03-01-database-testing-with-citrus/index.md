@@ -1,7 +1,7 @@
 ---
 author: Sven Hettwer
 author_url: https://twitter.com/SvenHettwer
-date: '2018-03-01'
+date: '2018-03-01T00:00:00+00:00'
 featured_image: ./citrus_logo.png
 meta_description: Learn how to test your database communication with citrus
 tags:

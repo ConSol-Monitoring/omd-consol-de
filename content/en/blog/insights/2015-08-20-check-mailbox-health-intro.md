@@ -121,4 +121,4 @@ und nach 18:00 dann...
 OK - outside valid timerange. check results are not relevant now. original message was: Keine aktuellen XLS gefunden
 ```
 
-[1]: https://labs.consol.de/nagios/check_mailbox_health/index.html
+[1]: /docs/plugins/check_mailbox_health/index.html

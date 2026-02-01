@@ -1,6 +1,6 @@
 ---
 author: Tim Keiner
-date: '2017-03-08'
+date: '2017-03-08T00:00:00+00:00'
 tags:
 - ELK
 title: Testing Logstash Configuration with Citrus and Docker

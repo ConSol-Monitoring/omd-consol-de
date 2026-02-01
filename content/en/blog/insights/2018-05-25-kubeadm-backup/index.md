@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2018-05-25'
-featured_image: /assets/images/kubernetes-logo.png
+date: '2018-05-25T00:00:00+00:00'
+featured_image: kubernetes-logo.png
 tags:
 - Kubernetes
 title: Backup and Restore a Kubernetes Master with Kubeadm

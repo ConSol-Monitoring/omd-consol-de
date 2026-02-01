@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2016-08-13'
-featured_image: /assets/images/prometheus-logo.png
+date: '2016-08-13T00:00:00+00:00'
+featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
 title: Counting Errors with Prometheus

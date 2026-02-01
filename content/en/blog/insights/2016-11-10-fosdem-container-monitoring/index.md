@@ -1,6 +1,6 @@
 ---
 author: Gerhard Laußer
-date: '2016-11-10'
+date: '2016-11-10T00:00:00+00:00'
 tags:
 - Container
 title: Fosdem - Monitoring and Cloud Devroom

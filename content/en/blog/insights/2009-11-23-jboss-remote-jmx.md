@@ -1,7 +1,7 @@
 ---
 author: Roland Huß
 date: '2009-11-23T08:06:29+00:00'
-excerpt: 'As described in the last [post](/jmx4perl/2009/11/20/agentless-jmx4perl.html)
+excerpt: 'As described in the last [post](/blog/2009/11/20/agentless-jmx4perl/)
   jmx4perl can be operated in a so called *agentless* mode. For this to work, the
   target java server must be prepared for accepting remote JMX connections as described
   in JSR-160.  This article describes the specific setup for **JBoss** along with
@@ -14,7 +14,7 @@ tags:
 title: Setting up JBoss for remote JMX
 ---
 
-As described in the last [post](/jmx4perl/2009/11/20/agentless-jmx4perl.html) jmx4perl can be operated in a so called *agentless* mode. For this to work, the target java server must be prepared for accepting remote JMX connections as described in [JSR-160](http://jcp.org/en/jsr/detail?id=160).
+As described in the last [post](/blog/2009/11/20/agentless-jmx4perl/) jolokia can be operated in a so called *agentless* mode. For this to work, the target java server must be prepared for accepting remote JMX connections as described in [JSR-160](http://jcp.org/en/jsr/detail?id=160).
 
 Unfortunately, this setup is not really standardized and specific to the Java JDK in use and the application server itself. In this post we concentrate on how to setup JMX remoting for [JBoss](http://www.jboss.org/jbossas/).
 <!-- -->
@@ -133,9 +133,9 @@ Another strange bug, which is not related to JSR-160 but present in JBoss 4.2.3 
 
 ## Summary
 
-Setting up remoting via JSR-160 connectors for JBoss turns out to be a hard job. There are combinations of JDKs and JBoss versions for which it is not possible to get remote access to JBoss intrinsic MBeans. Running [jmx4perl](http://www.jmx4perl.org) in **agent mode** works around this limitations transparently since it merges all available MBeanServers (the JBoss' one and the PlatformMBeanServer) and tries all requested JMX operation on all servers until the first succeed. For the proxy mode, this workaround is not possible since a JMX service URl points only to a single MBeanServer.
+Setting up remoting via JSR-160 connectors for JBoss turns out to be a hard job. There are combinations of JDKs and JBoss versions for which it is not possible to get remote access to JBoss intrinsic MBeans. Running [jolokia](http://www.jolokia.org) in **agent mode** works around this limitations transparently since it merges all available MBeanServers (the JBoss' one and the PlatformMBeanServer) and tries all requested JMX operation on all servers until the first succeed. For the proxy mode, this workaround is not possible since a JMX service URl points only to a single MBeanServer.
 
-  [1]: /jmx4perl/2009/11/20/agentless-jmx4perl.html
+  [1]: /blog/2009/11/20/agentless-jmx4perl/
   [2]: http://jcp.org/en/jsr/detail?id=160
   [3]: http://www.jboss.org/jbossas/
   [4]: http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html#remote

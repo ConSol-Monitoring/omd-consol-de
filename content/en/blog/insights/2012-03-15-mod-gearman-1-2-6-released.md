@@ -13,7 +13,7 @@ Version 1.2.6 of Mod-Gearman has just been released. You may now configure the w
 <br>
 <h1>queues from custom variables</h1>
 
-Sometimes you don't want to create hostgroups to split up your checks for different worker (groups). So now you can assign a queue by custom variables. Read more about that feature in the <a href="/nagios/mod-gearman/#_how_to_set_queue_by_custom_variable">documentation</a>.
+Sometimes you don't want to create hostgroups to split up your checks for different worker (groups). So now you can assign a queue by custom variables. Read more about that feature in the <a href="/docs/mod-gearman/">documentation</a>.
 
 <br>
 <h1>discarded too old service job</h1>

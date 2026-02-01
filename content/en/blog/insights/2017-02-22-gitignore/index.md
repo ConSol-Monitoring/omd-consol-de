@@ -1,6 +1,6 @@
 ---
 author: Christian Guggenmos
-date: '2017-02-22'
+date: '2017-02-22T00:00:00+00:00'
 featured_image: /assets/2017-02-17-gitignore/git_log.png
 tags:
 - git

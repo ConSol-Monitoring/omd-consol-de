@@ -7,7 +7,7 @@ tags:
 title: 'Citrus: More XPath validation power'
 ---
 
-In my last post (<a href="/citrus/2010/02/18/citrus-xpath-validation-power.html">citrus-xpath-validation-power</a>) I solved a validation problem regarding generic XML data structures with some XPath expression power. Now in latest 1.1-SNAPSHOT version of Citrus things become even more straightforward.
+In my last post (citrus-xpath-validation-power) I solved a validation problem regarding generic XML data structures with some XPath expression power. Now in latest 1.1-SNAPSHOT version of Citrus things become even more straightforward.
 
 <!--more-->
 In the latest snapshot you are able to evaluate XPath expressions to different result types like boolean, string or number. Before that XPath expressions had to evaluate to DOM node result in validation. Therefore I used a quite tricky XPath expression to solve the problems in my last post:

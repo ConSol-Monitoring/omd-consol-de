@@ -1,7 +1,7 @@
 ---
 author: Fabian St&auml;ber
-date: '2017-07-10'
-featured_image: /assets/images/prometheus-logo.png
+date: '2017-07-10T00:00:00+00:00'
+featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
 title: Prometheus Monitoring for Java Web Applications without Modifying Their Source

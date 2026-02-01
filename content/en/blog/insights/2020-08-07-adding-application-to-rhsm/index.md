@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2020-08-07'
+date: '2020-08-07T00:00:00+00:00'
 featured_image: OpenShift-Logo.jpg
 meta_description: Guideline how to add an application to a data plane of Istio or
   Red Hat OpenShift Service Mesh
@@ -10,7 +10,7 @@ tags:
 title: How to add an application to a Red Hat OpenShift Service Mesh
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="OpenShift-Logo.jpg"></div>
 
 During a discussion with a customer, we talked about which steps are necessary to add an application to a services mesh. Which should be no big deal. Unfortunately, there is not a simple guideline how to do that for the Red Hat OpenShift Service Mesh. Furthermore, I was not sure how the requests for the application would look like in Jaeger. To clarify these points, I created a small application. Which I then deployed on OpenShift and added it to a service mesh control plane. This is the documentation of the steps that I have done.
 <!--more-->

@@ -1,6 +1,6 @@
 ---
 author: Philip Griesbacher
-date: '2016-10-06'
+date: '2016-10-06T00:00:00+00:00'
 featured_image: icon.png
 tags:
 - Anomalieerkennung

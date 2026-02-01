@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2021-02-02'
+date: '2021-02-02T00:00:00+00:00'
 featured_image: OpenShift-Logo.jpg
 meta_description: Guideline how to send messages from an example application to Kafka
   while running in an Istio control plane on OpenShift/Kubernetes
@@ -10,7 +10,7 @@ tags:
 title: How to integrate Kafka with Istio on OpenShift
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="OpenShift-Logo.jpg"></div>
 
 Last summer I watched the Red Hat master course about Kafka from <a href="https://twitter.com/sebi2706" target="blank">Sébastien Blanc</a>. The Kafka setup in Kubernetes presented in the course looked pretty easy. The Kafka client implementation for Java seemed to be easy as well. Furthermore, I wanted to use Kafka for a long time, so I got the idea to extend my Istio example. Each time a service is called, a message is sent to a topic. The service (implemented in Quarkus), as well as the Kafka cluster should be in an Istio Service Mesh and secured with mTLS. I found descriptions of <a href="https://twitter.com/jotak" target="blank">Joel Takvorian</a> that Kafka works with Istio, so I knew (or at least hoped) that my plan should work.
 

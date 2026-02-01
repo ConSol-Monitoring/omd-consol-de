@@ -25,10 +25,10 @@ the distribution. That's the sole reason for 0.51, which fixes this issue. This 
 though]
 
   [1]: http://search.cpan.org/CPAN/authors/id/R/RO/ROLAND/jmx4perl-0.51.tar.gz
-  [2]: /jmx4perl/2009/11/20/agentless-jmx4perl.html
+  [2]: /blog/2009/11/20/agentless-jmx4perl/
   [3]: http://www.mulesoft.org
   [4]: http://labs.consol.de/maven/repository/org/jmx4perl/j4p-mule/0.51/j4p-mule-0.51-agent.jar
-  [5]: /jmx4perl/2009/12/10/jmx4perl-mule-agent.html
-  [6]: /jmx4perl/2009/11/23/jboss-remote-jmx.html
-  [7]: /jmx4perl/2009/12/02/configuring-remote-jmx-access-for-weblogic.html
+  [5]: /blog/2009/12/10/jmx4perl-mule-agent/
+  [6]: /blog/2009/11/23/jboss-remote-jmx/
+  [7]: /blog/2009/12/02/configuring-remote-jmx-access-for-weblogic/
   [8]: http://labs.consol.de/maven/repository/org/jmx4perl/j4p-war/0.50/

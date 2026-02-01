@@ -1,6 +1,6 @@
 ---
 author: Sven Nierlein
-date: '2015-04-27'
+date: '2015-04-27T00:00:00+00:00'
 tags:
 - Nagios
 title: Nagios/Icinga GeoMaps with Thruk

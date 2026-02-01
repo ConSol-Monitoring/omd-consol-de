@@ -1,0 +1,57 @@
+--- Icinga.ovf	2011-02-15 17:24:55.000000000 +0100
++++ VMIcinga.ovf	2011-02-18 15:36:03.734559400 +0100
+@@ -15,10 +15,8 @@
+   </NetworkSection>
+   <VirtualSystem ovf:id="Icinga">
+     <Info>A virtual machine</Info>
+-    <OperatingSystemSection ovf:id="100">
++    <OperatingSystemSection ovf:id="80" ovf:version="5" vmw:osType="rhel5_64Guest">
+       <Info>The kind of installed guest operating system</Info>
+-      <Description>Linux26_64</Description>
+-      <vbox:OSType ovf:required="false">Fedora_64</vbox:OSType>
+     </OperatingSystemSection>
+     <VirtualHardwareSection>
+       <Info>Virtual hardware requirements for a virtual machine</Info>
+@@ -26,7 +24,7 @@
+         <vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+         <vssd:InstanceID>0</vssd:InstanceID>
+         <vssd:VirtualSystemIdentifier>Icinga</vssd:VirtualSystemIdentifier>
+-        <vssd:VirtualSystemType>virtualbox-2.2</vssd:VirtualSystemType>
++        <vssd:VirtualSystemType>vmx-07, vmx-04</vssd:VirtualSystemType>
+       </System>
+       <Item>
+         <rasd:Caption>1 virtual CPU</rasd:Caption>
+@@ -65,12 +63,11 @@
+       </Item>
+       <Item>
+         <rasd:Address>0</rasd:Address>
+-        <rasd:Caption>sataController0</rasd:Caption>
+-        <rasd:Description>SATA Controller</rasd:Description>
+-        <rasd:ElementName>sataController0</rasd:ElementName>
++        <rasd:Description>SCSI Controller</rasd:Description>
++        <rasd:ElementName>SCSI Controller 0</rasd:ElementName>
+         <rasd:InstanceID>5</rasd:InstanceID>
+-        <rasd:ResourceSubType>AHCI</rasd:ResourceSubType>
+-        <rasd:ResourceType>20</rasd:ResourceType>
++        <rasd:ResourceSubType>lsilogic</rasd:ResourceSubType>
++        <rasd:ResourceType>6</rasd:ResourceType>
+       </Item>
+       <Item>
+         <rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+@@ -90,16 +87,6 @@
+         <rasd:ResourceType>23</rasd:ResourceType>
+       </Item>
+       <Item>
+-        <rasd:AddressOnParent>3</rasd:AddressOnParent>
+-        <rasd:AutomaticAllocation>false</rasd:AutomaticAllocation>
+-        <rasd:Caption>sound</rasd:Caption>
+-        <rasd:Description>Sound Card</rasd:Description>
+-        <rasd:ElementName>sound</rasd:ElementName>
+-        <rasd:InstanceID>8</rasd:InstanceID>
+-        <rasd:ResourceSubType>ensoniq1371</rasd:ResourceSubType>
+-        <rasd:ResourceType>35</rasd:ResourceType>
+-      </Item>
+-      <Item>
+         <rasd:AddressOnParent>0</rasd:AddressOnParent>
+         <rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+         <rasd:Caption>cdrom1</rasd:Caption>

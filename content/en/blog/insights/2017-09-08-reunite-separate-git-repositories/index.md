@@ -1,6 +1,6 @@
 ---
 author: Markus Hansmair
-date: '2017-09-08'
+date: '2017-09-08T00:00:00+00:00'
 featured_image: git_log.png
 tags:
 - git

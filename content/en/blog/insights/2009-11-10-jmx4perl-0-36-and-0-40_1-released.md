@@ -28,4 +28,4 @@ A minor change for the perl hacker, a big one for the agent ;-). The addition sh
 This addition of bulk operations is just an intermediate step for an additional proxy servlet in version 0.50 which will enable the usage of jmx4perl without deploying an agent servlet on the target platform. Stay tuned ...
 
  [1]: http://search.cpan.org/CPAN/authors/id/R/RO/ROLAND/jmx4perl-0.36.tar.gz
- [2]: /jmx4perl/2009/10/08/check_jmx4perl-einfache-servicedefinitionen.html
+ [2]: /blog/2009/10/08/check_jmx4perl-einfache-servicedefinitionen/

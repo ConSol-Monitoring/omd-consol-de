@@ -1,7 +1,7 @@
 ---
 author: Simon Meggle
-date: '2017-03-15'
-featured_image: /assets/images/ansible-logo.png
+date: '2017-03-15T00:00:00+00:00'
+featured_image: ansible-logo.png
 summary: null
 tags:
 - Ansible
@@ -21,7 +21,6 @@ Mit steigender Zahl der im [Ansible]-Inventory gepflegten Hosts verlängert sich
 In jedem "Play" eines Playbook pflegt Ansible die Liste ``ansible_play_hosts``, welche die Hosts enthält, auf die die Tasks des Plays angewendet werden (hier: alle Hosts der Gruppe ``g_webservers``):
 
 ```
-{% raw %}
 ---
   hosts: g_webservers
   tasks:
@@ -48,7 +47,6 @@ Ich beschreibe im folgenden ein Szenario aus der Praxis (Ansible-Projekt zur Ins
 ``inventory.ini``:
 
 ```
-{% raw %}
 [g_omdsites]
 
 [g_omdsites:children]
@@ -68,7 +66,6 @@ r_hongkong2     ansible_host=monhongkong.xxxx.com
 ...
 ...
 
-{% endraw %}
 ```
 
 
@@ -93,18 +90,15 @@ Dass Ansible sich jetzt *zwei mal* auf ``monberlin`` verbindet, ist OK, da ja au
 Tasks zur Installation generischer Pakete wie *vim*, *htop*, *screen* oder zur Konfiguration von NTP hingegen machen pro Host nur *einmal* Sinn (die jeweils zwete Ausführung wäre ein reiner Leerlauf...). **Es lag also nahe, für die physikalischen Hosts eine eigene Gruppe** ``g_omdhosts`` **zu erstellen...**
 
 ```
-{% raw %}
 # physical hosts
 [g_omdhosts]
 monberlin.xxxx.com
 monmadrid.xxxx.com
 monhongkong.xxxx.com
-{% endraw %}
 ```
 **...und das Play auf diese Gruppe anzuwenden:**
 
 ``` jinja2
-{% raw %}
 - name: OS preparation tasks
   gather_facts: True
   user: root
@@ -112,7 +106,6 @@ monhongkong.xxxx.com
   roles:
     - 00_ntp
     - 01_common_software
-{% endraw %}
 ```
 
 Das klappte, bis ich die Ausführung des Playbooks mit ``--limit r_berlin1`` auf eine OMD-Site beschränkte, um die Änderungen an der OMD-Config erst mal nur in einer Site nachzuvollziehen und um letztlich auch Ausführungszeit zu sparen:
@@ -151,11 +144,9 @@ Der oben gezeigte Aufruf ``--limit r_berlin1,g_omdhosts`` arbeitet mit der in-me
 Im zweiten Fall soll eine auf der zentralen OMD-Site automatisch (per Ansible) erzeugte Datei auf alle Sites in der Gruppe ``g_omdsites_remote`` per *scp* übertragen werden. Dieser Task liegt in einem Play für die zentrale OMD-Site und kommt deshalb nur *einmal* zur Ausführung. So geschrieben
 
 ``` jinja2
-{% raw %}
 - name: Distribute remote_sites file to remote sites
   command: "scp {{ SITEPATH }}/etc/remote_sites {{ item }}:etc/remote_sites"
   with_items: "{{ groups['g_omdsites_remote'] }}"
-{% endraw %}
 ```
 funktioniert der Task zwar, allerdings beeinflusst die Filterung mit ``--limit`` nicht auch die Auswertung von Gruppenmitgliedschaften aus dem Inventory. Ansible wird die Datei also, unabhängig davon, ob ``--limit`` angegeben wurde oder nicht, immer auf *alle* Remote-Sites kopieren wollen.
 
@@ -163,11 +154,9 @@ funktioniert der Task zwar, allerdings beeinflusst die Filterung mit ``--limit``
 Gelöst werden kann dieses Problem durch Bildung der Schnittmenge (``intersect``) zwischen den Gruppenmitgliedern und der Menge der ``ansible_play_hosts``. Übrig bleiben dann nur noch diejenigen Mitglieder der Gruppe, die auch noch den ``--limit``-Filter passiert haben:
 
 ``` jinja2
-{% raw %}
 - name: Distribute remote_sites file to remote sites
   command: "scp {{ SITEPATH }}/etc/remote_sites {{ item }}:etc/remote_sites"
   with_items: "{{ groups['g_omdsites_remote'] | intersect(ansible_play_hosts) }}"
-{% endraw %}
 ```
 
 ## Ganz oder gar nicht
@@ -176,7 +165,6 @@ Hier noch ein Tipp aus meiner "Ansible-Grabbelkiste": Wie verhindert man, dass e
 Das ist z.B. erforderlich, wenn der Task aus Lösung 2 (s.o.) Facts der Hosts verarbeiten soll (z.b. in Jinja2-Templates), welche nicht aus einem fact cache stammen dürfen und nur dann bekannt sind, wenn auch alle Tasks zur Ermittlung der Facts gelaufen sind.
 
 ``` jinja2
-{% raw %}
 - name: tasks on "central" site
   gather_facts: False
   hosts: central
@@ -188,7 +176,6 @@ Das ist z.B. erforderlich, wenn der Task aus Lösung 2 (s.o.) Facts der Hosts ve
   post_tasks:
     - debug: msg="This role is executed only on non-limited runs!"              <<<<<< 4
       when: remt_str_play != remt_str
-{% endraw %}
 ```
 
 Im ``vars``-Teil des Plays werden zwei Strings gebildet:

@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2018-01-19'
+date: '2018-01-19T00:00:00+00:00'
 featured_image: ./OpenShift-Logo.png
 meta_description: Monitoring of applications running on OpenShift with Prometheus
   and Grafana without cluster wide permissions.

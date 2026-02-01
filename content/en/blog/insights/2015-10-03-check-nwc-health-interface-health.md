@@ -6,7 +6,7 @@ tags:
 title: Interface-Rundumschlag mit check_nwc_health
 ---
 
-Beim Monitoring von Netzwerkinterfaces ist es üblich, daß man vier Services konfiguriert. Jeweils einen für Status (up/down), Bandbreite, Errors und Discards. Gelegentlich gab es auch die Anforderung, das alles in einen einzigen Service zu packen, in dem Fall half dann [check_multi](http://my-plugin.de/wiki/de/projects/check_multi/start). Zwar wurde jeweils auch die Konfigurationsdatei für check_multi mit [coshsh](/nagios/coshsh/index.html) generiert, aber je simpler, desto besser, daher habe ich einen neuen Modus *interface-health* eingeführt, so daß [check_nwc_health](/nagios/check_nwc_health/index.html) diese vier Checks selber bündelt.
+Beim Monitoring von Netzwerkinterfaces ist es üblich, daß man vier Services konfiguriert. Jeweils einen für Status (up/down), Bandbreite, Errors und Discards. Gelegentlich gab es auch die Anforderung, das alles in einen einzigen Service zu packen, in dem Fall half dann [check_multi](http://my-plugin.de/wiki/de/projects/check_multi/start). Zwar wurde jeweils auch die Konfigurationsdatei für check_multi mit [coshsh](/docs/coshsh/index.html) generiert, aber je simpler, desto besser, daher habe ich einen neuen Modus *interface-health* eingeführt, so daß [check_nwc_health](/docs/plugins/check_nwc_health/index.html) diese vier Checks selber bündelt.
 
 ```bash
 $ check_nwc_health --hostname 10.37.6.2 --community kaas \

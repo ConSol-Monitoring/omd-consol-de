@@ -1,0 +1,257 @@
+---
+author: Roland Huß
+date: '2013-12-02T11:48:45+00:00'
+slug: lava-lamp
+title: Nagios belches Lava
+---
+
+This is the story, how I increased Nagios' [WAF](http://en.wikipedia.org/wiki/Wife_acceptance_factor) by hooking up a [Lava Lamp](http://en.wikipedia.org/wiki/Lava_Lamp) for notifying when the wood-burning stove needs to be inflamed.
+
+<!--more-->
+The problem I'm trying to solve was quite simple. Since about 6 years I'm living in a so called "passive house", a house with a very good isolation and very low energy consumption. One part of the concept is a so called 1000 l heat storage tank, which has three layers of water with different temperature levels. Energy comes in either from the roof via solar panels or by heating with an wood-burning stove. Except for the winter, the energy collected by the solar collectors is sufficient for taking a warm shower and everything else. However, in winter external heating with the stove when the temperature in the storage drops below 45 degrees celsius is necessary.
+
+Since feeding the stove is a manual process, I monitor the temperature with Nagios in the heat storage and switch to a `WARNING` state when the temperature drops below 45 degrees celsius. In that case, a mail is sent and we have to seriously worry about a hot shower in the evening if not the stove is inflamed timely.
+
+Although the temperature monitoring works fine, it's always only me who reads the notification mails. My wife is completely ignorant about those mails. In fact, she even don't want to receive such mails anymore, it's just too annoying. Being not at home during most of the week, this doesn't help much in timely heating the storage up again.
+
+And that is where the story begins.
+
+## The Actors
+
+### Hot water storage tank
+<a href="puffer.jpg"><img src="puffer.jpg" alt="heat storage tank" width="300" height="400" class="alignright size-full wp-image-5372" style="float: right; border: 0px;margin-left: 20px;" /></a>
+The [hot water tank](http://en.wikipedia.org/wiki/Hot_water_tank) is a sophisticated mechanism for storing heat. Ours has a capacity of 1000 l and is layered with three temperature zones. There are two heat sources: One is the solar panel on our roofs and the other is a wood oven, which transfer part of the energy to this storage tank. Output is the warm water supply used mostly for shower and bath, and the heating, which is typically not that much used because we have a very good isolation. The storage tank is composed of three temperature zones: The top one is used for delivering heat. The middle one is connected to the wood-burning stove supplies heat to the storage, and the lowest is connected to the solar panel. This is not the place to explain the overall concept "[passive house](http://en.wikipedia.org/wiki/Passive_house)", which has much more components, but the point for this blog is: If  no sun is shining and the storage temperature drops below a certain threshold (45 degrees celsius in my case), you need to fire the oven in time if you want have a warm shower in the evening.
+
+Our tank is produced by [Sonnenkraft](http://www.sonnenkraft.com/). Getting to the temperature from the outside is a bit difficult, and I had to analyze the [Resol VBus protocol](http://tubifex.nl/wordpress/images/2013/05/VBus_Protokoll_allgemein.pdf). Let me know, if you need some Perl modules for hacking around with it.
+
+### Nagios
+<a href="mac.jpg"><img src="mac.jpg" alt="mac mini" width="300" height="245" class="alignright size-full wp-image-5371" style="float: right; border: 0px;margin-left: 20px;"/></a>
+For monitoring and other purposes, I've re-activated a 2006er Mac Mini as a Linux Debian server, with the optical drive [replaced](http://www.ifixit.com/Guide/Installing+Mac+Mini+Model+A1176+Dual+Hard+Drive/8957) with a 1 TB hard drive (adding up to 2 TB overall). The nice thing about this setup is, that you get a full blown server with storage, media server, nagios server, and, and .... for as less as 30 W power usage. Pro-tip: Don't forget the DVI [dongle](http://blog.macminicolo.net/post/33839671756/build-a-dummy-dongle-for-a-headless-mac-mini) if you want to run the Mac Mini headless ! The heat storage is connected via the VBus and an USB endpoint to the Mac mini, from where the temperature for each layer can be measured separately.
+
+For monitoring purposes I use [OMD](http://omdistro.org/) and as UI of course [Thruk](http://www.thruk.org/), the best Nagios UI ever with a lot of hidden gems and totally reality ready. Give it a try if you haven't yet.
+
+As notification I relay on good old e-mail, and that's fine for me. But, as already said, I needed to bring something more visual on the table. Heck, I needed a [extreme feedback device](http://stackoverflow.com/questions/303614/whats-your-favorite-extreme-feedback-device), and that's the rest of the story.
+
+### AVM FRITZ!DECT 200
+<img src="stecker.jpg" alt="Plug" width="300" height="300" class="alignright size-full wp-image-5370" style="float: right; border: 0px;margin-left: 20px;"/>
+The AVM FRITZ!DECT 200 is an inexpensive (~ 50 EU) switchable plug which can be controlled via DECT. In order to connect to this plug you need an AVM router which supports AHA (the "AVM home automation"). Gerhard blogged quite a bit about this switchable plug, you can find a good introduction in our [Meeting Minutes](http://www.youtube.com/watch?v=S6jogBPvfyo) or in this [blog](/monitoring minutes/nagios/omd/shinken/thruk/2013/06/02/meine-fritzdect-200-sind-endlich-da.html) (in german, though).
+
+You can monitor the [AVM FRITZ!DECT 200](http://www.avm.de/de/Produkte/Hausautomation/FRITZDECT_200/index.php) with [check_nwc_health](/docs/plugins/check_nwc_health/) which beside the switched state also measures the energy consumption and current power. But in our case, we don't want to monitor it but use it as an endpoint for a Nagios notification handler, which switches the plug "on" in case of a problem and back to "off" on an recovery event.
+
+Of course, you need an AVM router for controlling the Dect!200. A good choice is the [FRITZ!Box 7390](http://www.avm.de/de/Produkte/FRITZBox/FRITZ_Box_Fon_WLAN_7390/index.php). Together with some mobile apps you can even switch the plug from you favourite pub ;-)
+
+
+
+<img src="5ac399f5d9ba462eabb7888a5b359a68@2x-1.gif" alt="Cold" width="83" height="252" class="alignright size-full wp-image-5389" style="float: right; border: 0px; margin-left: 20px;" />
+### Lava Lamp
+The star of this story is the good old Lava Lamp, which comes directly from the seventies. I highly recommend to get your hands on an original [Lava Lamp](http://en.wikipedia.org/wiki/Lava_lamp) from [Mathmos](http://www.mathmos.com). Not only because it's the original one, but because it also has a good ventilation for getting the heat away which is important for an unattended usage.
+
+The lamp of choice is the [Astro Baby](http://www.mathmos.de/mathmos-astro-baby-lavalampen-5922-0.html) for 70 EU in red-violet because it looks awesome and has a lower energy consumption than the bigger Astro (30 W instead of 40 W).
+
+Lava lamps are nice visual alarms, because the grow slowly giving you an indication about the urgency of the temperature decrease. You shouldn't run a Lava lamp longer than six hours at a strech, because then it would get too hot and bubbles start to diffuse.
+
+## The Script
+
+So, that's what I wanted to have:
+
+* Every time when the water temperature in the heat storache drops below a threshold, the Lava lamp should be switched on.
+* If the temperature increases over the threshold, the lamp should be switched off again.
+* The lamp should not run longer than 5 hours.
+* If the lamp has been switched off, it should not be switched on again in the following hour.
+* The lamp should not be switched on during the night or when we are at work.
+* But if an notification arrives during the 'silent' time, as soon as a valid time window is reached, the lamp should be switched on immediately. But not when the notification has been cancelled before because the temperature was ok again.
+* Manual switching of the lamp should be detected and respected as well.
+
+## The Ingredients
+
+Now that we introduced the actors, the heat storage is hooked up to Nagios and the Lava lamp and the FRITZ!DECT 200 switch and nicely in place and configured in your FRITZ!Box, some links are still missing, though:
+
+* How can the FRITZ!DECT 200 switch be accessed programmatically ?
+* How to configure a Nagios notification handler on order to respect the constraints above ?
+
+All the code what follows is available from [Github](https://github.com/rhuss/aha).
+
+### AHA
+
+This is a simple perl module, wrapping around the brand new [AHA HTTP protocol specification](http://www.avm.de/de/Extern/files/session_id/AHA-HTTP-Interface.pdf) provided by AVM. It knows how to get the current switch state, how to turn on/off the switch and how to measure energy consumption and the current power. This module can be obtained from [CPAN](http://search.cpan.org/~roland/AHA/) as simple as:
+
+    cpan install AHA
+
+The usage is also quite easy and well documented. An example looks like
+
+    my $aha = new AHA({host: "fritz.box", password: "s!cr!t"});
+
+    # Get all switches as array ref of AHA::Switch objects
+    my $switches = $aha->list();
+
+    # For all switches found
+    for my $switch (@$switches) {
+        say "Name:    ",$switch->name();
+        say "State:   ",$switch->is_on();
+        say "Present: ",$switch->is_present();
+        say "Energy:  ",$switch->energy();
+        say "Power:   ",$switch->power();
+
+        # If switch is on, switch if off and vice versa
+        $switch->is_on() ? $switch->off() : $switch->on();
+    }
+
+    # Access switch directly via name as configured
+    $aha->energy("Lava lamp");
+
+    # ... or by AIN
+    $aha->energy("087610077197");
+
+    # Logout
+    $aha->logout();
+
+
+### lava_lamp.pl
+
+In addition to the modules for accessing AVM AHA switches, a script brings it all together. The script [lava_lamp.pl](https://github.com/rhuss/aha/blob/master/example/lava_lamp.pl) can be found in the [Github Repo](https://github.com/rhuss/aha) as well.
+
+It is used for two purposes: Once as a watch dog triggered every 20 minutes by cron. This ensures, that the Lamp only runs in defined time windows and that it gets switched off if it is running already for too long (remember, lava lamps should run only for at most six hours). And then is this script configured as a notification handler in Nagios which gets notified for **problem**s and **recovery**.
+
+The status is tracked in a `lamp.status` file (which contains not much more than a serialized Perl hash) and updated by the watchdog and the notification handler.
+
+I.e. the following modes can be provided to the script via the `--mode` option:
+
+* **watch** is used for ensuring that the lamp is not switched on for certain time i.e. during the night. The Variable `$LAMP_ON_TIME_TABLE` used to customize the time ranges on a weekday basis.
+
+* **notify** is used by a notification handler, e.g. from Nagios or from
+Jenkins. In this mode, the `--type` option is used for signaling whether the lamp should be switched on ("**problem**") or off ("**recovery**").
+
+* **list** shows all activities recored in `$LOG_FILE`.
+
+In addition to the command line options, `lava_lamp.pl` can be customized by tweaking the configuration variables and include it with the option `--config`. What can be tweaked can be seen at the top of this example script:
+
+    # ===========================================================================
+    # Configuration section
+
+    # Configuration required for accessing the switch.
+    my $SWITCH_CONFIG =
+        {
+         # AVM AHA Host for controlling the devices
+         host => "fritz.box",
+
+         # AVM AHA Password for connecting to the $AHA_HOST
+         password => "s!cr!t",
+
+         # AVM AHA user role (undef if no roles are in use)
+         user => undef,
+
+         # Name of AVM AHA switch
+         id => "Lava Lamp"
+        };
+
+    # Time how long the lamp should be at least be kept switched off (seconds)
+    my $LAMP_REST_TIME = 60 * 60;
+
+    # Maximum time a lamp can be on
+    my $LAMP_MAX_TIME = 5 * 60 * 60; # 5 hours
+
+    # When the lamp can be switched on. The values can contain multiple time
+    # windows defined as arrays
+    my $LAMP_ON_TIME_TABLE =
+         {
+          "Sun" => [ ["7:55",  "23:00"] ],
+          "Mon" => [ ["6:55",  "23:00"] ],
+          "Tue" => [ ["13:55", "23:00"] ],
+          "Wed" => [ ["13:55", "23:00"] ],
+          "Thu" => [ ["13:55", "23:00"] ],
+          "Fri" => [ ["6:55",  "23:00"] ],
+          "Sat" => [ ["7:55",  "23:00"] ],
+         };
+
+     # File holding the lamp's status
+     my $STATUS_FILE = "/var/run/lamp.status";
+
+     # Log file where to log to
+     my $LOG_FILE = "/var/log/lamp.log";
+
+     # Stop file, when, if exists, keeps the lamp off
+     my $OFF_FILE = "/tmp/lamp_off";
+
+     # Time back in passed assumed when switching was done manually (seconds)
+     # I.e. if a manual state change is detected, it is assumed that it was back
+     # that amount of seconds in the past (5 minutes here)
+     my $MANUAL_DELTA = 5 * 60;
+
+     # Maximum number of history entries to store
+     my $MAX_HISTORY_ENTRIES = 1000;
+
+### Cron job
+
+`lava_lamp.pl` should be added to a cron jon in order to run regulary. Simply put the following file to `/etc/cron.d` (or if, using OMD in `~omduser/etc/cron.d` with an `omd reload cron` afterwards)
+
+    # Lamp Watchdog
+    #
+    */10 * * * * $OMD_ROOT/local/lib/nagios/plugins/lava_lamp.pl \
+             --config $OMD_ROOT/etc/nagios/lava_lamp.cfg --mode watch
+
+In this example, the watchdog runs every 10 minutes to check for the Lava lamp constraints.
+
+### Nagios configuration
+
+If the script is used as a Nagios notification handler, add this command to you nagios configuration and use this at a notification handler for a contact. I recommend to use a dedicated "Lava Lamp" contact which then is configured for one service only (in my case the monitor for water temperature, however you could use it also for a business process service, too).
+
+    # Dedicated contact for the switching on the lava lamp.
+    # Host notification is not used here
+    define contact {
+      contact_name                   lava-lamp
+      alias                          Lava Lamp
+      host_notification_options      n
+      host_notifications_enabled     0
+      host_notification_commands     empty
+      host_notification_period       24x7
+      service_notification_commands  switch-lava-lamp
+      service_notification_period    24x7
+      service_notification_options   w,u,c,r
+    }
+
+    # The command to switch on/off the lamp.
+    define command {
+       command_name  switch-lava-lamp
+       command_line  /usr/bin/perl $USER2$/lava_lamp.pl \
+                    --config '$USER4$/etc/nagios/lava_lamp.cfg' \
+                    --name 'Lava Lampe' \
+                    --type '$NOTIFICATIONTYPE$' \
+                    --mode 'notif'
+    }
+
+    # The service, which checks the temperatur
+    define service {
+       service_description            Puffer
+       host_name                      atlantis
+       use                            generic-service,srv-pnp
+       check_command                  check_puffer!45:!35:
+       notification_interval          60
+       contact_groups                 puffer
+       servicegroups                  haus
+    }
+
+    # Contactgroup to be notified, per mail and the lava-lamp
+    define contactgroup {
+       contactgroup_name              puffer
+       alias                          Puffer Speicher
+       members                        roland,lava-lamp
+    }
+
+    # Another command (not shown in the blog) for checking the
+    # heat storage temperature
+    define command {
+       command_name                   check_puffer
+       command_line                   $USER2$/check_puffer.pl -w $ARG1$ -c $ARG2$
+}
+
+Alternatively, this script can be used of course also e.g. with Jenkins in order to easily connect the Lava Lamp as an extreme feedback device.
+
+## Wrap up
+
+The installation is quite fresh now, and it seems to work well. The scripts provided can be easily adapted for special needs. Also, it is not restricted to speak to the AVM home automation only. All device specific entries can be found at the end of the script and can be adapted e.g. for calling a different ethernet plug like the [NETIO230B-SI](http://www.reichelt.de/Messen-Steuern-Regeln/LAN-NETIO230B-SI/3//index.html?ACTION=3&GROUPID=4308&ARTICLE=102254&SHOW=1&OFFSET=16&&SID=14Un1Jm38AAAIAAC3VNII86b75766ba319e94955d423f67594805&LANGUAGE=EN). Only a handful methods must be implemented (`open_lamp`, `close_lamp`, `is_on`, `on`, `off`) for using an alternate plug switching API.
+
+Hopefully you got some inspiration for your own *Lava Lamp Feedback Device*, maybe not only for Nagios but for other automation system as well. Why not hooking up the script into [Jenkins](http://jenkins-ci.org/) as feedback device you continuos builds ? Or connecting the Lamp to Nagios [business processes](http://www.thruk.org/documentation.html#_business_process) and putting a line of lamps into your boss' office ? The sky is the limit ;-)
+
+But for me, the most important thing is, that Tanja is happy now .... ;-)
+
+<div style="margin: 40px"><img src="lamps1.jpg" alt="lamps" width="600" height="228" class="alignright size-full wp-image-5381" style="margin: 20px auto"/></div>

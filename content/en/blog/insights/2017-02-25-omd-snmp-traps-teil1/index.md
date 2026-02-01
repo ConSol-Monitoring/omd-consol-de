@@ -1,7 +1,7 @@
 ---
 author: Gerhard Laußer
-date: '2017-02-25'
-featured_image: /assets/images/switch.png
+date: '2017-02-25T00:00:00+00:00'
+featured_image: switch.png
 tags:
 - OMD
 title: SNMP-Traps und OMD - Teil 1

@@ -1,7 +1,7 @@
 ---
 author: Sven Nierlein
 date: '2016-03-28T16:00:00+02:00'
-featured_image: /assets/images/https.jpg
+featured_image: https.jpg
 tags:
 - perl
 title: SSL - No more excuses

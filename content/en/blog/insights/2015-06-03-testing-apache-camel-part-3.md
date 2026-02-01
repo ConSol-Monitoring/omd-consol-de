@@ -6,7 +6,7 @@ tags:
 title: Apache Camel integration testing - Part 3
 ---
 
-In this post I will continue with the Apache Camel integration testing scenario that we have worked on in [part one](/citrus/2014/11/21/testing-apache-camel-part-1.html) and [part two](/citrus/2015/05/28/testing-apache-camel-part-2.html) of this series.
+In this post I will continue with the Apache Camel integration testing scenario that we have worked on in [part one](/blog/2014/11/21/testing-apache-camel-part-1/) and [part two](/blog/2015/05/28/apache-camel-integration-testing-part-2/) of this series.
 This time we focus on exception handling in Camel routes. First of all let's add exception handling to our Camel route.
 <!--more-->
 

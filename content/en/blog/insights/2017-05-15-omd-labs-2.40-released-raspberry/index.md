@@ -1,0 +1,86 @@
+---
+author: Gerhard Laußer
+date: '2017-06-14T14:00:00+02:00'
+featured_image: raspberry-omd240.png
+tags:
+- omd
+title: OMD 2.40 Labs Edition Released on Raspberry Pi
+---
+
+<!--
+<div style="position: relative; float: right; margin-left: 1em; margin-right: 1em; margin-bottom: 1em; width: 20%; height: 20%;"><img src="raspberry-omd240.png"></div>
+-->
+
+[__OMD Labs Edition__](/docs/omd/) 2.40 for the Raspberry Pi has been released today. A month and a broken SD card (excessive use of /var/swap during the builds) after the release of the x86 version it is now possible to run a full-blown monitoring system on your ARM boards. It was tested on Raspberry 2 and Raspberry 3. If you want to run OMD on one of the older models, you might experience performance problems, especially when you enable InfluxDB and Grafana.
+
+<!--more-->
+```bash
+root@raspberrypi:~# aptitude search omd
+p   customdeb                                              - Modfies binary Debian package                                    
+p   isomd5sum                                              - ISO9660 checksum utilities                                       
+p   libtemplate-provider-fromdata-perl                     - module to load templates from your __DATA__ section              
+p   omd-2.40-labs-edition                                  - OMD Labs Edition - Open Source Monitoring Distribution (Labs Edit
+p   omd-labs-edition                                       - Open Source Monitoring Distribution                              
+p   php-fdomdocument                                       - extension to PHP's standard DOM                                  
+p   python-pyisomd5sum                                     - ISO9660 checksum Python module                                   
+v   python2.7-pyisomd5sum                                  -                                                                  
+root@raspberrypi:~# aptitude install omd-labs-edition
+The following NEW packages will be installed:
+  libaio1{a} libapache2-mod-fcgid{a} libapache2-mod-php5{a} libdbd-mysql-perl{a} libdbi-perl{a} 
+  libfile-copy-recursive-perl{a} libnet-snmp-perl{a} libonig2{a} libpango1.0-0{a} libqdbm14{a} libreadline5{a} 
+  libsnmp-perl{a} libterm-readkey-perl{a} mariadb-client-10.0{a} mariadb-client-core-10.0{a} mariadb-common{a} 
+  mariadb-server{a} mariadb-server-10.0{a} mariadb-server-core-10.0{a} omd-2.40-labs-edition{a} omd-labs-edition 
+  php-pear{a} php5{a} php5-cgi{a} php5-cli{a} php5-common{a} php5-gd{a} php5-json{a} php5-mcrypt{a} php5-readline{a} 
+  php5-sqlite{a} python-ldap{a} time{a} update-inetd{a} xinetd{a} 
+0 packages upgraded, 35 newly installed, 0 to remove and 2 not upgraded.
+Need to get 142 MB of archives. After unpacking 732 MB will be used.
+Do you want to continue? [Y/n/?] 
+...
+root@raspberrypi:~# cd /opt/project/omd/
+root@raspberrypi:/opt/project/omd# omd version
+OMD - Open Monitoring Distribution Version 2.40-labs-edition
+root@raspberrypi:/opt/project/omd# make test
+t/test_all.sh
+###################################################################
+running tests...
+t/01-basic_files.t ................. ok   
+t/02-test_utils.t .................. ok     
+t/03-distro-makefiles.t ............ ok     
+t/04-package_files.t ............... skipped: you need to specify OMD_PACKAGE for this test
+t/10-omd_testsite.t ................ 2/219 # OMD - Open Monitoring Distribution Version 2.40-labs-edition
+t/10-omd_testsite.t ................ ok       
+t/11-omd_update.t .................. skipped: Author test. Set $ENV{TEST_AUTHOR} to a true value to run.
+t/20-package_check_mk.t ............ ok     
+t/20-package_check_multi.t ......... ok       
+t/20-package_dokuwiki.t ............ ok     
+t/20-package_downtime-api.t ........ ok     
+t/20-package_icinga.t .............. ok     
+t/20-package_icinga2.t ............. ok     
+t/20-package_jmx4perl.t ............ ok     
+t/20-package_monitoring_plugins.t .. ok     
+t/20-package_mysql.t ............... ok     
+t/20-package_naemon.t .............. ok     
+t/20-package_nagios.t .............. ok     
+t/20-package_nagvis.t .............. ok       
+t/20-package_omd.t ................. ok     
+t/20-package_perl-modules.t ........ ok     
+t/20-package_pnp4nagios.t .......... ok       
+t/20-package_thruk.t ............... ok         
+t/20-package_thruk_themes.t ........ ok      
+t/30-check-plugins.t ............... ok    
+t/31-mod-gearman.t ................. ok       
+t/32-mod-gearman2.t ................ ok       
+t/33-influxdb.t .................... ok     
+t/34-grafana.t ..................... ok     
+t/35-ansible.t ..................... ok    
+t/36-histou.t ...................... ok     
+t/38-prometheus.t .................. ok     
+t/39-nagflux.t ..................... ok     
+t/40-snmptrapd.t ................... ok     
+t/80-package_thruk_author.t ........ skipped: Thruk Author test. Set $ENV{THRUK_AUTHOR} to a true value to run.
+All tests successful.
+Files=34, Tests=6354, 2969 wallclock secs ( 6.59 usr  0.67 sys + 740.70 cusr 440.42 csys = 1188.38 CPU)
+Result: PASS
+```
+
+Now you can run *omd config PROMETHEUS on* and monitor your [__FRITZ!Box__](/blog/2017/03/08/prometheus-und-die-fritzbox/)

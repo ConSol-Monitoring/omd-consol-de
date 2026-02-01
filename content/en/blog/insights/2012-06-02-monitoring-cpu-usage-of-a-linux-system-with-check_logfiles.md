@@ -13,7 +13,7 @@ Another technique is to read the counter and compare it to the value which was s
 One of the core functionalities of the check_logfiles plugin is to save persistent information after each run which can be used in the next run. It's other job is to read lines from files. So why not use check_logfiles to read /proc/stat and save counters between the plugin's runs?
 The result is this proof-of-concept, which again shows that check_logfiles is a tool for all kinds of monitoring jobs.
 
-Please note that you need the newest release of <a href="/nagios/check_logfiles/" title="check_logfiles">check_logfiles</a>.
+Please note that you need the newest release of <a href="/docs/plugins/check_logfiles/" title="check_logfiles">check_logfiles</a>.
 
 ```perl
 =head1 NAME

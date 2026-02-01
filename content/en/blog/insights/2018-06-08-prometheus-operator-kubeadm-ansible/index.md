@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2018-06-08'
-featured_image: /assets/images/kubernetes-logo.png
+date: '2018-06-08T00:00:00+00:00'
+featured_image: kubernetes-logo.png
 tags:
 - Kubernetes
 title: Setting up the Prometheus Operator with Ansible on a Kubeadm Kubernetes Cluster
@@ -44,7 +44,6 @@ Instead of modifying the file `10-kubeadm.conf`, we create a new file `11-kube-p
 Our `11-kube-prometheus.conf` file looks like this:
 
 ```ini
-{% raw %}
 [Service]
 # Remove the cadvisor-port=0 setting to expose the cadvisor metrics
 Environment="KUBELET_CADVISOR_ARGS="
@@ -52,7 +51,6 @@ Environment="KUBELET_CADVISOR_ARGS="
 Environment="KUBELET_AUTH_TOKEN_WEBHOOK=--authentication-token-webhook=true"
 ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTH_TOKEN_WEBHOOK $KUBELET_AUTHZ_ARGS $KUBELET_CGROUP_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
-{% endraw %}
 ```
 
 Note that in order to override `ExecStart`, we first need to make it empty and then re-define it. Otherwise we would just be adding an additional command instead of replacing the command.
@@ -60,26 +58,22 @@ Note that in order to override `ExecStart`, we first need to make it empty and t
 Upload `11-kube-prometheus.conf` with Ansible and trigger the handler to reload and restart the kubelet service:
 
 ```yaml
-{% raw %}
   copy:
     src: ../files/12-kube-prometheus.conf
     dest: /etc/systemd/system/kubelet.service.d/12-kube-prometheus.conf
   notify:
     - enable, reload, and restart kubelet
-{% endraw %}
 ```
 
 The handler to reload and restart the kubelet service is defined as follows:
 
 ```yaml
-{% raw %}
 - name: enable, reload, and restart kubelet
   systemd:
     name: kubelet
     state: restarted
     enabled: yes
     daemon_reload: yes
-{% endraw %}
 ```
 
 To check if this worked, run `systemctl status kubelet.service` and make sure that the parameter `--cadvisor-port=0` is missing and the parameter `--authentication-token-webhook=true` is present.
@@ -94,7 +88,6 @@ The `kube-controller-manager` and the `kube-scheduler` are static pods running o
 Kubeadm configures these pods to listen only on the local address 127.0.0.1. In order to allow Prometheus to access them, we need to change this to 0.0.0.0, as described in the [kube-prometheus-on-kubeadm][kube-prometheus-on-kubeadm] documentation.
 
 ```yaml
-{% raw %}
 - name: Reconfigure kube-controller-manager and kube-scheduler to listen on non-local addresses
   replace:
     path: "/etc/kubernetes/manifests/{{ item }}"
@@ -103,7 +96,6 @@ Kubeadm configures these pods to listen only on the local address 127.0.0.1. In 
   with_items:
     - "kube-controller-manager.yaml"
     - "kube-scheduler.yaml"
-{% endraw %}
 ```
 
 The master will restart the pods automatically as soon as the configuration files are changed.
@@ -114,7 +106,6 @@ Install jsonnet and jsonnet-bundler
 [Jsonnet][jsonnet] is a templating language for creating JSON files. The [jsonnet-bundler][jsonnet-bundler] is a package manager for jsonnet templates. Kube-prometheus uses these tools to create the manifests for our kube-prometheus deployment. Install both tools:
 
 ```yaml
-{% raw %}
 - name: Install jsonnet and jsonnet-bundler
   shell: 'go get {{ item.source }} && go install {{ item.source }}'
   args:
@@ -122,7 +113,6 @@ Install jsonnet and jsonnet-bundler
   with_items:
     - { source: 'github.com/google/go-jsonnet/jsonnet', binary: 'jsonnet' }
     - { source: 'github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb', binary: 'jb' }
-{% endraw %}
 ```
 
 This should create the executable programs `/root/go/bin/jsonnet` and `/root/go/bin/jb`.
@@ -133,7 +123,6 @@ Get the jsonnet templates
 We can now use the jsonnet-bundler to download the latest version of the jsonnet templates.
 
 ```yaml
-{% raw %}
 - name: Create directory for the jsonnet templates
   file:
     path: /root/my-kube-prometheus
@@ -144,7 +133,6 @@ We can now use the jsonnet-bundler to download the latest version of the jsonnet
   args:
     chdir: /root/my-kube-prometheus
     creates: /root/my-kube-prometheus/jsonnetfile.json
-{% endraw %}
 ```
 
 This should create a directory `/root/my-kube-prometheus` containing a bunch of `*.libsonnet` files in its subdirectories.
@@ -157,7 +145,6 @@ We have to create a jsonnet template to import and configure the kube-operator t
 Our `example.jsonnet` file looks as follows:
 
 ```text
-{% raw %}
 // Modified version of:
 // https://github.com/coreos/prometheus-operator/blob/master/contrib/kube-prometheus/example.jsonnet
 
@@ -176,18 +163,15 @@ local kp = (import 'kube-prometheus/kube-prometheus.libsonnet') +
 { ['alertmanager-' + name + '.json']: kp.alertmanager[name] for name in std.objectFields(kp.alertmanager) } +
 { ['prometheus-' + name + '.json']: kp.prometheus[name] for name in std.objectFields(kp.prometheus) } +
 { ['grafana-' + name + '.json']: kp.grafana[name] for name in std.objectFields(kp.grafana) }
-{% endraw %}
 ```
 
 We use Ansible to upload this file into the `/root/my-kube-prometheus` directory:
 
 ```yaml
-{% raw %}
 - name: Upload the jsonnet definition
   copy:
     src: ../files/example.jsonnet
     dest: /root/my-kube-prometheus/example.jsonnet
-{% endraw %}
 ```
 
 Create the manifests
@@ -196,7 +180,6 @@ Create the manifests
 Now we can generate the manifest file from the jsonnet template:
 
 ```yaml
-{% raw %}
 - name: Create output directory for the manifests
   file:
     path: /root/my-kube-prometheus/manifests
@@ -207,7 +190,6 @@ Now we can generate the manifest file from the jsonnet template:
   args:
     chdir: /root/my-kube-prometheus
     creates: /root/my-kube-prometheus/jsonnetfile.json
-{% endraw %}
 ```
 
 This should create a directory `/root/my-kube-prometheus/manifests` containing a bunch of JSON manifest files.
@@ -218,7 +200,6 @@ Apply the manifests
 As the last step, we `kubectl apply` each of the manifest files in alphabetical order.
 
 ```yaml
-{% raw %}
 - name: Create list of kube-prometheus json files
   find:
     path: /root/my-kube-prometheus/manifests
@@ -231,7 +212,6 @@ As the last step, we `kubectl apply` each of the manifest files in alphabetical 
   register: kubectl_apply_prometheus
   changed_when: "kubectl_apply_prometheus.stdout.find('created') != -1"
   with_items: "{{ find_kube_prometheus_json.files | map(attribute='path') | sort }}"
-{% endraw %}
 ```
 
 Test if it worked
@@ -246,9 +226,7 @@ kube-prometheus exposes the following [node ports][nodeport]:
 You can use ssh port forwarding to test this:
 
 ```bash
-{% raw %}
 ssh -L 30900:localhost:30900 -L 30902:localhost:30902 -L 30903:localhost:30903 root@k8s-master.example.com
-{% endraw %}
 ```
 
 On [http://localhost:30900][http://localhost:30900] you should now see Prometheus up and running. Click on *status* -> *targets* and make sure that the kube-controller-manager, the kube-scheduler, and all kubelets are up and running.

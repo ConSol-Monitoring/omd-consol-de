@@ -1,6 +1,6 @@
 ---
 author: Christian Guggenmos
-date: '2017-02-10'
+date: '2017-02-10T00:00:00+00:00'
 tags:
 - kubernetes
 title: Local Kubernetes Development with Minikube

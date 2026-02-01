@@ -2,7 +2,7 @@
 author: Gerhard Laußer
 author_email: gerhard.lausser@consol.de
 author_twitter: lausser
-date: '2016-08-05'
+date: '2016-08-05T00:00:00+00:00'
 featured_image: meetup.jpg
 summary: null
 tags:
@@ -47,11 +47,11 @@ Ein Ansible-Playbook soll als Nagios-Plugin ausgeführt werden, um regelmässig 
 
 ## Voraussetzungen
 
-1. [ansible.cfg](#ansible.cfg)
+1. [ansible.cfg](#ansiblecfg)
 2. [callback](#callback)
 3. [inventory](#inventory)
-4. [Playbook](#Playbook)
-4. [PluginRepo](#PluginRepo)
+4. [Playbook](#playbook)
+4. [PluginRepo](#pluginrepo)
 
 ### ansible.cfg
 Die ansible.cfg wird über $ANSIBLE_CONFIG in $OMD_ROOT/etc/environment angesprochen
@@ -130,7 +130,6 @@ Die benötigten Dateien sind folgendermassen angeordnet:
 Und so sehen sie aus:
 ### ansible.cfg
 ```ini
-{% raw %}
 #
 # Ansible config for plugin rollout
 #
@@ -150,12 +149,10 @@ stdout_callback = nagios
 
 #retry_files_enabled = True
 #retry_files_save_path = "$OMD_ROOT/var/ansible/"
-{% endraw %}
 ```
 
 ### nagios.py
 ```python
-{% raw %}
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
@@ -254,12 +251,10 @@ t)))
             sys.exit(1)
         else:
             self._display.display(u"OK - %s tasks run successfully" % (t['ok']),screen_only=True)
-{% endraw %}
 ```
 
 ### plugins_rollout.yaml
 ```yaml
-{% raw %}
 # Ansible Plugins Verteilung
 # 20160804 mg@consol.de
 ---
@@ -313,34 +308,27 @@ t)))
       dest: "{{ dest_etc_dir }}"
       rsync_path: "{{ rsync_path }}"
     when: custom_dir.stdout.find("\{{ ansible_hostname }}") != -1
-{% endraw %}
 ```
 
 ### vars_debian.yaml
 ```yaml
-{% raw %}
 ---
 rsync_path: /usr/bin/rsync
 profile: .bash_profile
-{% endraw %}
 ```
 
 ### vars_redhat.yaml
 ```yaml
-{% raw %}
 ---
 rsync_path: /usr/bin/rsync
 profile: .bash_profile
-{% endraw %}
 ```
 
 ### vars_solaris.yaml
 ```yaml
-{% raw %}
 ---
 rsync_path: /usr/local/bin/rsync
 profile: .profile
-{% endraw %}
 ```
 
 <a href="http://www.meetup.com/r/inbound/0/0/shareimg/https://www.meetup.com/de-DE/Munchner-Monitoring-Stammtisch/?a=shareimg"><img border="0" alt="Münchner Monitoring-Stammtisch" src="http://img.meetup.com/img/logo_45.png"></a>

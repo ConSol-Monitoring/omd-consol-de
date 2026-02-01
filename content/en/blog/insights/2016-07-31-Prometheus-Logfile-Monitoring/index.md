@@ -1,7 +1,7 @@
 ---
 author: Fabian Stäber
-date: '2016-07-31'
-featured_image: /assets/images/prometheus-logo.png
+date: '2016-07-31T00:00:00+00:00'
+featured_image: prometheus-logo.png
 summary: null
 tags:
 - PrometheusIO

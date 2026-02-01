@@ -7,7 +7,7 @@ tags:
 title: WAN-Monitoring mit check_nwc_health
 ---
 
-<span style="float: right"><img src="cisco-wan.png" alt=""></span>Das Plugin [check_nwc_health](/nagios/check_nwc_health) erfreut sich größter Beliebtheit beim Monitoring von Komponenten in den Core-, Access- und Distribution-Layern, oder kurz: den Netzwerkkomponenten innerhalb von Gebäuden und Standorten. 
+<span style="float: right"><img src="cisco-wan.png" alt=""></span>Das Plugin [check_nwc_health](/docs/plugins/check_nwc_health) erfreut sich größter Beliebtheit beim Monitoring von Komponenten in den Core-, Access- und Distribution-Layern, oder kurz: den Netzwerkkomponenten innerhalb von Gebäuden und Standorten. 
 Das WAN-Monitoring geht aber weit über die üblichen Hardware/CPU/Memory/Interfaces-Checks hinaus.
 Für einen OMD-Kunden wurde das Plugin so erweitert, daß er sein europaumspannendes Netzwerk, bestehend aus mehreren tausend WAN-Knoten, umfassend überwachen kann. Den Vergleich mit schweineteuren proprietären Lösungen braucht das Gespann OMD/check_nwc_health seitdem nicht mehr zu fürchten.
 <!--more-->

@@ -1,7 +1,7 @@
 ---
 author: Olaf Meyer
 author_url: https://twitter.com/ola_mey
-date: '2020-05-18'
+date: '2020-05-18T00:00:00+00:00'
 featured_image: OpenShift-Logo.jpg
 meta_description: Unofficial guideline to get the latest and greatest version of Kiali
   running in Red Hat OpenShift Service Mesh
@@ -10,7 +10,7 @@ tags:
 title: Unofficial guideline to get the latest and greatest version of Kiali in OpenShift
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="{{page.featured_image}}"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em;"><img src="OpenShift-Logo.jpg"></div>
 
 During this year's Red Hat Summit I had the chance to get a glimpse of the latest version of Kiali. This version had some nice features, like the traffic flow of the application graph during a time period (Graph replay). It also contains wizards to create destination rules and virtual services. This demo has struck my curiosity to get the hands on this Kiali version. One obstacle for me was that my Kiali is running in Red Hat OpenShift Service Mesh and is controlled by the Kiali operator. Currently, it is using version 1.12. The version that I wanted to try was the latest release version (1.17). The Red Hat OpenShift Service Mesh does not support this version. This article describes what we need to do in order to replace the Kiali version of an Red Hat OpenShift Service Mesh with the latest version of Kiali.
 <!--more-->

@@ -37,7 +37,7 @@ And a lot of small annoying things have been fixed, some of them are:
 
 And much more, read the full changelog on [www.thruk.org][1]
 
-<a href="/nagios/thruk">Or read more about Thruk</a>
+<a href="/docs/thruk">Or read more about Thruk</a>
 
 [1]: http://www.thruk.org/changelog.html
 [2]: http://www.thruk.org/
