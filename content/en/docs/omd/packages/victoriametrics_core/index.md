@@ -39,4 +39,4 @@ VictoriaMetrics is a fast and scalable open source time series database and moni
 | VICTORIAMETRICS_RETENTION | variable | Number of Days VictoriaMetrics will keep data. Data older than this will be deleted automatically|
 | VICTORIAMETRICS_MODE | http | Default,m can be https also |
 | VICTORIAMETRICS_TCP_ADDR | 127.0.0.1 | IP to listen on |
-| VICTORIAMETRICS_TCP_PORT | 9090 | Default on first site |
+| VICTORIAMETRICS_TCP_PORT | 8428 | Default on first site |
