@@ -53,18 +53,17 @@ There are pre-built packages available for the following systems:
 
 || System | Version || Package |
 |:--:|:-------|:-----------------:|:---------------|:---|
-| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos       | 7      |                | [download](/repo/stable/#_7) |
-| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 8      |                | [download](/repo/stable/#_8) |
-| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 9      |                | [download](/repo/stable/#_9) |
-| <img src="debian.png" alt="debian" width="20"/> | Debian            | 11     | Bullseye       | [download](/repo/stable/#_debian_bullseye_11_0) |
-| <img src="debian.png" alt="debian" width="20"/> | Debian            | 12     | Bookworm       | [download](/repo/stable/#_debian_bookworm_12_0) |
-| <img src="debian.png" alt="debian" width="20"/> | Debian            | 13     | Trixie         | [download](/repo/stable/#_debian_trixie_13_0)  |
-| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP4 |                | [download](/repo/stable/#_sles_15_sp4) |
-| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP5 |                | [download](/repo/stable/#_sles_15_sp5) |
-| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP6 |                | [download](/repo/stable/#_sles_15_sp6) |
-| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 20.04  | Focal Fossal   | [download](/repo/stable/#_ubuntu_focal_fossal_20_04) |
-| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 22.04  | Jammy Jellyfish| [download](/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
-| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 24.04  | Noble Numbat   | [download](/repo/stable/#_ubuntu_noble_numbat_24_04) |
+| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos       | 7      |                | [download](/repo/stable/#rhel--centos-7) |
+| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 8      |                | [download](/repo/stable/#rhel--rocky--alma-8) |
+| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 9      |                | [download](/repo/stable/#rhel--rocky--alma-9) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian            | 12     | Bookworm       | [download](/repo/stable/#debian-bookworm-120) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian            | 13     | Trixie         | [download](/repo/stable/#debian-trixie-130)  |
+| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP4 |                | [download](/repo/stable/#sles-15-sp4) |
+| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP5 |                | [download](/repo/stable/#sles-15-sp5) |
+| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP6 |                | [download](/repo/stable/#sles-15-sp6) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 20.04  | Focal Fossa    | [download](/repo/stable/#ubuntu-focal-fossa-2004) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 22.04  | Jammy Jellyfish| [download](/repo/stable/#ubuntu-jammy-jellyfish-2204) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 24.04  | Noble Numbat   | [download](/repo/stable/#ubuntu-noble-numbat-2404) |
 
 <p class="hint">
 Rocky/Centos/Redhat will require the Epel repository. Redhat will additionally require these extra channels:<br><code>subscription-manager repos --enable=rhel-7-server-rpms \<br>--enable=rhel-7-server-extras-rpms \<br>--enable=rhel-7-server-optional-rpms</code>
