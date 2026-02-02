@@ -58,6 +58,22 @@ spec:
         volumeMounts:
         - name: content
           mountPath: /tmp/git
+      - name: patch-nginx-realip
+        image: nginx:stable-alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            cp /etc/nginx/conf.d/default.conf /nginx-conf-d/default.conf
+            POD_IP=$(hostname -i)
+            SUBNET=$(echo $POD_IP | cut -d. -f1-2).0.0/16
+            cat >> /nginx-conf-d/default.conf << EOF
+            set_real_ip_from $SUBNET;
+            real_ip_header X-Real-IP;
+            real_ip_recursive on;
+            EOF
+        volumeMounts:
+        - name: nginx-conf-d
+          mountPath: /nginx-conf-d
       containers:
       - name: nginx
         image: nginx:stable-alpine
@@ -68,6 +84,8 @@ spec:
           mountPath: /usr/share/nginx
         - name: nginx-logs
           mountPath: /var/log/nginx
+        - name: nginx-conf-d
+          mountPath: /etc/nginx/conf.d
         # switches to user nginx anyway.
         securityContext:
           runAsUser: 0
@@ -214,6 +232,8 @@ spec:
         configMap:
           name: goaccess-config
           defaultMode: 0644
+      - name: nginx-conf-d
+        emptyDir: {}
       - name: nginx-logs
         emptyDir: {}
         #persistentVolumeClaim:
