@@ -42,29 +42,29 @@ components. There are no planned changes for OMD itself.
 
 Best practice is to use the prebuild packages from our repository as described in the [installation section](#installation).
 
-The nightly builds are available via our [testing repository](https://labs.consol.de/repo/testing/).
+The nightly builds are available via our [testing repository](/repo/testing/).
 
 ## Installation
 
-The installation is quite easy when using our [Labs Repository](https://labs.consol.de/repo/stable/). Just follow the steps for your operating system. After that use
+The installation is quite easy when using our [Labs Repository](/repo/stable/). Just follow the steps for your operating system. After that use
 your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
 
 There are pre-built packages available for the following systems:
 
 || System | Version || Package |
 |:--:|:-------|:-----------------:|:---------------|:---|
-| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos       | 7      |                | [download](https://labs.consol.de/repo/stable/#_7) |
-| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 8      |                | [download](https://labs.consol.de/repo/stable/#_8) |
-| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 9      |                | [download](https://labs.consol.de/repo/stable/#_9) |
-| <img src="debian.png" alt="debian" width="20"/> | Debian            | 11     | Bullseye       | [download](https://labs.consol.de/repo/stable/#_debian_bullseye_11_0) |
-| <img src="debian.png" alt="debian" width="20"/> | Debian            | 12     | Bookworm       | [download](https://labs.consol.de/repo/stable/#_debian_bookworm_12_0) |
-| <img src="debian.png" alt="debian" width="20"/> | Debian            | 13     | Trixie         | [download](https://labs.consol.de/repo/stable/#_debian_trixie_13_0)  |
-| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP4 |                | [download](https://labs.consol.de/repo/stable/#_sles_15_sp4) |
-| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP5 |                | [download](https://labs.consol.de/repo/stable/#_sles_15_sp5) |
-| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP6 |                | [download](https://labs.consol.de/repo/stable/#_sles_15_sp6) |
-| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 20.04  | Focal Fossal   | [download](https://labs.consol.de/repo/stable/#_ubuntu_focal_fossal_20_04) |
-| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 22.04  | Jammy Jellyfish| [download](https://labs.consol.de/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
-| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 24.04  | Noble Numbat   | [download](https://labs.consol.de/repo/stable/#_ubuntu_noble_numbat_24_04) |
+| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos       | 7      |                | [download](/repo/stable/#_7) |
+| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 8      |                | [download](/repo/stable/#_8) |
+| <img src="rhel.png" alt="rhel" width="30"/>     | RHEL/Centos/Rocky | 9      |                | [download](/repo/stable/#_9) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian            | 11     | Bullseye       | [download](/repo/stable/#_debian_bullseye_11_0) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian            | 12     | Bookworm       | [download](/repo/stable/#_debian_bookworm_12_0) |
+| <img src="debian.png" alt="debian" width="20"/> | Debian            | 13     | Trixie         | [download](/repo/stable/#_debian_trixie_13_0)  |
+| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP4 |                | [download](/repo/stable/#_sles_15_sp4) |
+| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP5 |                | [download](/repo/stable/#_sles_15_sp5) |
+| <img src="sles.png" alt="sles" width="40"/>     | SLES              | 15 SP6 |                | [download](/repo/stable/#_sles_15_sp6) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 20.04  | Focal Fossal   | [download](/repo/stable/#_ubuntu_focal_fossal_20_04) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 22.04  | Jammy Jellyfish| [download](/repo/stable/#_ubuntu_jammy_jellyfish_22_04) |
+| <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 24.04  | Noble Numbat   | [download](/repo/stable/#_ubuntu_noble_numbat_24_04) |
 
 <p class="hint">
 Rocky/Centos/Redhat will require the Epel repository. Redhat will additionally require these extra channels:<br><code>subscription-manager repos --enable=rhel-7-server-rpms \<br>--enable=rhel-7-server-extras-rpms \<br>--enable=rhel-7-server-optional-rpms</code>
