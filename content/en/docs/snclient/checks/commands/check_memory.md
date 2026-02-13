@@ -69,9 +69,11 @@ Naemon Config
 
 ## Check Specific Arguments
 
-| Argument | Description                                                                         |
-| -------- | ----------------------------------------------------------------------------------- |
-| type     | Type of memory to check. Default: physical,committed (win) or physical,swap (other) |
+| Argument         | Description                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| n\|procs-to-show | Number of processes to show when printing the top consuming processes               |
+| show-args        | Show arguments when listing the top N processes                                     |
+| type             | Type of memory to check. Default: physical,committed (win) or physical,swap (other) |
 
 ## Attributes
 

@@ -59,9 +59,11 @@ Naemon Config
 
 ## Check Specific Arguments
 
-| Argument | Description                           |
-| -------- | ------------------------------------- |
-| time     | The times to check, default: 5m,1m,5s |
+| Argument         | Description                                                           |
+| ---------------- | --------------------------------------------------------------------- |
+| n\|procs-to-show | Number of processes to show when printing the top consuming processes |
+| show-args        | Show arguments when listing the top N processes                       |
+| time             | The times to check, default: 5m,1m,5s                                 |
 
 ## Attributes
 

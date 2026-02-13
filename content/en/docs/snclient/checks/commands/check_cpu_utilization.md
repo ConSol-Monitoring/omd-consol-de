@@ -20,8 +20,8 @@ Checks the cpu utilization metrics.
 
 ### Default Check
 
-    check_cpu_utilization
-    OK - user: 29% - system: 11% - iowait: 3% - steal: 0% - guest: 0% |'user'=28.83%;;;0;...
+	check_cpu_utilization
+OK - user: 2% - system: 1% - iowait: 0% - steal: 0% - guest: 0 - idle: 96% |'total'=3.4%;90;95;0; 'user'=2.11%;;;0;...
 
 ### Example using NRPE and Naemon
 
@@ -41,21 +41,23 @@ Naemon Config
 
 ## Argument Defaults
 
-| Argument      | Default Value                                                                                       |
-| ------------- | --------------------------------------------------------------------------------------------------- |
-| warning       | total > 90                                                                                          |
-| critical      | total > 95                                                                                          |
-| empty-state   | 0 (OK)                                                                                              |
-| empty-syntax  |                                                                                                     |
-| top-syntax    | \${status} - \${list}                                                                               |
-| ok-syntax     |                                                                                                     |
-| detail-syntax | user: \${user}% - system: \${system}% - iowait: \${iowait}% - steal: \${steal}% - guest: \${guest}% |
+| Argument      | Default Value                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
+| warning       | total > 90                                                                                            |
+| critical      | total > 95                                                                                            |
+| empty-state   | 0 (OK)                                                                                                |
+| empty-syntax  |                                                                                                       |
+| top-syntax    | \${status} - \${list}                                                                                 |
+| ok-syntax     |                                                                                                       |
+| detail-syntax | user: \${user}% - system: \${system}% - iowait: \${iowait}% - steal: \${steal}% - guest: \${guest} - idle: %{idle}% |
 
 ## Check Specific Arguments
 
-| Argument | Description                                          |
-| -------- | ---------------------------------------------------- |
-| range    | Sets time range to calculate average (default is 1m) |
+| Argument         | Description                                                           |
+| ---------------- | --------------------------------------------------------------------- |
+| n\|procs-to-show | Number of processes to show when printing the top consuming processes |
+| range            | Sets time range to calculate average (default is 1m)                  |
+| show-args        | Show arguments when listing the top N processes                       |
 
 ## Attributes
 
@@ -71,3 +73,4 @@ these can be used in filters and thresholds (along with the default attributes):
 | iowait    | IOWait cpu utilization in percent                    |
 | steal     | Steal cpu utilization in percent                     |
 | guest     | Guest cpu utilization in percent                     |
+| idle      | Idle cpu utilization in percent                      |
