@@ -163,7 +163,7 @@ alloy:
           cluster         = sys.env("CLUSTER_NAME"),
           rancher_cluster = sys.env("RANCHER_CLUSTER"),
         }
-}        
+      }        
 ```
 To ensure we get Kubernetes events automatically from all managed clusters, we can use a Fleet GitRepo within the Rancher cluster. Here we can have the managed cluster name in Fleet variables and the Rancher cluster set in the repo file.
 
@@ -171,14 +171,14 @@ To ensure we get Kubernetes events automatically from all managed clusters, we c
 ### Export Rancher-derived Labels as Metrics  
 
 For alerting routing, we need metrics that show the associated project and its application label for each managed cluster.
-As SUSE Rancher does not provide this as metrics, we had to write a customer-specific Prometheus metrics exporter.
-But this is too complex to detail here.
+However, the connection between managed clusters and projects is not trivial, as it involves several intermediate objects - such as cloud credentials and namespaces - between them.
+Since SUSE Rancher does not provide these relationships as metrics, we had to write a customer-specific Prometheus metrics exporter. However, it would be too complex to include here.
 
 So let's assume for now we have the combined metrics available as a single series per managed cluster:
 ```text
-rancher_managed_cluster_owner_info{managed_cluster="eu-cluster1",project_id="proj1",application="app1"} 1
-rancher_managed_cluster_owner_info{managed_cluster="eu-cluster2",project_id="proj2",application="app1"} 1
-rancher_managed_cluster_owner_info{managed_cluster="eu-cluster3",project_id="proj3",application="app2"} 1
+rancher_managed_cluster_owner_info{managed_cluster="rke2-eu-cluster1",project_id="proj1",application="app1"} 1
+rancher_managed_cluster_owner_info{managed_cluster="rke2-eu-cluster2",project_id="proj2",application="app1"} 1
+rancher_managed_cluster_owner_info{managed_cluster="rke2-eu-cluster3",project_id="proj3",application="app2"} 1
 ```
 This is an info metric – the value is always `1`. This design allows us to use `group_left` to attach the `application` label to any rule that joins on `managed_cluster`.
 
