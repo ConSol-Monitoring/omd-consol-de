@@ -7,7 +7,8 @@ tags:
 
 ## What's new?
 
-The `cluster-health` command in **check_vsphere** looks at the members of a
+The [`cluster-health`](/docs/plugins/check_vsphere/cmd/cluster-health/) command in
+**[check_vsphere](/docs/plugins/check_vsphere/)** looks at the members of a
 vSphere cluster, checks their state and decides whether the whole cluster is
 healthy. By default it treats nodes that are *disconnected* or *in maintenance*
 as faulty, but you can tweak that list. Use `--faulty` to customize what counts
