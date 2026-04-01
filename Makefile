@@ -4,6 +4,10 @@ local-docker-server:
 	docker build -t consol/omd-consol-de .
 	docker run --rm -p 1313:1313 -v `pwd`:/src consol/omd-consol-de server
 
+local-podman-server:
+	buildah bud -t consol/omd-consol-de .
+	podman run --rm -p 1313:1313 -v `pwd`:/src:z localhost/consol/omd-consol-de server
+
 test: .bin/muffet
 	docker compose --progress=quiet --ansi=never up -d --build --wait --no-color --no-recreate --quiet-pull
 	./.bin/muffet http://localhost:1313 \
