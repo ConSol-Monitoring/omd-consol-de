@@ -1,6 +1,8 @@
 ---
 title: "Monitoring vSphere cluster health with check_vsphere"
 date: 2026-04-01
+tags:
+- vsphere
 ---
 
 ## What's new?
