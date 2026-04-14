@@ -10,6 +10,12 @@ tags:
   - apt
 ---
 
+## Outdated
+
+This news is **outdated** and superseded by [the key rotation from April 2026](/blog/2026/04/13/labs-repository-gpg-key-rotation/).
+
+## Key Rotation
+
 Starting on August 18 2025 all .deb and .rpm files in the [labs repository](/repo) will use the `GPG-KEY-4096` instead of the old `RPM-GPG-KEY`.
 For consistency all existing rpm and deb files have been resigned to use the new key as well.
 
@@ -49,7 +55,7 @@ Either follow the instructions from the repository installation again:
 or use these commands:
 
 ```bash
-curl -s "https://labs.consol.de/repo/stable/GPG-KEY-4096" -o /etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc
+curl -fsS "https://labs.consol.de/repo/stable/GPG-KEY-4096" -o /etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc
 ```
 
 Then make sure the key is used in the sources file:

@@ -11,7 +11,7 @@ Installing ConSol Labs software has never been easier. Just follow the steps for
 Currently the following software is part of this repository.
 
 - **OMD-Labs Edition**
-- **SNClient+**
+- **SNClient**
 
 Some repositories also contain the following packages:
 
@@ -35,6 +35,7 @@ Those packages will be migrated to [OBS](https://build.opensuse.org/repositories
   - [Ubuntu Focal Fossa (20.04)](#ubuntu-focal-fossa-2004)
   - [Ubuntu Jammy Jellyfish (22.04)](#ubuntu-jammy-jellyfish-2204)
   - [Ubuntu Noble Numbat (24.04)](#ubuntu-noble-numbat-2404)
+  - [Ubuntu Resolute Racoon (26.04)](#ubuntu-resolute-racoon-2604)
 - [CentOS / RHEL](#centos--rhel)
   - [RHEL / CentOS 7](#rhel--centos-7)
   - [RHEL / Rocky / Alma 8](#rhel--rocky--alma-8)
@@ -43,6 +44,7 @@ Those packages will be migrated to [OBS](https://build.opensuse.org/repositories
   - [SLES 15 SP4](#sles-15-sp4)
   - [SLES 15 SP5](#sles-15-sp5)
   - [SLES 15 SP6](#sles-15-sp6)
+  - [SLES 16 SP0](#sles-16-sp0)
 - [Alpine Linux](#alpine-linux)
   - [Public Key (one-time setup)](#public-key-one-time-setup)
   - [Add Repository](#add-repository)
@@ -54,41 +56,48 @@ Those packages will be migrated to [OBS](https://build.opensuse.org/repositories
 ### GPG Key (one-time setup)
 
 ```bash
-curl -s "https://labs.consol.de/repo/stable/GPG-KEY-4096" -o /etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc
+curl -fsS "https://labs.consol.de/repo/stable/monitoring-repo-consol-de-gpg-2026.asc" -o /etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc
 ```
 
 ### Debian Bookworm (12.0)
 
 ```bash
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc] http://labs.consol.de/repo/testing/debian $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc] http://labs.consol.de/repo/testing/debian $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
 apt-get update
 ```
 
 ### Debian Trixie (13.0)
 
 ```bash
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc] http://labs.consol.de/repo/testing/debian $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc] http://labs.consol.de/repo/testing/debian $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
 apt-get update
 ```
 
 ### Ubuntu Focal Fossa (20.04)
 
 ```bash
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
 apt-get update
 ```
 
 ### Ubuntu Jammy Jellyfish (22.04)
 
 ```bash
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
 apt-get update
 ```
 
 ### Ubuntu Noble Numbat (24.04)
 
 ```bash
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/labs.consol.de-GPG-KEY-4096.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
+apt-get update
+```
+
+### Ubuntu Resolute Racoon (26.04)
+
+```bash
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc] http://labs.consol.de/repo/testing/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/labs-consol-testing.list
 apt-get update
 ```
 
@@ -139,6 +148,12 @@ zypper addrepo -f http://download.opensuse.org/distribution/leap/15.5/repo/oss/ 
 zypper addrepo -f https://labs.consol.de/repo/testing/sles15sp6/consol-labs.repo
 ```
 
+### SLES 16 SP0
+
+```bash
+zypper addrepo -f https://labs.consol.de/repo/testing/sles16sp0/consol-labs.repo
+```
+
 ---
 
 ## Alpine Linux
@@ -146,7 +161,7 @@ zypper addrepo -f https://labs.consol.de/repo/testing/sles15sp6/consol-labs.repo
 ### Public Key (one-time setup)
 
 ```bash
-curl -s "https://labs.consol.de/repo/testing/alpine/v3/monitoring-team%40consol.de-0001.rsa.pub" -o "/etc/apk/keys/monitoring-team@consol.de-0001.rsa.pub"
+curl -fsS "https://labs.consol.de/repo/testing/alpine/v3/monitoring-team%40consol.de-0001.rsa.pub" -o "/etc/apk/keys/monitoring-team@consol.de-0001.rsa.pub"
 ```
 
 ### Add Repository
