@@ -54,7 +54,7 @@ Those packages will be migrated to [OBS](https://build.opensuse.org/repositories
 ### GPG Key (one-time setup)
 
 ```bash
-curl -fsS "https://labs.consol.de/repo/stable/GPG-KEY-4096" -o /etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc
+curl -fsS "https://labs.consol.de/repo/stable/monitoring-repo-consol-de-gpg-2026.asc" -o /etc/apt/trusted.gpg.d/monitoring-repo-consol-de-gpg-2026.asc
 ```
 
 ### Debian Bookworm (12.0)
