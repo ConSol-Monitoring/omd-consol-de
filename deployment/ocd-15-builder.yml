@@ -68,7 +68,7 @@ spec:
             memory: 128Mi
 
       - name: hugo
-        image: docker.io/floryn90/hugo:0.150.0-ext-alpine
+        image: docker.io/floryn90/hugo:0.160.1-ext-alpine
         command: ["/bin/sh", "-c"]
         args:
           - |
