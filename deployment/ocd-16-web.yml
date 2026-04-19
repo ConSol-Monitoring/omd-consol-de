@@ -48,8 +48,7 @@ spec:
           containerPort: 80
         volumeMounts:
         - name: html
-          mountPath: /usr/share/nginx/html
-          subPath: current
+          mountPath: /srv/omd
           readOnly: true
         - name: nginx-conf
           mountPath: /etc/nginx/conf.d

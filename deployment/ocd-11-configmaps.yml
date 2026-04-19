@@ -59,7 +59,7 @@ data:
         # a reverse proxy that doesn't rewrite Location.
         absolute_redirect off;
 
-        root  /usr/share/nginx/html;
+        root  /srv/omd/current;
         index index.html;
 
         access_log /var/log/nginx/access-$hostname.log combined;
