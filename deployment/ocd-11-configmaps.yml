@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-repo
+  namespace: ocd
+data:
+  GIT_REPO_URL: "https://github.com/consol-monitoring/omd-consol-de.git"
+  GIT_BRANCH: "main"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-config
+  namespace: ocd
+data:
+  dotgitconfig: |
+    [safe]
+            directory = *
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-sync-hooks
+  namespace: ocd
+data:
+  trigger.sh: |
+    #!/bin/sh
+    # Invoked by git-sync after every successful sync.
+    # GITSYNC_HASH is set by git-sync v4 to the commit that was just synced.
+    set -eu
+    mkdir -p /var/run/trigger
+    printf '%s\n' "${GITSYNC_HASH:-$(date +%s)}" > /var/run/trigger/go
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+  namespace: ocd
+data:
+  default.conf: |
+    # Trust X-Real-IP coming from the system nginx via the Docker/KIND bridge.
+    set_real_ip_from 10.0.0.0/8;
+    set_real_ip_from 172.16.0.0/12;
+    set_real_ip_from 192.168.0.0/16;
+    real_ip_header    X-Real-IP;
+    real_ip_recursive on;
+
+    server {
+        listen 80 default_server;
+        server_name _;
+
+        # Emit relative Location headers so auto-generated redirects
+        # (e.g. /docs → /docs/) preserve whatever host:port the client
+        # used — necessary when hitting the NodePort directly or behind
+        # a reverse proxy that doesn't rewrite Location.
+        absolute_redirect off;
+
+        root  /usr/share/nginx/html;
+        index index.html;
+
+        access_log /var/log/nginx/access-$hostname.log combined;
+        error_log  /var/log/nginx/error-$hostname.log  warn;
+
+        # liveness/readiness target — never cached, always cheap.
+        location = /healthz {
+            access_log off;
+            add_header Cache-Control "no-store";
+            return 200 "ok\n";
+        }
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: goaccess-config
+  namespace: ocd
+data:
+  excludes: |
+    GET /favicons
+    GET /js/
+    GET /assets/
+    GET /scss/
+    GET /webfonts/
+    GET /healthz

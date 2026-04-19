@@ -1,0 +1,102 @@
+---
+# Telemetry Deployment: GoAccess consumes the shared nginx access logs
+# written by every ocd-web replica and renders a combined HTML report, which
+# is served on :8000 by a tiny Python web server.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocd-telemetry
+  namespace: ocd
+  labels:
+    app: ocd-telemetry
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ocd-telemetry
+  template:
+    metadata:
+      labels:
+        app: ocd-telemetry
+    spec:
+      containers:
+      - name: goaccess
+        image: allinurl/goaccess:1.9.4
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            set -u
+            mkdir -p /var/www/goaccess
+            while true; do
+              logs=$(ls /var/log/ocd-nginx/access-*.log 2>/dev/null || true)
+              if [ -n "$logs" ]; then
+                # shellcheck disable=SC2086
+                cat $logs | grep -v -f /tmp/excludes.txt | \
+                  /usr/bin/goaccess \
+                    -o /var/www/goaccess/index.html \
+                    --log-format=COMBINED \
+                    --persist --restore \
+                    --db-path=/var/tmp/goaccess-db \
+                    --html-report-title=omd.consol.de \
+                    --tz=Europe/Berlin \
+                    --hl-header --with-mouse -
+              fi
+              sleep 60
+            done
+        volumeMounts:
+        - name: nginx-logs
+          mountPath: /var/log/ocd-nginx
+          readOnly: true
+        - name: goaccess-db
+          mountPath: /var/tmp/goaccess-db
+        - name: goaccess-config
+          mountPath: /tmp/excludes.txt
+          subPath: excludes
+        - name: goaccess-web
+          mountPath: /var/www/goaccess
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          allowPrivilegeEscalation: false
+        resources:
+          requests: { cpu: 50m,  memory: 128Mi }
+          limits:   { cpu: 200m, memory: 256Mi }
+
+      - name: goaccess-web
+        image: python:3.13-slim
+        imagePullPolicy: IfNotPresent
+        command: ["python", "-m", "http.server", "8000"]
+        workingDir: /var/www/goaccess
+        ports:
+        - name: http
+          containerPort: 8000
+        volumeMounts:
+        - name: goaccess-web
+          mountPath: /var/www/goaccess
+        readinessProbe:
+          tcpSocket:
+            port: 8000
+          periodSeconds: 10
+        resources:
+          requests: { cpu: 20m,  memory: 32Mi }
+          limits:   { cpu: 100m, memory: 64Mi }
+
+      volumes:
+      - name: nginx-logs
+        hostPath:
+          path: /var/log/ocd-nginx
+          type: DirectoryOrCreate
+      - name: goaccess-db
+        persistentVolumeClaim:
+          claimName: goaccess-db-pvc
+      - name: goaccess-config
+        configMap:
+          name: goaccess-config
+          defaultMode: 0644
+      - name: goaccess-web
+        emptyDir: {}
+
+      restartPolicy: Always

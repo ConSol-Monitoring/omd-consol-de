@@ -1,0 +1,150 @@
+---
+# Web Deployment: stateless nginx serving the pre-built Hugo output produced
+# by ocd-builder. Two replicas on the single KIND node give zero-downtime
+# rollouts and process-level isolation. Guaranteed QoS (requests == limits)
+# keeps these pods at the back of the eviction queue under node pressure.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocd-web
+  namespace: ocd
+  labels:
+    app: ocd-web
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: ocd-web
+  template:
+    metadata:
+      labels:
+        app: ocd-web
+    spec:
+      initContainers:
+      - name: init-log-perms
+        image: busybox:1.37
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            mkdir -p /var/log/ocd-nginx
+            chmod 0777 /var/log/ocd-nginx
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+        volumeMounts:
+        - name: nginx-logs
+          mountPath: /var/log/ocd-nginx
+
+      containers:
+      - name: nginx
+        image: nginx:1.29-alpine
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+          subPath: current
+          readOnly: true
+        - name: nginx-conf
+          mountPath: /etc/nginx/conf.d
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+        - name: nginx-cache
+          mountPath: /var/cache/nginx
+        - name: nginx-run
+          mountPath: /var/run
+        readinessProbe:
+          httpGet: { path: /healthz, port: 80 }
+          periodSeconds: 5
+          failureThreshold: 2
+        livenessProbe:
+          httpGet: { path: /healthz, port: 80 }
+          periodSeconds: 10
+          failureThreshold: 3
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          allowPrivilegeEscalation: false
+        resources:
+          # Guaranteed QoS: equal requests and limits.
+          requests: { cpu: 200m, memory: 128Mi }
+          limits:   { cpu: 200m, memory: 128Mi }
+
+      - name: logger
+        image: busybox:1.37
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            # Surface this pod's own access log on kubectl logs.
+            f=/var/log/nginx/access-$(hostname).log
+            : > "$f"
+            exec tail -n+1 -F "$f"
+        volumeMounts:
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+        resources:
+          requests: { cpu: 5m,  memory: 8Mi }
+          limits:   { cpu: 20m, memory: 16Mi }
+
+      - name: logrotate
+        image: busybox:1.37
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            # Keep this pod's own log files from growing unbounded.
+            while true; do
+              sleep 3600
+              for f in /var/log/nginx/access-$(hostname).log \
+                       /var/log/nginx/error-$(hostname).log; do
+                [ -f "$f" ] || continue
+                sz=$(stat -c%s "$f" 2>/dev/null || echo 0)
+                [ "$sz" -gt 52428800 ] && : > "$f"
+              done
+            done
+        volumeMounts:
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+        resources:
+          requests: { cpu: 5m,  memory: 8Mi }
+          limits:   { cpu: 20m, memory: 16Mi }
+
+      volumes:
+      - name: html
+        hostPath:
+          path: /srv/omd
+          type: Directory
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+          defaultMode: 0644
+      - name: nginx-logs
+        # Shared hostPath so ocd-telemetry can aggregate across web replicas.
+        # Each pod writes to access-$hostname.log, so there is no write
+        # contention between replicas.
+        hostPath:
+          path: /var/log/ocd-nginx
+          type: DirectoryOrCreate
+      - name: nginx-cache
+        emptyDir: {}
+      - name: nginx-run
+        emptyDir: {}
+
+      restartPolicy: Always
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ocd-web-pdb
+  namespace: ocd
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: ocd-web

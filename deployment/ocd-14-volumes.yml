@@ -1,0 +1,17 @@
+---
+# Persistent GoAccess DB so long-term traffic history survives pod restarts.
+# The built HTML content (/srv/omd) and access logs (/var/log/ocd-nginx) use
+# node hostPath directly — KIND is single-node and those directories need to
+# be shared between the builder and web/telemetry Deployments on the same node.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: goaccess-db-pvc
+  namespace: ocd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 5Gi

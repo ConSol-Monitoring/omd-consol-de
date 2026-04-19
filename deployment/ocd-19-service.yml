@@ -1,0 +1,35 @@
+---
+# Public website — system nginx forwards :443/omd.consol.de here.
+# NodePort 30008 is kept identical to the old service so the system-level
+# nginx reverse proxy configuration does not need to be touched.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocd-web
+  namespace: ocd
+spec:
+  type: NodePort
+  selector:
+    app: ocd-web
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    nodePort: 30008
+
+---
+# GoAccess HTML report.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocd-telemetry
+  namespace: ocd
+spec:
+  type: NodePort
+  selector:
+    app: ocd-telemetry
+  ports:
+  - name: goaccess
+    port: 8000
+    targetPort: 8000
+    nodePort: 30009

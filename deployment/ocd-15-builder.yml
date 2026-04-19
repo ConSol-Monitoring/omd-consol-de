@@ -1,0 +1,146 @@
+---
+# Builder Deployment: pulls the git repo and rebuilds the Hugo site on every
+# new commit, writing the output to /srv/omd on the node. Crucially, this
+# Deployment is *separate* from the serving pods — a runaway Hugo rebuild is
+# contained to this pod's cgroup and cannot affect ocd-web.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocd-builder
+  namespace: ocd
+  labels:
+    app: ocd-builder
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate        # never run two builders simultaneously
+  selector:
+    matchLabels:
+      app: ocd-builder
+  template:
+    metadata:
+      labels:
+        app: ocd-builder
+    spec:
+      initContainers:
+      - name: init-perms
+        image: busybox:1.37
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            mkdir -p /srv/omd /var/run/trigger
+            chmod 0777 /srv/omd /var/run/trigger
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+        volumeMounts:
+        - name: html
+          mountPath: /srv/omd
+        - name: trigger
+          mountPath: /var/run/trigger
+
+      containers:
+      - name: git-sync
+        image: registry.k8s.io/git-sync/git-sync:v4.6.0
+        args:
+        - "--repo=$(GIT_REPO_URL)"
+        - "--ref=$(GIT_BRANCH)"
+        - "--period=30s"
+        - "--root=/tmp/git"
+        - "--link=ocd"
+        - "--exechook-command=/hooks/trigger.sh"
+        envFrom:
+        - configMapRef:
+            name: git-repo
+        volumeMounts:
+        - name: content
+          mountPath: /tmp/git
+        - name: hooks
+          mountPath: /hooks
+        - name: trigger
+          mountPath: /var/run/trigger
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+
+      - name: hugo
+        image: docker.io/floryn90/hugo:0.150.0-ext-alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            set -eu
+            mkdir -p /srv/omd
+            last=""
+            echo "[hugo] waiting for first sync trigger"
+            while true; do
+              if [ -f /var/run/trigger/go ]; then
+                now=$(cat /var/run/trigger/go 2>/dev/null || echo "")
+                if [ -n "$now" ] && [ "$now" != "$last" ]; then
+                  last="$now"
+                  ts=$(date +%s)
+                  dest=/srv/omd/html-$ts
+                  echo "[hugo] building rev=$now → $dest"
+                  if hugo --minify --gc --environment production \
+                          --source /tmp/git/ocd \
+                          --destination $dest; then
+                    ln -sfn html-$ts /srv/omd/current.new
+                    mv -Tf /srv/omd/current.new /srv/omd/current
+                    echo "[hugo] published rev=$now as $ts"
+                    ls -1dt /srv/omd/html-* 2>/dev/null \
+                      | tail -n +4 | xargs -r rm -rf
+                  else
+                    echo "[hugo] build FAILED for rev=$now — keeping previous"
+                    rm -rf $dest
+                  fi
+                fi
+              fi
+              sleep 5
+            done
+        env:
+        - name: HOME
+          value: /tmp
+        volumeMounts:
+        - name: content
+          mountPath: /tmp/git
+        - name: trigger
+          mountPath: /var/run/trigger
+        - name: html
+          mountPath: /srv/omd
+        - name: git-config
+          mountPath: /tmp/.gitconfig
+          subPath: dotgitconfig
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          allowPrivilegeEscalation: false
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 1024Mi
+
+      volumes:
+      - name: content
+        emptyDir: {}
+      - name: trigger
+        emptyDir: {}
+      - name: hooks
+        configMap:
+          name: git-sync-hooks
+          defaultMode: 0755
+      - name: git-config
+        configMap:
+          name: git-config
+          defaultMode: 0644
+      - name: html
+        hostPath:
+          path: /srv/omd
+          type: DirectoryOrCreate
+
+      restartPolicy: Always
