@@ -10,6 +10,15 @@
   }
 }
 
+// Docsy v0.14.3 adds 5vw padding to every .row inside a .td-box (the lead/section
+// wrapper). The homepage has a nested .container > .row grid inside that box;
+// those rows must not inherit the viewport-relative padding or the cards shrink
+// too narrow for side-by-side buttons at large viewports (e.g. 4K full-screen).
+.td-box .container .row {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 // Docsy v0.12.0 placed its h5 rule after Bootstrap's 1.25rem rule, keeping
 // section-index links at body-text size. v0.14.3 reversed the cascade order,
 // so Bootstrap's 1.25rem now wins. Restore the original sizing.
