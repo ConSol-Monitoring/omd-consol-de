@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: goaccess
-        image: allinurl/goaccess:1.9.4
+        image: allinurl/goaccess:1.10.2
         imagePullPolicy: IfNotPresent
         command: ["/bin/sh", "-c"]
         args:
@@ -35,7 +35,7 @@ spec:
               if [ -n "$logs" ]; then
                 # shellcheck disable=SC2086
                 cat $logs | grep -v -f /tmp/excludes.txt | \
-                  /usr/bin/goaccess \
+                  /bin/goaccess \
                     -o /var/www/goaccess/index.html \
                     --log-format=COMBINED \
                     --persist --restore \
