@@ -66,10 +66,9 @@ spec:
           limits:   { cpu: 200m, memory: 256Mi }
 
       - name: goaccess-web
-        image: python:3.13-slim
+        image: busybox:1.37
         imagePullPolicy: IfNotPresent
-        command: ["python", "-m", "http.server", "8000"]
-        workingDir: /var/www/goaccess
+        command: ["httpd", "-f", "-p", "8000", "-h", "/var/www/goaccess"]
         ports:
         - name: http
           containerPort: 8000
