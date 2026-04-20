@@ -69,7 +69,7 @@ limit = 30
 [languages.en]
 title = "ConSol Monitoring"
 description = "The ConSol monitoring portfolio"
-languageName ="English"
+label ="English"
 # Weight used for sorting.
 weight = 1
 #[languages.de]

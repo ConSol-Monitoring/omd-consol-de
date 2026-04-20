@@ -1,0 +1,18 @@
+// Project CSS overrides (loaded last by Docsy's td/_main.scss).
+// Keep this file minimal — prefer Docsy v0.14.3 defaults where possible.
+
+// No-sidebar pages use <main class="td-main"> (the main element IS td-main).
+// Docsy v0.14.3's fixed-navbar compensation targets ".td-main main" (a main
+// nested inside td-main), so these pages get no automatic offset. Add it here.
+@media (min-width: 768px) {
+  main.td-main {
+    padding-top: calc(1.5rem + 4rem);
+  }
+}
+
+// Docsy v0.12.0 placed its h5 rule after Bootstrap's 1.25rem rule, keeping
+// section-index links at body-text size. v0.14.3 reversed the cascade order,
+// so Bootstrap's 1.25rem now wins. Restore the original sizing.
+h5, .h5, h6, .h6 {
+  font-size: var(--font-size-base);
+}
