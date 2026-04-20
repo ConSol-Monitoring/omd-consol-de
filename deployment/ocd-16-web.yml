@@ -33,6 +33,10 @@ spec:
           - |
             mkdir -p /var/log/ocd-nginx
             chmod 0777 /var/log/ocd-nginx
+            # Remove empty log files from pods that never served traffic.
+            find /var/log/ocd-nginx -name 'access-*.log' -empty -delete
+            # Remove log files not touched in 7+ days (dead pod history already in goaccess DB).
+            find /var/log/ocd-nginx -name 'access-*.log' -mtime +7 -delete
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -81,8 +85,9 @@ spec:
         args:
           - |
             # Surface this pod's own access log on kubectl logs.
+            # Files must be 0666 so nginx worker processes (uid nginx/101) can write to them.
             f=/var/log/nginx/access-$(hostname).log
-            : > "$f"
+            install -m 0666 /dev/null "$f"
             exec tail -n+1 -F "$f"
         volumeMounts:
         - name: nginx-logs

@@ -35,7 +35,7 @@ spec:
               if [ -n "$logs" ]; then
                 # shellcheck disable=SC2086
                 cat $logs | grep -v -f /tmp/excludes.txt | \
-                  /bin/goaccess \
+                  /usr/bin/goaccess \
                     -o /var/www/goaccess/index.html \
                     --log-format=COMBINED \
                     --persist --restore \
