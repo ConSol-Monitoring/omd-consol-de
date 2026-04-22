@@ -40,6 +40,7 @@ Those packages will be migrated to [OBS](https://build.opensuse.org/repositories
   - [RHEL / CentOS 7](#rhel--centos-7)
   - [RHEL / Rocky / Alma 8](#rhel--rocky--alma-8)
   - [RHEL / Rocky / Alma 9](#rhel--rocky--alma-9)
+  - [RHEL / Rocky / Alma 10](#rhel--rocky--alma-10)
 - [SUSE Linux Enterprise (SLES)](#suse-linux-enterprise-sles)
   - [SLES 15 SP4](#sles-15-sp4)
   - [SLES 15 SP5](#sles-15-sp5)
@@ -123,6 +124,12 @@ rpm -Uvh "https://labs.consol.de/repo/testing/rhel8/x86_64/labs-consol-testing.r
 
 ```bash
 rpm -Uvh "https://labs.consol.de/repo/testing/rhel9/x86_64/labs-consol-testing.rhel9.noarch.rpm"
+```
+
+### RHEL / Rocky / Alma 10
+
+```bash
+rpm -Uvh "https://labs.consol.de/repo/testing/rhel10/x86_64/labs-consol-testing.rhel10.noarch.rpm"
 ```
 
 ---
