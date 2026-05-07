@@ -14,6 +14,7 @@ options:
 | options | description |
 |---|---|
 | `--mode {age,count}` | (required) thresholds checked against the `age` of a snapshot or against the `count` of the snapshots by VirtualMachine |
+| `--vihost VIHOST` | (optional) Name of ESXi host as seen in vCenter Server - only check snapshots on this host |
 | `--allowed REGEX` | (optional) REGEX is checked against `<name of VirtualMachine>;<name of snapshot>`, if REGEX doesn't match the snapshot is ignored |
 | `--banned REGEX` | (optional) REGEX is checked against `<name of VirtualMachine>;<name of snapshot>`, if REGEX does match the snapshot is ignored |
 | `--critical CRITICAL`   | critical threshold, see [common options](../../general-options/#common-options) |

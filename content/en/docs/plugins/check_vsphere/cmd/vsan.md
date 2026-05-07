@@ -14,7 +14,6 @@ options:
 
 | option | description |
 |---|---|
-| `--vihost HOSTNAME` | (optional) the name of the HostSystem to check, if omitted the first HostSystem found is checked, which is handy if you run this check directly against the host |
 | `--maintenance-state STATE` | one of OK, WARNING, CRITICAL, UNKNOWN. The status to use when the host is in maintenance mode, this defaults to UNKNOWN |
 | `--mode MODE` | one of objecthealth, healthtest |
 | `--include REGEX` | (optional) REGEX is checked against the cluster name |
