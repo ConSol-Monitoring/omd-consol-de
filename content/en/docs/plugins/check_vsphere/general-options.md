@@ -30,3 +30,5 @@ weight: 100
 | `CONNECT_NOFAIL` | if set a connection error exits with status OK |
 | `TIMEOUT` | Global timeout of the plugin in seconds, defaults to `30` |
 | `VSPHERE_PASS` | default value for `--password` option |
+| `SSL_CA_FILE` | path to CA certificate bundle file |
+| `SSL_CA_PATH` | path to CA certificate directory |
