@@ -60,15 +60,15 @@ Naemon Config
 
 ## Argument Defaults
 
-| Argument      | Default Value                                    |
-| ------------- | ------------------------------------------------ |
-| warning       | count = 0                                        |
-| critical      | state = 'stopped' or count = 0                   |
-| empty-state   | 2 (CRITICAL)                                     |
-| empty-syntax  | %(status) - no processes found with this filter. |
-| top-syntax    | %(status) - \${problem_list}                     |
-| ok-syntax     | %(status) - all %{count} processes are ok.       |
-| detail-syntax | \${exe}=\${state}                                |
+| Argument      | Default Value                                                 |
+| ------------- | ------------------------------------------------------------- |
+| warning       | count = 0                                                     |
+| critical      | state = 'stopped' or count = 0                                |
+| empty-state   | 2 (CRITICAL)                                                  |
+| empty-syntax  | %(status) - no processes found with this filter.              |
+| top-syntax    | %(status) - \${problem_list \|\| 'found \${count} processes'} |
+| ok-syntax     | %(status) - all %{count} processes are ok.                    |
+| detail-syntax | \${exe}=\${state}                                             |
 
 ## Check Specific Arguments
 
@@ -92,7 +92,7 @@ these can be used in filters and thresholds (along with the default attributes):
 | state            | Current state (windows: started, stopped, hung - linux: idle, lock, running, sleep, stop, wait and zombie) |
 | creation         | Start time of process                                                                              |
 | pid              | Process id                                                                                         |
-| uid              | User if of process owner (linux only)                                                              |
+| uid              | User id of process owner (linux only)                                                              |
 | username         | User name of process owner (linux only)                                                            |
 | cpu              | CPU usage in percent (over total lifetime of process)                                              |
 | cpu_seconds      | CPU usage in seconds                                                                               |
