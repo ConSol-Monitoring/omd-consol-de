@@ -245,6 +245,87 @@ There is also a SyslogFormatter, which creates the log line as:
 
 If you want a different format, then copy *lib/python/notificationforwarder/syslog/formatter.py* to *local/lib/python/notificationforwarder/syslog/formatter.py* and modify it like you want. Or, with *--formatter*, you can use whatever formatter is suitable, as long as it's payload attribute consists of a line of text.
 
+### Nostr
+
+The Nostr plugin pair publishes an encrypted direct message with labeled lines and default monitoring tags so the alert appears in chat-oriented clients.
+
+Install the optional Nostr support with `pip install notificationforwarder[nostr]`.
+
+|parameter|description|default|
+|---------|-----------|-------|
+|relays|comma-separated relay URLs|`wss://relay.damus.io`|
+|nsec|bech32 private key for signing|required|
+|tags|extra Nostr tags to include|`monitoring` plus host/service/state tags|
+
+The recipient is identified by a `p` tag containing the recipient's public key (npub). The `p` tag must be present in the tags list — the forwarder will raise an error if no recipient is found.
+
+#### Static recipient
+
+If all notifications go to the same recipient, pass the `p` tag via `--forwarderopt tags`:
+
+```bash
+$USER1$/notificationforwarder \
+    --forwarder nostr \
+    --forwarderopt relays='wss://relay.damus.io,wss://nostr-pub.wellorder.net' \
+    --forwarderopt nsec='$NSEC$' \
+    --forwarderopt tags='[["p", "npub1xyz..."]]' \
+    --formatter nostr \
+    --eventopt HOSTNAME='$HOSTNAME$' \
+    --eventopt SERVICEDESC='$SERVICEDESC$' \
+    --eventopt SERVICESTATE='$SERVICESTATE$' \
+    --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$'
+```
+
+#### Per-contact recipient
+
+In a real monitoring setup, different contacts may have different Nostr public keys. Use a custom contact variable (e.g., `$CONTACTNOSTRNPUB$`) and pass it as an eventopt. The formatter then adds it as the `p` tag.
+
+**Contact definition:**
+
+```
+define contact {
+    contact_name    admin-team
+    ...
+    _NOSTRNPUB      npub1xyz...
+}
+```
+
+**Command definition:**
+
+```
+define command {
+    command_name    notify-service-nostr
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder nostr \
+                        --forwarderopt relays='wss://relay.damus.io' \
+                        --forwarderopt nsec='$NSEC$' \
+                        --formatter nostr_custom \
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+                        --eventopt SERVICEDESC='$SERVICEDESC$' \
+                        --eventopt SERVICESTATE='$SERVICESTATE$' \
+                        --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
+                        --eventopt NOSTR_PUBKEY='$_CONTACTNOSTRNPUB$' \
+                    >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
+}
+```
+
+**Custom formatter** in `~/local/lib/python/notificationforwarder/nostr_custom/formatter.py`:
+
+```python
+from notificationforwarder.nostr.formatter import NostrFormatter
+
+class NostrCustomFormatter(NostrFormatter):
+    def format_event(self, event):
+        super().format_event(event)
+        pubkey = event.eventopts.get("NOSTR_PUBKEY", "")
+        if pubkey:
+            event.payload["tags"].append(["p", pubkey])
+```
+
+The `p` tag is appended to the tags list that the default Nostr formatter already builds with monitoring tags. The forwarder picks it up and uses it as the recipient for the encrypted DM.
+
+The message content is encrypted before relay publication, so it shows up as a DM in clients that support NIP-04 direct messages.
+
 ## Loggers
 
 The framework uses a modular logging architecture similar to formatters, forwarders, and reporters. By default, notificationforwarder uses **text format logging** - you don't need to do anything, logging works exactly as it did before. The traditional text format is backward compatible with all existing installations.
@@ -360,5 +441,106 @@ define command{
                     >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
 }
 ```
+
+## Spool Flushing
+
+When forwarding to a recipient fails, the event is saved in a local sqlite database. The framework automatically attempts to re-submit these spooled events on every subsequent call to notificationforwarder for the same forwarder.
+
+The flush mechanism runs inside `forward_formatted()` for **every event** — not just heartbeats or special cases. Before submitting the current event, the framework checks if there are spooled events waiting. If there are, it attempts to flush them by calling `submit()` for each one. Events that are successfully submitted are deleted from the spool. Events that still fail stay in the queue for the next attempt.
+
+This means that in a busy monitoring environment where notifications flow regularly, spooled events get drained naturally — each new notification triggers a flush attempt on its way through.
+
+### Probe Method
+
+Forwarders can implement an optional `probe()` method to optimize the flush behavior. The `probe()` method checks whether the receiving system is reachable *before* the framework attempts to flush spooled events via `submit()`.
+
+The framework uses `probe()` as a pre-check with three possible scenarios:
+
+|Forwarder has probe()?|probe() result|What happens|Why|
+|---|---|---|---|
+|No|—|flush proceeds|No way to check availability, must try|
+|Yes|True|flush proceeds|Receiver is confirmed reachable|
+|Yes|False|flush skipped|Receiver is known to be down, avoid wasted submit() calls|
+
+Without `probe()`, every flush attempt would call `submit()` for each spooled event even when the receiver is known to be down — wasting time and producing noisy error logs. With `probe()`, the framework can short-circuit: if the receiver is unreachable, the flush is skipped entirely and spooled events wait in the database until the next call.
+
+Example implementation:
+
+```python
+def probe(self):
+    r = requests.head(self.url)
+    return r.status_code == 200
+```
+
+### Heartbeat Events
+
+Formatters can mark an event as a heartbeat by setting `event.is_heartbeat = True` on the `FormattedEvent` object. Heartbeat events have two special properties:
+
+1. **They skip spooling on failure.** If a heartbeat event cannot be delivered, it is NOT saved to the spool database. This prevents periodic check-in events from accumulating in the retry queue.
+
+2. **They guarantee regular flush attempts.** While every event triggers the flush phase, heartbeat events ensure this happens at regular intervals — but only when scheduled. A cronjob or Nagios service using notificationforwarder as its check command provides this scheduling, creating a steady pulse of heartbeat events. Without such a schedule, heartbeats don't exist and spooled events could sit in the queue for hours waiting for the next real notification to trigger a flush.
+
+Example formatter that sets the heartbeat flag:
+
+```python
+class MyFormatter(NotificationFormatter):
+    def format_event(self, event):
+        notification_type = event.eventopts.get("NOTIFICATIONTYPE", "")
+        event.is_heartbeat = notification_type == "HEARTBEAT"
+
+        event.payload = {
+            "hostname": event.eventopts.get("HOSTNAME", ""),
+            "heartbeat": event.is_heartbeat,
+        }
+        event.summary = "heartbeat from {}".format(event.eventopts.get("HOSTNAME", ""))
+```
+
+### Scheduling Heartbeats in Nagios/Naemon
+
+Since notificationforwarder always exits with code 0, it can be used as a Nagios check command to schedule periodic heartbeats. The service will always be in OK status — it's using Nagios purely as a scheduling mechanism.
+
+**Command definition:**
+
+```
+define command {
+    command_name    notificationforwarder_heartbeat
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder webhook \
+                        --forwarderopt url=https://xxx.service-now.com/api/now/import/u_notification \
+                        --formatter myformatter \
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+                        --eventopt SERVICEDESC='$SERVICEDESC$' \
+                        --eventopt NOTIFICATIONTYPE=HEARTBEAT \
+                        --eventopt SERVICEOUTPUT='heartbeat from $HOSTNAME$' \
+                    >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
+}
+```
+
+**Service definition:**
+
+```
+define service {
+    host_name               monitoring-server
+    service_description     notificationforwarder-heartbeat
+    check_command           notificationforwarder_heartbeat
+    max_check_attempts      1
+    check_interval          5
+    retry_interval          1
+    notification_interval   0
+    notification_options    n
+    notification_period     24x7
+}
+```
+
+The key settings:
+- `check_interval 5` — runs the heartbeat every 5 minutes
+- `notification_interval 0` — no Nagios-level notifications
+- `notification_options n` — don't send notifications on state changes
+
+The heartbeat goes through the normal notificationforwarder flow: the formatter sets `is_heartbeat = True`, the flush phase checks for spooled events (and calls `probe()` if available), and the heartbeat itself is submitted to the receiver. If the receiver accepts it, the receiving system knows the monitoring infrastructure is alive (dead-man switch). If the receiver is down, the heartbeat is simply dropped — it won't add to the spool queue.
+
+The two use cases for periodic heartbeats:
+- **Dead-man switch**: The receiving system (e.g., ServiceNow) gets a regular "I'm alive" signal. If heartbeats stop, it knows the monitoring system is down.
+- **Spool draining**: Even when nothing breaks, the heartbeat triggers flush attempts at regular intervals, so spooled events are delivered quickly once the receiver recovers — without waiting for the next real notification.
 
 
