@@ -68,6 +68,8 @@ Application Options:
       --base64-string=                                            Base64 Encoded string to expect the content
   -A, --useragent=                                                UserAgent to be sent (default: check_http)
   -a, --authorization=                                            username:password on sites with basic authentication
+  -k, --header=                                                   Any other tags to be sent in http header. Use
+                                                                  multiple times for additional headers
   -C, --certificate=                                              check certificates instead of content. Specified in
                                                                   mandatory days left to warn and optional days to crit
                                                                   with a comma: warn_days[,<crit_days>]
@@ -82,7 +84,8 @@ Application Options:
                                                                   the new URL returned by golang HTTP client. Sticky
                                                                   keeps the hostname to be same after redirect, and
                                                                   stickyport persists the port as well.
-      --max-buffer-size=                                          Max buffer size to read response body (default: 1MB)
+      --max-buffer-size=                                          Max buffer size to read response body (max.: 100MB)
+                                                                  (default: 1MB)
   -t, --timeout=                                                  Timeout to wait for connection. If no time unit is
                                                                   given at the end, default of seconds is assumed
                                                                   (default: 10)
@@ -96,11 +99,11 @@ Application Options:
                                                                   assumed. Value is truncated to milliseconds.
                                                                   (default: 60)
       --wait-for-interval=                                        retry interval (default: 2s)
-      --wait-for-max=                                             time to wait for success
+      --wait-for-max=                                             time to wait for success (max.: 180s)
       --interim=                                                  interval time after successful request for
                                                                   consecutive mode (default: 1s)
       --consecutive=                                              number of consecutive successful requests required
-                                                                  (default: 1)
+                                                                  (max.: 5) (default: 1)
   -p, --port=                                                     Port number
       --max-redirs=                                               Maximum redirects before giving up on following
       --no-discard                                                raise error when the response body is larger then
@@ -110,7 +113,6 @@ Application Options:
       --sni                                                       enable SNI
   -4                                                              use tcp4 only
   -6                                                              use tcp6 only
-  -V, --version                                                   Show version
   -v, --verbose                                                   Show verbose output
       --show-body                                                 Print body content below status line
       --ignore-certificate-chain                                  by default all certificates are checked in many
@@ -119,7 +121,7 @@ Application Options:
       --check-cn                                                  Subject Common Name of leaf certificate can be
                                                                   checked to match hostname exactly. Common Name field
                                                                   is now largely unused in modern web, with Subject
-                                                                  Alternative Name fields being more prelavent and used
+                                                                  Alternative Name fields being more prevalent and used
                                                                   instead of Common Name when present. It is not
                                                                   checked by default, use this flag to enable it.
       --check-san                                                 Subject Alternative Names can be checked against the
