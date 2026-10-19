@@ -18,7 +18,7 @@ title: Thruk
 |Get version:|Version is displayed at WUI or type &quot;thruk --version&quot; on CLI|
 |OMD URL:|/&lt;site&gt;/thruk|
 
-Thruk is a multibackend monitoring webinterface which currently supports Naemon, Nagios, Icinga and Shinken as backend using the Livestatus API. It is designed to be a 'dropin' replacement and covers almost 100% of the original features plus adds additional enhancements for large installations and increased usability.
+Thruk is a monitoring web interface that supports multiple backends, including Naemon, Nagios, Icinga and Shinken, through the Livestatus API. It is designed to be a drop-in replacement and covers almost 100% of the original features, with additional enhancements for large installations and improved usability.
 
 &#x205F;
 ### Directory Layout
@@ -39,7 +39,7 @@ Thruk is a multibackend monitoring webinterface which currently supports Naemon,
 
 
 ### Kerberos SSO Integration
-While it was always possible to use Kerberos Authentication, starting with OMD 3 kerberos can be mixed
-with cookie authentication features, ex. api keys.
+While Kerberos authentication has always been supported, starting with OMD 3 it can be combined
+with cookie authentication features, such as API keys.
 
 See [Kerberos Integration](../../howtos/kerberos/) for details.

@@ -10,11 +10,11 @@ weight: 500
   <img class="p-2" src="logo_thruk.png" alt="Thruk" style="background-color: white"/>
 </div>
 
-**[Thruk](https://www.thruk.org)** is a multibackend monitoring webinterface which currently supports Naemon, Nagios, Icinga and Shinken as backend using the Livestatus API.
+**[Thruk](https://www.thruk.org)** is a monitoring web interface that supports multiple backends, including Naemon, Nagios, Icinga and Shinken, through the Livestatus API.
 
-It is designed to be a 'dropin' replacement and covers almost 100% of the original features plus adds additional enhancements for large installations and increased usability.
+It is designed to be a drop-in replacement and covers almost 100% of the original features, with additional enhancements for large installations and improved usability.
 
-Sven Nierleins' OSMC 2022 talk on the redesign can be found on [Youtube](https://www.youtube.com/watch?v=ikMp5M3kt3k).
+Sven Nierlein's OSMC 2022 talk on the redesign can be found on [YouTube](https://www.youtube.com/watch?v=ikMp5M3kt3k).
 
 ## Features
 
@@ -25,18 +25,18 @@ Sven Nierleins' OSMC 2022 talk on the redesign can be found on [Youtube](https:/
 - Dashboards
 - Powerful REST API
 - Advanced filtering
-- Darkmode and other themes
+- Dark mode and other themes
 - Mobile friendly
 - SLA Reporting + XLS Exports
 - Recurring Downtimes
-- Business Process Addon
+- Business Process Add-on
 - ...
 
 You can find more details [here](https://www.thruk.org/documentation/introduction.html#_reasons-to-choose-thruk).
 
 ## Documentation
 
-A full knowledgebase for users and developers can be found [here](https://www.thruk.org/documentation/).
+A full knowledge base for users and developers can be found [here](https://www.thruk.org/documentation/).
 
 ## Download
 
@@ -44,7 +44,7 @@ Thruk is included in [OMD](docs/omd/) but you can find all packages [here](https
 
 ## Changelog
 
-The changelog is available on [Github](https://github.com/sni/thruk/blob/master/Changes)
+The changelog is available on [GitHub](https://github.com/sni/thruk/blob/master/Changes)
 
 ## Screenshots
 <img src="home.png"/>
@@ -52,4 +52,4 @@ The changelog is available on [Github](https://github.com/sni/thruk/blob/master/
 
 ## Support
 
-Professional support and consulting is available from [ConSol](https://www.consol.com/monitoring).
+Professional support and consulting are available from [ConSol](https://www.consol.com/monitoring).
