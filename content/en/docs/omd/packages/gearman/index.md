@@ -25,7 +25,7 @@ title: Mod-Gearman
 | OMD default:      | disabled |
 | OMD connectivity: | TCP:4730 |
 
-Mod-Gearman is a Naemon (formerly Nagios) addon which extends Naemon to run scalable and distributed setups. Worker nodes can be placed all over your network while keeping the simplicity of a central configuration. Mod-Gearman can even help to reduce the load on a single Naemon host, because of its smaller and more efficient way of executing host- and servicechecks.
+Mod-Gearman is a Naemon (formerly Nagios) add-on which extends Naemon to run scalable and distributed setups. Worker nodes can be placed all over your network while keeping the simplicity of a central configuration. Mod-Gearman can even help to reduce the load on a single Naemon host, because it executes host and service checks with less overhead and greater efficiency.
 
 ### Directory Layout
 

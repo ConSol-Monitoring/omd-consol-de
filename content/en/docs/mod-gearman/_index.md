@@ -13,26 +13,26 @@ weight: 600
 
 **[Mod_Gearman](https://mod-gearman.org/)** is an easy way of distributing active Naemon checks across your network and increasing Naemon scalability.
 
-It can even help to reduce the load on a single Naemon host, because its much smaller and more efficient in executing checks.
+It can even help to reduce the load on a single Naemon host, because it's much smaller and more efficient at executing checks.
 
 - Mod-Gearman 5.x works with [Naemon Core](https://www.naemon.io)
 
 It consists of three parts:
 
-- There is a NEB module which resides in the Naemon core and adds servicechecks, hostchecks and eventhandler to a Gearman queue.
-- The counterpart is one or more worker clients executing the checks.
-  The Worker can be configured to only run checks for specific host- or servicegroups.
+- There is a NEB module which resides in the Naemon core and adds service checks, host checks and event handlers to a Gearman queue.
+- One or more worker clients execute the checks.
+  Workers can be configured to run checks only for specific hostgroups or servicegroups.
   There is a (deprecated) worker included. The new worker can be found [here](https://github.com/ConSol-Monitoring/mod-gearman-worker-go).
-- And you need at least one [Gearman Job Server](https://gearman.org) running.
+- You also need at least one [Gearman Job Server](https://gearman.org) running.
 
 ## Features
 
-- Reduce load of your central Naemon machine
+- Reduce the load on your central Naemon machine
 - Make Naemon scalable up to thousands of checks per second
 - Easy distributed setups without configuration overhead
-- Real loadbalancing across all workers
+- Real load balancing across all workers
 - Real failover for redundant workers
-- Embedded Perl support for very fast execution of perl scripts
+- Embedded Perl support for very fast execution of Perl scripts
 - Fast transport of passive check results with included tools like send_gearman and send_multi
 
 ## Download
@@ -43,7 +43,7 @@ The latest download packages can be found [here](https://mod-gearman.org/downloa
 
 ## Changelog
 
-The changelog is available on [Github](https://github.com/sni/mod_gearman/blob/master/Changes)
+The changelog is available on [GitHub](https://github.com/sni/mod_gearman/blob/master/Changes)
 
 ## Presentations
 
@@ -52,4 +52,4 @@ The changelog is available on [Github](https://github.com/sni/mod_gearman/blob/m
 
 ## Support
 
-Professional support and consulting is available from [ConSol](https://www.consol.com/monitoring).
+Professional support and consulting are available from [ConSol](https://www.consol.com/monitoring).
