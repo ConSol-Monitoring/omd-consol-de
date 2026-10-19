@@ -12,15 +12,15 @@ tags:
 
 check_webinject is a Nagios check plugin based on the [Webinject Perl Module](http://search.cpan.org/dist/Webinject/) available on CPAN which is now part of the [Webinject](http://www.webinject.org) project.
 
-It was completely reworked at ConSol including some bugfixes and enhancements for Nagios 3.
+It was completely reworked at ConSol including some bug fixes and enhancements for Nagios 3.
 
 ## How does it work?
 
-The plugin is written in Perl and uses LWP together with Crypt::SSLeay or IO::Socket::SSL. check_webinject sends requests to any configured webservice. You may then specify verification settings in your test cases.
+The plugin is written in Perl and uses LWP together with Crypt::SSLeay or IO::Socket::SSL. check_webinject sends requests to any configured web service. You may then specify verification settings in your test cases.
 
 ## Test Case Example
 
-A sample testcase file structure:
+A sample test case file structure:
 
 ``` xml
 <testcases>
@@ -59,9 +59,9 @@ Just unpack the tarball and make sure the required Perl modules exist:
 
 ## Download
 
-Go to [Github](https://github.com/sni/Webinject), clone and build.
+Go to [GitHub](https://github.com/sni/Webinject), clone and build.
 
-You can also download the [prebuild version of the check_webinject nagios plugin](https://github.com/sni/Webinject/releases).
+You can also download the [prebuilt version of the check_webinject Nagios plugin](https://github.com/sni/Webinject/releases).
 
 ## Copyright
 

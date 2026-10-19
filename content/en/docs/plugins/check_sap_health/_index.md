@@ -9,7 +9,7 @@ tags:
 
 ## Description
 
-check_sap_health is a plugin designed to monitor SAP NetWeaver instances. It was developed as an easily extensible tool to monitor both technical parameters from the CCMS (Computing Center Management System) as well as business-related facts via RFC/BAPI.
+check_sap_health is a plugin designed to monitor SAP NetWeaver instances. It was developed as an easily extensible tool to monitor both technical parameters from the CCMS (Computing Center Management System) and business-related information via RFC/BAPI.
 
 The plugin communicates either with a Solution Manager or directly with application servers. Monitoring of SAP load balancing is also possible by connecting to the message server of a central instance.
 
@@ -35,7 +35,7 @@ The plugin requires the SAP NetWeaver RFC SDK and the Perl module `sapnwrfc`. In
 ### Installation Steps
 
 1. Download the NW RFC SDK from SAP
-2. Extract using SAPCAR tool
+2. Extract using the SAPCAR tool
 3. Clone and install the Perl module:
    ```bash
    git clone https://github.com/lausser/perl-sapnwrfc.git

@@ -6,7 +6,7 @@ tags:
 ---
 
 ### Example 1: Error messages from FCAL-Devices
-Usage as nagios-plugin to monitor FCAL-devices on a Solaris system. This is a basic example which scans for patterns in /var/adm/messages.
+Use as a Nagios plugin to monitor FCAL-devices on a Solaris system. This is a basic example which scans for patterns in /var/adm/messages.
 ```text
 @searches = (
   {
@@ -23,7 +23,7 @@ Usage as nagios-plugin to monitor FCAL-devices on a Solaris system. This is a ba
 ```
 
 ### Example 2: Again, but this time as passive service using send_nsca
-Using the following configfile you can run check_logfiles as standalone-script. If error messages are found in the messages file, a summary notification is sent to the NSCA server at the end of the check_logfile run.
+Using the following configuration file you can run check_logfiles as a standalone script. If error messages are found in the messages file, a summary notification is sent to the NSCA server at the end of the check_logfiles run.
 ```text
 $scriptpath = '/usr/bin/nagios/libexec:/usr/local/nagios/contrib';
 $MACROS = {
@@ -51,7 +51,7 @@ $postscriptstdin = '$CL_HOSTNAME$\t$CL_SERVICEDESC$\t
 ```
 
 ### Example 3: Again, but this time with a notification for each single hit
-If you want a notification every time a line matching one of your patterns is found, use the following modified configfile. Be careful: If you expect hundreds of these lines, your server will be flooded.
+If you want a notification every time a line matching one of your patterns is found, use the following modified configuration file. Be careful: If you expect hundreds of these lines, your server will be flooded.
 ```text
 $scriptpath = '/usr/bin/nagios/libexec:/usr/local/nagios/contrib';
 $MACROS = {
@@ -79,8 +79,8 @@ $MACROS = {
 );
 ```
 
-### Example 4: Check the correct function of the syslog service
-In the following example a message will be sent to the syslog service imediately after check_logfiles starts up. After a delay of 5 seconds (which should be enough for the message to make it into the logfile) the logfile will be scanned for this message. If it cannot be found, this is counted as a critical error.
+### Example 4: Check that the syslog service works correctly
+In the following example a message will be sent to the syslog service immediately after check_logfiles starts up. After a delay of 5 seconds (which should be enough for the message to make it into the logfile) the logfile will be scanned for this message. If it cannot be found, this is counted as a critical error.
 ```text
 $scriptpath = '/usr/bin';
 $prescript = 'logger';
@@ -101,7 +101,7 @@ $prescriptsleep = 5;
 ```
 
 ### Example 5: Monitoring HP Service Guard
-Here we look for typical error messages of the cluster software. The value HPUX of the rotation-parameter means, that both syslog.log and maybe OLDsyslog.log are scanned.
+Here we look for typical error messages of the cluster software. The value HPUX of the rotation parameter means that both syslog.log and maybe OLDsyslog.log are scanned.
 ```text
 $seekfilesdir = '/lfs/opt/nagios/var/tmp';
 $protocolsdir = '/lfs/opt/nagios/var/tmp';
@@ -180,9 +180,9 @@ $prescriptparams = '-l';
 ```
 
 ### Example 8: Monitoring of SUN hardware by sending SNMP-traps
-In this example we scan /var/adm/messages for patterns indicating upcoming hardware trouble. In this scenario check_logfiles runs not as a nagios-plugin but as a standalone script, which sends a snmp-trap if matching lines were found. Sending the trap is done by an external script which gets the needed information via environment variables.
+In this example we scan /var/adm/messages for patterns indicating upcoming hardware trouble. In this scenario check_logfiles runs not as a Nagios plugin but as a standalone script, which sends an SNMP trap if matching lines were found. Sending the trap is done by an external script which gets the needed information via environment variables.
 
-Here just one single trap is sent at the end of check_logfile's runtime. If you want a trap for each single matching line, move the $postscript definition as script definition inside the search.
+Here just one single trap is sent at the end of check_logfiles' runtime. If you want a trap for each single matching line, move the $postscript definition as script definition inside the search.
 ```text
 $MACROS = {
   SNMP_TRAP_SINK_HOST => 'nagios.dierichs.de',
@@ -216,7 +216,7 @@ $scriptpath = '/lfs/opt/nagios/nrpe/locallibexec';
 $postscript => 'send_snmptrap.pl';
 ```
 
-Jörg Linge was so kind to contribute the following script:
+Jörg Linge was kind enough to contribute the following script:
 ```text
 #! /usr/bin/perl
 #
@@ -255,7 +255,7 @@ exit 0;
 ```
 
 ### Example 9: Monitoring SUN hardware using NSCA
-Instead of SNMP-traps one could also report the errors to a nagios server using send_nsca. Here also check_logfiles runs as standalone script.
+Instead of SNMP-traps one could also report the errors to a Nagios server using send_nsca. Here also check_logfiles runs as a standalone script.
 ```text
 $scriptpath = '/usr/local/nagios/bin';
 $MACROS = {
@@ -473,7 +473,7 @@ If a messages file is composed of multiple servers' events, because you forward 
 ```
 
 ### Example 15: Searching the AIX errpt
-AIX writes many messages in the so called Error Report which can be readout with the errpt command. With type=errpt you can instruct check_logfiles to scan errpt's output instead of a real logfile.
+AIX writes many messages in the so-called Error Report which can be read with the errpt command. With type=errpt you can instruct check_logfiles to scan errpt's output instead of a real logfile.
 ```text
 @searches = (
  {
@@ -512,7 +512,7 @@ define service {
 }
 ```
 
-With templates you can formulate multiple searches in one configfile and pick only specific ones according to the type of the host. Without templates you would have to write a definition for each host.
+With templates you can formulate multiple searches in one configuration file and pick only specific ones according to the type of the host. Without templates you would have to write a definition for each host.
 ```text
 @searches = (
 {
@@ -656,8 +656,8 @@ CRITICAL - (6 errors in test.protocol-2008-02-12-14-19-36) -
      powercable_criticals=6 powercable_unknowns=0
 ```
 
-### Example 19: Passive Checkresults which cannot be assigned
-Passive Checkresults, which cannot be assigned a host or a service (e.g. because of a typo) are silently dropped (Apart from a notice in nagios.log). With this method, Nagios is able to send out a notification if this occurs. This was Augustinus' idea.
+### Example 19: Passive check results which cannot be assigned
+Passive check results, which cannot be assigned a host or a service (e.g. because of a typo) are silently dropped (apart from a notice in nagios.log). With this method, Nagios is able to send out a notification if this occurs. This was Augustinus' idea.
 ```text
 $MACROS = {
   NAGIOS_LOGFILES => '/var/nagios'
@@ -674,7 +674,7 @@ $MACROS = {
 };
 ```
 ### Example 20: Windows Eventlog
-The Perl module on which check_logfiles relies on under Windows unfortunately can only be used to read the System, Application, and Security event logs. However, there are countless other event logs; potentially, each application can open its own branch here. To monitor these events, you need the command-line tool **wevtutil**. check_logfiles can then build upon this by specifying *type => 'wevtutil'* in the search. Heiko Wenzig, a long-time user of check_logfiles, has kindly provided his configuration. However, it should be noted that criticalpatterns is just a placeholder and everyone needs to know for themselves what is important to them.
+The Perl module on which check_logfiles relies under Windows unfortunately can only be used to read the System, Application, and Security event logs. However, there are countless other event logs; potentially, each application can open its own branch here. To monitor these events, you need the command-line tool **wevtutil**. check_logfiles can then build upon this by specifying *type => 'wevtutil'* in the search. Heiko Wenzig, a long-time user of check_logfiles, has kindly provided his configuration. However, it should be noted that criticalpatterns is just a placeholder and everyone needs to know for themselves what is important to them.
 
 ```text
 @searches = ({

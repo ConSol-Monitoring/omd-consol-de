@@ -5,10 +5,10 @@ tags = [
 ]
 +++
 
-In this framework, two aspects are in the focus. How to transport a notification to the recipient system and in which format.
-In the beginning, Naemon or one of the other monitoring cores will execute a command line. The actual script and the individual command line parameters are defined in a command definition. Typical parameters are (i use the notation of Nagios macros) HOSTNAME, SERVICEDESC, SERVICESTATE, SERVICEOUTPUT. These snippets need to be put together to some kind of payload suitable for the receiving system. And then this payload must be transported to it. We call the two components *formatter* and *forwarder*. The formatter takes the raw input data and creates a payload and the forwarder transmits the payload to the destination.
-What the framework does for you behind the scenes: When forwarding to a recipient fails, the event is saved in a local sqlite database for a certain time and re-sent when the script is called next time and the recipient is available again. Logging of successful and of course failed deliveries is also done automatically.  
-There is also a component *reporter* which will rarely be used. It's purpose is to run additional code after a successful or failed delivery.  
+This framework focuses on two aspects: how to transport a notification to the recipient system and which format to use.
+In the beginning, Naemon or one of the other monitoring cores will execute a command line. The actual script and the individual command line parameters are defined in a command definition. Typical parameters are (I use the notation of Nagios macros) HOSTNAME, SERVICEDESC, SERVICESTATE, SERVICEOUTPUT. These snippets need to be combined into a payload suitable for the receiving system. And then this payload must be transported to it. We call the two components *formatter* and *forwarder*. The formatter takes the raw input data and creates a payload and the forwarder transmits the payload to the destination.
+What the framework does for you behind the scenes: When forwarding to a recipient fails, the event is saved in a local SQLite database for a certain time and re-sent when the script is next called and the recipient is available again. Logging of successful and of course failed deliveries is also done automatically.\
+There is also a component *reporter* which will rarely be used. Its purpose is to run additional code after a successful or failed delivery.\
 
 Let me list some of the formatter/forwarder combinations which are usually found in enterprise environments:
 
@@ -23,10 +23,10 @@ Let me list some of the formatter/forwarder combinations which are usually found
 |json          |Splunk HEC |
 |json          |RabbitMQ |
 
-Of course json is not json, the attributes and values are different depending on the recipient.
+JSON payloads differ in their attributes and values depending on the recipient.
 
 
-For every notification recipient you need such a pair, practically it means, you have to write two python files. 
+For every notification recipient you need such a pair. In practice, this means writing two Python files.
 Imagine you have a command definition like this:
 ```
 define command{
@@ -47,8 +47,8 @@ define command{
                     >> $USER4$/var/log/notificationforwarder_errors.log 2>&1
 }
 ```
-Your service notifications should be sent to some ticket tool. The notification script will talk to a REST api and upload a a well-formatted Json payload. Therefore the notifcation framework has two jobs. 
-First, take the event attributes (all the --eventopt arguments) and transform them to a Json structure. Then, upload it with a POST request.
+Your service notifications should be sent to some ticket tool. The notification script will talk to a REST API and upload a well-formatted JSON payload. Therefore the notification framework has two jobs.
+First, take the event attributes (all the --eventopt arguments) and transform them into a JSON structure. Then, upload it with a POST request.
 
 In your OMD site you create a folder *~/local/lib/python/notificationforwarder/myspecialreceiver* and add two files, *formatter.py* and *forwarder.py*.
 A skeleton for the *formatter.py* looks like this:
@@ -72,7 +72,7 @@ class MyspecialreceiverFormatter(NotificationFormatter):
             event.discard(silently=False)
 ```
 The class name is, by default, derived from the argument provided to the *\-\-forwarder* parameter with the first letter capitalized, followed by "Formatter". Alternatively, the parameter *\-\-formatter* can be used. The formatter class must have a method *format_event*. This method is called with an event object, which has an attribute *event.eventopts*. This is a dictionary consisting of keys and values extracted from the *\-\-eventopt* parameters of the **\\$USER1\\$/notificationforwarder** command. The method should then set the attributes *payload* and *summary* of the event object.  
-The formatter also has the ability to decide not forwarded an event at all. If if chooses to halt the processing of an event, it can invoke the method *discard()*. The event will then simply be dropped without any trace. Invoking *discard* with the parameter *silently=False* will log a discard message in the log file. If event.summary has not yet been created, a dump of the raw event will be written.
+The formatter also has the ability to decide not to forward an event at all. If it chooses to halt the processing of an event, it can invoke the method *discard()*. The event will then simply be dropped without any trace. Invoking *discard* with the parameter *silently=False* will log a discard message in the log file. If event.summary has not yet been created, a dump of the raw event will be written.
 
 A skeleton for the *forwarder.py* looks like this:
 
@@ -118,7 +118,7 @@ There are two special *forwarderopt* parameters.
 
 ### WebhookForwarder
 
-This is a generic class, which is used to upload random json payloads (that's why there is no WebhookFormatter as there are so many possibilities) with a POST request to an Api. The parameters it takes are *url*, *username* and *password* for basic auth, *headers* to add to the post request. The latter can be used for token based authentication.
+This is a generic class, which is used to upload arbitrary JSON payloads (that's why there is no WebhookFormatter as there are so many possibilities) with a POST request to an API. The parameters it takes are *url*, *username* and *password* for basic auth, *headers* to add to the post request. The latter can be used for token-based authentication.
 
 |parameter|description               |default|
 |---------|--------------------------|-------|
@@ -127,7 +127,7 @@ This is a generic class, which is used to upload random json payloads (that's wh
 |password |a basic auth passwod      |-      |
 |headers  |a string in json format   |-      |
 
-First the fowarder will make a plain, unauthorized post request.
+First, the forwarder will make a plain, unauthenticated POST request.
 ```
     command_line    $USER1$/notificationforwarder \
                         --forwarder webhook \
@@ -156,12 +156,12 @@ And this one shows how to set additional headers.
                         --eventopt HOSTNAME='$HOSTNAME$' \
 ```
 
-What's missing here is *--formatter myownpayload*, where you call a formatter specifically written for the payload format your api wants.
+What's missing here is *--formatter myownpayload*, where you call a formatter specifically written for the payload format your API expects.
 
 #### Demo setup
 
-Let's configure sending notification to a public REST Api, where you can watch the incoming event live.
-First, open https://webhook.site in your browser and copy the random url you are presented. You need it in the argument *url=* in the following commands. If you don't care if anybody can see your events, then just use [the one from the command definitions](https://webhook.site/#!/3864baed-d861-4e33-a5d6-3d9104d696d2).
+Let's configure sending notifications to a public REST API, where you can watch the incoming event live.
+First, open https://webhook.site in your browser and copy the random URL you are given. You need it in the argument *url=* in the following commands. If you don't care if anybody can see your events, then just use [the one from the command definitions](https://webhook.site/#!/3864baed-d861-4e33-a5d6-3d9104d696d2).
 
 ```
 define command {
@@ -194,7 +194,7 @@ define command {
 }
 ```
 
-The forwarder webhook is already builtin, we only need to write the formatter in *~/local/lib/python/notificationforwarder/vong/formatter.py*
+The forwarder webhook is already built in; we only need to write the formatter in *~/local/lib/python/notificationforwarder/vong/formatter.py*
 ```python
 from notificationforwarder.baseclass import NotificationFormatter
 
@@ -224,13 +224,13 @@ class VongFormatter(NotificationFormatter):
         event.summary = "i hab dem post gepost"
 ```
 
-After you added the two notification commands to your default contact (or created a new contact which is assigned to all hosts and services), you can watch the notifications appear on [https://webhook.site](https://webhook.site).
+After you have added the two notification commands to your default contact (or created a new contact which is assigned to all hosts and services), you can watch the notifications appear on [https://webhook.site](https://webhook.site).
 Also check the logfile *var/log/notificationforwarder_webhook.log*
 
 
 ### SyslogForwarder
 
-The SyslogForwarder class takes a simple event, where the payload is one line of text. It sends this text to a syslog server. The possible value for *--forwarderopts*  are:
+The SyslogForwarder class takes a simple event, where the payload is one line of text. It sends this text to a syslog server. The possible values for *--forwarderopts*  are:
 
 |parameter|description                          |default   |
 |---------|-------------------------------------|----------|
@@ -243,7 +243,7 @@ The SyslogForwarder class takes a simple event, where the payload is one line of
 There is also a SyslogFormatter, which creates the log line as:  
 *host: \<HOSTNAME\>, service: \<SERVICEDESC\>, state: \<SERVICESTATE\>, output: \<SERVICEOUTPUT\>*
 
-If you want a different format, then copy *lib/python/notificationforwarder/syslog/formatter.py* to *local/lib/python/notificationforwarder/syslog/formatter.py* and modify it like you want. Or, with *--formatter*, you can use whatever formatter is suitable, as long as it's payload attribute consists of a line of text.
+If you want a different format, then copy *lib/python/notificationforwarder/syslog/formatter.py* to *local/lib/python/notificationforwarder/syslog/formatter.py* and modify it as needed. Or, with *--formatter*, you can use whatever formatter is suitable, as long as its payload attribute consists of a line of text.
 
 ### Nostr
 
@@ -403,7 +403,7 @@ $USER1$/notificationforwarder \
 
 You can create custom loggers by:
 1. Creating `~/local/lib/python/notificationforwarder/mylogger/logger.py`
-2. Inheriting from `NotificationLogger` base class
+2. Inheriting from the `NotificationLogger` base class
 3. Implementing the `log(level, message, context)` method
 
 ```python
@@ -417,7 +417,7 @@ class MyloggerLogger(NotificationLogger):
 
 ## Reporters
 
-Like *forwarder* and *formatter*, a *reporter* is an instance of a *NotificationReporter* class defined in a file named *reporter.py*. There is one class coming with notificationforwarder, the *NaemonlogReporter*. It's purpose it to write a message to the Naemon logfile. When notificationforwarder is run as a standalone script (and not triggered as a notificationhandler by Naemon), the *NaemonlogReporter* can nevertheless leave a line in the Naemon log.
+Like *forwarder* and *formatter*, a *reporter* is an instance of a *NotificationReporter* class defined in a file named *reporter.py*. One class is included with notificationforwarder, the *NaemonlogReporter*. Its purpose is to write a message to the Naemon logfile. When notificationforwarder is run as a standalone script (and not triggered as a notification handler by Naemon), the *NaemonlogReporter* can nevertheless leave a line in the Naemon log.
 Or you can write an extra log showing success or failure of the notification delivery.
 
 ```
@@ -444,7 +444,7 @@ define command{
 
 ## Spool Flushing
 
-When forwarding to a recipient fails, the event is saved in a local sqlite database. The framework automatically attempts to re-submit these spooled events on every subsequent call to notificationforwarder for the same forwarder.
+When forwarding to a recipient fails, the event is saved in a local SQLite database. The framework automatically attempts to re-submit these spooled events on every subsequent call to notificationforwarder for the same forwarder.
 
 The flush mechanism runs inside `forward_formatted()` for **every event** — not just heartbeats or special cases. Before submitting the current event, the framework checks if there are spooled events waiting. If there are, it attempts to flush them by calling `submit()` for each one. Events that are successfully submitted are deleted from the spool. Events that still fail stay in the queue for the next attempt.
 

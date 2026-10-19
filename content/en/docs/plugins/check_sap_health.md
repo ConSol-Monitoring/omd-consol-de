@@ -65,11 +65,11 @@ Therefore, check_sap_health was developed as a new plugin based on Perl. It offe
 | workload-overview | Checks average response time of task types analogous to ST03 workload of recent minutes | |
 
 ## Prerequisites
-check_sap_health is based on the Perl module [sapnwrfc] and this in turn on the [NW RFC SDK].
+check_sap_health is based on the Perl module [sapnwrfc], which in turn relies on the [NW RFC SDK].
 
 First, download the SDK from SAP. The filename is approximately: *NWRFC_20-20004565-Linux-x86_64.SAR* (please use the latest version).
 
-To unpack this file, you need the SAPCAR command, also available for download from SAP or obtainable from a SAP admin.
+To unpack this file, you need the SAPCAR command, also available for download from SAP or obtainable from an SAP admin.
 
 Unpack the SDK to a temporary directory:
 ``` bash
@@ -78,7 +78,7 @@ $ SAPCAR -xf NWRFC_20-20004565-Linux-x86_64.SAR
 ```
 
 The extracted files are then in /tmp/nwrfcsdk.
-Then install (as site user) the Perl module sapnwrfc:
+Then install (as the site user) the Perl module sapnwrfc:
 ``` bash
 $ perl -MCPAN -e "install sapnwrfc"
 ```
@@ -163,7 +163,7 @@ sub init {
 
 Important: The filename must start with *CheckSapHealth* and have the extension *.pm*.
 
-The class contained therein must begin with *My*. The plugin is then called with **\-\-mode my-test-mode**, where the argument is split using the hyphen as separator and reassembled with double colons. (From *my-test-mode* becomes the internal representation *my::test::mode*).
+The class contained therein must begin with *My*. The plugin is then called with **\-\-mode my-test-mode**, where the argument is split using the hyphen as separator and reassembled with double colons. (*my-test-mode* becomes the internal representation *my::test::mode*).
 
 ``` bash
 check_sap_health --mode my-test-rfcping \
@@ -175,7 +175,7 @@ OK - pong, runtime was 0.03s | 'runtime'=0.03;5;10;;
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_sap_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_sap_health), clone and build.
 
 ## Changelog
 

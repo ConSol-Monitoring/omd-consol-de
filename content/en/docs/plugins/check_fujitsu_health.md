@@ -47,7 +47,7 @@ OK - uptime is 42 days
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_fujitsu_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_fujitsu_health), clone and build.
 
 ## Changelog
 

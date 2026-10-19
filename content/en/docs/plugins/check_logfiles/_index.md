@@ -5,16 +5,16 @@ tags:
   - check_logfiles
 ---
 ## Description
-check_logfiles is a Plugin for Nagios which scans log files for specific patterns.
+check_logfiles is a plugin for Nagios which scans log files for specific patterns.
 
 ## Motivation
-The conventional plugins which scan log files are not adequate in a mission critical environment. Especially the missing ability to handle logfile rotation and inclusion of the rotated archives in the scan allow gaps in the monitoring. Check_logfiles was written because these deficiencies would have prevented Nagios from replacing a propritetary monitoring system.
+Conventional plugins that scan log files are not adequate in a mission critical environment. In particular, the inability to handle log file rotation and include rotated archives in scans leaves gaps in monitoring. Check_logfiles was written because these deficiencies would have prevented Nagios from replacing a proprietary monitoring system.
 
 ## Features
 
-* Detection of rotations - usually nightly logfiles are rotated and compressed. Each operating system or company has it's own naming scheme. If this rotation is done between two runs of check_logfiles also the rotated archive has to be scanned to avoid gaps. The most common rotation schemes are predefined but you can describe any strategy (shortly: where and under which name is a logfile archived).
+* Detection of rotations - log files are usually rotated and compressed nightly. Each operating system or company has its own naming scheme. If rotation occurs between two runs of check_logfiles, the rotated archive must also be scanned to avoid gaps. The most common rotation schemes are predefined but you can describe any strategy (in brief: where and under which name a log file is archived).
 * More than one pattern can be defined which again can be classified as warning patterns and critical patterns.
-* Triggered actions - Usually nagios plugins return just an exit code and a line of text, describing the result of the check. Sometimes, however, you want to run some code during the scan every time you got a hit. Check_logfiles lets you call scripts either after every hit or at the beginning or the end of it's runtime.
+* Triggered actions - Usually Nagios plugins return just an exit code and a line of text, describing the result of the check. Sometimes, however, you want to run some code during the scan every time you get a hit. Check_logfiles lets you call scripts either after every hit or at the beginning or the end of its runtime.
 * Exceptions - If a pattern matches, the matched line could be a very special case which should not be counted as an error. You can define exception patterns which are more specific versions of your critical/warning patterns. Such a match would then cancel an alert.
 * Thresholds - You can define the number of matching lines which are necessary to activate an alert.
 * Protocol - The matching lines can be written to a protocol file the name of which will be included in the plugin's output.
@@ -29,7 +29,7 @@ nagios$ check_logfiles --config
 OK - no errors or warnings
 ```
 
-In it's most simple form check_logfiles can get all the essential parameters as command line options. However, not all features can be utilized in this case.
+In its simplest form check_logfiles can get all the essential parameters as command line options. However, not all features can be utilized in this case.
 
 ``` bash
 nagios$ check_logfiles --tag=ssh --logfile=/var/adm/messages \
@@ -46,7 +46,7 @@ CRITICAL - (1 errors in check_logfiles.protocol-2007-04-25-20-59-20) - Apr 25 20
 In principle check_logfiles scans a log file until the end-of-file is reached. The offset will then be saved in a so-called seekfile. The next time check_logfiles runs, this offset will be used as the starting position inside the log file. In the event that a rotation has occurred in the meantime, the rest of the rotated archive will be scanned also.
 
 ## Documentation
-For the most simple applications it is sufficient to call check_logfile with command line parameters. More complex scan jobs can be described with a config file.
+For the simplest applications it is sufficient to call check_logfiles with command line parameters. More complex scan jobs can be described with a config file.
 
 ### Command line parameters
 
@@ -225,7 +225,7 @@ CRITICAL - (2 errors) - May  9 11:58:48 localhost sshd[29813] Failed password fo
 ```
 
 ### Scripts
-It is possible to execute external scripts out of check_logfiles. This can be at the startup phase ($prescript), before termination ($postscript) or every time a pattern matches a line. See example above. With the option "smartscript" output and exitcode of the script are treated like a match in the logfile and reflected in the overall result. The option "supersmartscript" makes output and exitcode of the script replace those of the triggering match. Pre- and Postscript declared as supersmart scripts directly influence the process of check_logfiles. The option "supersmartprescript" causes an immediate abort of check_logfiles if the prescript has a non-zero exit code. In this case output and exitcode of check_logfiles correspond to those of the prescript.
+It is possible to execute external scripts from check_logfiles. This can be at the startup phase ($prescript), before termination ($postscript) or every time a pattern matches a line. See the example above. With the option "smartscript" output and exitcode of the script are treated like a match in the logfile and reflected in the overall result. The option "supersmartscript" makes output and exitcode of the script replace those of the triggering match. Pre- and postscripts declared as supersmart scripts directly influence the process of check_logfiles. The option "supersmartprescript" causes an immediate abort of check_logfiles if the prescript has a non-zero exit code. In this case output and exitcode of check_logfiles correspond to those of the prescript.
 
 With the option "supersmartpostscript" output and exitcode of check_logfiles can be determined by the postscript. Thus a more meaningful output is possible.
 
@@ -290,13 +290,13 @@ define command {
 }
 ```
 
-The corresponding line in the host's nrpe.cfg looks like that:
+The corresponding line in the host's nrpe.cfg looks like this:
 
 ``` text
 [check_logfiles]=/opt/nagios/libexec/check_logfiles --config $ARG1$
 ```
 
-If you use nsclient++ under Windows, the entry in the NSC.ini looks like that:
+If you use nsclient++ under Windows, the entry in the NSC.ini looks like this:
 
 ``` text
 check_logfiles=C:\Perl\bin\perl C:\libexec\check_logfiles --config $ARG1$
@@ -393,16 +393,16 @@ If you want to scan the alert log of an oracle database without having access to
 ```
 
 ### Preparations on the part of the database administrator
-Mapping external files to database tables is possible since Version 9. Use this script to prepare your database:
+Mapping external files to database tables has been possible since version 9. Use this script to prepare your database:
 {% asset_download create_alert_log_table.sql category:nagios %}
 
 ### Preparations on the part of the Nagios administrator
-Installation of the Perl-Modules DBI and DBD::Oracle (https://search.cpan.org/~pythian/DBD-Oracle-1.74/lib/DBD/Oracle.pm).
+Installation of the Perl modules DBI and DBD::Oracle (https://search.cpan.org/~pythian/DBD-Oracle-1.74/lib/DBD/Oracle.pm).
 
 ## Scanning the Windows EventLog with the operating mode "eventlog"
-The eventlog of Windows systems can be processed by check_logfiles like any other logfile. Each event is treated like a line. Also only those events get analyzed which appeared since the last run of check_logfiles.
+The eventlog of Windows systems can be processed by check_logfiles like any other logfile. Each event is treated like a line. Only events that appeared since the last run of check_logfiles are analyzed.
 
-In it's most simple form an eventlog search looks like this:
+In its simplest form an eventlog search looks like this:
 ``` text
 @searches = ({
   tag => 'evt_sys',
@@ -411,7 +411,7 @@ In it's most simple form an eventlog search looks like this:
   # logfile anzugeben ist hier nicht nötig, da sinnlos.
 ```
 
-If the evaluation of events should not be based on patterns, but the windows-internal stati WARNING and ERROR, use the option winwarncrit.
+If the evaluation of events should not be based on patterns, but the Windows event statuses WARNING and ERROR, use the option winwarncrit.
 
 ``` text
 @searches = ({
@@ -487,7 +487,7 @@ type => 'eventlog',
   },
 ```
 
-Filters can also be used in commandline-mode.
+Filters can also be used in command line mode.
 
 ``` bash
 check_logfiles --type "eventlog:eventlog=application,include,source=Windows Update Agent,eventtype=error,eventtype=warning,exclude,eventid=15,eventid=16"
@@ -515,7 +515,7 @@ With this eventlogformat the message text of the above event will be rewritten t
 2009-11-28T19:04:16 src:W32Time id:16 Der NtpClient verfügt über keine Quelle mit genauer Zeit.
 ```
 
-The formatstring knows the following tokens:
+The format string supports the following tokens:
 
 ``` text
 %t EventType
@@ -547,7 +547,7 @@ Since version 3.7 check_logfiles can search these channels, too.
 ```
 
 ## Download
-[Github](https://github.com/lausser/check_logfiles/tags)
+[GitHub](https://github.com/lausser/check_logfiles/tags)
 
 ## Changelog
 You can find the changelog [here](https://github.com/lausser/check_logfiles/blob/master/ChangeLog).

@@ -129,7 +129,7 @@ OK - TenGigabitEthernet2/1/32 (alias !!! VSL UPLINK !!!) is up/up, interface Ten
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_nwc_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_nwc_health), clone and build.
 
 ## Changelog
 

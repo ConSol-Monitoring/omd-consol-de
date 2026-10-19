@@ -89,7 +89,7 @@ logical lib 1 states: online=online readyness=ready
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_tl_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_tl_health), clone and build.
 
 ## Changelog
 

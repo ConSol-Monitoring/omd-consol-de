@@ -30,9 +30,9 @@ define command{
 ```
 ### Decider
 The Decider component evaluates whether an event should be handled based on the specified conditions. It considers factors such as current state, state type, attempt count, downtime, etc., and returns a set of parameters indicating the action to be taken.
-The binary **lib/monitoring-plugins/eventhandler** takes multiple *\-\-eventopt KEY=VALUE*, which are usually Naemon macros. These key-value pairs are found in the dict *event.eventopts*.
+The binary **lib/monitoring-plugins/eventhandler** takes multiple *\-\-eventopt KEY=VALUE* arguments, which are usually Naemon macros. These key-value pairs are found in the dict *event.eventopts*.
 
-Here is an example for a decider which is used in a self-monitoring setup. Its job is to restart an OMD instance or at least stopped/failed processes.
+Here is an example of a decider which is used in a self-monitoring setup. Its job is to restart an OMD instance or at least stopped/failed processes.
 
 ```python
 from eventhandler.baseclass import EventhandlerDecider
@@ -60,11 +60,11 @@ class OmdSiteSelfHealDecider(EventhandlerDecider):
             event.discard(silently=False)
 ```
 
-The string you assign to *event.summary* is used for logging. If you want to abort the event handler so that the runner will not do anything, call *event.discard()*. It's called with *silently=False* here just for demonstration purposes and can be left away. If you want to abort event handling without even leaving a trace in the log file, use *event.discard(silently=True)*.
+The string you assign to *event.summary* is used for logging. If you want to abort the event handler so that the runner will not do anything, call *event.discard()*. It's called with *silently=False* here just for demonstration purposes and can be omitted. If you want to abort event handling without even leaving a trace in the log file, use *event.discard(silently=True)*.
 
 ### Runner
-The Runner component executes the appropriate script when an event meets the defined conditions, using the parameters the Decider puts into the dict *event.payload*. Either the runner executes python code in order to fix the problem or it creates a command line which will be executed by the framework in a subprocess.
-Here is an example for a runner.
+The Runner component executes the appropriate script when an event meets the defined conditions, using the parameters the Decider puts into the dict *event.payload*. Either the runner executes Python code in order to fix the problem or it creates a command line which will be executed by the framework in a subprocess.
+Here is an example of a runner.
 ```python
 from eventhandler.baseclass import EventhandlerRunner
 
@@ -95,7 +95,7 @@ The previous example with runner *ssh* and decider *omd_site_self_heal* can be u
 For your own deciders and runners, create a folder in *~/local/lib/python/eventhandler* and put a decider.py or runner.py in it.
 
 
-Builtin runners you can just use without writing code yourself are:
+Built-in runners you can just use without writing code yourself are:
 * ssh
   The ssh runner takes these parameters (either through *--runneropt* or *event.payload*)
   hostname - mandatory, the name of the ssh server.
@@ -114,9 +114,9 @@ Builtin runners you can just use without writing code yourself are:
 * bash
   command - the command to run locally in a bash.
 
-All the attributs you initialize in the *\_\_init__* method will be overwritten if they exist in the *event.payload* created by the decider. (Precedence: default set by *\_\_init__*, argument from *runneropt*, key/value from *event.payload*)
+All the attributes you initialize in the *\_\_init__* method will be overwritten if they exist in the *event.payload* created by the decider. (Precedence: default set by *\_\_init__*, argument from *runneropt*, key/value from *event.payload*)
 
-There is a decider *default*, which triggers the runner on SOFT;1. This and the runner *nsc_web* or *ssh* can be used without any need to write you own code if you call **eventhandler** with a suitable list or *\-\-runneropt* parameters..
+There is a decider *default*, which triggers the runner on SOFT;1. This and the runner *nsc_web* or *ssh* can be used without any need to write your own code if you call **eventhandler** with a suitable list of *\-\-runneropt* parameters.
 
 ### Loggers
 
@@ -195,7 +195,7 @@ $USER1$/eventhandler \
 
 You can create custom loggers by:
 1. Creating `~/local/lib/python/eventhandler/mylogger/logger.py`
-2. Inheriting from `EventhandlerLogger` base class
+2. Inheriting from the `EventhandlerLogger` base class
 3. Implementing the `log(level, message, context)` method
 
 ```python

@@ -47,7 +47,7 @@ OK - clock is in sync with domain ad.consolcustomer.com
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_ntp_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_ntp_health), clone and build.
 
 ## Changelog
 

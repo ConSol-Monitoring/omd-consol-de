@@ -82,7 +82,7 @@ After unpacking the archive, run **./configure; make**. The finished plugin is t
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_sqlbase_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_sqlbase_health), clone and build.
 
 ## Changelog
 

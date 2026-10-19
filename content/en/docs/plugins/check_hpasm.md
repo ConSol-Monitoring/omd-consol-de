@@ -3,14 +3,14 @@ title: check_hpasm
 ---
 ## Description
 
-check_hpasm is a plugin for Nagios which checks the hardware health of Hewlett-Packard Proliant Servers. To accomplish this, you must have installed the hpasm package. The plugin checks the health of
+check_hpasm is a plugin for Nagios which checks the hardware health of Hewlett-Packard ProLiant servers. To accomplish this, you must have installed the hpasm package. The plugin checks the health of
 
 * Processors
 * Power supplies
 * Memory modules
 * Fans
-* CPU- and board-temperatures
-* Raids (ide and sas only when using SNMP)
+* CPU and board temperatures
+* RAID arrays (IDE and SAS only when using SNMP)
 
 and alerts you if one of these components is faulty or operates outside its normal parameters.
 
@@ -18,7 +18,7 @@ and alerts you if one of these components is faulty or operates outside its norm
 The plugin can operate in two modes:
 
 * Local. The plugin runs on the server which is to be checked. The command hpasmcli (from the hpasm.rpm package) must be installed.
-* Remote. The plugin runs on the Nagios server. It finds out the status of the remote hardware by contacting remote server with SNMP. The hpasm package must be installed on the remote server.
+* Remote. The plugin runs on the Nagios server. It finds out the status of the remote hardware by contacting the remote server via SNMP. The hpasm package must be installed on the remote server.
 
 ``` bash
 nagios$ check_hpasm
@@ -213,7 +213,7 @@ The \<nr> of a component can be found in the output of check_hpasm -v.
 | fcal host controller 0 in slot 1 is ok                                  | fcahc:0|
 | fcal host controller 1 in slot 1 is ok                                  | fcahc:1|
 
-Assumed that you want to blacklist the failed memory module and the three failed hard disks (including the logical drive they belong to), you would write
+Assuming that you want to blacklist the failed memory module and the three failed hard disks (including the logical drive they belong to), you would write
 
 ``` text
 d:0:5/fcapd:1:128,1:130,1:132/fcald:1:1
@@ -245,7 +245,7 @@ nagios$ check_hpasm --customthresholds 1:70/5:65
 ```
 
 ### Performance data
-With the option --perfdata you can switch on the output of performance data, if not already set as the default during installation. Should the perfdata string become too long, then use --perfdata=short which outputs a short form of the temperature tags (the location part will not be shown)
+Use --perfdata to enable performance data output if it was not already enabled by default during installation. Should the perfdata string become too long, then use --perfdata=short which outputs a short form of the temperature tags (the location part will not be shown)
 
 ``` bash
 nagios$ check_hpasm
@@ -256,17 +256,17 @@ OK - hardware working fine| fan_1=8%;0;0 fan_2=8%;0;0  fan_3=15%;0;0 fan_4=15%;0
 ```
 
 ### Unknown memory status
-With some Bios releases hpasmcli doesn't display the memory modules correctly. The command SHOW DIMM shows only a list of modules with status n/a which is counted as a Warning. Using the --ignore-dimms you can skip memory checking without using a blacklist to avoid this warning.
+With some BIOS releases hpasmcli doesn't display the memory modules correctly. The command SHOW DIMM shows only a list of modules with status n/a which is counted as a Warning. Using --ignore-dimms, you can skip memory checking without using a blacklist to avoid this warning.
 
 ### Non-redundant fans
-If you see a warning because all of the fans are not redundant, then this might be because ther are only single fans instead of pairs of fans on purpose. With --ignore-fan-redundancy you can suppress this warning. (See README).
+If you see a warning because all of the fans are not redundant, then this might be because there are only single fans instead of pairs of fans on purpose. With --ignore-fan-redundancy you can suppress this warning. (See README).
 
-Unfortunately it is not possible to show fan speed (or percent of max. speed) in SNMP mode. Therefore it is shown substituded by 50%.
+Unfortunately it is not possible to show fan speed (or percent of max. speed) in SNMP mode. A substitute value of 50% is therefore shown.
 
 ## Installation
 
 * After unpacking the Archive, call the ./configure command. Attention should be paid to the --with-noinst-level option which defines the exit code of the plugin if no hpasm rpm was installed. With the option --with-degrees you tell the plugin whether you want temperature values displayed in celsius or fahrenheit. With the option --enable-perfdata you tell check_hpasm to add performance data to it's output by default. If you don't want to see type, serial number and biosrelease in the output, you can switch this off by using --disable-hwinfo. With --enable-hpacucli you activate checking of raid controllers.
-* Grab the hpasm package suitable for your Linux distribution and install it. See the list of links below where to find it.
+* Grab the hpasm package suitable for your Linux distribution and install it. See the links below to find it.
 * If you run check_hpasm (in local mode) as a non-root user you will need sudo-privileges which allow you to call /sbin/hpasmcli as root without providing a password.
 * Note: if you want to run check_hpasm under Debian with SNMP v3, you must install some additional packages: aptitude install libtie-encryptedhash-perl libdigest-hmac-perl (Thanks Tony Wolf)
 
@@ -418,7 +418,7 @@ OK - hardware working fine, at least i hope so because hpasm is not installed
 ```
 
 ### Call to participate
-Please run check_hpasm -v on as many as possible different platforms. Chances are you have a rare Proliant model whose components are not detected completely. You will then see instructions on how to report this to the author.
+Please run check_hpasm -v on as many different platforms as possible. Chances are you have a rare ProLiant model whose components are not detected completely. You will then see instructions on how to report this to the author.
 
 The following line appears frequently but can be considered harmless:
 
@@ -432,7 +432,7 @@ I am always interested in test data. If you want to do me a favour, send me the 
 snmpwalk ... <ip-adress> 1.3.6.1.4.1.232
 ```
 
-or if you are using the local variant, i'd like to see the output of the following script:
+or if you are using the local variant, I'd like to see the output of the following script:
 
 ``` bash
 hpasmcli=$(which hpasmcli)
@@ -456,9 +456,9 @@ fi
 ```
 
 ## Download
-[Github](https://github.com/lausser/check_hpasm/tags)
+[GitHub](https://github.com/lausser/check_hpasm/tags)
 
-## Externe Links
+## External Links
 
 * [Win2003 System Management Driver](http://h20000.www2.hp.com/bizsupport/TechSupport/SoftwareDescription.jsp?swItem=MTX-3bbefa4d3f0547c3b81acbddb8&amp;lang=en&amp;cc=us&amp;mode=3&amp;)
 * [Win2003 Insight Management Agents](http://h20000.www2.hp.com/bizsupport/TechSupport/SoftwareDescription.jsp?lang=en&amp;cc=US&amp;swItem=MTX-ed4b332887f945a383fe2b06e7)
@@ -471,7 +471,7 @@ fi
 * [EBuild for Gentoo](https://bugs.gentoo.org/show_bug.cgi?id=202867)
 
 ## Changelog
-Go to [Github](https://github.com/lausser/check_hpasm/blob/master/ChangeLog) and have a look.
+Go to [GitHub](https://github.com/lausser/check_hpasm/blob/master/ChangeLog) and have a look.
 
 ## Copyright
 Gerhard Lausser

@@ -8,7 +8,7 @@ tags:
   - database
 ---
 ## Description ##
-check_mssql_health is a plugin, which is used to monitor different parameters of a MS SQL server.
+check_mssql_health is a plugin used to monitor various parameters of an MS SQL server.
 
 ## Documentation ##
 
@@ -91,9 +91,9 @@ Please note, that the thresholds must be specified according to the Nagios plug-
 ## Preparation of the database ##
 In order for the plugin to operate correctly, a database user with specific privileges is required.
 
-The most simple way is to assign the Nagios-user the role "serveradmin". As an alternative you can use the sa-User for the database connection. Alas, this opens a serious security hole, as the (cleartext) administrator password can be found in the nagios configuration files
+The simplest way is to assign the Nagios user the role "serveradmin". As an alternative you can use the sa user for the database connection. Alas, this opens a serious security hole, as the (cleartext) administrator password can be found in the Nagios configuration files.
 
-Birk Bohne wrote the following script which allows the automated creation of a minimal, yet sufficient privileged monitoring-user.
+Birk Bohne wrote the following script which allows the automated creation of a monitoring user with minimal but sufficient privileges.
 ``` sql
 declare @dbname varchar(255)
 declare @check_mssql_health_USER varchar(255)
@@ -169,7 +169,7 @@ close dblist
 deallocate dblist
 ```
 
-Please keep in mind that check_mssql_health’s functionality is limited when using SQL Server authentication. **This method is strongly discouraged** . Normally there is already a Nagios-(Windows-)-user which can be used for the Windows authentication method.
+Please keep in mind that check_mssql_health’s functionality is limited when using SQL Server authentication. **This method is strongly discouraged**. Normally there is already a Nagios Windows user account that can be used for the Windows authentication method.
 
 Another script from the same author removes the monitoring user from the database.
 ``` sql
@@ -247,8 +247,8 @@ The environment variables are:
 * NAGIOS__SERVICEMSSQL_SERVER (_mssql_server in the servicedefinition)
 
 ## Installation ##
-This Plugin requires the installation of the **Perl-module DBD::Sybase**.
-After you unpacked the archive you have to execute ./configure aufgerufen. With ./configure --help you get a list of possible options.
+This plugin requires the installation of the **Perl module DBD::Sybase**.
+After unpacking the archive, run ./configure. With ./configure --help you get a list of possible options.
 
 * --prefix=BASEDIRECTORY - The directory where check_mssql_health will be installed (default: /usr/local/nagios)
 * --with-nagios-user=SOMEUSER - The user who owns check_mssql_health sein. (default: nagios)
@@ -256,7 +256,7 @@ After you unpacked the archive you have to execute ./configure aufgerufen. With 
 * --with-perl=PATHTOPERL - The path to a perl interpreter if you want to use a non-standard one. (default: the perl found in $PATH)
 
 ## Security advice ##
-The Perl-module DBD::Sybase is based on an installation of FreeTDS auf. This package is responsible for the communication with the database server. The default settings use protocol version 4.x which results in cleartext passwords sent over the wire. Please do change the following parameter in the file /etc/freetds.conf.
+The Perl module DBD::Sybase is based on an installation of FreeTDS. This package is responsible for the communication with the database server. The default settings use protocol version 4.x which results in cleartext passwords sent over the wire. Please do change the following parameter in the file /etc/freetds.conf.
 ``` ini
 [global]
 # TDS protocol version
@@ -278,12 +278,12 @@ If multiple named instances are listening on the same port of your database serv
         instance = instance02
 ```
 
-Now you can address the instances e.g. with **\--server dbsrv1instance02** . By using **\--host 192.168.1.19 \--port 1433** you would reach the Default instance.
+Now you can address the instances e.g. with **\--server dbsrv1instance02** . By using **\--host 192.168.1.19 \--port 1433** you would reach the default instance.
 
-With recent versions of fteetds it is no longer necessary to maintain a freetds.conf. With **\--server \<FQDN>\\\<Instanz>** it should be possible to establish a connection. This requires a running Service Browser on the database server.
+With recent versions of FreeTDS it is no longer necessary to maintain a freetds.conf. With **\--server \<FQDN>\\\<Instanz>** it should be possible to establish a connection. This requires a running Service Browser on the database server.
 
 ## Download
-[Github](https://github.com/lausser/check_mssql_health/tags)
+[GitHub](https://github.com/lausser/check_mssql_health/tags)
 
 ## Changelog
 You can find the changelog [here](https://github.com/lausser/check_mssql_health/blob/master/ChangeLog).

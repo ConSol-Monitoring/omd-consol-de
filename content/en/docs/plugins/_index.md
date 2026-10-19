@@ -8,8 +8,8 @@ tags:
 
 ## Detailed documentation of plugins
 
-In OMD you find all the "official plugins" from [Monitoring-Plugins](https://www.monitoring-plugins.org/).
+OMD includes all the official plugins from [Monitoring-Plugins](https://www.monitoring-plugins.org/).
 
-Besides that, we at ConSol have developed a lot of other useful plugins, mostly required by our customers.
+We at ConSol have also developed many other useful plugins, mostly to meet our customers' requirements.
 
 All of these are also part of [OMD](/docs/omd).

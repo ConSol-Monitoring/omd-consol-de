@@ -34,7 +34,7 @@ Instead of installing a variety of plugins for monitoring consumables, hardware,
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_printer_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_printer_health), clone and build.
 
 ## Changelog
 

@@ -7,7 +7,7 @@ tags:
   - check_db2_health
 ---
 ## Description
-check_db2_health is a plugin, which is used to monitor various parameters of a DB2 database.
+check_db2_health is a plugin used to monitor various parameters of a DB2 database.
 
 ## Documentation
 
@@ -68,9 +68,9 @@ Thresholds are set according to the plugin developer guidelines +
 "90:" means "Alert, if \< 90" +
 
 ### Preparation of the database
-In order for the plugin to retrieve the necessary information from the database, a (OS-)user "nagios" (with group nagios) is needed. Maybe it already exists because the database server is monitored with check_nrpe or check_by_ssh.
+In order for the plugin to retrieve the necessary information from the database, an operating system user "nagios" (in the nagios group) is needed. It may already exist because the database server is monitored with check_nrpe or check_by_ssh.
 
-The Monitoring Switches need to be set:
+The monitoring switches need to be set:
 
 ``` sql
 update dbm cfg using dft_mon_bufpool on
@@ -78,7 +78,7 @@ update dbm cfg using dft_mon_lock on
 update dbm cfg using dft_mon_timestamp on
 ```
 
-The nagios-user (to be exact: the nagios-group. Be careful, the usr nagios has to belong to a group nagios. The *nagios* in the following sql-statement is the group, not the user) gets the necessary privileges:
+Grant the necessary privileges to the nagios group. The nagios user must belong to this group. In the following SQL statement, *nagios* refers to the group, not the user:
 
 ``` sql
 db2inst1$ db2 update dbm cfg using sysmon_group nagios
@@ -179,17 +179,17 @@ Die Environmentvariablen heissen:
 * NAGIOS__SERVICEDB2_DATABASE (_db2_database in the service definition)
 
 ## Installation
-This plugin requires the installation of the *Perl-Module DBD::DB2* .
+This plugin requires the installation of the *Perl module DBD::DB2*.
 
 After unpacking the tar archive you have to run ./configure. With ./configure \-\-help you get the list of possible options.
 
 * \-\-prefix=BASEDIRECTORY The base directory of the Nagios installation (default: /usr/local/nagios). The final destination for check_db2_health will be the libexec subdirectory.
 * \-\-with-nagios-user=SOMEUSER The owner of check_db2_health. (default: nagios)
 * \-\-with-nagios-group=SOMEGROUP The group of check_db2_health. (default: nagios)
-* \-\-with-perl=PATHTOPERL A non-standard perl interpreter. (default: perl found in PATH)
+* \-\-with-perl=PATHTOPERL A non-standard Perl interpreter. (default: perl found in PATH)
 
 ## Download
-Go to [Github](https://github.com/lausser/check_db2_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_db2_health), clone and build.
 
 ## Changelog
 You can find the changelog [here](https://github.com/lausser/check_db2_health/blob/master/ChangeLog).

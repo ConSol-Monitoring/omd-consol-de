@@ -49,7 +49,7 @@ OK - filesystem has sufficient free space
 
 ## Download
 
-Go to [Github](https://github.com/lausser/check_storage_health), clone and build.
+Go to [GitHub](https://github.com/lausser/check_storage_health), clone and build.
 
 ## Changelog
 

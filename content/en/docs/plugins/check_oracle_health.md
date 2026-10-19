@@ -323,12 +323,12 @@ OK - output abc123 matches pattern \d
 ## Authentication
 
 ### Example with --runas and an "external user"
-There are to users in the database:
+There are two users in the database:
 
 *  OPS$DBNAGIO IDENTIFIED EXTERNALLY
 *  NAGIOS IDENTIFIED BY 'DBMONI'
 
-There are two unix users:
+There are two Unix users:
 
 *  qqnagio with normal access.
 *  dbnagio with /bin/false as login shell.
@@ -352,7 +352,7 @@ The background for this example is the following scenario with a SAP-Server:
 
 * These users are not allowed to connect via SSH. (Therefore /bin/false).
 
-Because the Nagios user qqnagio is allowed to connect via SSH, he can't be used as database user. But the NRPE which executes the plugin will run under the qqnagio-account.
+Because the Nagios user qqnagio is allowed to connect via SSH, he can't be used as a database user. But the NRPE which executes the plugin will run under the qqnagio-account.
 
 ### Use of environment variables
 It is possible to omit --connect (and if not needed --user and --password) completely, if you provide the corresponding values in environment variables. Since Version 3.x it is possible to extend service definitions in Nagios through own attributes (custom object variables). These will appear during the exectution of the check command in the environment.
@@ -364,9 +364,9 @@ The environment variables are:
 *  NAGIOS__SERVICEORACLE_PASS (_oracle_pass in the service definition)
 
 ## Installation
-The installation of the perl-modules DBI and DBD::Oracle is required.
+The installation of the Perl modules DBI and DBD::Oracle is required.
 
-After unpacking the archive ./configure is called. With ./configure --help some options can be printed which show some default values for compiling the plugin.
+After unpacking the archive, run ./configure. Use ./configure --help to list options and default values for compiling the plugin.
 
 *  --prefix=BASEDIRECTORY Specify a directory in which check_oracle_health should be stored. (default: /usr/local/nagios)
 *  --with-nagios-user=SOMEUSER This User will be the owner of the check_oracle_health file. (default: nagios)
@@ -374,7 +374,7 @@ After unpacking the archive ./configure is called. With ./configure --help some 
 *  --with-perl=PATHTOPERL Specify the path to the perl interpreter you wish to use. (default: perl in PATH)
 
 ## Download
-[Github](https://github.com/lausser/Check_oracle_health/tags)
+[GitHub](https://github.com/lausser/Check_oracle_health/tags)
 
 ## Changelog
 You can find the changelog [here](https://github.com/lausser/Check_oracle_health/blob/master/ChangeLog).
@@ -385,7 +385,7 @@ You can find the changelog [here](https://github.com/lausser/Check_oracle_health
 Check_oracle_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ## Author
-Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) gladly answers questions to this plugin.
+Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) gladly answers questions about this plugin.
 
 ## Translation
-Thanks to Christian Lauf there is finally an english translation of this page :-)
+Thanks to Christian Lauf there is finally an English translation of this page :-)

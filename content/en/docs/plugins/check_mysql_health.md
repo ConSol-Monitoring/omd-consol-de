@@ -85,9 +85,9 @@ In order to be able to collect the needed information from the database a databa
 
     grant usage on *.* to 'nagios'@'nagiosserver' identified by 'nagiospassword'
 
-### Connectionstring
+### Connection string
 
-To connect to the database you use the parametersusername and \--password. The database server which should be used can be specified more precise with \--hostname and \--socket or \--port.
+To connect to the database you use the parameters username and \--password. The database server which should be used can be specified more precisely with \--hostname and \--socket or \--port.
 
 #### Use of environment variables
 
@@ -136,9 +136,9 @@ CRITICAL - myval: 111GB | 'myval'=111GB;100;110
 ```
 
 ## Installation
-The plugin requires the installation of a mysql-client packages. The installation of the perl-modules DBI and DBD::mysql is desirable, but not mandatory.
+The plugin requires the installation of a MySQL client package. The installation of the Perl modules DBI and DBD::mysql is desirable, but not mandatory.
 
-After unpacking the archive ./configure is called. With ./configurehelp some options can be printed which show some default values for compiling the plugin.
+After unpacking the archive, run ./configure. The configure help output lists options and default values for compiling the plugin.
 
 * \--prefix=BASEDIRECTORY
 
@@ -146,7 +146,7 @@ Specify a directory in which check_mysql_health should be stored. (default: /usr
 
 * \--with-nagios-user=SOMEUSER
 
-This User will be the owner of the check_mysql_health file. (default: nagios)
+This user will be the owner of the check_mysql_health file. (default: nagios)
 
 * \--with-nagios-group=SOMEGROUP
 
@@ -154,10 +154,10 @@ The group of the check_mysql_health plugin. (default: nagios)
 
 * \--with-perl=PATHTOPERL
 
-Specify the path to the perl interpreter you wish to use. (default: perl in PATH)
+Specify the path to the Perl interpreter you wish to use. (default: perl in PATH)
 
 ## Download
-[Github](https://github.com/lausser/check_mysql_health/tags)
+[GitHub](https://github.com/lausser/check_mysql_health/tags)
 
 ## Changelog
 You can find the changelog [here](https://github.com/lausser/check_mysql_health/blob/master/ChangeLog).
@@ -168,4 +168,4 @@ Gerhard Laußer
 Check_mysql_health is published under the GNU General Public License. [GPL](https://www.gnu.org/licenses/licenses.html#GPL)
 
 ## Author
-Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) gladly answers questions to this plugin. You got two minutes for free. If the answer takes longer than that you need a support contract.
+Gerhard Laußer ([gerhard.lausser@consol.de](mailto:gerhard.lausser@consol.de)) gladly answers questions about this plugin. You get two minutes for free. If the answer takes longer than that you need a support contract.
