@@ -6,10 +6,10 @@ tags:
   - traps
 weight: 400
 ---
-SNMP Traps and Nagios (or any other related systems) is one of those topics that people have often preferred to avoid. Fundamentally, there have been two add-ons available for years, SNMPTT and Nagtrap, but their configuration is somewhat tedious. In a project involving the monitoring of several thousand storage systems, a method was developed that is resource-efficient and easily automatable.
+Handling SNMP traps in Nagios (or related systems) is one of those topics that people have often preferred to avoid. Fundamentally, there have been two add-ons available for years, SNMPTT and Nagtrap, but their configuration is somewhat tedious. In a project involving the monitoring of several thousand storage systems, a method was developed that is resource-efficient and easily automatable.
 
-Let's start with a picture. A network device sends traps to the OMD server. Here we have a process [samplicate](https://github.com/sleinen/samplicator) listening on port 162 which duplicates the udp packets and forwards them to the OMD sites which are configured as trap recipients, Such sites have an *snmptrapd* process, which writes the contents of an incoming trap in a logfile, *traps.log*. (we see three traps here, arriving at port 162 in the order blue, green, red. In the same order they arrive at the sites' snmptrap daemons and in the same order they are written to the logfile)  
-That's all. Later you will learn how the logfile is scanned for incoming traps, how these are evaluated, how the trap sender is identified among the monitored host objects and how the right service is set into an alarm state.
+Let's start with a picture. A network device sends traps to the OMD server. The [samplicate](https://github.com/sleinen/samplicator) process listens on port 162, duplicates the UDP packets and forwards them to the OMD sites configured as trap recipients. These sites have an *snmptrapd* process, which writes the contents of incoming traps to a log file, *traps.log*. (We see three traps here, arriving at port 162 in the order blue, green, red. They arrive at the sites' snmptrap daemons and are written to the log file in the same order.)\
+That's all. Later you will learn how the log file is scanned for incoming traps, how these are evaluated, how the trap sender is identified among the monitored host objects and how the right service is put into an alarm state.
 
 ![trap distribution](./samplicate-omd.png)
 <!--
@@ -23,14 +23,14 @@ share/coshsh/contrib/coshsh-prepar-landscape
 
 
 ## Setup trap processing on an OMD server
-The first part of this article focuses on preparing an OMD server. Specifically, in the end it will explains how to ensure that an incoming trap is simultaneously forwarded to multiple OMD sites (e.g., testing, production, etc.).
+The first part of this article focuses on preparing an OMD server. It explains how to ensure that an incoming trap is simultaneously forwarded to multiple OMD sites (e.g., testing, production, etc.).
 
-First, any existing snmptrapd process must be stopped, and its associated init script or systemd service must be removed. With most distributions this is achieved by running the following commands as the root user:
+First, any existing snmptrapd process must be stopped, and its associated init script or systemd service must be removed. On most distributions, this is achieved by running the following commands as the root user:
 ```bash
 [root@pxmxmon]# systemctl stop snmptrapd
 [root@pxmxmon]# systemctl disable snmptrapd
 ```
- A samplicate daemon will take over listening on *udp/162*. The Samplicator project is designed to duplicate UDP packets. When a trap arrives, it is forwarded to local snmptrapd processes running within OMD sites, each of which listens on its own dedicated high port.
+A samplicate daemon will take over listening on *udp/162*. The Samplicator project is designed to duplicate UDP packets. When a trap arrives, it is forwarded to local snmptrapd processes running within OMD sites, each of which listens on its own dedicated high port.
 
 A site can be prepared to receive traps using the following command:
 ```bash
@@ -50,7 +50,7 @@ The first site gets port 9162, and subsequent sites are assigned incrementally h
 OMD[demo@pxmxmon]:~$ omd start snmptrapd
 ```
 
-...now there is a snmptrapd runninging the OMD site listening on udp port 9162.
+...an snmptrapd process is now running in the OMD site, listening on UDP port 9162.
 
 ## Setting up the system trap forwarder
 Next, the samplicate daemon must be started. A manual step is required because installing OMD as a dependency also installs an snmptrapd package. On some distributions, this triggers the automatic start of the snmptrapd daemon, which is undesired. To ensure the samplicate daemon is running instead (and listening on port udp/162), execute the following commands as the root user:
@@ -66,15 +66,15 @@ This installs two services:
 * **samplicate_watch**: Checks every 60 seconds which OMD sites are running a local snmptrapd listening on which port. If there is a change, it ensures the samplicate service restarts with an updated list of target ports.
 * **samplicate**: The service that forwards copies of incoming UDP packets to the local recipients.
 
-What happens when an SNMP trap is received on the OMD server, such as the following example?
+What happens when an SNMP trap is received on the OMD server, such as the one in the following example?
 
 ```bash
 # pxmxmon is the hostname of your monitoring server
 $ snmptrap -v 2c -c public pxmxmon \
     '' 1.3.6.1.4.1.8072.2.3.0.1 1.3.6.1.4.1.8072.2.3.2.1 i 12341234
 ```
-The samplicate process will receive the udp packet containing the snmp trap. It will immediately forward a copy of the packet to every target port (aka. local snmptrapd).  
-The local (running inside the OMD site(s)) snmptrapd processes are configured to write the trap to a log file located at *$OMD_ROOT/var/log/snmp/traps.log*. Each field is logged on its own line, followed by a summary line that flattens the trap. Here the individual fields are separated by four underscores (____).
+The samplicate process will receive the UDP packet containing the SNMP trap. It will immediately forward a copy of the packet to every target port (i.e. each local snmptrapd process).\
+The local snmptrapd processes running inside the OMD site(s) are configured to write the trap to a log file located at *$OMD_ROOT/var/log/snmp/traps.log*. Each field is logged on its own line, followed by a summary line that flattens the trap. Here the individual fields are separated by four underscores (____).
 
 For example:
 ```
@@ -83,16 +83,16 @@ For example:
 [Tue Jan 21 03:19:53 PM CET 2025] .1.3.6.1.4.1.8072.2.3.2.1: 12341234
 [Tue Jan 21 03:19:53 PM CET 2025] summary: ____lausser.consol.de____UDP: [10.1.18.166]:34300->[127.0.0.1]:9162____.1.3.6.1.2.1.1.3.0 42095560____.1.3.6.1.6.3.1.1.4.1.0 .1.3.6.1.4.1.8072.2.3.0.1____.1.3.6.1.4.1.8072.2.3.2.1 12341234
 ```
-There is also the resolved hostname of the sender node and, inside the first pair of brackets, it's ip address. We will later use this information to identify the host object in the monitoring configs.
+The log also includes the resolved hostname of the sender node and, inside the first pair of brackets, its IP address. We will later use this information to identify the host object in the monitoring configuration.
 
-> **Note:** If you do not see these lines in your trap.log, then maybe a firewall is blocking the snmp packets from your system. You can repeat the **snmptrap** command and at the same time listen on the network interface of your monitoring server with **tcpdump port 162**.  
-If you still can't see anything, then open your firewall. For example on a Rocky Linux system you do it with:
+> **Note:** If you do not see these lines in your trap.log, a firewall may be blocking the SNMP packets from your system. You can repeat the **snmptrap** command and at the same time listen on the network interface of your monitoring server with **tcpdump port 162**.\
+If you still can't see anything, then open your firewall. For example, on a Rocky Linux system, use:
 > ```bash
 > [root@pxmxmon]$ firewall-cmd --permanent --add-port=162/udp
 > [root@pxmxmon]$ firewall-cmd --reload
 > ```
 
-In this first test the trap *netSnmpExampleHeartbeatNotification (.1.3.6.1.4.1.8072.2.3.0.1)* from the *NET-SNMP-EXAMPLES-MIB* was sent. For now, we will stick with this MIB before things get complicated.  
+In this first test, the trap *netSnmpExampleHeartbeatNotification (.1.3.6.1.4.1.8072.2.3.0.1)* from the *NET-SNMP-EXAMPLES-MIB* was sent. For now, we will stick with this MIB before things get complicated.\
 In the next part, we will set up everything needed to add a host with a single service to the monitoring system. This service will represent the trap netSnmpExampleHeartbeatNotification and will turn CRITICAL whenever this trap is received.
 Technically, this means that the service is configured as a passive service. Meanwhile, the traps.log file is scanned every minute for new entries using the check_logfiles plugin. If a trap is found with a sender IP address matching the host's address in the monitoring configuration and a trap OID corresponding to netSnmpExampleHeartbeatNotification, the check_logfiles plugin submits a CRITICAL passive check result for the service.
 
@@ -103,7 +103,7 @@ Now, we’ll demonstrate how to use coshsh and a MIB file to automatically gener
 What we want to achieve is to have coshsh create a service definition (a passive one) for every kind of trap we want to monitor for a certain host or device category.
 
 ### Convert MIB to SNMPTT
-First we need the command **snmpttconvertmib**, which is part of the *snmptt* suite. Either *snmptt* is available from your distribution's repositories, then install it with **yum** or **apt**. Or you simply download the command from github.
+First, we need the command **snmpttconvertmib**, which is part of the *snmptt* suite. If *snmptt* is available from your distribution's repositories, install it with **yum** or **apt**. Otherwise, download the command from GitHub.
 
 ```bash
 OMD[demo@pxmxmon]:~$ cd local/bin
@@ -132,8 +132,8 @@ Failed translations:       0
 ```
 
 ### Prepare Coshsh and create a trap-sending host
-You probably executed the **snmptrap** command on a Windows or Linux host. Let's configureCoshsh and OMD so that this host ist being monitored and its traps are triggering an alarm.  
-The "CMDB" we will use is a set of CSV files, located in *etc/coshsh/data*. The first one describes attributes of the host will be used to shape the host object in Naemon. For the example we fake a notional appliance of type *Blackenbox* running the *HeartbeatOS*
+You probably executed the **snmptrap** command on a Windows or Linux host. Let's configure Coshsh and OMD so that this host is monitored and its traps trigger an alarm.\
+The "CMDB" we will use is a set of CSV files, located in *etc/coshsh/data*. The first one describes host attributes that will be used to build the host object in Naemon. For this example, we use a fictional appliance of type *Blackenbox* running *HeartbeatOS*.
 ```csv
 # host_name,address,type,os,hardware,virtual,notification_period,location,department
 sender,192.168.1.1,appliance,heartbeat,rpi,0,24x7,lab,rnd

@@ -18,19 +18,19 @@ It's primarily designed to automate the creation of configurations for monitorin
 The name Coshsh originated when its creator was a co-author of Shinken, a Nagios fork. While it possibly stands for 'COnfigurations for Services and Hosts for SHinken' – a plausible explanation for its origin – the exact details are humorously elusive. It's also quipped that Coshsh might simply have been the result of a search for a unique name that didn't yet exist in search engine results.
 
 In Coshsh terminology:
-*   A **Cookbook** is an INI-style configuration file (or set of files) that contains one or more "recipes." It's the top-level plan defining what Coshsh should generate.
+*   A **Cookbook** is an INI-style configuration file (or set of files) containing one or more "recipes." It's the top-level plan defining what Coshsh should generate.
 *   A **Recipe**, much like in cooking, outlines a specific generation task. It lists its "ingredients" – which are primarily datasources (to get raw data), specialized Python classes (to process and model different types of data like specific OSes or applications), and Jinja2 templates (to define how the final configuration output should be formatted). When a recipe is processed ("cooked"), the result is a set of configuration files or other outputs.
 
 ### Purpose and Benefits
-The core purpose of Coshsh is to streamline and automate the management of complex configurations, particularly in environments where inventory data, host attributes, and service definitions are spread across multiple or diverse sources. These sources can range from simple CSV files to comprehensive CMDBs (like ServiceNow) or infrastructure management platforms (like NetBox), which can be integrated via custom or provided datasources.
+The core purpose of Coshsh is to streamline and automate the management of complex configurations, particularly in environments where inventory data, host attributes, and service definitions are spread across multiple, diverse sources. These sources can range from simple CSV files to comprehensive CMDBs (like ServiceNow) or infrastructure management platforms (like NetBox), which can be integrated via custom or provided datasources.
 
 **Key Benefits of using Coshsh:**
 
-*   **Consistency:** Ensures uniformity across all generated configuration files, reducing discrepancies that can arise from manual editing.
-*   **Reduced Manual Effort & Errors:** Automates repetitive tasks, significantly cutting down the time spent on configuration and minimizing human errors.
+*   **Consistency:** Ensures uniformity across all generated configuration files, reducing discrepancies caused by manual editing.
+*   **Reduced Manual Effort & Errors:** Automates repetitive tasks, significantly reducing the time spent on configuration and minimizing human errors.
 *   **Scalability:** Efficiently manages large-scale environments with thousands of hosts and services by defining them through data and reusable logic rather than individual manual configurations.
 *   **Flexibility & Extensibility:** Highly adaptable through custom Python classes for datasources (to fetch data from any source), application/OS types (to model specific behaviors and templates), and monitoring details (to add granular information).
-*   **Version Control Friendly:** Configuration logic (Python classes, Jinja2 templates) and input data (e.g., CSV files) can be easily version controlled using systems like Git, providing history, auditability, and easier collaboration.
+*   **Version Control Friendly:** Configuration logic (Python classes, Jinja2 templates) and input data (e.g., CSV files) can be easily managed in version control systems like Git, providing history, auditability, and easier collaboration.
 
 **High-Level Capabilities Overview:**
 
@@ -38,7 +38,7 @@ The core purpose of Coshsh is to streamline and automate the management of compl
 *   **Recipe-Driven Generation:** Each configuration generation task is encapsulated in a "recipe," which specifies the data sources, processing classes, templates, and output destinations.
 *   **Dynamic Datasources:** Employs a plugin system to dynamically load datasource handlers (Python classes) that fetch raw data from various systems (e.g., CSV files, NetBox API, ServiceNow API).
 *   **Class-Based Specialization:** Allows for the definition of specialized Python classes for different types of configuration items (hosts, applications, operating systems). These classes can have unique properties and determine which templates are used for them.
-*   **Powerful Templating with Jinja2:** Leverages the Jinja2 templating engine to generate configuration files from the processed data, allowing for complex logic, loops, conditionals, and custom extensions within templates.
+*   **Powerful Templating with Jinja2:** Uses the Jinja2 templating engine to generate configuration files from the processed data, allowing for complex logic, loops, conditionals, and custom extensions within templates.
 *   **Extensible Architecture:** Provides clear extension points for creating custom Python classes to handle new data sources, define new types of applications or services, model specific monitoring details, and even customize output generation (datarecipients).
 
 ## Simple Example
@@ -69,14 +69,14 @@ my_simple_coshsh_project/
     host_name,address,type,alias
     server01,192.168.1.10,generic_server,My First Server
     ```
-    *(Note: The `type` column here is a general categorization for the host, like 'server', 'network_switch'. It can be used by custom host classes or for hostgrouping. It's distinct from the application/OS type defined next.)*
+    *(Note: The `type` column here is a general categorization for the host, like 'server', 'network_switch'. It can be used by custom host classes or for grouping hosts. It's distinct from the application/OS type defined next.)*
 
 *   `my_simple_coshsh_project/data/inventory_apps.csv`:
     ```csv
     host_name,name,type
     server01,os,myos_distro
     ```
-    *(Note: For an OS application, `name` is typically "os". The `type` ("myos_distro" here) is what your custom `os_myos.py` class will look for via `__mi_ident__` to specialize this OS application).*
+    *(Note: For an OS application, `name` is typically "os". The `type` ("myos_distro" here) is what your custom `os_myos.py` class will look for via `__mi_ident__` to specialize this OS application.)*
 
 **Step 2: Create Custom OS Class**
 
@@ -167,7 +167,7 @@ Navigate to the `my_simple_coshsh_project/cookbook/` directory (or ensure paths 
 ```bash
 coshsh-cook --cookbook example.cfg --recipe simple_server_config
 ```
-*(If you're not in an OMD environment, you might need to ensure `coshsh-cook` is in your PATH and Coshsh library is in PYTHONPATH. For simplicity, this example assumes `example_classes` and `example_templates` are sufficient. In a real setup, you'd often want to include Coshsh's default paths too, e.g., `classes_dir = ../example_classes,path/to/coshsh/recipes/default/classes`)*.
+*(If you're not in an OMD environment, you might need to ensure `coshsh-cook` is in your PATH and the Coshsh library is in PYTHONPATH. For simplicity, this example assumes `example_classes` and `example_templates` are sufficient. In a real setup, you'd often want to include Coshsh's default paths too, e.g., `classes_dir = ../example_classes,path/to/coshsh/recipes/default/classes`)*.
 
 **Step 6: Inspect Generated Output**
 
@@ -215,7 +215,7 @@ Coshsh achieves its flexibility through several interconnected core concepts:
     *   **Custom Extensions:** Coshsh provides custom Jinja2 filters and tests (defined in `coshsh/jinja2_extensions.py`) like `|service` for formatting service definitions or `|re_sub` for regex substitutions, making templates more concise and powerful.
 
 *   **Classes (Application/OS Specialization):**
-    *   **Role:** Python classes are used to define the specific behavior, attributes, and template associations for different types of configuration items, particularly applications and operating systems. They allow you to model your infrastructure elements in an object-oriented way. An application where `name='os'` (often paired with a `type` like "linux", "windows", "ios", "junos") is typically unique per system and represents its base operating system, firmware, or core appliance software. Other applications might represent user-facing software like "apache", "mysql", etc., or other logical services.
+    *   **Role:** Python classes are used to define the specific behavior, attributes, and template associations for different types of configuration items, particularly applications and operating systems. They allow you to model your infrastructure elements in an object-oriented way. An application with `name='os'` (often paired with a `type` like "linux", "windows", "ios", or "junos") is typically unique per system and represents its base operating system, firmware, or core appliance software. Other applications might represent user-facing software like "apache", "mysql", etc., or other logical services.
     *   **Location:** These classes are typically stored in Python files (e.g., `os_linux.py`, `app_apache.py`) within a `classes_dir` specified by a recipe.
     *   **`__mi_ident__(params={})` Function:** Each such Python module must contain this "Managed Item Identifier" function. When Coshsh processes an item (e.g., an application defined in a CSV row), it calls `__mi_ident__` with the item's parameters (like `params['type']`). The function returns the specific Python class (e.g., `return LinuxOS`) if it's designed to handle that type of item, or `None` otherwise. This allows Coshsh to dynamically select and instantiate the correct class for each item. Users can iteratively create new class files with `__mi_ident__` functions to gradually cover all their application types; Coshsh will use `GenericApplication` for any types not yet covered by a custom class, making the system approachable even for complex environments.
     *   **`template_rules` Attribute:** A crucial attribute within these classes. It's a list of `coshsh.templaterule.TemplateRule` objects. Each `TemplateRule` links the class to one or more `.tpl` files and specifies:
@@ -268,7 +268,7 @@ Coshsh achieves its flexibility through several interconnected core concepts:
 *   **Datarecipients (`coshsh.datarecipient.Datarecipient`):**
     *   **Role:** Datarecipients are responsible for taking the final rendered configuration strings (produced by `Item.render()`) and handling their output.
     *   **Default Behavior:** The `datarecipient_coshsh_default` (from `recipes/default/classes/`) is the most common. It writes the rendered configurations to files within the recipe's `objects_dir`, creating a structured directory layout (e.g., `dynamic/hosts/<hostname>/<config_name>.cfg`).
-    *   **Customization:** Datarecipients can be customized to output data in different formats (e.g., JSON, XML, directly to an API) or to different locations. The `datarecipient_prometheus_snmp.py` (generates JSON for Prometheus) and `datarecipient_atomic.py` (generates `check_logfiles` configs for SNMPTT example) illustrate this.
+    *   **Customization:** Datarecipients can be customized to output data in different formats (e.g., JSON, XML, directly to an API) or to different locations. The `datarecipient_prometheus_snmp.py` (generates JSON for Prometheus) and `datarecipient_atomic.py` (generates `check_logfiles` configs for the SNMPTT example) illustrate this.
     *   **Dynamic Loading:** Custom datarecipients are defined in `[datarecipient_<name>]` sections in the cookbook and loaded via a `__dr_ident__(params={})` function in their Python module (located in a `classes_dir`).
 
 These core concepts work together to provide a powerful and data-driven approach to configuration management.
@@ -517,12 +517,12 @@ While Coshsh provides default datasources like `datasource_csvfile`, you'll ofte
 
 ### Introduction
 
-A custom datasource is a Python class that you create, typically inheriting from `coshsh.datasource.Datasource`. Its primary role is to connect to your specific data source, retrieve the necessary inventory information, and then translate that information into Coshsh `Host`, `Application`, and `MonitoringDetail` objects.
+A custom datasource is a Python class that you create, typically inheriting from `coshsh.datasource.Datasource`. Its primary role is to connect to your specific data source, retrieve the necessary inventory information, and translate it into Coshsh `Host`, `Application`, and `MonitoringDetail` objects.
 
 You would need a custom datasource if:
 *   Your inventory is in a relational database or NoSQL store.
 *   You need to pull data from a proprietary or third-party API.
-*   Your data is in a specific file format not handled by defaults (e.g., XML, custom JSON structures).
+*   Your data is in a specific file format not handled by the default datasources (e.g., XML, custom JSON structures).
 *   You need to perform complex logic during data retrieval or initial processing that's beyond simple CSV parsing.
 
 ### Structure of a Datasource Python File
@@ -791,7 +791,7 @@ This skeletal example provides a starting point. You'll need to replace the dumm
 
 ## Writing Classes and Templates for New Application Types
 
-While Coshsh offers default classes for common operating systems like Linux and Windows, a key strength of the system is its ability to model and generate configurations for any specific application, OS variant, or any other type of configuration item you need. This is achieved by creating custom Python classes and associated Jinja2 templates.
+While Coshsh offers default classes for common operating systems like Linux and Windows, a key strength of the system is its ability to model and generate configurations for any specific application, OS variant, or other type of configuration item you need. This is achieved by creating custom Python classes and associated Jinja2 templates.
 
 ### Introduction
 
@@ -806,7 +806,7 @@ These classes, combined with their templates, define the "personality" of a moni
 ### Structure of an Application/OS Class File
 
 1.  **File Naming and Location:**
-    *   **Convention:** Name your files descriptively, typically prefixed with `app_` for applications (e.g., `app_mywebserver.py`, `app_oracle_db.py`) or `os_` for operating systems/firmwares (e.g., `os_custom_linux.py`, `os_cisco_ios.py`).
+    *   **Convention:** Name your files descriptively, typically prefixed with `app_` for applications (e.g., `app_mywebserver.py`, `app_oracle_db.py`) or `os_` for operating systems or firmware (e.g., `os_custom_linux.py`, `os_cisco_ios.py`).
     *   **Location:** Place these Python files in a directory specified by the `classes_dir` parameter in your recipe. Coshsh scans these directories to find your custom classes.
 
 2.  **General Layout:**
@@ -1223,7 +1223,7 @@ By defining your own extensions or leveraging the built-in ones, you can signifi
 
 ## Advanced Topics
 
-This section delves into more complex use cases and advanced features of Coshsh, enabling users to tackle sophisticated configuration generation scenarios.
+This section covers more complex use cases and advanced Coshsh features for configuration generation.
 
 ### Multi-Stage Configuration Generation & Complex Workflows
 
@@ -1234,7 +1234,7 @@ While Coshsh recipes are typically self-contained, complex scenarios might requi
     *   A subsequent `coshsh-cook` run, using a different recipe, can then use a datasource (e.g., `datasource_csvfile` or a custom one) to read these intermediate files and produce the next stage of configurations.
 
 2.  **Custom Datasources Creating New Item Types for Specialized Datarecipients:**
-    *   The `TESTsnmptt` example showcases this powerfully.
+    *   The `TESTsnmptt` example demonstrates this approach.
         *   The `datasource_snmptt` reads `.snmptt` (MIB definition) files and creates custom `Item` objects called `mibconfigs`. These `mibconfigs` are not standard Nagios objects but internal Coshsh items representing the structure of each MIB.
         *   This same datasource also enriches standard `Application` objects (e.g., for a network device) with a detail called `trap_events`, linking them to the MIBs they implement.
         *   The recipe then uses *two* datarecipients:
@@ -1255,7 +1255,7 @@ A single Coshsh recipe can be configured to use multiple datasources.
 *   **Aggregation:** When a recipe specifies multiple datasources (e.g., `datasources = cmdb_api, local_csv_additions, network_scan_tool`), Coshsh processes them in the order listed.
 *   **Shared Object Registry:** All datasources within a single recipe operate on the same shared internal object registry (`recipe.objects`).
 *   **Use Cases:**
-    *   **Data Enrichment:** A primary datasource (e.g., a CMDB API) can create initial `Host` objects. Subsequent datasources (e.g., a CSV file or another API) can then retrieve these existing host objects (using `self.get('hosts', host_fingerprint)`) and add more applications, monitoring details, or update attributes.
+    *   **Data Enrichment:** A primary datasource (e.g., a CMDB API) can create initial `Host` objects. Subsequent datasources (e.g., a CSV file or another API) can then retrieve these existing host objects (using `self.get('hosts', host_fingerprint)`) and add applications or monitoring details, or update attributes.
     *   **Combining Inventories:** Data from entirely different inventory systems can be merged. For example, one datasource could provide server hardware information, while another provides software deployment details for those same servers.
 *   **Conflict Handling:**
     *   If two datasources attempt to add an item with the exact same fingerprint (e.g., a `Host` with the same `host_name`), the one processed **last** will typically "win." The `Item.__init__` method often updates the existing object with attributes from the new data, so it's more of an attribute merge/override than a full object replacement, but the last datasource to provide attributes for an item has the final say on those attribute values. Careful planning of datasource order and data consistency is important.
@@ -1283,7 +1283,7 @@ A recipe can also be configured to use multiple datarecipients simultaneously.
     ```
 *   **Functionality:** After the `render` phase, the `recipe.output()` method will call the `output()` method of each configured datarecipient, passing them all the processed `recipe.objects`.
 *   **Use Cases:**
-    *   **Multi-Format Output:** Generate Nagios configuration files using the default datarecipient (`>>>`) while simultaneously generating JSON files for Prometheus (via a custom datarecipient like `snmp_exporter_custom`) and also logging audit information to a database (via another custom datarecipient like `database_logger`).
+    *   **Multi-Format Output:** Generate Nagios configuration files using the default datarecipient (`>>>`) while simultaneously generating JSON files for Prometheus (via a custom datarecipient like `snmp_exporter_custom`) and logging audit information to a database (via another custom datarecipient like `database_logger`).
     *   **Targeted Output:** As seen in `TESTsnmptt`, one datarecipient handles general Nagios configs, while another (`datarecipient_atomic`) handles only specific item types (`mibconfigs`) to generate specialized `check_logfiles` configurations. This is often achieved by the custom datarecipient inspecting item types or `TemplateRule` metadata (like `for_tool`).
 
 ### Environment Variables in Configuration
@@ -1349,7 +1349,7 @@ This chapter provides guidance on common issues you might encounter while using 
         ```bash
         coshsh-cook --cookbook your_cookbook.cfg --recipe your_recipe --debug
         ```
-    *   **Cookbook Configuration:** You can set a default more verbose log level in your cookbook's `[defaults]` section or a recipe-specific level:
+    *   **Cookbook Configuration:** You can set a more verbose default log level in your cookbook's `[defaults]` section or a recipe-specific level:
         ```ini
         [defaults]
         log_level = DEBUG
@@ -1365,8 +1365,8 @@ This chapter provides guidance on common issues you might encounter while using 
 2.  **Isolate the Problem:**
     *   **Single Recipe:** If your cookbook has multiple recipes, try running only the problematic one using `coshsh-cook --recipe your_failing_recipe`.
     *   **Simplify Datasources:** If you suspect a datasource, try replacing it temporarily with `datasource_simplesample` or a very small, known-good CSV file to see if the rest of the recipe logic (classes, templates) works.
-    *   **Simplify Templates:** Comment out sections of your `.tpl` files (using `{# Jinja2 comment #}`) to pinpoint which part is causing a rendering error. Start with a very minimal template and gradually add complexity.
-    *   **Reduce Data:** If processing large datasets, try with a minimal subset of data that still reproduces the issue.
+    *   **Simplify Templates:** Comment out sections of your `.tpl` files (using `{# Jinja2 comment #}`) to pinpoint which part is causing a rendering error. Start with a minimal template and gradually add complexity.
+    *   **Reduce Data:** If processing large datasets, try a minimal subset of data that still reproduces the issue.
 
 3.  **Validate Input Data:**
     *   **CSVs:** Check for correct delimiters, consistent column counts, proper quoting (if values contain delimiters or newlines), and correct header names. Ensure file encodings are consistent.
@@ -1424,7 +1424,7 @@ This chapter provides guidance on common issues you might encounter while using 
 
 *   **Output File Issues:**
     *   **Files Not Created:**
-        *   Check `objects_dir` path in the recipe and ensure Coshsh has write permissions.
+        *   Check the `objects_dir` path in the recipe and ensure Coshsh has write permissions.
         *   If using custom datarecipients, check their logic and any `output_path` parameters.
         *   If `render_errors` is non-zero for an item, its configuration files might not be written.
     *   **Incorrect Content:** This usually traces back to issues in:
@@ -1437,14 +1437,14 @@ This chapter provides guidance on common issues you might encounter while using 
     *   **Cause:** This can happen in very large setups if Coshsh is trying to open/process an extremely large number of small files (e.g., many tiny template files per item, or datasources reading thousands of small data snippets individually).
     *   **Solution:**
         *   Increase the per-process file descriptor limit (`ulimit -n`) on the system running Coshsh.
-        *   Review if your datasource or templating strategy can be optimized to handle files more in batches. (This is an advanced optimization).
+        *   Check whether your datasource or templating strategy can be optimized to process files in batches. (This is an advanced optimization.)
 
 *   **PID File Issues ("Recipe already running" or "Cannot write PID file"):**
     *   **Symptom:** Coshsh refuses to run a recipe, stating it's already running, or that it cannot write the PID file.
     *   **Solution:**
-        *   **Already Running:** Check if another instance of `coshsh-cook` for that specific recipe is genuinely active.
+        *   **Already Running:** Check if another instance of `coshsh-cook` for that specific recipe is active.
         *   **Stale PID File:** If no other instance is running, the previous run might have exited uncleanly. Manually delete the relevant `.pid` file from the `pid_dir` (configured in `[defaults]` or the recipe, often in `tmp/run/` within an OMD site). The PID filename usually includes the recipe name.
-        *   **Cannot Write:** Check permissions for Coshsh to write to the configured `pid_dir`.
+        *   **Cannot Write:** Check that Coshsh has permission to write to the configured `pid_dir`.
 
 ### Interpreting Log Messages
 
