@@ -11,7 +11,7 @@ title: Histou
 |Documentation:|https://github.com/Griesbacher/histou|
 |OMD default:|disabled|
 
-Adds templating to Grafana in combination with nagflux.
+Adds templating to Grafana in combination with Nagflux.
 
 &#x205F;
 ### Directory Layout

@@ -16,7 +16,7 @@ title: Monitoring Plugins
 |Documentation:|https://www.monitoring-plugins.org/doc/index.html|
 |Get version:|&lt;plugin&gt; -h|
 
-The Monitoring Plugins Development Team maintain a bundle of more than fifty standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu, and other monitoring applications. Each plugin is a stand-alone command line tool that provides a specific type of check. Typically, your monitoring software runs these plugins to determine the current status of hosts and services on your network.
+The Monitoring Plugins Development Team maintains a bundle of more than fifty standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu, and other monitoring applications. Each plugin is a stand-alone command line tool that provides a specific type of check. Typically, your monitoring software runs these plugins to determine the current status of hosts and services on your network.
 
 &#x205F;
 ### Directory Layout

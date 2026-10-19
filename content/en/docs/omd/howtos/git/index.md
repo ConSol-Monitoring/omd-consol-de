@@ -7,13 +7,13 @@ hidden: true
 
 ### Expected Result
 
- * A git repository for your omd site
- * Automatic commits when changing configuration within Thruks config tool
+ * A Git repository for your OMD site
+ * Automatic commits when changing configuration within Thruk's configuration tool
 
 ### Notes
 
-OMD is prepared to be fully versioned by git. This works quite well, because OMD
-separates strictly between packaged software and user configuration files. So we
+OMD is prepared to be fully versioned by Git. This works quite well, because OMD
+strictly separates packaged software from user configuration files. So we
 can easily put the complete site under version control.
 
 ### Steps
@@ -36,7 +36,7 @@ OMD[example]:~$ git add .
 OMD[example]:~$ git commit -v -m 'initial commit'
 ```
 
-Verify if it worked:
+Verify that it worked:
 
 ```
 OMD[example]:~$ git status
@@ -70,12 +70,12 @@ save button.
 
 #### Test it
 
-Reload apache so Thruk will read the new configuration:
+Reload Apache so Thruk will read the new configuration:
 ```
 OMD[example]:~$ omd reload apache
 ```
 
-Then change something within Thruks config tool and if everything worked, you
+Then change something within Thruk's configuration tool and if everything worked, you
 will see a popup to enter a change summary when hitting the save button:
 
 ![](./thruk_git.png)
@@ -86,7 +86,7 @@ Now you should see this commit in the history page:
 
 ![](./thruk_history.png)
 
-And in the command line:
+And on the command line:
 
 ```
 OMD[example]:~$ git log -1

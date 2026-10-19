@@ -7,11 +7,11 @@ hidden: true
 
 ### Goal
 * Gather metrics from SNMP enabled devices
-* Store metrics in the Prometheus timeseries database
-* Present metrics in Grafana Dashboards
+* Store metrics in the Prometheus time series database
+* Present metrics in Grafana dashboards
 
 ### Notes
-The process of collecting metrics via Prometheus is completely detached from any Monitoring Core. If you are new to Prometheus, read first [the documentation](https://prometheus.io/docs/introduction/overview/).
+The process of collecting metrics via Prometheus is completely detached from any monitoring core. If you are new to Prometheus, first read [the documentation](https://prometheus.io/docs/introduction/overview/).
 
 ### Steps
 
@@ -25,11 +25,11 @@ omd config set PROMETHEUS_SNMP_EXPORTER on
 
 #### Get SNMP MIB files
 
-SNMP MIB files are needed by Prometheus to translate the OIDs into human readable metric names. Most manufacturers provide there MIBs as download directly from the systems (or appliances).
+SNMP MIB files are needed by Prometheus to translate the OIDs into human readable metric names. Most manufacturers provide their MIBs for download directly from their systems (or appliances).
 
 #### Generate SNMP Exporter config
 
-Put all needed MIB files in a location NetSNMP can read them from. Default pathes ars `$HOME/.snmp/mibs` and `/usr/local/share/snmp/mibs`. For OMD `$OMD_ROOT/.snmp/mibs` is recommended.
+Put all needed MIB files in a location NetSNMP can read them from. Default paths are `$HOME/.snmp/mibs` and `/usr/local/share/snmp/mibs`. For OMD `$OMD_ROOT/.snmp/mibs` is recommended.
 
 Add a new section to "modules" in `$OMD_ROOT/etc/prometheus_snmp_exporter/generator.yml`.
 
@@ -61,7 +61,7 @@ OMD[host]:~$ generator generate --output.path="$OMD_ROOT/etc/prometheus_snmp_exp
 #### Prometheus scrape config
 Create a new scrape config file at  `$OMD_ROOT/etc/prometheus/prometheus.d/scrape_configs/static/`
 
-02-snmp-exporter.yml for example :
+02-snmp-exporter.yml, for example:
 ``` yaml
   - job_name: 'snmp'
     # Override the global default
@@ -88,12 +88,12 @@ Create a new scrape config file at  `$OMD_ROOT/etc/prometheus/prometheus.d/scrap
         target_label: __param_module
 ```
 ##### Note
-The default Prometheus SNMP Exporter requires each "module" in snmp.yml to have its own SNMP community and SNMP v3 authentication block. We have extended the exporter so that dynamic community strings are possible. We take community information from target configuration (see next section).
+The default Prometheus SNMP Exporter requires each "module" in snmp.yml to have its own SNMP community and SNMP v3 authentication block. We have extended the exporter so that dynamic community strings are possible. We take community information from the target configuration (see the next section).
 
 #### Prometheus Target config
-A target defines a endpoint Prometheus has to scrape for metrics.
+A target defines an endpoint Prometheus has to scrape for metrics.
 
-Put a target config json file to `$OMD_ROOT/etc/prometheus/conf.d/custom/`.
+Put a target configuration JSON file in `$OMD_ROOT/etc/prometheus/conf.d/custom/`.
 ``` json
 [
   {
@@ -115,13 +115,13 @@ omd reload prometheus
 omd reload snmp_exporter
 ```
 
-Open prometheus WebUI in your browser
+Open the Prometheus web UI in your browser
 ``` bash
 https://<monitoring-host>/<omd-site>/prometheus/targets
 ```
 
-You can see successfully scraped SNMP devices at target listed at your WebUI.
+You can see successfully scraped SNMP devices listed as targets in your web UI.
 
-As Prometheus Datasource is pre defined in Grafana, you can start immediately creating dashboards with your new SNMP metrics in Grafana.
+As the Prometheus data source is predefined in Grafana, you can immediately start creating dashboards with your new SNMP metrics.
 
 Have Fun :-)

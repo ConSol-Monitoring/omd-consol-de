@@ -4,17 +4,17 @@ linkTitle: OMD
 weight: 100
 ---
 
-The `OMD Labs-Edition` is a monitoring platform and a new concept of how to install, maintain and update a nagios compatible monitoring system (When we are talking about nagios, we mean nagios-like. Our preferred core is Naemon). It contains most monitoring related components from [omd.consol.de](/) and others useful addons from companioned authors. It is _not_ another linux distribution, instead it integrates well in your current system in form of a single rpm or deb package.
+The `OMD Labs-Edition` is a monitoring platform that provides a new way to install, maintain and update a Nagios compatible monitoring system (when we talk about Nagios, we mean Nagios-like systems; our preferred core is Naemon). It contains most monitoring components from [omd.consol.de](/) and other useful add-ons from contributing authors. It is _not_ another Linux distribution; instead, it integrates into your current system as a single RPM or DEB package.
 
-Have a look at the [getting started](getting_started) page for first steps.
+Have a look at the [getting started](getting_started) page for your first steps.
 
-Labs OMD contains a huge list of [packages](packages), a best-of from the Nagios and Prometheus ecosystems.
+OMD Labs contains a wide range of [packages](packages) from the Nagios and Prometheus ecosystems.
 
 ## The Idea
 
-The main idea is to make the initial installation easy and less time consuming while providing a stable and standarized platform for further activities. A nagios system without addons and plugins is mostly useless, so OMD provides a way of making the initial setup fast and painless.
+The main idea is to make the initial installation easy and less time consuming while providing a stable and standardized platform for further activities. A Nagios system without add-ons and plugins is mostly useless, so OMD provides a way of making the initial setup fast and painless.
 
-OMD-Labs goes a bit further and adds even more useful software. See the [differences page](differences) for a full list
+OMD-Labs goes a bit further and adds even more useful software. See the [differences page](differences) for a full list.
 
 ## The real life
 
@@ -22,7 +22,7 @@ OMD-Labs goes a bit further and adds even more useful software. See the [differe
 
 ## The Site Concept
 
-OMD comes with a site concept solution with makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independently.
+OMD comes with a site concept that makes it possible to create and run multiple instances of OMD on one server. Sites can be renamed, copied and managed independently.
 
 ## Roadmap
 
@@ -40,14 +40,14 @@ components. There are no planned changes for OMD itself.
 
 ## Download
 
-Best practice is to use the prebuild packages from our repository as described in the [installation section](#installation).
+Best practice is to use the prebuilt packages from our repository as described in the [installation section](#installation).
 
 The nightly builds are available via our [testing repository](/repo/testing/).
 
 ## Installation
 
-The installation is quite easy when using our [Labs Repository](/repo/stable/). Just follow the steps for your operating system. After that use
-your package manager like _apt_, _yum_ or _zypper_ to search/install omd.
+The installation is quite easy when using our [Labs Repository](/repo/stable/). Just follow the steps for your operating system. After that, use
+your package manager, such as _apt_, _yum_ or _zypper_, to search for and install OMD.
 
 There are pre-built packages available for the following systems:
 
@@ -66,12 +66,12 @@ There are pre-built packages available for the following systems:
 | <img src="ubuntu.png" alt="ubuntu" width="25"/> | Ubuntu            | 24.04  | Noble Numbat   | [download](/repo/stable/#ubuntu-noble-numbat-2404) |
 
 <p class="hint">
-Rocky/Centos/Redhat will require the Epel repository. Redhat will additionally require these extra channels:<br><code>subscription-manager repos --enable=rhel-7-server-rpms \<br>--enable=rhel-7-server-extras-rpms \<br>--enable=rhel-7-server-optional-rpms</code>
+Rocky/CentOS/Red Hat will require the EPEL repository. Red Hat will additionally require these extra channels:<br><code>subscription-manager repos --enable=rhel-7-server-rpms \<br>--enable=rhel-7-server-extras-rpms \<br>--enable=rhel-7-server-optional-rpms</code>
 </p>
 
 ## Filesystem Layout
 
-OMD uses a normal linux filesystem layout for etc, lib, var... except everything is relative to the sites home folder.
+OMD uses a standard Linux filesystem layout for etc, lib, var and other directories, with everything relative to the site's home folder.
 Read more in the [filesystem layout documentation](filesystem_layout).
 
 ## OMD Commands
@@ -81,10 +81,10 @@ See an overview in the [omd command reference](commands).
 
 ## Grafana Graphing
 
-Besides PNP4Nagios the OMD Labs edition offers Grafana based Graphs. Read more on
+In addition to PNP4Nagios, the OMD Labs edition offers Grafana graphs. Read more on
 that topic on the [graphing page](howtos/grafana/).
 
 ## E-Mail Notifications
 
-We ship a template based easy customizable email notification script with OMD.
+OMD includes an easily customizable email notification script based on templates.
 Read more about that in the [omd notification reference](howtos/html_notifications/).

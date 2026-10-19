@@ -19,7 +19,7 @@ title: VMauth
 |OMD default:|disabled|
 |OMD PORT:|8528 (Default for the first site)|
 
-vmauth is an HTTP proxy, which can authorize , route and load balance requests across VictoriaMetrics components or any other HTTP backends.
+vmauth is an HTTP proxy that can authorize, route and load balance requests across VictoriaMetrics components or any other HTTP backends.
 
 &#x205F;
 ### Directory Layout

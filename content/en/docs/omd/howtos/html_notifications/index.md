@@ -7,7 +7,7 @@ hidden: true
 
 Notifications are part of every standard monitoring installation. But OMD makes it very easy to customize the layout of your email notifications by using templates.
 
-By default, you will have the 2 standard notifications templates in your site folder at:
+By default, you will have the 2 standard notification templates in your site folder at:
 
 ``` bash
     OMD[site]:~$ ls -la etc/mail-templates/
@@ -21,16 +21,16 @@ By default, you will have the 2 standard notifications templates in your site fo
 with the corresponding commands `host-notify-by-email` and `service-notify-by-email` defined in **etc/nagios/conf.d/notification\_commands.cfg**
 
 If you just want to change the default layout of your email notifications, just edit
-the templates from the path above.
+the templates at the path above.
 
 
 ## HTML E-Mail Notifications
 
 <p class="hint">
-Starting with OMD 2.20 the html mail commands and templates are included already and can directly be used by assigning the <code>host- and service-notify-by-email-html</code> commands.
+Starting with OMD 2.20, the HTML email commands and templates are included and can be used directly by assigning the <code>host- and service-notify-by-email-html</code> commands.
 </p>
 
-In order to send HTML emails we need to add a template  for html mails and create two
+To send HTML emails, we need to add a template for HTML emails and create two
 new commands. The changed parts are bold.
 
 <pre>
@@ -61,12 +61,12 @@ define command {
 }
 </pre>
 
-It is important to use /usr/sbin/sendmail as mailer, otherwise you will get errors like<br>
+It is important to use /usr/sbin/sendmail as the mailer; otherwise you will get errors like<br>
 `Ignoring header field "MIME-Version: 1.0"`.
 
 Now do the same for the host command.
 
-Last step is to configure your contacts to use the new html commands.
+The last step is to configure your contacts to use the new HTML commands.
 
 You can also download the prepared files:
 
@@ -81,7 +81,7 @@ cd ~/etc/nagios/conf.d   && wget https://labs.consol.de/omd/data/notification_co
 If it doesn't work as expected, make sure you:
 
 - have /usr/sbin/sendmail installed
-- have configured the html commands for your contact
+- have configured the HTML commands for your contact
 - try to run the command manually:
 
         ./lib/nagios/plugins/notify-by-email.pl \
@@ -95,7 +95,7 @@ If it doesn't work as expected, make sure you:
 
 ### Result
 
-If everything worked, you should receive notifications in html format including
-the pnp performance graphs.
+If everything worked, you should receive notifications in HTML format including
+the PNP performance graphs.
 
 ![](./notifications.png)

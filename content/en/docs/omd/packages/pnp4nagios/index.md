@@ -19,7 +19,7 @@ title: PNP4Nagios
 |OMD default:|enabled|
 |OMD URL:|/&lt;site&gt;/pnp4nagios|
 
-PNP is an addon to Nagios which analyzes performance data provided by plugins and stores them automatically into RRD-databases.
+PNP is an add-on to Nagios which analyzes performance data provided by plugins and automatically stores them in RRD databases.
 
 &#x205F;
 ### Directory Layout

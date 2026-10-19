@@ -16,7 +16,7 @@ title: check_mssql_health
 |Documentation:|https://labs.consol.de/nagios/check_mssql_health|
 |Get version:|check_mssql_health -V|
 
-check_mssql_health is a plugin, which is used to monitor different parameters of a MS SQL Server. The plugin is bundled with freetds (an open source client lib for SQL Server and Sybase) and the perl-module DBD::Sybase.
+check_mssql_health is a plugin used to monitor various parameters of an MS SQL Server. The plugin is bundled with FreeTDS (an open source client library for SQL Server and Sybase) and the Perl module DBD::Sybase.
 
 &#x205F;
 ### Directory Layout

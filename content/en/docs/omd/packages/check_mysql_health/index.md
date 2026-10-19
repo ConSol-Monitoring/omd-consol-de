@@ -16,7 +16,7 @@ title: check_mysql_health
 |Documentation:|https://labs.consol.de/nagios/check_mysql_health|
 |Get version:|check_mysql_health -V|
 
-check_mysql_health is a plugin, which is used to monitor different parameters of a MySQL Server.
+check_mysql_health is a plugin used to monitor various parameters of a MySQL Server.
 
 &#x205F;
 ### Directory Layout

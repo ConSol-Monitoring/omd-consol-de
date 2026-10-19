@@ -13,7 +13,7 @@ title: Downtime API
 |---|---|
 |OMD default:|disabled|
 
-Hosts can be put in downtime by sending a simple HTTP-GET-request. It bypasses the Thruk login page and implements it's own security mechanism. It's mainly used by shutdown scripts which automatically set a downtime.
+Hosts can be put in downtime by sending a simple HTTP-GET-request. It bypasses the Thruk login page and implements its own security mechanism. It's mainly used by shutdown scripts which automatically schedule downtime.
 
 &#x205F;
 ### Directory Layout
@@ -23,7 +23,7 @@ Hosts can be put in downtime by sending a simple HTTP-GET-request. It bypasses t
 
 ### Enabling the API
 
-The downtime API is available since version 2.40. To enable this feature, execute the following step:
+The downtime API has been available since version 2.40. To enable this feature, run the following command:
 
 omd config set DOWNTIMEAPI on
 
@@ -39,7 +39,7 @@ define host {
 Now we want to put it in downtime for an hour. This is as simple as:
 curl -k -L "https://eudc-mon-p001/bigdata/api/downtime?host=ceph-008-mun&comment=maintenance&duration=60"
 
-Of course this only works if this curl-command was executed on the host ceph-008-mun. The downtime API compares the originating IP address of the HTTP-request with the address-field of the host to be put in downtime. (Some people put a dns-resolvable hostname as address in the host definition. In this case the downtime-script tries to resolve the hostname and compares the originating IP address with the address(es) returned by the DNS server)
+Of course this only works if this curl command is executed on the host ceph-008-mun. The downtime API compares the originating IP address of the HTTP request with the address field of the host to be put in downtime. (Some people put a DNS-resolvable hostname as address in the host definition. In this case the downtime-script tries to resolve the hostname and compares the originating IP address with the address(es) returned by the DNS server)
 
 If you want to set downtimes without logging into the host in question, you can use a (secret) token.
 define host {
@@ -69,6 +69,6 @@ The known parameters are:
 
 ### Debugging
 
-If you want to know what happens behind the scenes, you can make downtime script write some trace logs into the json output simply by creating a file with
+If you want to know what happens behind the scenes, you can make the downtime script write trace logs to the JSON output simply by creating a file with
 touch $OMD_ROOT/tmp/run/downtimeapi.trace
 As long as this file exists, you will get the additional information.

@@ -3,7 +3,7 @@ title: Commands
 ---
 ## General omd commands
 
-A few omd commands work without context and can be run by any user:
+A few OMD commands work without a site context and can be run by any user:
 
 | Command                   | Example               | Description |
 | --------------------------|-----------------------| ----------- |
@@ -60,7 +60,7 @@ Daily tasks should be done by the site user with these commands:
 | omd backup <tarball>      | %> omd backup /tmp/site.tgz | Create a backup of this site. |
 
 {{% pageinfo %}}
-Bash Completion: Latest OMD-Labs comes with bash-completion, so you can tab-complete most commands and arguments.
+Bash Completion: The latest OMD-Labs release comes with bash-completion, so you can tab-complete most commands and arguments.
 {{% /pageinfo %}}
 
 

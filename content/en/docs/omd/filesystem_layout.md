@@ -5,12 +5,12 @@ linkTitle: Filesystem Layout
 
 ## Filesystem layout
 
-OMD uses a normal linux filesystem layout for etc, lib, var... except everything is relative to the sites home folder.
+OMD uses a standard Linux filesystem layout for etc, lib, var and other directories, with everything relative to the site's home folder.
 
 ## Philosophy
 
- - follow linux filesystem layout relative to site home
- - do only change files/folders which are owned by the site user
+ - follow the Linux filesystem layout relative to the site's home folder
+ - only change files/folders owned by the site user
 
 ## Global directory layout
 
@@ -28,13 +28,13 @@ OMD uses a normal linux filesystem layout for etc, lib, var... except everything
         └── default -> /etc/alternatives/omd
 ```
 
-Global directories are created automatically and must to be changed. New sites
-folders are created on `omd create` command. New versions are installed by the
+Global directories are created automatically and must to be changed. New site
+folders are created by the `omd create` command. New versions are installed by the
 package manager of your system.
-The apache folder contains the reverse proxy configuration for the system apache.
+The apache folder contains the reverse proxy configuration for the system Apache server.
 
-It is possible to install and use multiple OMD version side by side. It is
-also possible to upgrade legacy OMD installation to OMD-Labs with the `omd update`
+It is possible to install and use multiple OMD versions side by side. It is
+also possible to upgrade a legacy OMD installation to OMD-Labs with the `omd update`
 command.
 
 
@@ -45,8 +45,8 @@ Keep a few things in mind:
  - Usually you should work with the site user only.
  - Everything not writable by the site user should not be changed manually.
  - The folders which are just symbolic links to the version directory (bin,lib,share,include) should not be changed.
- - The version symlink should not be changed manually, change the version with `omd update`.
- - Apply changes in the ./etc folder or by `omd config`.
+ - The version symlink should not be changed manually; change the version with `omd update`.
+ - Apply changes in the ./etc folder or with `omd config`.
 
 ```
     /omd/sites/example
@@ -77,7 +77,7 @@ Keep a few things in mind:
 
 ## Check plugins
 
-OMD makes it very easy to separate your own written or downloaded plugins from
-the standard plugins kit. The standard plugins are located in `./lib/monitoring-plugins`
-which can be accessed by the $USER1$ macro in nagios. Your own plugins should stay
+OMD makes it very easy to separate plugins you have written or downloaded from
+the standard plugin collection. The standard plugins are located in `./lib/monitoring-plugins`
+which can be accessed by the $USER1$ macro in Nagios. Your own plugins should stay
 in `./local/lib/monitoring-plugins` with the macro $USER2$.

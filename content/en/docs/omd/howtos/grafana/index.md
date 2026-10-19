@@ -5,7 +5,7 @@ hidden: true
 
 ## Grafana Graphing
 
-To enable Nagflux/Histou/Grafana performance graphs instead of PNP4nagios, execute the following steps:
+To enable Nagflux/Histou/Grafana performance graphs instead of PNP4Nagios, execute the following steps:
 
 ``` bash
 omd config set PNP4NAGIOS off
@@ -14,14 +14,14 @@ omd config set INFLUXDB on
 omd config set NAGFLUX on
 ```
 
-When using icinga 2 as core, you have to enable the performance write by
+When using Icinga 2 as the core, you have to enable performance data writing with:
 
 ``` bash
 icinga2 feature enable perfdata
 ```
 
 Afterwards change the template imports from `host-pnp` or `srv-pnp` to `host-perf` or `srv-perf` for your configuration to use the correct `action_url`.
-Or change the urls in the `host-pnp` and `srv-pnp` template, Whatever is easier in your case. For example:
+Or change the URLs in the `host-pnp` and `srv-pnp` templates, whichever is easier in your case. For example:
 ``` text
 define service {
 # OLD
@@ -36,7 +36,7 @@ use srv-perf,...
 
 ### PNP4Nagios RRD Export
 
-It is possible to import the existing RRD data into the influxdb by running the following script:
+It is possible to import the existing RRD data into InfluxDB by running the following script:
 
 ``` bash
 ~/bin/migrate_pnp_to_nagflux
@@ -52,20 +52,20 @@ for evaluation purposes. This is best achieved by using the Mod-Gearman module t
 performance data.
 
 If you use Mod-Gearman already, just add another `perdata=grafana_data` entry in the
-neb module configuration `etc/mod-gearman/server.cfg`.
+NEB module configuration `etc/mod-gearman/server.cfg`.
 
 If you don't use Mod-Gearman yet, switch it on using `omd config` and set `services=no`
-and `hosts=no` in the neb module configuration `etc/mod-gearman/server.cfg`.
+and `hosts=no` in the NEB module configuration `etc/mod-gearman/server.cfg`.
 
-Then set pnp into gearman mode with:
+Then set PNP to Gearman mode with:
 
 ``` bash
 omd config set PNP4NAGIOS gearman
 ```
 
 and set `Enabled = true` in the `ModGearman` section of `etc/nagflux/config.gcfg`.
-Also change the Queue to `grafana_data`.
+Also change the queue to `grafana_data`.
 
-Note you have to choose a primary graphing solution in thruk by using the right action_url in
+Note you have to choose a primary graphing solution in Thruk by using the right action_url in
 your hosts / services. You can only use one here, either PNP or Grafana. However, you can
-choose that freely for each host and service separatly.
+choose that freely for each host and service separately.

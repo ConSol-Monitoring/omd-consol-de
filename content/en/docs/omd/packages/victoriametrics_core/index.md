@@ -19,7 +19,7 @@ title: Victoriametrics
 |OMD default:|disabled|
 |OMD URL:|/&lt;site&gt;/victoriametrics|
 
-VictoriaMetrics is a fast and scalable open source time series database and monitoring solution that lets users build a monitoring platform without scalability issues and minimal operational burden.
+VictoriaMetrics is a fast and scalable open source time series database and monitoring solution that lets users build a monitoring platform without scalability issues and with minimal operational burden.
 
 &#x205F;
 ### Directory Layout

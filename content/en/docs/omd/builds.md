@@ -4,7 +4,7 @@ title: Daily Builds
 
 ## Builds
 
-OMD-Labs packages are build every night (middle european time) if there was a commit in the last 24 hours.
+OMD-Labs packages are built every night (Central European time) if there was a commit in the last 24 hours.
 
 ## Build Status
 

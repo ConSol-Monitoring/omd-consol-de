@@ -16,7 +16,7 @@ title: check_logfiles
 |Documentation:|https://labs.consol.de/nagios/check_logfiles|
 |Get version:|check_logfiles -V|
 
-check_logfiles is a Plugin for Nagios which scans log files for specific patterns. It is able to detect log rotation and leaves no lines unread.
+check_logfiles is a plugin for Nagios which scans log files for specific patterns. It is able to detect log rotation and leaves no lines unread.
 
 &#x205F;
 ### Directory Layout

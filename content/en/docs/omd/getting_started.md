@@ -4,8 +4,8 @@ title: Getting Started
 
 ## Welcome to OMD
 
-OMD-Labs is a single RPM or DEB package to create a monitoring setup easily. It ships all components required.
-This guide uses Centos 7, but it works the same way on all other supported systems.
+OMD-Labs is a single RPM or DEB package to create a monitoring setup easily. It includes all required components.
+This guide uses CentOS 7, but it works the same way on all other supported systems.
 
 ## Installation
 
@@ -17,7 +17,7 @@ Install the `consol labs` repository if not already present.
 
     #> rpm -Uvh "https://labs.consol.de/repo/stable/rhel7/i386/labs-consol-stable.rhel7.noarch.rpm"
 
-Then continue to install the omd rpm.
+Then install the OMD RPM.
 
     #> yum install omd
 
@@ -27,30 +27,30 @@ You can install multiple OMD versions at the same time. You can search for other
 
 ## Create a new Site
 
-OMD uses a site concept which allows you to create multiple sites even with different OMD version on the same machine.
+OMD uses a site concept which allows you to create multiple sites even with different OMD versions on the same machine.
 
-Create a first site by
+Create your first site with:
 
     #> omd create demosite
 
 This creates a new site named `demosite` which includes a separate user and
-group. Remember or note the initial password. It will be required to access the
+group. Remember or write down the initial password. It will be required to access the
 webpage.
 
 {{% pageinfo %}}
-Usually you work as site user. Root permissions are only required for creating or removing sites.
+Usually you work as the site user. Root permissions are only required for creating or removing sites.
 {{% /pageinfo %}}
 
-Change into the site user
+Switch to the site user:
 
     #> su - demosite
 
 
 ## First steps
 
-All commands are executed as site user.
+All commands are executed as the site user.
 
-Show status of all components:
+Show the status of all components:
 
     OMD[demosite@host]:~$ omd status
 
@@ -62,7 +62,7 @@ You should be able to access your new site with the URL `/demosite`, e.g. https:
 
 ## Continue Reading
 
-OMD uses a normal linux filesystem layout for etc, lib, var... except everything is relative to the sites home folder.
+OMD uses a standard Linux filesystem layout for etc, lib, var and other directories, with everything relative to the site's home folder.
 Read more in the [filesystem layout documentation](../filesystem_layout).
 
 OMD offers a few commands to create and operate your sites.

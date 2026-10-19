@@ -44,5 +44,5 @@ Read more on Nagflux/Histou/Grafana performance graphing on the [graphing page](
 
 ### Selfmonitoring
 
-OMD ships a influxdb nagios plugin in `lib/nagios/plugins/check_influxdb.pl` which can
-be used to setup a selfmonitoring and graphing for the influxdb itself.
+OMD ships an InfluxDB Nagios plugin in `lib/nagios/plugins/check_influxdb.pl` which can
+be used to set up monitoring and graphing for InfluxDB itself.

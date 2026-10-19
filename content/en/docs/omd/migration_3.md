@@ -17,7 +17,7 @@ A few components have been removed:
 
 Nagios 3 and Icinga 1 will be automatically migrated to Naemon. Configuration should mostly be compatible.
 
-If you made manual changes to your `etc/nagios/nagios.cfg` or below `etc/nagios/nagios.d` then you have
+If you made manual changes to your `etc/nagios/nagios.cfg` or below `etc/nagios/nagios.d` then you have to
 manually port those changes to Naemon.
 
 ## Monitoring-Plugins
@@ -28,12 +28,12 @@ Local plugins go into `local/lib/monitoring-plugins` and there is also a symlink
 
 ## Nagios Logos
 
-The logos location has been changed from `share/nagios/htdocs/images/logos/` to `share/logos/`. There will be a symbolic link from the old location.
+The location of the logos has been changed from `share/nagios/htdocs/images/logos/` to `share/logos/`. There will be a symbolic link from the old location.
 
-Same applies to the local folder which has been moved from `local/share/nagios/htdocs/images/logos/` to `local/share/logos/`.
+The same applies to the local folder which has been moved from `local/share/nagios/htdocs/images/logos/` to `local/share/logos/`.
 
 ## Ansible
 
-OMD-Labs 3.x comes with a new Ansible version 2.7 which might break existing playbooks. Previous version was 2.3.
+OMD-Labs 3.x comes with a new Ansible version 2.7 which might break existing playbooks. The previous version was 2.3.
 
 There is a porting guide available on [ansible.com](https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html).

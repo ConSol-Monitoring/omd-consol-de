@@ -16,7 +16,7 @@ title: coshsh
 |Changelog:|https://github.com/lausser/coshsh/blob/master/Changelog|
 |OMD default:|enabled|
 
-Coshsh is a configuration file generator for monitoring systems. It can read from any kind of cmdb and transform the CIs into host and service descriptions.
+Coshsh is a configuration file generator for monitoring systems. It can read from any kind of CMDB and transform the CIs into host and service descriptions.
 
 &#x205F;
 ### Directory Layout

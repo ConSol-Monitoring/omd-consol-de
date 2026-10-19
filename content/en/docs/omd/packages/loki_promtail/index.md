@@ -19,7 +19,7 @@ title: Promtail
 |OMD default:|disabled|
 
 Promtail is an agent which ships the contents of local logs to a private Grafana Loki instance. It is usually deployed to every machine that runs applications which need to be monitored.
-OMD shipps with scrape configs for Apache, mod-gearman, Grafana, InfluxDB, Livestatus, Loki, Naemon, OMD and Thruk Logfiles.
+OMD ships with scrape configs for Apache, mod-gearman, Grafana, InfluxDB, Livestatus, Loki, Naemon, OMD and Thruk log files.
 
 &#x205F;
 ### Directory Layout

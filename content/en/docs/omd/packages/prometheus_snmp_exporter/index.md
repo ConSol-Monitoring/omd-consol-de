@@ -15,7 +15,7 @@ title: Prometheus SNMP Exporter
 |OMD default:|disabled|
 |OMD URL:|no WUI available|
 
-This is an exporter that exposes information gathered from SNMP for use by the Prometheus monitoring system. There are two components. An exporter that does the actual scraping, and a generator (which depends on NetSNMP) that creates the configuration for use by the exporter.
+This is an exporter that exposes information gathered from SNMP for use by the Prometheus monitoring system. There are two components: an exporter that does the actual scraping, and a generator (which depends on NetSNMP) that creates the configuration for use by the exporter.
 
 &#x205F;
 ### Directory Layout
@@ -37,4 +37,4 @@ This is an exporter that exposes information gathered from SNMP for use by the P
 
 ### Generate exporter configuration
 
-Further informations are available at [our howto section](../../howtos/prometheus_snmp_exporter/ "snmp_exporter howto")
+Further information is available in [our howto section](../../howtos/prometheus_snmp_exporter/ "snmp_exporter howto")

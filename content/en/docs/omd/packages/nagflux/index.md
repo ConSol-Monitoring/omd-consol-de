@@ -11,7 +11,7 @@ title: Nagflux
 |Documentation:|https://github.com/ConSol-Monitoring/nagflux/|
 |OMD default:|disabled|
 
-Nagflux writes perfromance data from Nagios/Icinga to InfluxDB for visualizing using Histou and Grafana.
+Nagflux writes performance data from Nagios/Icinga to InfluxDB for visualization using Histou and Grafana.
 
 &#x205F;
 ### Directory Layout

@@ -5,11 +5,11 @@ title: Differences to OMD
 ## Differences to OMD
 
 OMD-Labs contains several new software components compared to the official OMD package.
-Also some default settings have changed.
+Some default settings have also changed.
 
 ## Additional Software Components
 
-Right now, OMD-Labs only adds new software components and does not remove any which makes OMD-Labs perfectly backwards compatible and you can just switch between versions via `omd update`.
+Right now, OMD-Labs only adds new software components and does not remove any. This makes OMD-Labs fully backwards compatible, so you can switch between versions via `omd update`.
 
 ### New Monitoring Cores
 
@@ -18,19 +18,19 @@ Besides the stable Nagios 3, OMD-Labs contains two new extra cores:
 - Naemon
 - Icinga2
 
-While Naemon is fully compatible to Nagios 3 config format, Icinga 2 uses a complete new config file format.
+While Naemon is fully compatible with the Nagios 3 configuration format, Icinga 2 uses a completely new configuration file format.
 
 ### Grafana/Influxdb Graphing
 
-Next to PNP4Nagios OMD comes with Grafana graphs based on a Influxdb. In order to create template based graphs, there is [histou](../packages/histou/) included. The interface between the monitoring core and the influxdb is implemented in the [nagflux](../packages/nagflux/) component. Read more on the [graphing page](../howtos/grafana/).
+In addition to PNP4Nagios, OMD comes with Grafana graphs based on InfluxDB. To create graphs from templates, [histou](../packages/histou/) is included. The interface between the monitoring core and InfluxDB is implemented in the [nagflux](../packages/nagflux/) component. Read more on the [graphing page](../howtos/grafana/).
 
 ### Prometheus Subsystem
 
-Next to the traditional monitoring, OMD-Labs ships with prometheus including alert manager, pushgateway and a blackbox exporter.
+In addition to traditional monitoring, OMD-Labs ships with Prometheus, including Alertmanager, Pushgateway and a blackbox exporter.
 
 ### LMD - Livestatus Multitool Daemon
 
-LMD makes thruk way faster when using a lot of backends/sites or if the remote sites have a bad connection. Read more on the [lmd page](../packages/lmd/).
+LMD makes Thruk much faster when using many backends/sites or when remote sites have a poor connection. Read more on the [lmd page](../packages/lmd/).
 
 ### New Check Plugins
 
@@ -42,7 +42,7 @@ OMD-Labs changes some default settings to get the most out of OMD. If you upgrad
 
 ### Naemon Core
 
-Naemon replaces Nagios as default core in OMD-Labs.
+Naemon replaces Nagios as the default core in OMD-Labs.
 
 To revert to the original setting, run:
 
@@ -52,7 +52,7 @@ To revert to the original setting, run:
 
 ### Apache SSL/TLS Mode
 
-OMD-Labs comes with enabled SSL/TLS Apache by default.
+OMD-Labs comes with SSL/TLS enabled for Apache by default.
 
 To revert to the original setting, run:
 
@@ -60,7 +60,7 @@ To revert to the original setting, run:
 
 ### Thruk as Default Web UI
 
-Thruk is the default web ui in OMD-Labs.
+Thruk is the default web UI in OMD-Labs.
 
 To revert to the original setting, run:
 

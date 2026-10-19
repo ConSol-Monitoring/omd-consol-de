@@ -19,7 +19,7 @@ title: DokuWiki
 |OMD default:|enabled|
 |OMD URL:|/&lt;site&gt;/wiki|
 
-DokuWiki is a simple to use and highly versatile Open Source wiki software that doesn't require a database.
+DokuWiki is easy to use and highly versatile open source wiki software that doesn't require a database.
 
 &#x205F;
 ### Directory Layout
@@ -39,12 +39,12 @@ DokuWiki is a simple to use and highly versatile Open Source wiki software that 
 | DOKUWIKI_AUTH | on <br> **off** | Change userauth from default (Nagios) htpasswd to managed by DokuWiki WUI |
 
 ### Dokuwiki Plugins
-Starting of the 2015-10-13 snapshot, it is possible to install own plugins
-within the dokuwiki installation of OMD. Those plugins which are shipped
+Starting with the 2015-10-13 snapshot, it is possible to install your own plugins
+within the DokuWiki installation of OMD. Those plugins which are shipped
 with OMD are symlinked into the plugin folder. Manually installed plugins
-get directly installed into that folder. Shipped plugins are updated
-automatically with each OMD release. Manual plugins have to be updated
-within the plugin manager of dokuwiki.
+are installed directly into that folder. Shipped plugins are updated
+automatically with each OMD release. Manually installed plugins have to be updated
+within the DokuWiki plugin manager.
 
 ### Changing Dokuwiki Logo
 

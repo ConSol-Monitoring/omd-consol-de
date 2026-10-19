@@ -16,7 +16,7 @@ title: LMD - Livestatus Multitool Daemon
 |Documentation:|https://github.com/sni/lmd/|
 |Get version:|lmd -version|
 
-LMD fetches Livestatus data from one or multiple Livestatus sources and provides itself an aggregated Livestatus API. This makes the Thruk Gui faster, especcially when having many (remote) backends, because LMD caches the data locally and can directly respond to all Livestatus queries.
+LMD fetches Livestatus data from one or multiple Livestatus sources and provides an aggregated Livestatus API. This makes the Thruk GUI faster, especially when using many (remote) backends, because LMD caches the data locally and can directly respond to all Livestatus queries.
 
 &#x205F;
 ### Directory Layout
@@ -33,7 +33,7 @@ LMD fetches Livestatus data from one or multiple Livestatus sources and provides
 
 2. Restart Thruk via `omd restart apache`
 
-3. check with `ps` or `omd status lmd` if there is a lmd process running (You may have to open Thruk in your browser first).
+3. Use `ps` or `omd status lmd` to check whether an LMD process is running (you may have to open Thruk in your browser first).
 
 <p class="hint">
 Backends are configured automatically by Thruk. You don't have to put them in the lmd.ini. It simply works out of the box.

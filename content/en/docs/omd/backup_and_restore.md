@@ -4,8 +4,8 @@ title: Backup / Restore
 
 ## Backup
 
-Backups are quite handy in various situations. The more obvious one is a crash
-for example. But it might also be useful for migrations from an old platform
+Backups are useful in various situations, such as recovering from a crash
+or migrating from an old platform
 to a new one.
 
 ### With OMD
@@ -17,18 +17,18 @@ Creating a backup is as simple as running:
 ```
 
 This command creates a tarball containing the site itself along with some
-meta information which is required to restore this backup even into a different
+metadata required to restore this backup, even to a different
 OMD version.
 
-Meta information have been added in OMD-Labs versions 2.40 or later. If you want
+Metadata was added in OMD-Labs version 2.40. If you want
 to create a complete backup with an older release, read the next section on
 how to create a backup manually.
 
 ### Manually
 
-You can also create a backup manually. The backup format has been changed with
+You can also create a backup manually. The backup format changed in
 OMD-Labs 2.40, so if you want to create a backup for an older release, you can
-use the following command as site user:
+use the following command as the site user:
 
 ```
     OMD[example]:~$ cd /omd/sites/ && \
@@ -39,11 +39,11 @@ use the following command as site user:
                         $OMD_SITE
 ```
 
-You can restore such backup with any OMD-Labs starting with version 2.40.
+You can restore such a backup with any OMD-Labs release starting with version 2.40.
 
 ### Git
 
-Just a side note, but it is a good idea to put all configuration informations
+Just a side note, but it is a good idea to put all configuration information
 and user-developed plugins into version control. OMD-Labs is prepared for Git.
 So you can just run
 
@@ -53,14 +53,14 @@ So you can just run
     OMD[example]:~$ git commit -v -m 'initial commit'
 ```
 
-to put all files into git version control. There is a `.gitignore` file in the
-site which excludes all databases, logfile or rrd files.
+to put all files under Git version control. There is a `.gitignore` file in the
+site which excludes all databases, log files and RRD files.
 
 
 ## Restore
 
-A backup without being able to restore it is useless, so always test and try to
-recover from a backup (ex. on a fresh test virtual machine).
+A backup is useless if it cannot be restored, so always test
+restoring it (e.g. on a fresh test virtual machine).
 
 There are basically two variants:
 
@@ -72,23 +72,23 @@ There are basically two variants:
 
 Restoring a backup onto a new machine requires you to install OMD-Labs on the
 new machine. It's a good choice to install the same OMD version which the backed up
-site had, but thats not a strict requirement. At least not for backups created with
+site had, but that's not a strict requirement for backups created with
 OMD 2.40 and later.
 
-The restore can be started as root user with this command.
+The restore can be started as the root user with this command.
 
 ```
     #> omd restore /tmp/site_test_backup.tgz
 ```
 
-If the old omd version is not installed on the new machine, the restore will
-automatically do an update of the site to the currently installed omd.
+If the old OMD version is not installed on the new machine, the restore will
+automatically update the site to the currently installed OMD version.
 
 ### Restoring backup into existing site
 
-A restore into a existing site deletes all files in this site and replaces
-them from the backup. The command is the same as for new machines, except
-start the restore from within the site itself.
+Restoring into an existing site deletes all files in this site and replaces
+them with files from the backup. The command is the same as for new machines, but
+you start the restore from within the site itself.
 
 ```
     OMD[example]:~$ omd restore /tmp/site_test_backup.tgz
@@ -96,10 +96,10 @@ start the restore from within the site itself.
 
 ## Platform Migration and OS-Upgrades
 
-A special case are os upgrades and platform migrations, for example from centos 6
-to centos 7. Or even from ex. centos 6 to debian. If you just sync the site over
-to the new machine, config files will still point to centos 6 locations. So it
-is better to do a `omd backup` on the old machine and a `omd restore` on the
+OS upgrades and platform migrations are special cases, for example from CentOS 6
+to CentOS 7, or even from CentOS 6 to Debian. If you just sync the site over
+to the new machine, config files will still point to CentOS 6 locations. So it
+is better to run `omd backup` on the old machine and `omd restore` on the
 new machine. This will not only restore the old site, but will also `update`
-all config files to match the new platform. If its an older OMD release, create
-the backup manually like described earlier.
+all config files to match the new platform. If it is an older OMD release, create
+the backup manually as described earlier.

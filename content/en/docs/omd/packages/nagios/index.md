@@ -19,7 +19,7 @@ title: Nagios
 |OMD default:|enabled|
 |OMD URL:|/&lt;site&gt;/nagios|
 
-Nagios, an open-source software application, monitors systems, networks and infrastructure. Nagios offers monitoring and alerting services for servers, switches, applications and services. It alerts users when things go wrong and alerts them a second time when a the problem has been resolved.
+Nagios, an open-source software application, monitors systems, networks and infrastructure. Nagios offers monitoring and alerting services for servers, switches, applications and services. It alerts users when things go wrong and alerts them a second time when the problem has been resolved.
 
 &#x205F;
 ### Directory Layout

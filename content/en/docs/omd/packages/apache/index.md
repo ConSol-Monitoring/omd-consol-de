@@ -43,18 +43,18 @@ The Apache HTTP Server, colloquially called Apache (/əˈpætʃiː/ ə-PA-chee),
 
 ### HTTPS / SSL / TLS
 
-Since OMD-Labs version 2.12 build-in SSL support is possible and enabled by
+Since OMD-Labs version 2.12, built-in SSL support is available and enabled by
 default for new sites. Existing sites can be upgraded with
 
     omd config set APACHE_MODE ssl
 
-The system- and site- apache will then use a self-signed certificate. While this
-isn't an issue for the site apache, you probably want to replace the systems
-apache certificate with a trusted certificate which matches the hostname of the
+The system and site Apache servers will then use a self-signed certificate. While this
+isn't an issue for the site Apache server, you probably want to replace the system
+Apache server's certificate with a trusted certificate which matches the hostname of the
 OMD host.
 
-Depending on your system you have to replace the the path to your certificates
-in following files:
+Depending on your system you have to replace the path to your certificates
+in the following files:
 
 #### Centos / Red Hat
 

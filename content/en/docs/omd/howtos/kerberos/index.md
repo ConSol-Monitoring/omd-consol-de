@@ -10,11 +10,11 @@ hidden: true
 This document is a working example describing the SSO configuration for the following setup:
 
  - Active Directory with 2 domains
- - the DNS names are different from AD domain name
+ - the DNS names differ from the AD domain name
  - Thruk
- - apache module mod_auth_kerb and Kerberos itself are from the OS distribution
+ - Apache module mod_auth_kerb and Kerberos itself are from the OS distribution
 
-The idea presented here is to have a single SSO master site where the Kerberos configuration and keytab are maintained. These are owned by the OMD group, which is common for all sites and thus all the other sites are then able to switch to kerberos or back independently if needed. The keytab must be updated in case AD password changes. As the keytab represents the Kerberos identity of the server, it is strongly recommended to have a dedicated AD account, which have the most minimal permissions only.
+The idea presented here is to have a single SSO master site where the Kerberos configuration and keytab are maintained. These are owned by the OMD group, which is common for all sites and thus all the other sites are then able to switch to Kerberos or back independently if needed. The keytab must be updated when the AD password changes. As the keytab represents the Kerberos identity of the server, it is strongly recommended to have a dedicated AD account with only the minimum necessary permissions.
 
 ### Environment
 
@@ -50,7 +50,7 @@ setspn -s HTTP/linuxsrv1.intra.company ADEMEA\service_omd
 
 ### OMD host
 
-Install the apache module apache2-mod_auth_kerb on the Thruk host. There might be further packages needed as dependencies.
+Install the Apache module apache2-mod_auth_kerb on the Thruk host. Additional packages may be needed as dependencies.
 
 ### OMD SSO Site (site00)
 
@@ -59,21 +59,21 @@ Create a new OMD site where the keytab will be stored for all the sites on the h
 omd create site00
 ```
 
-Save your ssh public key into ~/.ssh/authorized_keys on the site. The SSH login with keys is needed as the OMD site users have no password.
+Save your SSH public key into ~/.ssh/authorized_keys on the site. SSH login with keys is needed as the OMD site users have no password.
 
-Create the directory ~/etc/krb/ in the site where keytab and krb5.conf will be stored
+Create the directory ~/etc/krb/ in the site where the keytab and krb5.conf will be stored
 ```
 mkdir ~/etc/krb
 ```
 
 Create the krb5.conf file under ~/etc/krb/. The example content is given below.
 
-Set the environment variable KRB5_CONFIG at the bottom in the .profile pointing to the krb5.conf:
+Set the environment variable KRB5_CONFIG at the bottom of .profile pointing to the krb5.conf:
 ```
 export KRB5_CONFIG=/opt/omd/sites/site00/etc/krb/krb5.conf
 ```
 
-Logout, login again as the site user per SSH and check that KRB5_CONFIG is set
+Log out, log in again as the site user via SSH and check that KRB5_CONFIG is set
 ```
 env | grep KRB5_CONFIG
 ```
@@ -103,24 +103,24 @@ chgrp –R omd /opt/omd/sites/site00/etc/krb
 chmod –R 640 /opt/omd/sites/site00/etc/krb
 ```
 
-Set Thruks cookie authentication in sso-mode. This will verify existing cookies or api keys, but pass through kerberos
+Set Thruk's cookie authentication to SSO mode. This will verify existing cookies or API keys, but pass through Kerberos
 authenticated users.
 ```
 omd config set THRUK_COOKIE_AUTH sso-support
 ```
 
-Note: with OMD 2.x or Apache 2.2 you have to disable Thruks cookie authentication completely.
+Note: with OMD 2.x or Apache 2.2 you have to disable Thruk's cookie authentication completely.
 
-Comment out the basic authentication und insert Kerberos configuration in `~/etc/apache/conf.d/auth.conf`. The example content is given below.
+Comment out the basic authentication and insert Kerberos configuration in `~/etc/apache/conf.d/auth.conf`. The example content is given below.
 
-Start or restart OMD site and open it in the browser via alias name
+Start or restart the OMD site and open it in the browser using its alias name
 
 - https://thruk/site00/
 - https://thruk.intra.company/site00/
 
 ### OMD other sites
 
-After the SSO master site is ready,  each site on the host which needs SSO can be configured in three simple steps:
+After the SSO master site is ready, each site on the host which needs SSO can be configured in three simple steps:
 - KRB5_CONFIG entry in .profile pointing to the krb5.conf in the SSO site
 ```
 export KRB5_CONFIG=/opt/omd/sites/site00/etc/krb/krb5.conf
@@ -161,11 +161,11 @@ intra.company = EMEA.COMPANY.COM
 ```
 
 Notes:
-- all the regex transformations, even those for further domains must all be en-tered inside the entry for the first realm
-- the entry “auth_to_local = DEFAULT” is sufficient and the usernames will ap-pear as “USER@EMEA.COMPANY.COM” or “US-ER2@APAC.COMPANY.COM”
-- with the regex chains s/A..Z/a…z/g the user names will be transformed to low-er case, i.e. USER=>user
-  The same can be achieved in the Thruk via setting one of the options `make_auth_user_uppercase/ make_auth_user_lowercase` to 1 in `~/etc/thruk/thruk.conf`
-- the last regex (s/@.*/@APAC/) augments the user name with the string and thus allows to distinguish users based on realm
+- all regex transformations, including those for additional domains, must be entered in the entry for the first realm
+- the entry “auth_to_local = DEFAULT” is sufficient and the usernames will appear as “USER@EMEA.COMPANY.COM” or “US-ER2@APAC.COMPANY.COM”
+- with the regex chains s/A..Z/a…z/g the user names will be transformed to lowercase, i.e. USER=>user
+  The same can be achieved in Thruk by setting one of the options `make_auth_user_uppercase/ make_auth_user_lowercase` to 1 in `~/etc/thruk/thruk.conf`
+- the last regex (s/@.*/@APAC/) augments the user name with the string and thus allows users to be distinguished by realm
 
 ### Example auth.conf
 
@@ -205,4 +205,4 @@ LimitRequestFieldSize 16384
 ```
 
 Notes:
- - the path to mod_auth_kerb.so may vary depending on the linux distribution used
+ - the path to mod_auth_kerb.so may vary depending on the Linux distribution used
