@@ -136,6 +136,10 @@ make docker target=citest
 
 Go to [GitHub](https://github.com/ConSol-Monitoring/check_snclient), clone and build.
 
+## Changelog
+
+You can find the changelog [here](https://github.com/ConSol-Monitoring/check_snclient/blob/master/Changes).
+
 ## Copyright
 
 check_snclient is released under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html).
