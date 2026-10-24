@@ -6,33 +6,33 @@ title: Migration to 5.x
 
 There are no known issues when migrating to OMD-Labs 5.x.
 
-This guide covers the changes from OMD-Labs 4.x to 5.70, using 4.60 as the
+This guide covers the changes from OMD-Labs 4.x to 5.80, using 4.60 as the
 last 4.x release for comparison. It summarizes component upgrades and changes
 that may affect existing sites.
 
 ## Major Version Changes
 
-| Component | OMD 4.60 | OMD 5.70 |
+| Component | OMD 4.60 | OMD 5.80 |
 | --- | --- | --- |
-| Thruk | 2.48.3 | 3.28 |
-| Grafana | 7.5.13 | 12.4.3 |
+| Thruk | 2.48.3 | 3.30 |
+| Grafana | 7.5.13 | 13.2.4 |
 | Loki | 1.6.1 | 3.6.7 |
-| Prometheus | 2.32.1 | 3.5.2 |
-| Mod-Gearman module | 4.0.2 | 5.2.3 |
+| Prometheus | 2.32.1 | 3.13.3 |
+| Mod-Gearman module | 4.0.2 | 5.2.6 |
 
 Loki 1.6.1 was introduced in OMD 4.00; no later Loki update is listed in the
 4.x changelog.
 
 ### Thruk 2 to 3
 
-OMD 5.00 introduced Thruk 3.00. OMD 5.70 includes Thruk 3.28.
+OMD 5.00 introduced Thruk 3.00. OMD 5.80 includes Thruk 3.30.
 
 See [What's new in Thruk 3](https://thruk.org/whatsnew/v3.00.html) for more information.
 
-### Grafana 7 to 12
+### Grafana 7 to 13
 
-OMD 5.00 introduced Grafana 9.2.4. Later 5.x releases moved to Grafana 10 and 11,
-and OMD 5.70 includes Grafana 12.4.3. An upgrade from OMD 4.x therefore spans
+OMD 5.00 introduced Grafana 9.2.4. Later 5.x releases moved to Grafana 10, 11 and 12,
+and OMD 5.80 includes Grafana 13.2.4. An upgrade from OMD 4.x therefore spans
 several Grafana major versions.
 
 See [What's new in Grafana 9](https://grafana.com/docs/grafana/v9.0/whatsnew/) for more information.
@@ -40,23 +40,24 @@ See [What's new in Grafana 9](https://grafana.com/docs/grafana/v9.0/whatsnew/) f
 ### Loki 1 to 3
 
 OMD 5.00 introduced Loki 2.7.0, and OMD 5.50 introduced Loki 3.3.1.
-OMD 5.70 includes Loki 3.6.7.
+OMD 5.80 includes Loki 3.6.7.
 
 ### Prometheus 2 to 3
 
-OMD 5.70 includes Prometheus 3.5.2, following Prometheus 2.x in earlier releases.
+OMD 5.70 introduced Prometheus 3.5.2, following Prometheus 2.x in earlier
+releases. OMD 5.80 includes Prometheus 3.13.3.
 The Prometheus console assets (CSS, JavaScript and templates) were removed
 upstream. As a result, the SNMP console was also removed from OMD 5.70.
 
 ### Mod-Gearman 4 to 5
 
 OMD 5.10 introduced Mod-Gearman 5.0.2 and stopped installing the C worker.
-OMD 5.70 includes the Mod-Gearman module 5.2.3 and the Go worker 1.7.0.
+OMD 5.80 includes the Mod-Gearman module 5.2.6 and the Go worker 1.7.3.
 
-### Coshsh 11
+### Coshsh 13
 
 The 5.x series also includes major Coshsh upgrades: OMD 5.40 shipped 10.2.1.3,
-while OMD 5.70 ships 11.1.0.1.
+while OMD 5.80 ships 13.1.
 
 ## Migration Changes
 
@@ -73,6 +74,7 @@ while OMD 5.70 ships 11.1.0.1.
   dependency on Ansible.
 - **Icinga 2:** OMD 5.70 disabled the deprecated check result writer.
 - **Sakuli:** OMD 5.70 removed the Sakuli helper files.
+- **Jolokia:** OMD 5.80 removed the bundled Jolokia agents.
 
 ## Platform Support
 
