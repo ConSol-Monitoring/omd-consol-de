@@ -1,7 +1,6 @@
 ---
 date: 2023-07-28T00:00:00.000Z
 title: "Replacing check_http by check_curl - Lessons Learned"
-linkTitle: "check_http_curl"
 author: Gerhard Lausser
 tags:
   - naemon

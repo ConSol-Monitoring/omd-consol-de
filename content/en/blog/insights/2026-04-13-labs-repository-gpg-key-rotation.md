@@ -3,7 +3,6 @@ draft: false
 date: 2026-04-13T00:00:00.000Z
 title: "Labs Repository GPG Key Rotation (2026)"
 slug: labs-repository-gpg-key-rotation
-linkTitle: "Labs Repository GPG Key Rotation (2026)"
 author: Sven Nierlein
 tags:
   - repository

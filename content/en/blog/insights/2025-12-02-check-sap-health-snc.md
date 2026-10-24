@@ -2,7 +2,6 @@
 draft: false
 date: 2025-12-02T10:31:49.000Z
 title: "Using check_sap_health with SNC"
-linkTitle: "check-sap-health-snc"
 author: Gerhard Lausser
 tags:
   - SAP
