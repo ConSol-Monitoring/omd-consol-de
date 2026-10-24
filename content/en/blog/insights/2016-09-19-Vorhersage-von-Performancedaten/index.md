@@ -3,7 +3,7 @@ author: Philip Griesbacher
 date: '2016-09-19T00:00:00+00:00'
 featured_image: icon.PNG
 tags:
-- Vorhersage
+- forecasting
 title: Vorhersage von Performancedaten
 ---
 

@@ -18,7 +18,7 @@ tags:
 - "cyberdetection"
 - "cyberprevention"
 - "cyberattack"
-- "München"
+- "Munich"
 - "Consulting"
 title: Security guide for Amazon Kubernetes Cluster (AWS EKS)
 ---
