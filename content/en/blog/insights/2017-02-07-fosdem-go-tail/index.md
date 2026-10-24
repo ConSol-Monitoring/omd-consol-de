@@ -4,7 +4,9 @@ date: '2017-02-07T00:00:00+00:00'
 featured_image: gopher.png
 tags:
 - golang
-title: FOSDEM Video&#58; Implementing 'tail -f'
+title: "FOSDEM Video: Implementing 'tail -f'"
+# Preserve the published URL when correcting the title.
+slug: "fosdem-video#58-implementing-tail-f"
 ---
 
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="gopher.png" alt=""></div>

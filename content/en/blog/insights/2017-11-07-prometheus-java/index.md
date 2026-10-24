@@ -4,8 +4,9 @@ date: '2017-11-07T00:00:00+00:00'
 featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
-title: Devoxx Video&#58; Prometheus Monitoring for Java Web Applications w/o Modifying
-  Source Code
+title: "Devoxx Video: Prometheus Monitoring for Java Web Applications w/o Modifying Source Code"
+# Preserve the published URL when correcting the title.
+slug: "devoxx-video#58-prometheus-monitoring-for-java-web-applications-w/o-modifying-source-code"
 ---
 
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="prometheus-logo.png" alt=""></div>

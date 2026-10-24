@@ -4,8 +4,9 @@ date: '2018-09-14T00:00:00+00:00'
 featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
-title: JavaZone Video&#58; Prometheus Monitoring without Modifying Source Code Using
-  Java Agents and Byte Buddy
+title: "JavaZone Video: Prometheus Monitoring without Modifying Source Code Using Java Agents and Byte Buddy"
+# Preserve the published URL when correcting the title.
+slug: "javazone-video#58-prometheus-monitoring-without-modifying-source-code-using-java-agents-and-byte-buddy"
 ---
 
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="prometheus-logo.png" alt=""></div>

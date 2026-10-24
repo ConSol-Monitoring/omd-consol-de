@@ -4,7 +4,9 @@ date: '2018-02-04T00:00:00+00:00'
 featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
-title: FOSDEM Video&#58; Monitoring Legacy Java Applications with Prometheus
+title: "FOSDEM Video: Monitoring Legacy Java Applications with Prometheus"
+# Preserve the published URL when correcting the title.
+slug: "fosdem-video#58-monitoring-legacy-java-applications-with-prometheus"
 ---
 
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="prometheus-logo.png" alt=""></div>

@@ -4,7 +4,9 @@ date: '2016-09-30T00:00:00+00:00'
 featured_image: jsd2016.png
 tags:
 - Sakuli
-title: Containerized End-2-End Testing beim &#35;JSD2016
+title: "Containerized End-2-End Testing beim #JSD2016"
+# Preserve the published URL when correcting the title.
+slug: "containerized-end-2-end-testing-beim-#35jsd2016"
 ---
 
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="jsd2016.png" alt=""></div>
