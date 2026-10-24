@@ -4,17 +4,23 @@ date: '2009-07-03T18:08:10+00:00'
 slug: check_nfs_ping-ein-nagios-plugin-fur-nfs-filesysteme-das-sich-nicht-aufhangt
 tags:
 - Nagios
-title: check_fs_ping - Ein Nagios-Plugin für NFS-Filesysteme, das sich nicht aufhängt
+title: check_fs_ping - A Nagios plugin for NFS filesystems that does not hang
 ---
 
-Ein unangenehmes Phänomen bei NFS-gemounteten Filesysteme tritt auf, wenn der Fileserver abstürzt oder ein Netzwerkproblem zwischen NFS-Server und -Client besteht. Sämtliche Prozesse, die auf Dateien auf so einem Filesystem zugreifen wollen, bleiben einfach hängen. Das gilt auch für Nagios-Plugins. Nach Ablauf des Timeouts wird der Nagios-Kernel den Plugin-Prozess zwar abschiessen, jedoch bleibt dieser in der Prozessliste und zwar so lange, bis der NFS-Server wieder antwortet.<!--more-->{% if site.lang == "de" %} Bei einem check_interval von 5 Minuten können sich so eine Menge hängender Prozesse ansammeln. Es gibt jedoch einen Trick, mit dem ein Nagios-Plugin ein hängendes NFS-Filesystem ermitteln und sich trotzdem sauber beenden kann. Man lässt den kritischen Dateizugriff einfach in einem eigenen Thread laufen, der den aufrufenden Prozess nicht blockiert und der am Ende des Plugins einfach zerstört wird. Nicht nur NFS-Filesysteme können auf diese Weise überwacht werden. Auch beispielsweise bei hierarchischen Filesystemen, bei denen externe Datenträger geladen werden müssen, kann man die Reaktionszeiten messe. Das Plugin trägt den Namen check_fs_ping und wird folgendermassen aufgerufen:
+When an NFS file server crashes or a network problem interrupts the connection between the NFS server and client, processes that access files on the mounted filesystem can hang. This also affects Nagios plugins. After a timeout, Nagios tries to terminate the plugin process, but it can remain in the process list until the NFS server responds again.
+
+<!--more-->
+
+With a `check_interval` of five minutes, many hanging processes can accumulate. A Nagios plugin can detect an unresponsive NFS filesystem and still exit cleanly by running the potentially blocking file access in a separate thread. This thread does not block the calling process and is discarded when the plugin exits.
+
+This approach can also monitor response times for other filesystems, such as hierarchical storage systems that need to load external storage media. The plugin is called `check_fs_ping` and is invoked as follows:
 
 ```bash
 nagsrv$ /usr/local/nagios/libexec/check_fs_ping --path /storage
 CRITICAL - /storage did not respond within 5.05s | /storage=5.045139s;3;4
 ```
 
-Und hier ist der Source-Code dazu:
+Here is the source code:
 
 ```perl
 #! /usr/bin/perl
@@ -120,7 +126,3 @@ while ($elapsed < $timeout) {
 my ($code, $message) = $plugin->check_messages(join_all => ', ');
 $plugin->nagios_exit($code, $message);
 ```
-
-{% else if site.lang == "en" %}
-this page is not available in english
-{% endif %}
