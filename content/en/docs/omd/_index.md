@@ -1,5 +1,5 @@
 ---
-title: OMD Labs
+title: OMD
 description: "A complete monitoring platform combining tools from the Nagios and Prometheus ecosystems."
 linkTitle: OMD
 weight: 100

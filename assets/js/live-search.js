@@ -383,11 +383,13 @@ function initializeLiveSearch() {
         link.setAttribute('role', 'option');
         link.setAttribute('aria-selected', 'false');
         link.href = input.dataset.offlineSearchBaseHref + match.ref.replace(/^\//, '');
-        const title = document.createElement('strong'), path = document.createElement('small'), excerpt = document.createElement('span');
+        const title = document.createElement('strong'), badge = document.createElement('small'), excerpt = document.createElement('span');
+        const section = match.ref.replace(/^\//, '').split('/')[0];
         title.textContent = doc.title;
-        path.textContent = match.ref;
+        badge.className = 'monitoring-search-results__badge';
+        badge.textContent = { docs: 'Docs', blog: 'Blog', tags: 'Tags', repo: 'Repository' }[section] || 'Page';
         excerpt.textContent = doc.excerpt;
-        link.append(path, title, excerpt);
+        link.append(badge, title, excerpt);
         if (match.ref.replace(/^\//, '').startsWith('blog/') && Number.isFinite(Date.parse(doc.date))) {
           const date = document.createElement('time');
           date.dateTime = doc.date;

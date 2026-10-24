@@ -1230,6 +1230,15 @@ h5, .h5, h6, .h6 {
     font-size: .8rem;
     font-weight: 700;
   }
+  &__badge {
+    align-self: flex-start;
+    padding: .15rem .45rem;
+    border: 1px solid var(--search-border);
+    border-radius: .35rem;
+    background: var(--search-hover);
+    font-weight: 600;
+    line-height: 1.4;
+  }
   &__item {
     display: flex;
     flex-direction: column;
