@@ -1108,7 +1108,13 @@ h5, .h5, h6, .h6 {
     text-align: left;
     &:hover, &:focus-visible { background: var(--search-hover); }
     &:focus-visible { outline: 2px solid #b99513; outline-offset: -2px; }
-    &[aria-checked="true"] { background: #f8ce39; color: #202529; font-weight: 700; }
+    &[aria-checked="true"] {
+      font-weight: 700;
+      text-decoration: underline;
+      text-decoration-color: #f8ce39;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
   }
 }
 .td-search--offline {
@@ -1282,7 +1288,8 @@ h5, .h5, h6, .h6 {
       color: var(--search-text);
       font-size: .875rem;
       &:hover, &:focus { background: var(--search-hover); }
-      &.active { background: #f8ce39; color: #202529; font-weight: 700; }
+      &.active { background: transparent; color: #f8ce39; font-weight: 700; }
+      &.active:hover, &.active:focus { background: var(--search-hover); }
     }
   }
 }
@@ -1291,13 +1298,18 @@ h5, .h5, h6, .h6 {
   .td-navbar .navbar-nav { justify-content: center; }
 }
 
-// A quiet navigation surface with the same borders and yellow accents as the content.
-[data-bs-theme="dark"] .monitoring-navbar .consol-logo-wordmark path,
-[data-bs-theme="dark"] .monitoring-navbar .consol-logo-flask-outline {
+// Keep the navigation's dark palette in both page themes.
+.monitoring-navbar .consol-logo-wordmark path,
+.monitoring-navbar .consol-logo-flask-outline {
   fill: #fff;
 }
 
 .td-navbar.monitoring-navbar {
+  --search-bg: #232b30;
+  --search-text: #edf0f2;
+  --search-muted: #bac5cc;
+  --search-border: #414b51;
+  --search-hover: #313d44;
   background: var(--search-bg);
   color: var(--search-text);
   border-bottom: 1px solid var(--search-border);
@@ -1346,7 +1358,6 @@ h5, .h5, h6, .h6 {
     transition: background-color .15s, color .15s;
     &:hover { background: var(--search-hover); color: var(--search-text); }
     &.active {
-      background: #f8ce3926;
       color: var(--search-text);
       font-weight: 700;
       &::after {
