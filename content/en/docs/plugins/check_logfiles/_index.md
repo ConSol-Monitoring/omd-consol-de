@@ -1,5 +1,7 @@
 ---
 title: check_logfiles
+aliases:
+  - /docs/omd/packages/check_logfiles/
 tags:
   - plugins
   - check_logfiles

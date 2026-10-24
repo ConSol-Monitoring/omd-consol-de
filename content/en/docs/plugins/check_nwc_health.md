@@ -1,5 +1,7 @@
 ---
 title: check_nwc_health
+aliases:
+  - /docs/omd/packages/check_nwc_health/
 tags:
   - plugins
   - network

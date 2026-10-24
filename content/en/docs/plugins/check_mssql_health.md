@@ -1,5 +1,7 @@
 ---
 title: check_mssql_health
+aliases:
+  - /docs/omd/packages/check_mssql_health/
 tags:
   - plugins
   - check_mssql_health
@@ -9,6 +11,10 @@ tags:
 ---
 ## Description ##
 check_mssql_health is a plugin used to monitor various parameters of an MS SQL server.
+
+## OMD package
+
+OMD includes the plugin with FreeTDS and the Perl module `DBD::Sybase`. The plugin is installed in `<site>/lib/nagios/plugins/`; the site-specific FreeTDS configuration is `<site>/etc/freetds/freetds.conf`.
 
 ## Documentation ##
 

@@ -420,6 +420,114 @@ h5, .h5, h6, .h6 {
   --section-heading-bg: #232b30;
 }
 
+// Group the package catalogue using the documentation palette.
+.td-content .omd-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-block: 1.5rem 2.5rem;
+
+  .omd-package-group {
+    min-width: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--section-border);
+    border-radius: .85rem;
+    background: var(--section-surface);
+    color: var(--section-text);
+  }
+  .omd-package-group__heading { display: flex; align-items: center; gap: .75rem; margin-bottom: .85rem; }
+  .omd-package-group__icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.25rem;
+    height: 2.25rem;
+    border-radius: .6rem;
+    background: #f8ce391a;
+    color: #b99513;
+    font-size: .95rem;
+  }
+  h3 { margin: 0; font-size: 1.1rem; font-weight: 700; line-height: 1.4; letter-spacing: -.02em; }
+  .omd-package-group__description { margin-bottom: 1rem; color: var(--section-muted); font-size: .85rem; line-height: 1.6; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li {
+    padding-block: .7rem;
+    color: var(--section-muted);
+    font-size: .85rem;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+    + li { border-top: 1px solid var(--section-border); }
+    &:last-child { padding-bottom: 0; }
+  }
+  a {
+    color: var(--section-text);
+    font-weight: 700;
+    text-decoration: none;
+    &:hover { text-decoration: underline; text-decoration-color: #f8ce39; text-underline-offset: 4px; }
+    &:focus-visible { outline: 2px solid #b99513; outline-offset: 3px; border-radius: 2px; }
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .td-content .omd-packages-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+// Release channels on the OMD overview use the documentation palette.
+.td-content .omd-roadmap {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-block: 1.5rem;
+
+  .omd-roadmap__card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--section-border);
+    border-top: 3px solid var(--section-border);
+    border-radius: .85rem;
+    background: var(--section-surface);
+    color: var(--section-text);
+
+    &--stable { border-top-color: #f8ce39; }
+    h3 { margin: .15rem 0 .85rem; font-size: 1.5rem; letter-spacing: -.035em; }
+    > p:not(.omd-roadmap__label) { color: var(--section-muted); font-size: .875rem; line-height: 1.65; }
+    > a {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-top: auto;
+      padding-top: .75rem;
+      color: var(--section-text);
+      font-size: .8rem;
+      font-weight: 700;
+      text-decoration: none;
+
+      span { color: #b99513; }
+      &:hover { text-decoration: underline; text-decoration-color: #f8ce39; text-underline-offset: 4px; }
+      &:focus-visible { outline: 2px solid #b99513; outline-offset: 4px; border-radius: 2px; }
+    }
+  }
+
+  .omd-roadmap__label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .85rem;
+    color: var(--section-muted);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .omd-roadmap__dot { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: #b99513; }
+}
+
+@media (max-width: 1199.98px) {
+  .td-content .omd-roadmap { grid-template-columns: minmax(0, 1fr); }
+}
+
 // Use the available space when a section has no right-hand navigation.
 @media (min-width: 1200px) {
   .td-section .td-sidebar-toc:not(:has(a)) {

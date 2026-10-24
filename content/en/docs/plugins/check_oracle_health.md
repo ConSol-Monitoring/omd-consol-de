@@ -1,5 +1,7 @@
 ---
 title: check_oracle_health
+aliases:
+  - /docs/omd/packages/check_oracle_health/
 tags:
   - plugins
   - check_oracle_health
@@ -8,6 +10,10 @@ tags:
 ---
 ## Description
 check_oracle_health is a plugin to check various parameters of an Oracle database.
+
+## OMD package
+
+OMD includes the plugin and the Perl module `DBD::Oracle`. Install the Oracle Instant Client separately. The plugin is installed in `<site>/lib/nagios/plugins/`.
 
 ## Documentation
 

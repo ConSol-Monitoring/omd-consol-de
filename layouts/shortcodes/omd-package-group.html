@@ -1,0 +1,8 @@
+<section class="omd-package-group">
+  <div class="omd-package-group__heading">
+    <span class="omd-package-group__icon" aria-hidden="true"><i class="fas {{ .Get "icon" }}"></i></span>
+    <h3>{{ .Get "title" }}</h3>
+  </div>
+  <p class="omd-package-group__description">{{ .Get "description" }}</p>
+  {{ .Page.RenderString (dict "display" "block") .Inner }}
+</section>

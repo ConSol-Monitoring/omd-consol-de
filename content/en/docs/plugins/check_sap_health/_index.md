@@ -1,5 +1,7 @@
 ---
 title: check_sap_health
+aliases:
+  - /docs/omd/packages/check_sap_health/
 tags:
   - plugins
   - check_sap_health

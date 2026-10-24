@@ -1,5 +1,7 @@
 ---
 title: check_mysql_health
+aliases:
+  - /docs/omd/packages/check_mysql_health/
 tags:
   - plugins
   - check_mysql_health

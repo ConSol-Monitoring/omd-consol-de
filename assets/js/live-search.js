@@ -1,7 +1,7 @@
 // Loaded separately with a content fingerprint so live search updates immediately.
 (() => {
 function animateSearchPlaceholder(input) {
-  const words = ['SNClient', 'OMD Labs', 'Coshsh', 'Thruk'];
+  const words = ['SNClient', 'OMD', 'Coshsh', 'Thruk', 'check_nwc_health'];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let word = 0, length = 0, deleting = false, timer;
 
@@ -387,7 +387,7 @@ function initializeLiveSearch() {
         const section = match.ref.replace(/^\//, '').split('/')[0];
         title.textContent = doc.title;
         badge.className = 'monitoring-search-results__badge';
-        badge.textContent = { docs: 'Docs', blog: 'Blog', tags: 'Tags', repo: 'Repository' }[section] || 'Page';
+        badge.textContent = { docs: 'Documentation', blog: 'Blog', tags: 'Tags', repo: 'Repository' }[section] || 'Page';
         excerpt.textContent = doc.excerpt;
         link.append(badge, title, excerpt);
         if (match.ref.replace(/^\//, '').startsWith('blog/') && Number.isFinite(Date.parse(doc.date))) {
