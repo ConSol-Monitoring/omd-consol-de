@@ -4,7 +4,11 @@ date: '2020-10-27T00:00:00+00:00'
 featured_image: testcontainers-logo.png
 meta_description: When to use Testcontainers
 tags:
-- integration-tests
+- "integration-tests"
+- "citrus"
+- "testcontainers"
+- "docker"
+- "java"
 title: Integration testing with Testcontainers
 ---
 

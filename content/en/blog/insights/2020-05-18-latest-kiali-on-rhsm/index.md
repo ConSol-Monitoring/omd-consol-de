@@ -6,7 +6,10 @@ featured_image: OpenShift-Logo.jpg
 meta_description: Unofficial guideline to get the latest and greatest version of Kiali
   running in Red Hat OpenShift Service Mesh
 tags:
-- openshift
+- "openshift"
+- "kubernetes"
+- "istio"
+- "kiali"
 title: Unofficial guideline to get the latest and greatest version of Kiali in OpenShift
 ---
 
@@ -61,4 +64,5 @@ So with this we have the latest and greatest version of Kiali running in our Red
 
 One last remark: The feature that I liked most in Kiali 1.17 is the Graph replay feature. More information about this can be found here:
 
+- [Kiali sprint 34 overview; Search for 'Graph replay'](https://medium.com/kialiproject/kiali-sprint-34-overview-86027b13b27d)
 - [Video of Kiali and Jaeger Sprint #34 Demo - Service Mesh observability](https://youtu.be/04fGMBjHZ68?t=365)

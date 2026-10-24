@@ -6,7 +6,13 @@ featured_image: kubernetes-logo.png
 meta_description: Best practice to setup nodes with Cloudwatch on Amazon Kubernetes
   Cluster (AWS EKS). Using autoscaling, memory limits and eviction limits.
 tags:
-- AWS
+- "AWS"
+- "EKS"
+- "Cloudwatch"
+- "Kubernetes"
+- "autoscaling"
+- "oom_killer"
+- "System-OOM"
 title: Avoid Kubelet OOM errors on Amazon Kubernetes Cluster (AWS EKS)
 ---
 

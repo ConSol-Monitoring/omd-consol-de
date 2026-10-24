@@ -6,7 +6,11 @@ featured_image: qa_build_pipeline.png
 meta_description: Hands-on example sourcecode of an automated CI/CD build pipeline
   built up with Jenkis in OpenShift.
 tags:
-- openshift
+- "openshift"
+- "continuous integration"
+- "jenkins"
+- "sakuli"
+- "citrus"
 title: Automated CI/CD Build Pipeline with Jenkis in OpenShift
 ---
 

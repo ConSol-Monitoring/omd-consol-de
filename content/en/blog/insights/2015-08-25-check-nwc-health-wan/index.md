@@ -3,7 +3,16 @@ author: Gerhard Laußer
 date: '2015-08-25T23:10:25+02:00'
 featured_image: cisco-wan.png
 tags:
-- plugin
+- "plugin"
+- "Nagios"
+- "Icinga"
+- "check_nwc_health"
+- "ospf"
+- "wan"
+- "cisco"
+- "bgp"
+- "mpls"
+- "vpn"
 title: WAN-Monitoring mit check_nwc_health
 ---
 

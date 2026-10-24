@@ -1,8 +1,9 @@
 ---
 draft: false
 date: 2025-08-21T00:00:00.000Z
-title: "Labs Repository GPG Key Rotation"
-linkTitle: "labs-repository-gpg-key-rotation"
+title: "Labs Repository GPG Key Rotation (2025)"
+slug: labs-repository-gpg-key-rotation
+linkTitle: "Labs Repository GPG Key Rotation (2025)"
 author: Sven Nierlein
 tags:
   - repository

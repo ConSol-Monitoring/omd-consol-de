@@ -2,7 +2,8 @@
 author: Fabian Stäber
 date: '2017-03-27T00:00:00+00:00'
 tags:
-- java
+- "java"
+- "security"
 title: Protecting Passwords in Java Properties Files on Windows
 ---
 
