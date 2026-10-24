@@ -1,0 +1,47 @@
+{{ $channel := .Page.Params.repository_channel }}
+{{ $labels := dict "stable" "Stable" "stream" "Stream" "testing" "Testing" }}
+<div class="monitoring-home monitoring-page monitoring-channel-page">
+  <section class="monitoring-hero monitoring-page-hero" aria-labelledby="{{ .Page.Title | anchorize }}">
+    <div class="monitoring-container">
+      <a class="monitoring-channel__back" href="{{ "repo/" | relURL }}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All repositories</a>
+      <p class="monitoring-eyebrow"><span></span> {{ index $labels $channel }} repository</p>
+      <h1 id="{{ .Page.Title | anchorize }}">{{ .Page.Title }}</h1>
+      <p class="monitoring-hero__intro">{{ .Page.Description }}</p>
+      <nav class="monitoring-channel__switcher" aria-label="Repository channel">
+        {{ range slice "stable" "stream" "testing" }}
+        <a href="{{ printf "repo/%s/" . | relURL }}"{{ if eq . $channel }} aria-current="page"{{ end }}>{{ index $labels . }}</a>
+        {{ end }}
+      </nav>
+    </div>
+  </section>
+  <div class="monitoring-container monitoring-channel__content">
+    <div class="monitoring-channel__overview">
+      <div>
+        <p class="monitoring-eyebrow">AVAILABLE SOFTWARE</p>
+        <div class="monitoring-channel__packages">
+          <a href="{{ "docs/omd/" | relURL }}">OMD Labs <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <a href="{{ "docs/snclient/" | relURL }}">SNClient <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <p>Some repositories also contain Thruk, Gearman, Mod-Gearman and Naemon. Those packages will be migrated to <a href="https://build.opensuse.org/repositories/home:naemon">OBS</a> and should be installed from there in the future.</p>
+    </div>
+    {{ if eq $channel "testing" }}
+    <div class="monitoring-channel__notice"><i class="fa-solid fa-flask" aria-hidden="true"></i><p><strong>Development builds.</strong> These are nightly development builds. Use for testing only, not production.</p></div>
+    {{ end }}
+    <div class="monitoring-installation">
+      <nav class="monitoring-installation__nav" aria-labelledby="contents">
+        <h2 id="contents">Install on your system</h2>
+        <p>Choose your Linux distribution.</p>
+        <ul>
+          <li><a href="#debian--ubuntu">Debian / Ubuntu <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a></li>
+          <li><a href="#rhel--rocky--alma">RHEL / Rocky / Alma <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a></li>
+          <li><a href="#suse-linux-enterprise-sles">SUSE Linux Enterprise <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a></li>
+          <li><a href="#alpine-linux">Alpine Linux <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a></li>
+        </ul>
+      </nav>
+      <div class="monitoring-installation__body">
+        {{ .Page.RenderString .Inner }}
+      </div>
+    </div>
+  </div>
+</div>

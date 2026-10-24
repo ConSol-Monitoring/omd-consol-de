@@ -1,5 +1,6 @@
 ---
 title: SNClient
+description: "A monitoring agent for Windows, Linux and macOS, with Nagios and Prometheus support."
 linkTitle: SNClient
 weight: 400
 tags:

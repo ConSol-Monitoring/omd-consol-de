@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="monitoring-home monitoring-page monitoring-not-found">
+  <section class="monitoring-hero monitoring-page-hero" aria-labelledby="not-found-title">
+    <div class="monitoring-container">
+      <p class="monitoring-not-found__code" aria-label="Error 404">404</p>
+      <h1 id="not-found-title">Page not found<span>.</span></h1>
+      <p class="monitoring-hero__intro">This page may have moved, or the address may be incorrect.<br>Head back to the start page to explore our monitoring tools.</p>
+      <div class="monitoring-actions">
+        <a class="monitoring-button monitoring-button--yellow" href="{{ .Site.Home.RelPermalink }}">Back to start page <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <a class="monitoring-hero__link" href="{{ "docs/" | relURL }}">Browse documentation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+</div>
+{{ end }}

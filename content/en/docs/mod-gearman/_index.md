@@ -1,5 +1,6 @@
 ---
 title: Mod Gearman
+description: "Distribute active Naemon checks across workers to scale your monitoring."
 tags:
   - mod gearman
   - gearmand
@@ -52,4 +53,4 @@ The changelog is available on [GitHub](https://github.com/sni/mod_gearman/blob/m
 
 ## Support
 
-Professional support and consulting are available from [ConSol](https://www.consol.com/monitoring).
+Professional support and consulting are available from [ConSol](https://www.consol.de/monitoring).

@@ -1,5 +1,5 @@
 <!--
-  Sidebar scroll-to-current-page fix
+  Current-page highlighting and sidebar scroll positioning.
 
   Problem: When navigating to a blog post via the sidebar, the sidebar list
   jumps back to the top, losing the user's scroll position. Docsy's sidebar
@@ -44,11 +44,29 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (matchingLink) {
-    // Scroll the sidebar to make the matching link visible
-    var sidebarRect = sidebar.getBoundingClientRect();
-    var linkRect = matchingLink.getBoundingClientRect();
-    var scrollTop = matchingLink.offsetTop - (sidebarRect.height / 2) + (linkRect.height / 2);
-    sidebar.scrollTop = Math.max(0, scrollTop);
+    matchingLink.setAttribute('aria-current', 'page');
+
+    function centerCurrentLink() {
+      if (!sidebar.clientHeight) return;
+      var sidebarRect = sidebar.getBoundingClientRect();
+      var linkRect = matchingLink.getBoundingClientRect();
+      sidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebar.clientHeight - linkRect.height) / 2;
+    }
+
+    centerCurrentLink();
+    // The mobile menu has no measurable height until its collapse opens.
+    sidebar.addEventListener('shown.bs.collapse', centerCurrentLink);
   }
 });
 </script>
+
+<script defer src="{{ "assets/js/toc-scroll.js" | relURL }}"></script>
+
+{{ if .IsHome }}
+<script defer src="{{ "assets/js/home-scroll.js" | relURL }}"></script>
+{{ end }}
+
+{{ if .Site.Params.offlineSearch }}
+{{ $liveSearch := resources.Get "js/live-search.js" | minify | fingerprint }}
+<script defer src="{{ $liveSearch.RelPermalink }}" integrity="{{ $liveSearch.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}

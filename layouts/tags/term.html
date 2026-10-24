@@ -1,0 +1,36 @@
+{{ define "main" }}
+<div class="monitoring-home monitoring-page monitoring-tags-page monitoring-tag-page">
+  <section class="monitoring-hero monitoring-page-hero" aria-labelledby="tag-title">
+    <div class="monitoring-container">
+      <p class="monitoring-eyebrow"><span></span> TAG ARCHIVE</p>
+      <h1 id="tag-title">{{ .Title }}<span>.</span></h1>
+      <p class="monitoring-hero__intro">News, guides and documentation tagged “{{ .Title }}”.</p>
+      <a class="monitoring-hero__link" href="{{ "tags/" | relURL }}">All tags <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </section>
+  <section class="monitoring-container monitoring-tag-archive" aria-labelledby="tag-pages-title">
+    <div class="monitoring-tags__intro">
+      <h2 id="tag-pages-title">Explore this topic <span>{{ len .Pages }} {{ cond (eq (len .Pages) 1) "page" "pages" }}</span></h2>
+    </div>
+    <ul class="monitoring-tag-archive__grid">
+      {{ range .Pages }}
+      <li>
+        <article class="monitoring-tag-archive__card">
+          <div class="monitoring-tag-archive__meta">
+            <span>{{ if eq .Section "blog" }}News{{ else if eq .Section "docs" }}Documentation{{ else }}{{ .Section | humanize }}{{ end }}</span>
+            {{ if and (eq .Section "blog") (not .Date.IsZero) }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ end }}
+          </div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ with (.Description | default (.Summary | plainify | truncate 190)) }}<p>{{ . }}</p>{{ end }}
+          {{ with .GetTerms "tags" }}
+          <ul class="monitoring-tags__list" aria-label="Tags">
+            {{ range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+          </ul>
+          {{ end }}
+        </article>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+</div>
+{{ end }}

@@ -1,5 +1,6 @@
 ---
 title: "Plugins"
+description: "Specialized checks, notifications and integrations for your monitoring setup."
 linkTitle: "Plugins"
 weight: 200
 tags:

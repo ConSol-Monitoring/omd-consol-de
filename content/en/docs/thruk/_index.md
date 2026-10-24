@@ -1,5 +1,6 @@
 ---
 title: Thruk
+description: "A web interface for dashboards, reports and multiple monitoring backends."
 tags:
   - thruk
   - frontend
@@ -52,4 +53,4 @@ The changelog is available on [GitHub](https://github.com/sni/thruk/blob/master/
 
 ## Support
 
-Professional support and consulting are available from [ConSol](https://www.consol.com/monitoring).
+Professional support and consulting are available from [ConSol](https://www.consol.de/monitoring).

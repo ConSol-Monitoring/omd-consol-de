@@ -61,6 +61,7 @@ data:
 
         root  /srv/omd/current;
         index index.html;
+        error_page 404 /404.html;
 
         access_log /var/log/nginx/access-$hostname.log combined;
         error_log  /var/log/nginx/error.log  warn;

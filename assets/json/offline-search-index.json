@@ -1,0 +1,28 @@
+{{- $.Scratch.Add "offline-search-index" slice -}}
+{{- range where .Site.AllPages ".Params.exclude_search" "!=" true -}}
+{{- $date := "" -}}
+{{- $tagLinks := slice -}}
+{{- $summary := "" -}}
+{{- if and .IsPage (eq .Section "blog") -}}
+  {{- $summary = .Summary | plainify | htmlUnescape -}}
+  {{- range .GetTerms "tags" -}}
+    {{- $tagLinks = $tagLinks | append (dict "title" .LinkTitle "ref" .RelPermalink) -}}
+  {{- end -}}
+{{- end -}}
+{{- if and .IsPage (not .Date.IsZero) -}}
+  {{- $date = .Date.Format "2006-01-02T15:04:05Z07:00" -}}
+{{- end -}}
+{{- $.Scratch.Add "offline-search-index" (dict
+    "ref" .RelPermalink
+    "title" .Title
+    "tags" (.Params.tags | default "")
+    "description" (.Description | default "")
+    "body" (.Plain | htmlUnescape)
+    "excerpt" ((.Description | default .Plain) | htmlUnescape | truncate (.Site.Params.offlineSearchSummaryLength | default 70) | htmlUnescape)
+    "date" $date
+    "kind" .Kind
+    "summary" $summary
+    "tagLinks" $tagLinks
+) -}}
+{{- end -}}
+{{- $.Scratch.Get "offline-search-index" | jsonify -}}

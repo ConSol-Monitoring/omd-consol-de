@@ -1,12 +1,12 @@
 ---
 title: Coshsh
+description: "Generate monitoring configurations from inventory and CMDB data."
 tags:
   - cmdb
   - generator
 weight: 300
 ---
-# Coshsh Comprehensive Documentation
-<img src="coshsh_logo.png" alt="Coshsh" width="300"/>
+<img src="coshsh_logo.png" alt="Coshsh" width="200"/>
 
 ## Introduction
 

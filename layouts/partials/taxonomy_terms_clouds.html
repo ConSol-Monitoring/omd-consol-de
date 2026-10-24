@@ -1,0 +1,10 @@
+{{/* Respect an explicitly empty cloud list instead of falling back to all taxonomies. */}}
+{{ $context := . }}
+{{ $titles := .Site.Params.taxonomy.taxonomyCloudTitle }}
+{{ range $index, $taxonomy := .Site.Params.taxonomy.taxonomyCloud }}
+  {{ $title := humanize $taxonomy }}
+  {{ if lt $index (len $titles) }}
+    {{ $title = index $titles $index }}
+  {{ end }}
+  {{ partial "taxonomy_terms_cloud.html" (dict "context" $context "taxo" $taxonomy "title" $title) }}
+{{ end }}
