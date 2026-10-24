@@ -5,7 +5,11 @@ date: '2022-02-24T00:00:00+00:00'
 featured_image: ./camel-k.png
 meta_description: Camel Camel-k
 tags:
-- Camel
+- "Camel"
+- "Camel k"
+- "kubernetes"
+- "Openshift"
+- "knative"
 title: A look insight Camel K
 ---
 

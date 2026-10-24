@@ -5,7 +5,11 @@ date: '2019-09-26T00:00:00+00:00'
 featured_image: graphql_spring_boot_part2.png
 meta_description: writing API's with Spring Boot and GraphQL
 tags:
-- SpringBoot
+- "SpringBoot"
+- "GraphQL"
+- "API"
+- "API Transformation"
+- "Spring Security"
 title: Introduction to Spring Boot and GraphQL for API Design Pt. 2
 ---
 

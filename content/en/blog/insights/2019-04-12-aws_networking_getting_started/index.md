@@ -5,7 +5,8 @@ date: '2019-04-12T00:00:00+00:00'
 featured_image: AWSLogo.png
 meta_description: An introduction to AWS' network infrastructure
 tags:
-- aws
+- "aws"
+- "networking"
 title: Of VPCs, Subnets and ACLs
 ---
 

@@ -1,7 +1,6 @@
 ---
 date: 2025-02-10T17:06:39+01:00
 title: "Duplicate users in the Grafana database"
-linkTitle: "duplicate-grafana-users"
 author: Gerhard Lausser
 tags:
   - grafana

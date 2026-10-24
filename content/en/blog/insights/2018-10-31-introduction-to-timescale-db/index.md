@@ -5,7 +5,11 @@ date: '2018-10-31T00:00:00+00:00'
 featured_image: timescale-tiger-logo.png
 meta_description: Introduction to TimescaleDB
 tags:
-- time series
+- "time series"
+- "timescale"
+- "postgres"
+- "postgresql"
+- "openshift"
 title: Introduction to TimescaleDB
 ---
 
@@ -202,6 +206,7 @@ spec:
 lookupPolicy:
     local: false
 tags:
+- from:
     kind: DockerImage
     name: timescale/timescaledb:latest-pg10
     importPolicy: {}

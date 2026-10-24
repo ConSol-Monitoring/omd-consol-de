@@ -3,7 +3,10 @@ author: Martin Maher, Georgi Todorov
 date: '2016-03-12T12:17:03+00:00'
 slug: distributed-caches-shootout
 tags:
-- jcache
+- "jcache"
+- "hazelcast"
+- "ignite"
+- "bigdata"
 title: Caching with JCache
 ---
 

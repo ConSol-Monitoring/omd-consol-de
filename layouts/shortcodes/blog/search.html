@@ -1,0 +1,20 @@
+<form class="monitoring-blog-search" role="search" aria-label="Search news">
+  <label for="blog-search">Search news</label>
+  <div class="td-search td-search--offline">
+    <div class="td-search__icon" aria-hidden="true"></div>
+    <input id="blog-search" type="search" name="q" class="td-search__input form-control"
+      placeholder="Search news…" aria-label="Search news" autocomplete="off"
+      data-search-mode="inline"
+      data-offline-search-index-json-src="{{ "offline-search-index.json" | relURL }}"
+      data-offline-search-base-href="{{ "/" | relURL }}"
+      data-offline-search-max-results="10">
+  </div>
+</form>
+<section id="blog-search-results" class="monitoring-blog-search-results" aria-label="News search results" hidden>
+  <div class="monitoring-blog-search-results__toolbar">
+    <p role="status" aria-live="polite"></p>
+    <div class="monitoring-blog-search-results__sort"><span>Sort within matches</span></div>
+  </div>
+  <div class="monitoring-blog-search-results__groups"></div>
+  <div class="monitoring-search-results__more" hidden><button type="button">Load more</button></div>
+</section>

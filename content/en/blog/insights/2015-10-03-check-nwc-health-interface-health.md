@@ -2,7 +2,12 @@
 author: Gerhard Laußer
 date: '2015-10-03T16:10:25+02:00'
 tags:
-- plugin
+- "plugin"
+- "Nagios"
+- "Icinga"
+- "check_nwc_health"
+- "cisco"
+- "juniper"
 title: Interface-Rundumschlag mit check_nwc_health
 ---
 

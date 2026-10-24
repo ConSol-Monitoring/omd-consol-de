@@ -9,7 +9,7 @@ title: Automated Integration Testing for webMethods  with Citrus
 
 <h2>Achieving Continuous Integration for ESB Projects with Citrus (Part I: Introduction)</h2>
 
-Continuous integration is almost mainstream nowadays. Probably no one wants to argue against the value of having an all-embracing integration test suite in place, which is lightweight enough to be executed on each code change. In this blog series I want to show the interplay between <a title="Citrus" href="http://www.citrusframework.org" target="_blank">Citrus</a>, the integration test framework written and maintained by <a title="ConSol" href="http://www.consol.com" target="_blank">ConSol</a> and a commonly used Enterprise Service Bus, the <a title="webMethods Integration Server" href="http://www.softwareag.com/corporate/products/wm/integration/overview/default.asp" target="_blank">webMethods Integration Server</a>.
+Continuous integration is almost mainstream nowadays. Probably no one wants to argue against the value of having an all-embracing integration test suite in place, which is lightweight enough to be executed on each code change. In this blog series I want to show the interplay between <a title="Citrus" href="http://www.citrusframework.org" target="_blank">Citrus</a>, the integration test framework written and maintained by <a title="ConSol" href="https://www.consol.de" target="_blank">ConSol</a> and a commonly used Enterprise Service Bus, the <a title="webMethods Integration Server" href="http://www.softwareag.com/corporate/products/wm/integration/overview/default.asp" target="_blank">webMethods Integration Server</a>.
 
 <!--more-->
 <b>Meet the participants</b>

@@ -5,7 +5,8 @@ date: '2017-07-14T00:00:00+00:00'
 featured_image: maven_gitlab.png
 meta_description: An introduction to GitLab CI for Maven builds
 tags:
-- gitlab
+- "gitlab"
+- "continuous integration"
 title: Introduction to GitLab CI with Maven
 ---
 
@@ -23,6 +24,7 @@ To cut a long story short, yes, I would use GitLab CI in my next project. We'll 
 
 To be able to try it out for yourself you need:
 
+- A GitLab server with Pipelines activated
 - A GitLab user with `Master` role in a project
 - A spare server where GitLab CI agents can run (can be your own computer)
 

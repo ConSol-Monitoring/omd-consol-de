@@ -3,7 +3,8 @@ author: Markus Hansmair
 date: '2019-02-11T00:00:00+00:00'
 meta_description: An up-to-date comparison of Kubernetes and OpenShift
 tags:
-- openshift
+- "openshift"
+- "kubernetes"
 title: Comparing Kubernetes and OpenShift
 ---
 

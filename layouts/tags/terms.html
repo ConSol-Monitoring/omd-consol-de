@@ -1,0 +1,42 @@
+{{ define "main" }}
+{{ $terms := .Data.Terms.Alphabetical }}
+{{ $letters := slice }}
+{{ range $terms }}
+  {{ $letter := upper (substr .Page.LinkTitle 0 1) }}
+  {{ if not (in $letters $letter) }}{{ $letters = $letters | append $letter }}{{ end }}
+{{ end }}
+<div class="monitoring-home monitoring-page monitoring-tags-page">
+  <section class="monitoring-hero monitoring-page-hero" aria-labelledby="tags-title">
+    <div class="monitoring-container">
+      <p class="monitoring-eyebrow"><span></span> EXPLORE BY TOPIC</p>
+      <h1 id="tags-title">Tags<span>.</span></h1>
+      <p class="monitoring-hero__intro">Browse projects, technologies and topics from our articles.</p>
+      <a class="monitoring-hero__link" href="{{ "blog/" | relURL }}">Browse all news <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </section>
+  <div class="monitoring-container monitoring-tags">
+    <div class="monitoring-tags__intro">
+      <h2>All tags <span>{{ len $terms }}</span></h2>
+      <p>Choose a tag to see its articles. Numbers show the article count.</p>
+    </div>
+    <nav class="monitoring-tags__alphabet" aria-label="Jump to tags by first letter">
+      {{ range $letters }}<a href="#tags-{{ . | urlize }}">{{ . }}</a>{{ end }}
+    </nav>
+    <div class="monitoring-tags__groups">
+      {{ range $letters }}
+      {{ $letter := . }}
+      <section class="monitoring-tags__group" aria-labelledby="tags-{{ $letter | urlize }}">
+        <h3 id="tags-{{ $letter | urlize }}">{{ $letter }}</h3>
+        <ul class="monitoring-tags__list">
+          {{ range $terms }}
+          {{ if eq (upper (substr .Page.LinkTitle 0 1)) $letter }}
+          <li><a href="{{ .Page.RelPermalink }}"><span>{{ .Page.LinkTitle }}</span><span class="monitoring-tags__count" aria-label="{{ .Count }} {{ cond (eq .Count 1) "article" "articles" }}">{{ .Count }}</span></a></li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </section>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

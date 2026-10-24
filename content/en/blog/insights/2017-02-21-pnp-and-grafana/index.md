@@ -3,7 +3,11 @@ author: Sven Nierlein
 date: '2017-02-21T16:00:00+02:00'
 featured_image: pnp-grafana.png
 tags:
-- grafana
+- "grafana"
+- "pnp"
+- "pnp4nagios"
+- "nagios"
+- "omd"
 title: PNP4Nagios and Grafana
 ---
 

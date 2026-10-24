@@ -1,3 +1,0 @@
-Queue->Service: message
-Service->Database: store
-Service->Topic: publish

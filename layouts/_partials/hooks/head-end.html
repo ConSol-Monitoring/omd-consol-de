@@ -1,0 +1,72 @@
+<!--
+  Current-page highlighting and sidebar scroll positioning.
+
+  Problem: When navigating to a blog post via the sidebar, the sidebar list
+  jumps back to the top, losing the user's scroll position. Docsy's sidebar
+  only marks parent sections with "active-path" class, not individual blog
+  posts, because blog posts are leaf pages, not sections.
+
+  Solution: On page load, find the sidebar link matching the current URL and
+  scroll the sidebar to center it in view.
+
+  Why this approach:
+  - Uses Docsy's official head-end.html hook (update-safe)
+  - Doesn't modify any Docsy templates or core logic
+  - Works regardless of Docsy's active state marking
+  - Upgrading Docsy doesn't help: the sidebar_root_for feature (v0.13.0)
+    changes sidebar scoping, not individual page active marking
+  - Template override of sidebar-tree.html would be fragile and break on updates
+-->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get current page path and normalize it
+  var currentPath = window.location.pathname;
+  if (!currentPath.endsWith('/')) {
+    currentPath += '/';
+  }
+
+  // Find sidebar link matching current page
+  var sidebar = document.querySelector('.td-sidebar-nav');
+  if (!sidebar) return;
+
+  var links = sidebar.querySelectorAll('a[href]');
+  var matchingLink = null;
+
+  for (var i = 0; i < links.length; i++) {
+    var href = links[i].getAttribute('href');
+    if (!href.endsWith('/')) {
+      href += '/';
+    }
+    if (href === currentPath) {
+      matchingLink = links[i];
+      break;
+    }
+  }
+
+  if (matchingLink) {
+    matchingLink.setAttribute('aria-current', 'page');
+
+    function centerCurrentLink() {
+      if (!sidebar.clientHeight) return;
+      var sidebarRect = sidebar.getBoundingClientRect();
+      var linkRect = matchingLink.getBoundingClientRect();
+      sidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebar.clientHeight - linkRect.height) / 2;
+    }
+
+    centerCurrentLink();
+    // The mobile menu has no measurable height until its collapse opens.
+    sidebar.addEventListener('shown.bs.collapse', centerCurrentLink);
+  }
+});
+</script>
+
+<script defer src="{{ "assets/js/toc-scroll.js" | relURL }}"></script>
+
+{{ if .IsHome }}
+<script defer src="{{ "assets/js/home-scroll.js" | relURL }}"></script>
+{{ end }}
+
+{{ if .Site.Params.offlineSearch }}
+{{ $liveSearch := resources.Get "js/live-search.js" | minify | fingerprint }}
+<script defer src="{{ $liveSearch.RelPermalink }}" integrity="{{ $liveSearch.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}

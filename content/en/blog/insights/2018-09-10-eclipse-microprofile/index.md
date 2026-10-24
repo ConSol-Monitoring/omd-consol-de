@@ -4,7 +4,9 @@ date: '2018-09-10T00:00:00+00:00'
 featured_image: microprofile.png
 meta_description: How to develop microservices with Eclipse MicroProfile
 tags:
-- technology
+- "technology"
+- "microservices"
+- "microprofile"
 title: Eclipse MicroProfile - Microservices with Java EE
 ---
 

@@ -3,7 +3,11 @@ author: Sven Nierlein
 date: '2017-08-21T10:00:00+02:00'
 featured_image: ./omd_logo_small.jpg
 tags:
-- omd
+- "omd"
+- "nagios"
+- "naemon"
+- "grafana"
+- "thruk"
 title: OMD 2.60 Labs Edition Released
 ---
 

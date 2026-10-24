@@ -1,7 +1,6 @@
 ---
 date: 2024-06-05T00:00:00.000Z
 title: "Removing old Naemon logfiles"
-linkTitle: "purge"
 author: Gerhard Lausser
 tags:
   - naemon

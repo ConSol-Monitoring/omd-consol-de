@@ -6,7 +6,20 @@ featured_image: kubernetes-logo.png
 meta_description: Best practice guide for a secure cluster using Amazon Elastic Container
   Service for Kubernetes (AWS EKS).
 tags:
-- AWS
+- "AWS"
+- "EKS"
+- "Cloudwatch"
+- "Kubernetes"
+- "security"
+- "guide"
+- "networkpolicy"
+- "consulting"
+- "prevent"
+- "cyberdetection"
+- "cyberprevention"
+- "cyberattack"
+- "Munich"
+- "Consulting"
 title: Security guide for Amazon Kubernetes Cluster (AWS EKS)
 ---
 

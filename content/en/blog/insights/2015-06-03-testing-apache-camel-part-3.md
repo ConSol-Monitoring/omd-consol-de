@@ -2,7 +2,7 @@
 author: Christoph
 date: '2015-06-03'
 tags:
-- Citrus
+- "Citrus"
 title: Apache Camel integration testing - Part 3
 ---
 

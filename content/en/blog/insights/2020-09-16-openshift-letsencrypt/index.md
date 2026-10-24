@@ -4,7 +4,7 @@ date: '2020-09-16T00:00:00+00:00'
 meta_description: What options you have to get (and renew) TLS certificates from letsencrypt.org
   in an OpenShift cluster
 tags:
-- openshift
+- "openshift"
 title: OpenShift and Let's Encrypt
 ---
 

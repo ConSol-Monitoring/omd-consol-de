@@ -41,53 +41,8 @@ $font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
     "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 
-.td-sidebar-nav__section .ul-1 ul {
-	padding-left: 0.75em !important;
-}
-.td-sidebar-nav > .td-sidebar-nav__section {
-	padding-left: 0.75rem !important;
-}
 .pr-md-3, .px-md-3 {
 	padding-right: 0.2rem !important;
-}
-.td-sidebar-nav {
-	max-height: calc(100vh - 2rem) !important;
-}
-
-/* searchbar colors */
-DIV.td-search--offline > DIV.td-search__icon {
-	color: #555 !important;
-}
-DIV.td-search--offline > INPUT.td-search__input {
-	background-color: #fff !important;
-	color: #555 !important;
-}
-
-/* theme-switcher dropdown padding */
-LI.td-light-dark-menu > UL.dropdown-menu.show {
-	padding: 0px;
-	BUTTON.dropdown-item:hover, BUTTON.dropdown-item.active {
-		border-radius: 5px;
-	}
-	BUTTON.dropdown-item SVG {
-		opacity: 100% !important;
-	}
-}
-
-/* theme-switcher dropdown lightmode colors */
-[data-bs-theme="light"] {
-	LI.td-light-dark-menu > UL.dropdown-menu.show {
-		background-color: #fff;
-		BUTTON.dropdown-item {
-			color: #555555;
-		}
-		BUTTON.dropdown-item.active:hover {
-			background-color: var(--bs-dropdown-link-active-bg)
-		}
-		BUTTON.dropdown-item:hover {
-			background-color: #f4f4f4;
-		}
-	}
 }
 
 /* darkmode colors for code blocks */

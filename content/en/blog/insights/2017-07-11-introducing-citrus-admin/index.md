@@ -3,7 +3,9 @@ author: Christoph Deppisch
 date: '2017-07-11T00:00:00+00:00'
 featured_image: citrus-logo.png
 tags:
-- docker
+- "docker"
+- "maven"
+- "citrus"
 title: Introducing Citrus Admin Web UI
 ---
 

@@ -1,7 +1,6 @@
 ---
 date: 2025-02-27T10:00:00.000Z
 title: "Forwarding Windows Eventlogs to Loki with Alloy"
-linkTitle: "windows-eventlogs-loki-alloy"
 author: Gerhard Lausser
 tags:
   - omd

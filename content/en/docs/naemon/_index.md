@@ -1,5 +1,6 @@
 ---
 title: Naemon
+description: "A Nagios-compatible monitoring core for hosts, services and notifications."
 tags:
   - naemon
   - nagios
@@ -44,4 +45,4 @@ The changelog is available on [GitHub](https://github.com/naemon/naemon-core/blo
 
 ## Support
 
-Professional support and consulting are available from [ConSol](https://www.consol.com/monitoring).
+Professional support and consulting are available from [ConSol](https://www.consol.de/monitoring).

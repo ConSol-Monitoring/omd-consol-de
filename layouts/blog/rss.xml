@@ -2,7 +2,7 @@
 {{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
 {{- $pages := slice -}}
 {{- if or $.IsHome $.IsSection -}}
-  {{- range site.AllPages -}}
+  {{- range site.Pages -}}
     {{- if not .IsSection }}
       {{- if or (eq .Section "blog") (eq .Section "blog/releases") (eq .Section "blog/insights") -}}
         {{- $pages = $pages | append . -}}

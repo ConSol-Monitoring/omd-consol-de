@@ -2,7 +2,6 @@
 draft: false
 date: 2025-07-17T00:00:00.000Z
 title: "Coshsh can keep a secret"
-linkTitle: "coshsh-secrets"
 author: Gerhard Lausser
 tags:
   - coshsh

@@ -6,7 +6,10 @@ featured_image: OpenShift-Logo.jpg
 meta_description: Debugging Istio (Maistra 1.1) with the command line istioctl, Envoy
   and Kiali
 tags:
-- openshift
+- "openshift"
+- "kubernetes"
+- "istio"
+- "keycloak"
 title: Debugging Istio
 ---
 
@@ -27,6 +30,7 @@ Origin authentication failed.
 The reason for that error is the policy that enforces a JWT authentication and which looks like this:
 
 ```yaml
+- apiVersion: authentication.istio.io/v1alpha1
   kind: Policy
   metadata:
     name: customerjwt

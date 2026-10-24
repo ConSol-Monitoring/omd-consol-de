@@ -6,7 +6,14 @@ featured_image: OpenShift-Logo.jpg
 meta_description: OpenShift 4.3 installation on VMware vSphere with static IP addresses
   and terraform
 tags:
-- openshift
+- "openshift"
+- "redhat"
+- "k8s"
+- "kubernetes"
+- "terraform"
+- "vmware"
+- "vsphere"
+- "ocp"
 title: OpenShift 4.3 installation on VMware vSphere with static IPs
 ---
 

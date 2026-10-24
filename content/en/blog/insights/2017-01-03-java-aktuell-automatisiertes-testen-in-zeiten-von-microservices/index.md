@@ -12,7 +12,6 @@ tags:
 - Sakuli
 - Citrus
 - testing
-- testautomatisierung
 ---
 
 Die Software-Entwicklung ist im Wandel. Immer schneller, immer häufiger, immer einfacher müssen neue Features in Produktion gebracht werden. Große, schwergewichtige Alleskönner werden durch mehrere kleine, individuelle Services ersetzt. Jeder Microservice bildet einen Aspekt der gesamten Fachlichkeit ab und lässt sich deshalb unabhängig entwickeln und warten. ...

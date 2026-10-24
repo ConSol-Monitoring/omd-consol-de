@@ -7,7 +7,10 @@ meta_description: Simple example how to create OLM supported Helm operator by us
   the operator skd. It is using bundle format and is tested with Scorecard and KUTTL
   for integration tests.
 tags:
-- openshift
+- "openshift"
+- "kubernetes"
+- "operator"
+- "olm"
 title: A journey of a Helm operator to OperatorHub.io and back again
 ---
 
@@ -20,6 +23,7 @@ Some time ago, I started a project to create a Helm based operator for an OpenSh
 
 In order to develop the operator, the following applications need to be installed:
 
+- [operator-sdk](https://sdk.operatorframework.io/)
 - [git](https://git-scm.com/)
 - [oc](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-installing-cli_cli-developer-commands)/[kubectl](https://kubernetes.io/docs/tasks/tools/) tool
 - Connection to running OpenShift (4.x)/Kubernetes cluster
@@ -485,6 +489,7 @@ We are now able to create a new CRD. The form and yaml view look very good for a
 
 Let's do a couple of changes:
 
+- I would like to see the ConSol logo, when the operator has been installed.
 - The url `https://nginx-sts.domain` and description for it is not correct.
 - There is no short description for the operator.
 - And so on ...
@@ -873,6 +878,7 @@ To create an operator based on a Helm Chart is quite easy. There are some detail
 
 ## Further references
 
+- [Source code of the examples](https://github.com/olaf-meyer/helm-operator)
 - [Documentation of the Operator SDK](https://sdk.operatorframework.io/docs/)
 - [Introduction to Helm operators from Daniel Messer](https://youtu.be/N9QVJk6kjwg)
 - [Requirements to upload operators to OperatorHub.io](https://operatorhub.io/contribute)

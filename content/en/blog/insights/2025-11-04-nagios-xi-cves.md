@@ -2,7 +2,6 @@
 draft: false
 date: 2025-11-04T00:00:00.000Z
 title: "OMD Labs Edition Not Affected by Recent Nagios XI Vulnerabilities"
-linkTitle: "omd-not-affected-nagios-xi-cves"
 author: Gerhard Lausser
 tags:
   - nagios

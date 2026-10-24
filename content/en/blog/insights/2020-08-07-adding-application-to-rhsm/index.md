@@ -6,7 +6,11 @@ featured_image: OpenShift-Logo.jpg
 meta_description: Guideline how to add an application to a data plane of Istio or
   Red Hat OpenShift Service Mesh
 tags:
-- openshift
+- "openshift"
+- "kubernetes"
+- "istio"
+- "jaeger"
+- "kiali"
 title: How to add an application to a Red Hat OpenShift Service Mesh
 ---
 

@@ -6,7 +6,11 @@ featured_image: OpenShift-Logo.jpg
 meta_description: Guideline how to send messages from an example application to Kafka
   while running in an Istio control plane on OpenShift/Kubernetes
 tags:
-- openshift
+- "openshift"
+- "kubernetes"
+- "kafka"
+- "istio"
+- "kiali"
 title: How to integrate Kafka with Istio on OpenShift
 ---
 
@@ -21,6 +25,7 @@ This article will describe the overall architecture of the example and which obs
 
 The first step was to set up the environment for the demo application and for Istio. I forked the Red Hat Istio tutorial and added a bunch of yaml files that:
 
+- create the projects and the needed operators,
 - deploy Istio and the demo application and the Istio configuration
   
 for the demo application. This Istio configuration will make sure that every connection between the application is secured with mTLS by a set of `DestinationRule`s and `VirtualService`s. The configuration locks down undefined service calls by a bunch of `AuthorizationPolicy`s. This should be a more or less simplified setup for a real live application.
@@ -474,6 +479,7 @@ From what I know, the Istio sidecar proxy is not forwarding the client certifica
 The definition of the Kafka cluster including authentication looks like this:
 
 {% highlight yaml hl_lines="9 10"%}
+- apiVersion: kafka.strimzi.io/v1beta1
   kind: Kafka
   metadata:
     name: demo-app-log-cluster
@@ -607,6 +613,7 @@ You can find the changes in my fork of the Red Hat tutorial. I created a documen
 
 Following is a list of tutorials I used or that I found interesting:
 
+- [Kafka Master Course](https://youtu.be/jhXRFG1896s)
 - [Red Hat Istio tutorial](https://redhat-scholars.github.io/istio-tutorial/)
 - [Link to my fork of the Red Hat Istio tutorial](https://github.com/olaf-meyer/istio-tutorial/tree/olaf-meyer-kafka-recommendation-v1)
 - [Banzai SuperTubes](https://banzaicloud.com/products/supertubes/)

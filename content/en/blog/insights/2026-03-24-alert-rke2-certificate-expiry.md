@@ -2,7 +2,6 @@
 draft: false
 date: 2026-03-24T10:31:49.000Z
 title: "Reliable RKE2 Certificate Expiry Alerts for Clusters Managed by SUSE Rancher"
-linkTitle: "alert-rke2-certificate-expiry"
 author: Ulrike Klusik
 tags:
   - Loki

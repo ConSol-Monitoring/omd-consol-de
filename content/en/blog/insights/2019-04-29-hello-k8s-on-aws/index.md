@@ -5,7 +5,10 @@ date: '2019-04-29'
 featured_image: ./amazon-aws-eks.png
 meta_description: A demo project to easily get started trying Kubernetes on AWS
 tags:
-- Kubernetes
+- "Kubernetes"
+- "aws"
+- "eks"
+- "eksctl"
 title: Hello Kubernetes on AWS! A simple way to test-drive EKS
 ---
 
@@ -27,6 +30,7 @@ Enter [**k8s-hello**](https://github.com/ConSol/k8s-hello), our base project for
 
 As such it does the following:
 
+- It uses the excellent [eksctl tool](https://github.com/weaveworks/eksctl) by Weaveworks to create and destroy an EKS cluster based on an embedded cluster definition file.
 - It contains a trivial Spring Boot application to be deployed on that Cluster, which can be used for the actual development.
 - It defines an AWS CodeBuild pipeline for building that app and deploying it to the Kubernetes Cluster.
 - It performs the creation and destruction of all these resources by the execution of a single script each.

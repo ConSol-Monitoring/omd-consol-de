@@ -7,7 +7,10 @@ meta_description: In July 2017, Java 9 will be released including the brand-new 
   system. This short introduction gets you started with modular development in Java
   9.
 tags:
-- java9
+- "java9"
+- "java"
+- "jigsaw"
+- "modules"
 title: Getting Started with Java 9 Modules
 ---
 

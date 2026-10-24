@@ -4,7 +4,9 @@ date: '2016-09-09T00:00:00+00:00'
 featured_image: prometheus-logo.png
 tags:
 - PrometheusIO
-title: PromCon Video&#58; grok_exporter
+title: "PromCon Video: grok_exporter"
+# Preserve the published URL when correcting the title.
+slug: "promcon-video#58-grok_exporter"
 ---
 
 <div style="float: right; margin-left: 1em; margin-bottom: 1em;"><img src="prometheus-logo.png" alt=""></div>
