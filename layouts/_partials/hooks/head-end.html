@@ -63,7 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script defer src="{{ "assets/js/toc-scroll.js" | relURL }}"></script>
+{{ range slice "js/toc-scroll.js" "js/sidebar-layout.js" }}
+{{ $script := resources.Get . | minify | fingerprint }}
+<script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
 
 {{ if .Site.Params.offlineSearch }}
 {{ $liveSearch := resources.Get "js/live-search.js" | minify | fingerprint }}
