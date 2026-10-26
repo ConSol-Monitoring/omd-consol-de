@@ -1,3 +1,3 @@
 ---
-title: workshop
+title: Workshops
 ---
