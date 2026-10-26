@@ -62,10 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script defer src="{{ "assets/js/toc-scroll.js" | relURL }}"></script>
 
-{{ if .IsHome }}
-<script defer src="{{ "assets/js/home-scroll.js" | relURL }}"></script>
-{{ end }}
-
 {{ if .Site.Params.offlineSearch }}
 {{ $liveSearch := resources.Get "js/live-search.js" | minify | fingerprint }}
 <script defer src="{{ $liveSearch.RelPermalink }}" integrity="{{ $liveSearch.Data.Integrity }}" crossorigin="anonymous"></script>

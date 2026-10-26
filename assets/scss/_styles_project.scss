@@ -240,6 +240,16 @@ h5, .h5, h6, .h6 {
   > .td-main { padding-inline: calc(var(--bs-gutter-x, 1.5rem) * .5); }
 }
 
+// Extend Docsy's tablet layout to desktop so short pages' sidebars reach the footer.
+@media (min-width: 768px) {
+  .td-main:has(> .row .td-sidebar-nav) {
+    display: flex;
+    flex-direction: column;
+
+    > .row { flex-grow: 1; }
+  }
+}
+
 .td-footer.monitoring-footer {
   min-height: 0;
   margin-inline: 0;
@@ -544,6 +554,9 @@ h5, .h5, h6, .h6 {
     .section-index { grid-template-columns: 1fr; }
   }
 }
+
+// Individual blog articles do not show the section's RSS button.
+.td-page.td-blog .td-rss-button { display: none !important; }
 
 // Blog listings retain Docsy's chronology, pagination and RSS.
 .td-section.td-blog {
