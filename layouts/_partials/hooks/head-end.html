@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var sidebar = document.querySelector('.td-sidebar-nav');
   if (!sidebar) return;
 
+  var sidebarList = sidebar.querySelector(':scope > .ul-0 > li > .ul-1');
   var links = sidebar.querySelectorAll('a[href]');
   var matchingLink = null;
 
@@ -47,10 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
     matchingLink.setAttribute('aria-current', 'page');
 
     function centerCurrentLink() {
-      if (!sidebar.clientHeight) return;
-      var sidebarRect = sidebar.getBoundingClientRect();
+      var scroller = sidebarList && window.matchMedia('(min-width: 768px)').matches
+        ? sidebarList : sidebar;
+      if (!scroller.clientHeight || !scroller.contains(matchingLink)) return;
+      var sidebarRect = scroller.getBoundingClientRect();
       var linkRect = matchingLink.getBoundingClientRect();
-      sidebar.scrollTop += linkRect.top - sidebarRect.top - (sidebar.clientHeight - linkRect.height) / 2;
+      scroller.scrollTop += linkRect.top - sidebarRect.top - (scroller.clientHeight - linkRect.height) / 2;
     }
 
     centerCurrentLink();

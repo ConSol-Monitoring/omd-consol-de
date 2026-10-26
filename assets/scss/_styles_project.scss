@@ -1002,7 +1002,27 @@ h5, .h5, h6, .h6 {
   .td-sidebar .td-sidebar-nav {
     max-height: calc(100vh - 5.5rem);
     max-height: calc(100dvh - 5.5rem);
-    overflow-y: auto;
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 0;
+
+    // Keep the section header outside the list's scroll viewport.
+    > .ul-0, > .ul-0 > li {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .tree-root { flex-shrink: 0; }
+
+    > .ul-0 > li > .ul-1 {
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-bottom: 1rem;
+      scrollbar-width: thin;
+    }
   }
 }
 
