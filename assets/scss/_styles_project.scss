@@ -1894,3 +1894,15 @@ h5, .h5, h6, .h6 {
     .monitoring-tags__group { padding: 1.1rem; }
   }
 }
+
+// Thruk supplies dark lettering for light surfaces and white lettering for dark ones.
+.project-logo-dark { display: none; }
+[data-bs-theme="dark"] {
+  .project-logo-light { display: none; }
+  .project-logo-dark { display: inline-block; }
+}
+.project-logo { display: inline-block; max-width: 100%; height: auto; }
+.project-logo--thruk img { max-width: 100%; height: auto; }
+.monitoring-home .monitoring-project__logo img:is(.project-logo-light, .project-logo-dark, .project-logo--naemon) {
+  background: transparent;
+}

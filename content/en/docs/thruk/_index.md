@@ -8,7 +8,7 @@ tags:
 weight: 500
 ---
 <div class="pb-4">
-  <img class="p-2" src="logo_thruk.png" alt="Thruk" style="background-color: white"/>
+  <span class="project-logo project-logo--thruk"><img class="project-logo-light" src="/docs/thruk/thruk_dark.svg" alt="Thruk" width="200" height="85"><img class="project-logo-dark" src="/docs/thruk/thruk_light.svg" alt="Thruk" width="200" height="85"></span>
 </div>
 
 **[Thruk](https://www.thruk.org)** is a monitoring web interface that supports multiple backends, including Naemon, Nagios, Icinga and Shinken, through the Livestatus API.

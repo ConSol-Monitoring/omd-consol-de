@@ -7,7 +7,7 @@ tags:
 weight: 550
 ---
 <div class="pb-4">
-  <img class="p-2" src="logo_naemon.png" alt="Naemon" style="background-color: white"/>
+  <img class="project-logo project-logo--naemon p-2" src="/docs/naemon/naemon.svg" alt="Naemon" width="200" height="62"/>
 </div>
 
 **[Naemon](https://www.naemon.io)** is an open source system and network monitoring application. It monitors the hosts and services you specify, alerts you when problems occur and notifies you when they are resolved.

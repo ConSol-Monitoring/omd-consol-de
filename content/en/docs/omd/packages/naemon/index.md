@@ -7,7 +7,8 @@ title: Naemon
     display: none;
   }
 </style>
-![](naemon.png)
+<img class="project-logo project-logo--naemon p-2" src="/docs/naemon/naemon.svg" alt="Naemon" width="200" height="62" style="background-color: white"/>
+
 ### Overview
 
 |||
