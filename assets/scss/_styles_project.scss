@@ -75,6 +75,7 @@ h5, .h5, h6, .h6 {
   .monitoring-projects { padding-block: 5.5rem; }
   .monitoring-toolkit-title { font-size: clamp(1.5rem, 2.3vw, 2rem); letter-spacing: -.025em; }
   .monitoring-section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 2.5rem; .monitoring-eyebrow { color: var(--mh-muted); margin-bottom: .8rem; } h2 { margin-bottom: 0; } > p { color: var(--mh-muted); font-size: .85rem; margin-bottom: .2rem; } }
+  .monitoring-featured h3 a, .monitoring-project h3 a { color: inherit; &:hover { text-decoration: underline; text-underline-offset: 4px; } }
   .monitoring-featured { display: grid; grid-template-columns: 1.5fr 1fr; overflow: hidden; border: 1px solid var(--mh-border); border-radius: 10px; background: var(--mh-surface); margin-bottom: 1.5rem; }
   .monitoring-featured__copy { padding: 2.75rem; .monitoring-eyebrow { color: var(--mh-muted); margin-bottom: .75rem; } h3 { font-size: 2.25rem; margin-bottom: 1rem; } > p:not(.monitoring-eyebrow) { color: var(--mh-muted); font-size: .9rem; max-width: 34rem; margin-bottom: 1.5rem; } }
   .monitoring-featured__visual { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; background: var(--mh-surface); border-left: 1px solid var(--mh-border); img { object-fit: contain; width: 210px; max-width: 100%; height: 210px; } }
@@ -82,8 +83,8 @@ h5, .h5, h6, .h6 {
   .monitoring-project { display: flex; flex-direction: column; padding: 1.75rem; border: 1px solid var(--mh-border); border-radius: 9px; background: var(--mh-bg); transition: border-color .18s, box-shadow .18s; &:hover { border-color: #acb3b6; box-shadow: 0 8px 24px #00000008; } h3 { margin-bottom: .7rem; } > p { color: var(--mh-muted); font-size: .85rem; margin-bottom: 1.5rem; } }
   .monitoring-project__top { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-bottom: 1.7rem; }
   .monitoring-project__category { color: var(--mh-muted); font-size: .58rem; font-weight: 700; letter-spacing: .08em; }
-  .monitoring-project__number { font-size: .65rem; color: var(--mh-muted); font-family: monospace; }
   .monitoring-project__logo { display: flex; align-items: center; height: 64px; margin-bottom: 1.3rem; img { object-fit: contain; object-position: left center; max-width: 140px; padding: 5px; background: #fff; border-radius: 4px; } > i { font-size: 2.75rem; color: var(--mh-text); } }
+  .monitoring-project__logo--snclient img { transform: scale(1.15); transform-origin: left center; }
   .monitoring-project__links { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--mh-border); a { color: var(--mh-text); font-size: .8rem; font-weight: 700; padding-block: .3rem; &:hover { text-decoration: underline; text-underline-offset: 4px; } > .fa-arrow-right { margin-left: .5rem; font-size: .7rem; } > .fa-github { font-size: 1.15rem; } } }
   .monitoring-project--plugins { background: var(--mh-surface); }
   .monitoring-about { background: var(--mh-surface); border-block: 1px solid var(--mh-border); padding-block: 4.5rem; }
