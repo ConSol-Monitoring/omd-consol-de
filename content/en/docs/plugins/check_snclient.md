@@ -3,7 +3,7 @@ title: check_snclient
 tags:
   - plugins
   - snclient
-  - nsclient++
+  - nsclient
   - check_snclient
   - check_nsc_web
 ---

@@ -3,8 +3,10 @@
 {{- $date := "" -}}
 {{- $tagLinks := slice -}}
 {{- $summary := "" -}}
+{{- $blogSection := "" -}}
 {{- if and .IsPage (eq .Section "blog") -}}
-  {{- $summary = .Summary | plainify | htmlUnescape -}}
+  {{- $blogSection = .CurrentSection.RelPermalink -}}
+  {{- $summary = .Plain | htmlUnescape | truncate 800 -}}
   {{- range .GetTerms "tags" -}}
     {{- $tagLinks = $tagLinks | append (dict "title" .LinkTitle "ref" .RelPermalink) -}}
   {{- end -}}
@@ -22,6 +24,7 @@
     "date" $date
     "kind" .Kind
     "summary" $summary
+    "blogSection" $blogSection
     "tagLinks" $tagLinks
 ) -}}
 {{- end -}}

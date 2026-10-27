@@ -1,0 +1,8 @@
+{{ $current := .Page.RelPermalink }}
+<nav class="monitoring-blog-nav" aria-label="Blog categories">
+  {{ range slice (dict "path" "blog/" "label" "All") (dict "path" "blog/releases/" "label" "Releases") (dict "path" "blog/insights/" "label" "Insights") }}
+    {{ $href := .path | relURL }}
+    <a href="{{ $href }}"{{ if eq $current $href }} aria-current="page"{{ end }}>{{ .label }}</a>
+  {{ end }}
+  <a class="monitoring-blog-nav__feed" href="{{ .Page.RelPermalink }}index.xml"><i class="fa-solid fa-rss" aria-hidden="true"></i> RSS feed</a>
+</nav>

@@ -9,10 +9,6 @@ menu:
 
 Release announcements, technical guides and monitoring insights from the ConSol team.
 
-<nav class="monitoring-blog-nav" aria-label="Blog sections">
-    <a href="/blog/releases/"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Releases</a>
-    <a href="/blog/insights/"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Insights</a>
-    <a href="/blog/index.xml"><i class="fa-solid fa-rss" aria-hidden="true"></i> RSS feed</a>
-</nav>
+{{< blog/nav >}}
 
 {{< blog/search >}}

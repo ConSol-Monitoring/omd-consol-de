@@ -1,16 +1,19 @@
-<form class="monitoring-blog-search" role="search" aria-label="Search news">
-  <label for="blog-search">Search news</label>
+{{ $label := "Search news" }}
+{{ if ne .Page.RelPermalink ("blog/" | relURL) }}{{ $label = printf "Search %s" (.Page.LinkTitle | lower) }}{{ end }}
+<form class="monitoring-blog-search" role="search" aria-label="{{ $label }}">
+  <label for="blog-search">{{ $label }}</label>
   <div class="td-search td-search--offline">
     <div class="td-search__icon" aria-hidden="true"></div>
     <input id="blog-search" type="search" name="q" class="td-search__input form-control"
-      placeholder="Search news…" aria-label="Search news" autocomplete="off"
+      placeholder="{{ $label }}…" aria-label="{{ $label }}" autocomplete="off"
       data-search-mode="inline"
+      data-blog-search-section="{{ .Page.RelPermalink }}"
       data-offline-search-index-json-src="{{ "offline-search-index.json" | relURL }}"
       data-offline-search-base-href="{{ "/" | relURL }}"
       data-offline-search-max-results="10">
   </div>
 </form>
-<section id="blog-search-results" class="monitoring-blog-search-results" aria-label="News search results" hidden>
+<section id="blog-search-results" class="monitoring-blog-search-results" aria-label="{{ $label }} results" hidden>
   <div class="monitoring-blog-search-results__toolbar">
     <p role="status" aria-live="polite"></p>
     <div class="monitoring-blog-search-results__sort"><span>Sort within matches</span></div>

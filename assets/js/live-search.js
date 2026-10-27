@@ -221,6 +221,13 @@ function initializeLiveSearch() {
     function card(match) {
       const doc = details.get(match.ref);
       const item = node('li', 'td-blog-posts-list__item');
+      if (Number.isFinite(Date.parse(doc.date))) {
+        const date = new Date(doc.date);
+        const timeline = node('time', 'monitoring-blog-timeline-date', date.toLocaleDateString('en', { month: 'short', day: 'numeric' }));
+        timeline.dateTime = doc.date;
+        timeline.append(node('span', '', String(date.getFullYear())));
+        item.append(timeline);
+      }
       const body = node('div', 'td-blog-posts-list__body');
       const heading = node('h5', 'mt-0 mb-1');
       const title = node('a', '', doc.title);
@@ -285,7 +292,10 @@ function initializeLiveSearch() {
       try {
         const index = await loadIndex();
         if (request !== sequence) return;
-        matches = sortMatches(queryMatches(index, query, 'blog').filter(match => details.get(match.ref).kind === 'page'), sort.value);
+        matches = sortMatches(queryMatches(index, query, 'blog').filter(match => {
+          const doc = details.get(match.ref);
+          return doc.kind === 'page' && doc.blogSection?.startsWith(input.dataset.blogSearchSection);
+        }), sort.value);
         renderMore();
       } catch (_) {
         if (request === sequence) status.textContent = 'Search could not load. Try typing again.';
