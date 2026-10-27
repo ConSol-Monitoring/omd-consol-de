@@ -6,13 +6,8 @@ title: Mod-Gearman
     border: thin solid red !important;
     display: none;
   }
-  img[src$='#logo'] {
-    float:right;
-    padding-right: 172px;
-    padding-bottom: 5px;
-  }
 </style>
-![](mod-gearman.jpeg#logo)
+<span class="project-logo project-logo--mod-gearman"><img class="project-logo-light" src="/docs/mod-gearman/mod-gearman_light.svg" alt="Mod Gearman" width="104" height="80"><img class="project-logo-dark" src="/docs/mod-gearman/mod-gearman_dark.svg" alt="Mod Gearman" width="104" height="80"></span>
 
 ### Overview
 

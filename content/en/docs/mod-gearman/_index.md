@@ -9,7 +9,7 @@ tags:
 weight: 600
 ---
 <div class="pb-4">
-  <img class="p-2" src="logo_mod-gearman.png" alt="Mod Gearman" style="background-color: white"/>
+  <span class="project-logo project-logo--mod-gearman"><img class="project-logo-light" src="mod-gearman_light.svg" alt="Mod Gearman" width="104" height="80"><img class="project-logo-dark" src="mod-gearman_dark.svg" alt="Mod Gearman" width="104" height="80"></span>
 </div>
 
 **[Mod_Gearman](https://mod-gearman.org/)** is an easy way of distributing active Naemon checks across your network and increasing Naemon scalability.
