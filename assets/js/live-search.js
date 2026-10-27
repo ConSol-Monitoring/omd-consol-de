@@ -70,6 +70,7 @@ function initializeLiveSearch() {
             details.set(doc.ref, doc);
             searchable.set(doc.ref, {
               title: ' ' + words(doc.title).join(' ') + ' ',
+              body: ' ' + words(doc.body).join(' ') + ' ',
               titleTerms: new Set(words(doc.title)),
               terms: new Set(words([doc.title, doc.tags, doc.description, doc.body].flat().join(' ')))
             });
@@ -89,8 +90,15 @@ function initializeLiveSearch() {
     return false;
   }
   function queryMatches(index, query, scope) {
-    const terms = [...new Set(words(query))];
-    const phrase = ' ' + words(query).join(' ') + ' ';
+    const queryWords = words(query);
+    const terms = [...new Set(queryWords)];
+    const phrase = ' ' + queryWords.join(' ') + ' ';
+    // Punctuation is normalized to spaces. A version prefix must end at a
+    // component boundary: Grafana 12 matches Grafana: 12.4.3, but not 120.4.
+    const contentPattern = queryWords.length ? new RegExp('(?:^| )' + queryWords.map(term => {
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return /^\d+(?:\.\d+)*$/.test(term) ? escaped + '(?:\\.\\d+)*' : escaped;
+    }).join(' ') + '(?= |$)') : null;
     // Require every query word in the title, allowing prefixes such as 5 -> 5.70.
     const titlePattern = terms.length ? new RegExp(terms.map(term => {
       const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -108,23 +116,29 @@ function initializeLiveSearch() {
       const doc = searchable.get(match.ref);
       const coverage = terms.filter(term => matchesTerm(doc.terms, term)).length;
       const titleCoverage = terms.filter(term => matchesTerm(doc.titleTerms, term)).length;
-      // Every title hit precedes content-only hits, regardless of date or Lunr score.
+      // Full title matches precede adjacent phrases found only in content.
       const relevance = terms.length && doc.title === phrase ? 0
         : terms.length && doc.title.includes(phrase) ? 1
         : titlePattern?.test(doc.title) ? 2
-        : titleCoverage ? 3
-        : terms.length && coverage === terms.length ? 4 : 5;
-      return { ...match, relevance, coverage, titleCoverage };
+        : contentPattern?.test(doc.body) ? 3
+        : titleCoverage ? 4
+        : terms.length && coverage === terms.length ? 5 : 6;
+      return { ...match, relevance, coverage, titleCoverage, bestMatch: relevance < 4 };
     }).sort(compareRelevance);
   }
   function compareRelevance(a, b) {
     return a.relevance - b.relevance || b.titleCoverage - a.titleCoverage || b.coverage - a.coverage || b.score - a.score;
   }
   function sortMatches(matches, order) {
-    // Dates only break ties in relevance; an exact title stays ahead of partial matches.
+    // Keep best matches first. Other matches form one chronological group,
+    // rather than several invisible relevance tiers with separate date orders.
     return matches.sort((a, b) => {
-      const relevance = a.relevance - b.relevance || b.titleCoverage - a.titleCoverage || b.coverage - a.coverage;
-      if (relevance) return relevance;
+      const aBest = a.bestMatch, bBest = b.bestMatch;
+      if (aBest !== bBest) return aBest ? -1 : 1;
+      if (aBest) {
+        const relevance = a.relevance - b.relevance || b.titleCoverage - a.titleCoverage || b.coverage - a.coverage;
+        if (relevance) return relevance;
+      }
       const aDate = Date.parse(details.get(a.ref).date), bDate = Date.parse(details.get(b.ref).date);
       if (!Number.isFinite(aDate)) return Number.isFinite(bDate) ? 1 : compareRelevance(a, b);
       if (!Number.isFinite(bDate)) return -1;
@@ -180,7 +194,7 @@ function initializeLiveSearch() {
     return { get value() { return value; }, close };
   }
   function appendGroupedResult(container, match, item, inline = false) {
-    const key = match.relevance < 3 ? 'best' : 'other';
+    const key = match.bestMatch ? 'best' : 'other';
     let group = container.querySelector('[data-match-group="' + key + '"]');
     if (!group) {
       group = document.createElement(inline ? 'section' : 'div');
