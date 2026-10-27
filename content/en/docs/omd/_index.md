@@ -5,6 +5,11 @@ linkTitle: OMD
 weight: 100
 ---
 
+<div class="mb-4">
+  <img class="project-logo-light project-logo--omd" src="/docs/omd/omd_light.svg" alt="OMD Labs Edition" width="180" height="180">
+  <img class="project-logo-dark project-logo--omd" src="/docs/omd/omd_dark.svg" alt="OMD Labs Edition" width="180" height="180">
+</div>
+
 **OMD Labs-Edition** brings monitoring cores, web interfaces, graphing tools, and plugins together in one RPM or DEB package. It integrates into your existing Linux system and provides a consistent way to install, run, and update your monitoring environment.
 
 ## Why OMD?
