@@ -1,13 +1,13 @@
 ---
 author: Sven Nierlein
 date: '2017-05-17T10:00:00+02:00'
-featured_image: ./omd_logo_small.jpg
+featured_image: /docs/omd/omd_light.svg
 tags:
 - omd
 title: OMD 2.40 Labs Edition Released
 ---
 
-<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em; width: 20%; height: 20%;"><img src="./omd_logo_small.jpg"></div>
+<div style="position: relative; float: right; margin-right: 1em; margin-bottom: 1em; width: 20%; height: 20%;"><img class="project-logo-light project-logo--omd" src="/docs/omd/omd_light.svg" alt="OMD Labs Edition" width="240" height="240"><img class="project-logo-dark project-logo--omd" src="/docs/omd/omd_dark.svg" alt="OMD Labs Edition" width="240" height="240"></div>
 
 [__OMD Labs Edition__](/docs/omd/) 2.40 has been released today. The OMD Labs Edition is based on the standard [__OMD__](http://omdistro.org/) but adds some more useful addons like [__Grafana__](http://grafana.org/) and [__Influxdb__](http://influxdb.org/) or additional cores like [__Icinga 2__](http://icinga.org/) and [__Naemon__](http://naemon.org/). This releases focus is on security and maintainance and removes some recently discovered CVEs in Nagios, Icinga and Naemon.
 <!--more-->

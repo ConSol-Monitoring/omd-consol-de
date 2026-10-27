@@ -30,7 +30,11 @@
             {{- partial "reading-time.html" . -}}
           {{ end -}}
         </header>
-        {{- partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") -}}
+        {{- if eq .Params.featured_image "/docs/omd/omd_light.svg" -}}
+          <span class="float-start me-3 pt-1 d-none d-md-block"><img class="project-logo-light project-logo--omd" src="/docs/omd/omd_light.svg" alt="OMD Labs Edition" width="125" height="125" loading="lazy"><img class="project-logo-dark project-logo--omd" src="/docs/omd/omd_dark.svg" alt="OMD Labs Edition" width="125" height="125" loading="lazy"></span>
+        {{- else -}}
+          {{- partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") -}}
+        {{- end -}}
         <p class="pt-0 mt-0">{{ .Plain | htmlUnescape | truncate 800 }}</p>
         <p class="pt-0"><a href="{{ .RelPermalink }}" aria-label="{{ T "ui_read_more"}} - {{ .LinkTitle }}">{{ T "ui_read_more"}}</a></p>
       </div>
