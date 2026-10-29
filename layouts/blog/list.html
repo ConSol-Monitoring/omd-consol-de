@@ -36,7 +36,7 @@
           {{- partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") -}}
         {{- end -}}
         {{ if in .RawContent "<!--more" }}
-<p class="pt-0 mt-0">{{ .Summary }}</p>
+<p class="pt-0 mt-0">{{ .Summary | plainify }}</p>
 {{ else }}
 <p class="pt-0 mt-0">{{ .Plain | htmlUnescape | truncate 800 }}</p>
 {{ end }}
