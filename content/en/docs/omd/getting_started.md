@@ -6,24 +6,33 @@ weight: 10
 ## Welcome to OMD
 
 OMD-Labs is a single RPM or DEB package to create a monitoring setup easily. It includes all required components.
-This guide uses CentOS 7, but it works the same way on all other supported systems.
+This guide uses Rocky Linux 10 on x86_64. For other supported systems, follow the [stable repository installation instructions](/repo/stable/).
 
 ## Installation
 
-Install the `epel` repository if not already present.
+Run the installation commands as `root`.
 
-    #> rpm -Uvh https://download.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+Install the [EPEL repository](https://docs.fedoraproject.org/en-US/epel/getting-started/) and enable Rocky Linux's CRB repository for additional dependencies:
 
-Install the `consol labs` repository if not already present.
+```sh
+dnf install epel-release
+crb enable
+```
 
-    #> rpm -Uvh "https://labs.consol.de/repo/stable/rhel7/i386/labs-consol-stable.rhel7.noarch.rpm"
+Install the ConSol Labs stable repository for RHEL-compatible version 10 systems:
 
-Then install the OMD RPM.
+```sh
+dnf install https://labs.consol.de/repo/stable/rhel10/x86_64/labs-consol-stable.rhel10.noarch.rpm
+```
 
-    #> yum install omd
+Then install OMD:
+
+```sh
+dnf install omd
+```
 
 {{% pageinfo %}}
-You can install multiple OMD versions at the same time. You can search for other versions with:<br><code>yum search omd-</code>
+You can install multiple OMD versions at the same time. Search for available versioned packages with `dnf search omd-`.
 {{% /pageinfo %}}
 
 ## Create a new Site
