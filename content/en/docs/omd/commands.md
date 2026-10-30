@@ -1,5 +1,6 @@
 ---
 title: Commands
+weight: 20
 ---
 ## General omd commands
 

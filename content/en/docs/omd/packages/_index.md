@@ -1,5 +1,6 @@
 ---
 title: Packages
+weight: 40
 description: "Explore the monitoring cores, dashboards, metrics tools, and plugins included in OMD Labs-Edition."
 no_list: true
 ---

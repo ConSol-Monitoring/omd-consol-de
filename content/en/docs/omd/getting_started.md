@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+weight: 10
 ---
 
 ## Welcome to OMD

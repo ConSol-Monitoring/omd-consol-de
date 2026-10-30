@@ -1,6 +1,7 @@
 ---
 title: Filesystem Layout
 linkTitle: Filesystem Layout
+weight: 30
 ---
 
 ## Filesystem layout

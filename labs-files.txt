@@ -204,8 +204,6 @@ R = Replaced by a page describing the same topic (check_*_health)
 [ ] omd/howtos/prometheus_snmp_exporter
 [ ] omd/howtos/prometheus_snmp_exporter/index.md
 [ ] omd/index.md
-[ ] omd/migration_3.md
-[ ] omd/migration_4.md
 [ ] omd/migration_5.md
 [ ] omd/omd_logo.jpg
 [ ] omd/omd_logo_small.jpg
@@ -282,7 +280,6 @@ R = Replaced by a page describing the same topic (check_*_health)
 [ ] omd/packages/thruk/thruk.png
 [ ] omd/rhel.png
 [ ] omd/sles.png
-[ ] omd/troubleshooting.md
 [ ] omd/ubuntu.png
 [ ] opencsw
 [ ] opencsw/index.md
