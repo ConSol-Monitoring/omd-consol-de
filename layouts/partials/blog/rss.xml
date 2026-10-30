@@ -1,13 +1,13 @@
 {{- $pages := slice -}}
 {{- $archive := eq .Layout "archive" -}}
 {{- if .IsHome -}}
-  {{- $pages = where .Site.RegularPages "Section" "blog" -}}
+  {{- $pages = partial "blog/posts.html" .Site.Pages -}}
 {{- else if eq .RelPermalink ("blog/" | relURL) -}}
-  {{- $pages = where .Site.RegularPages "Section" "blog" -}}
+  {{- $pages = partial "blog/posts.html" .Site.Pages -}}
 {{- else if $archive -}}
-  {{- $pages = where .Site.RegularPages "Section" "blog" -}}
+  {{- $pages = partial "blog/posts.html" .Site.Pages -}}
 {{- else -}}
-  {{- $pages = .RegularPages -}}
+  {{- $pages = partial "blog/posts.html" .Pages -}}
 {{- end -}}
 {{- $pages = partial "blog/filter-pages.html" (dict "pages" $pages "archive" $archive) -}}
 {{- $pages = sort $pages "Date" "desc" -}}

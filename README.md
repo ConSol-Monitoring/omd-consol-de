@@ -35,3 +35,15 @@ Normal search uses `offline-search-index.json`; the archive search uses
 archive. `exclude_search: true` excludes a post from both indexes without
 changing its archive status. Archived articles remain published in the sitemap
 and accessible to external search engines.
+
+The 2017 and 2019 workshop material lives under `content/en/blog/insights/`
+and is published at `/blog/insights/monitoring-workshop-2017/` and
+`/blog/insights/monitoring-workshop-2019/`. Hugo aliases redirect the former
+`/wiki/workshop/.../` page addresses to their corresponding Insights pages.
+`legacy_resource_path` republishes the bundled PDFs and images at their old
+addresses so existing download links remain valid. Each workshop is a branch
+bundle with an `_index.md` article marked `blog_post: true`; supporting pages
+and assets live in the same folder. The supporting pages stay out of listings
+and search through the bundle cascade. Both workshop articles follow the
+archive cutoff. The former `/wiki/`
+and `/wiki/workshop/` indexes redirect to Insights.

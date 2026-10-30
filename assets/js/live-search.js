@@ -116,7 +116,7 @@ function initializeLiveSearch() {
         q.term(term, { wildcard: lunr.Query.wildcard.TRAILING, boost: 10 });
         if (term.length >= 3) q.term(term, { wildcard: lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING });
       });
-    }).filter(match => scope === 'all' || match.ref.replace(/^\//, '').startsWith(scope + '/')).map(match => {
+    }).filter(match => scope === 'all' || (details.get(match.ref).section || match.ref.replace(/^\//, '').split('/')[0]) === scope).map(match => {
       const doc = searchable.get(match.ref);
       const coverage = terms.filter(term => matchesTerm(doc.terms, term)).length;
       const titleCoverage = terms.filter(term => matchesTerm(doc.titleTerms, term)).length;
@@ -414,13 +414,13 @@ function initializeLiveSearch() {
         link.setAttribute('aria-selected', 'false');
         link.href = input.dataset.offlineSearchBaseHref + match.ref.replace(/^\//, '');
         const title = document.createElement('strong'), badge = document.createElement('small'), excerpt = document.createElement('span');
-        const section = match.ref.replace(/^\//, '').split('/')[0];
+        const section = doc.section || match.ref.replace(/^\//, '').split('/')[0];
         title.textContent = doc.title;
         badge.className = 'monitoring-search-results__badge';
         badge.textContent = { docs: 'Documentation', blog: 'Blog', tags: 'Tags', repo: 'Repository' }[section] || 'Page';
         excerpt.textContent = doc.excerpt;
         link.append(badge, title, excerpt);
-        if (match.ref.replace(/^\//, '').startsWith('blog/') && Number.isFinite(Date.parse(doc.date))) {
+        if (section === 'blog' && Number.isFinite(Date.parse(doc.date))) {
           const date = document.createElement('time');
           date.dateTime = doc.date;
           date.textContent = new Date(doc.date).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' });

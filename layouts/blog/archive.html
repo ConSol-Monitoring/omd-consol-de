@@ -3,7 +3,7 @@
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 </div>
-{{ $pages := partial "blog/filter-pages.html" (dict "pages" (where .Site.RegularPages "Section" "blog") "archive" true) }}
+{{ $pages := partial "blog/filter-pages.html" (dict "pages" (partial "blog/posts.html" .Site.Pages) "archive" true) }}
 <div class="td-blog-posts monitoring-blog-archive">
   <nav class="monitoring-blog-archive__years" aria-label="Archive years">
     {{ range $pages.GroupByDate "2006" }}<a href="#archive-{{ .Key }}">{{ .Key }} <span>({{ len .Pages }})</span></a>{{ end }}

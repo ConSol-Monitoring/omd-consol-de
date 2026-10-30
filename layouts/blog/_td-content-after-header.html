@@ -1,3 +1,11 @@
+{{/* Keep downloads and images linked from the former wiki working. */}}
+{{ with .Params.legacy_resource_path }}
+  {{ $legacyPath := strings.TrimPrefix "/" . }}
+  {{ range $.Resources }}
+    {{ $legacy := resources.Copy (path.Join $legacyPath .Name) . }}
+    {{ $legacy.Publish }}
+  {{ end }}
+{{ end }}
 {{ if partialCached "blog/is-archived.html" . .RelPermalink }}
 <aside class="monitoring-archive-notice" aria-label="Archived article">
   <strong>Archived article</strong>

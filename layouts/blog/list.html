@@ -5,7 +5,7 @@
 {{ with .Content }}{{ . }}{{ end -}}
 </div>
 {{ if (and .Parent .Parent.IsHome) -}}
-  {{ $.Scratch.Set "blog-pages" (where .Site.RegularPages "Section" .Section) -}}
+  {{ $.Scratch.Set "blog-pages" (partial "blog/posts.html" .Site.Pages) -}}
 {{ else -}}
   {{$.Scratch.Set "blog-pages" .Pages -}}
 {{ end -}}
@@ -23,7 +23,7 @@
       <div class="td-blog-posts-list__body">
         <h5 class="mt-0 mb-1"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
         <p class="mb-2 mb-md-3"><small class="text-body-secondary">
-          {{- .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ .CurrentSection.LinkTitle -}}
+          {{- .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ (partial "blog/post-section.html" .).LinkTitle -}}
         </small></p>
         <header class="article-meta">
           {{- partial "taxonomy_terms_article_wrapper.html" . -}}

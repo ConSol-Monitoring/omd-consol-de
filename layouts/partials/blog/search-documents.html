@@ -1,23 +1,25 @@
 {{- $documents := slice -}}
 {{- range where .site.Pages ".Params.exclude_search" "!=" true -}}
+{{- $isPost := partialCached "blog/is-post.html" . .RelPermalink -}}
 {{- $archived := partialCached "blog/is-archived.html" . .RelPermalink -}}
-{{- if and (eq $archived $.archive) (not (and .IsSection (eq .Section "blog"))) -}}
+{{- if and (eq $archived $.archive) (or $isPost (ne .Section "blog")) -}}
 {{- $date := "" -}}
 {{- $tagLinks := slice -}}
 {{- $summary := "" -}}
 {{- $blogSection := "" -}}
-{{- if and .IsPage (eq .Section "blog") -}}
-  {{- $blogSection = .CurrentSection.RelPermalink -}}
+{{- if $isPost -}}
+  {{- $blogSection = (partial "blog/post-section.html" .).RelPermalink -}}
   {{- $summary = .Plain | htmlUnescape | truncate 800 -}}
   {{- range .GetTerms "tags" -}}
     {{- $tagLinks = $tagLinks | append (dict "title" .LinkTitle "ref" .RelPermalink) -}}
   {{- end -}}
 {{- end -}}
-{{- if and .IsPage (not .Date.IsZero) -}}
+{{- if and (or .IsPage $isPost) (not .Date.IsZero) -}}
   {{- $date = .Date.Format "2006-01-02T15:04:05Z07:00" -}}
 {{- end -}}
 {{- $documents = $documents | append (dict
     "ref" .RelPermalink
+    "section" .Section
     "title" .Title
     "tags" (.Params.tags | default "")
     "description" (.Description | default "")
@@ -25,7 +27,7 @@
     "excerpt" ((.Description | default .Plain) | htmlUnescape | truncate (.Site.Params.offlineSearchSummaryLength | default 70) | htmlUnescape)
     "date" $date
     "archived" $archived
-    "kind" .Kind
+    "kind" (cond $isPost "page" .Kind)
     "summary" $summary
     "blogSection" $blogSection
     "tagLinks" $tagLinks

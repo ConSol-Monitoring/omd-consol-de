@@ -1,0 +1,7 @@
+{{- $posts := first 0 . -}}
+{{- range . -}}
+  {{- if partialCached "blog/is-post.html" . .RelPermalink -}}
+    {{- $posts = $posts | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $posts -}}

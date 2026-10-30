@@ -1,5 +1,5 @@
 {{- $archived := false -}}
-{{- if and .IsPage (eq .Section "blog") -}}
+{{- if partialCached "blog/is-post.html" . .RelPermalink -}}
   {{- if isset .Params "archived" -}}
     {{- $archived = eq .Params.archived true -}}
   {{- else -}}

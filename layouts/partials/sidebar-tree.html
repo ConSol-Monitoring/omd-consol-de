@@ -89,7 +89,7 @@
   {{/* Keep archived articles out of the regular sidebar, retaining the open article. */}}
   {{ $visible := slice }}
   {{ range $pages_tmp }}
-    {{ if or (not (partialCached "blog/is-archived.html" . .RelPermalink)) (eq . $p) }}
+    {{ if or (not (partialCached "blog/is-archived.html" . .RelPermalink)) (eq . $p) ($p.IsDescendant .) }}
       {{ $visible = $visible | append . }}
     {{ end }}
   {{ end }}

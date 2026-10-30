@@ -1,0 +1,2 @@
+{{/* Branch bundles marked blog_post are articles, just like regular pages. */}}
+{{- return (and (eq .Section "blog") (or .IsPage (eq .Params.blog_post true))) -}}

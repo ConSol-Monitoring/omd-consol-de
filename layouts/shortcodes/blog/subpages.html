@@ -1,0 +1,12 @@
+<div class="section-index">
+  {{- range .Params -}}
+    {{- with $.Page.GetPage . }}
+    <div class="entry">
+      <h5><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h5>
+      {{ with .Description }}<p>{{ . | markdownify }}</p>{{ end }}
+    </div>
+    {{- else -}}
+      {{- errorf "Workshop subpage %q not found on %s" . $.Page.File.Path -}}
+    {{- end -}}
+  {{- end }}
+</div>

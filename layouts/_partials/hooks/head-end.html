@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" crossorigin="anonymous"></script>
 {{ end }}
 
-{{ if and (eq .Section "blog") .IsSection }}
+{{ if and (eq .Section "blog") .IsSection (not .Params.blog_post) }}
 {{ $timeline := resources.Get "js/blog-timeline.js" | minify | fingerprint }}
 <script defer src="{{ $timeline.RelPermalink }}" integrity="{{ $timeline.Data.Integrity }}" crossorigin="anonymous"></script>
 {{ end }}

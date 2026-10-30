@@ -1,7 +1,7 @@
 {{ $previous := .PrevInSection }}
 {{ $next := .NextInSection }}
 {{ if eq .Section "blog" }}
-  {{ $pages := partial "blog/filter-pages.html" (dict "pages" .CurrentSection.RegularPages "archive" (partialCached "blog/is-archived.html" . .RelPermalink)) }}
+  {{ $pages := partial "blog/filter-pages.html" (dict "pages" (partial "blog/posts.html" (partial "blog/post-section.html" .).Pages) "archive" (partialCached "blog/is-archived.html" . .RelPermalink)) }}
   {{ $pages = sort $pages "Date" "desc" }}
   {{ $previous = false }}
   {{ $next = false }}

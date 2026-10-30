@@ -1,0 +1,5 @@
+{{- $section := .CurrentSection -}}
+{{- if eq .Params.blog_post true -}}
+  {{- $section = .Parent -}}
+{{- end -}}
+{{- return $section -}}
