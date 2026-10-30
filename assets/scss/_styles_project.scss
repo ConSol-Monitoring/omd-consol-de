@@ -431,6 +431,42 @@ h5, .h5, h6, .h6 {
   --section-heading-bg: #232b30;
 }
 
+// Command references use the documentation palette and scroll within narrow screens.
+.td-content .omd-command-table {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-block: 1rem 2rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: .65rem;
+
+  table {
+    display: table;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    font-size: .875rem;
+  }
+  table:has(th:nth-child(3)) { min-width: 44rem; }
+  th, td { padding: .85rem 1rem; vertical-align: top; }
+  th { background: var(--bs-tertiary-bg); color: var(--bs-body-color); }
+  tr:last-child td { border-bottom: 0; }
+  code { white-space: nowrap; }
+}
+
+.td-content .omd-command-help {
+  min-width: 0;
+  padding: 1.25rem 1.5rem;
+  margin-block: 1.5rem 2.5rem;
+  border: 1px solid var(--bs-border-color);
+  border-left: 3px solid #f8ce39;
+  border-radius: .65rem;
+  background: var(--bs-tertiary-bg);
+
+  > :last-child { margin-bottom: 0; }
+  pre { max-width: 100%; overflow-x: auto; }
+  pre code { white-space: pre; }
+}
+
 // Group the package catalogue using the documentation palette.
 .td-content .omd-packages-grid {
   display: grid;

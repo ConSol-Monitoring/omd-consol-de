@@ -2,66 +2,87 @@
 title: Commands
 weight: 20
 ---
-## General omd commands
 
-A few OMD commands work without a site context and can be run by any user:
+Use `omd` to manage installed versions, monitoring sites, and their services. The commands below are grouped by the user who runs them.
 
-| Command                   | Example               | Description |
-| --------------------------|-----------------------| ----------- |
-| omd help                  | %> omd help           | Show general help. |
-| omd version               | %> omd version        | Display the currently used version of this site. |
-| omd versions              | %> omd versions       | List all available versions on this host. |
-| omd sites                 | %> omd sites          | Show list of sites. |
+## General OMD commands
 
-{{% alert title="Note" color="info" %}}
-All commands have a "\-\-help" flag, which lists all possible options. For example:
+These commands work without a site context and can be run by any user.
 
-    $ omd update --help
-    Usage: omd update [SITE] [options...]
-    Description: Update site to other version of OMD
-    Options for the 'update' command:
-    --conflict                 ARG  non-interactive conflict resolution. ARG is install, keepold, abort or ask
-    -n,--dry-run                    do not update, but list upcoming changes and potential conflicts.
-{{% /alert %}}
+<div class="omd-command-table">
+
+| Command | Description |
+| --- | --- |
+| `omd help` | Show general help. |
+| `omd version` | Display the currently used OMD version. |
+| `omd versions` | List all installed OMD versions on this host. |
+| `omd sites` | List the monitoring sites. |
+
+</div>
+
+<aside class="omd-command-help" aria-label="Command help">
+
+**Find command options**
+
+Every command accepts `--help` to list its available options. For example:
+
+```sh
+omd update --help
+```
+
+```text
+Usage: omd update [SITE] [options...]
+Description: Update site to other version of OMD
+Options for the 'update' command:
+--conflict                 ARG  non-interactive conflict resolution. ARG is install, keepold, abort or ask
+-n,--dry-run                    do not update, but list upcoming changes and potential conflicts.
+```
+
+</aside>
 
 ## Root user commands
 
-These commands are reserved for the root user:
+Run these commands as `root` to create and administer monitoring sites. Replace values in angle brackets with your version, site name, or backup path.
 
-| Command                   | Example                        | Description |
-| --------------------------|--------------------------------| ----------- |
-| omd setversion <version>  | %> omd setversion 2.80         | Sets the default version which will be used by new sites. |
-| omd create <sitename>     | %> omd create example          | Create a new site (-u UID, -g GID) |
-| omd rm <sitename>         | %> omd rm example              | Remove a site (and all its data) |
-| omd disable <sitename>    | %> omd disable example         | Disable a site (stop it, unmount tmpfs, remove Apache hook) |
-| omd enable <sitename>     | %> omd enable example          | Enable a site (reenable a formerly disabled site) |
-| omd mv <site> <site>      | %> omd mv sitea siteb          | Rename a site. |
-| omd cp <site> <site>      | %> omd cp sitea siteb          | Make a copy of a site. |
-| omd su <site>             | %> omd su example              | Run a shell as a site-user. |
-| omd restore <tarball>     | %> omd restore /tmp/backup.tgz | Restore site from backup. |
+<div class="omd-command-table">
 
+| Command | Example | Description |
+| --- | --- | --- |
+| `omd setversion <version>` | `omd setversion 5.80` | Set the default OMD version for new sites. |
+| `omd create <sitename>` | `omd create example` | Create a site. Use `-u UID` and `-g GID` to set its user and group IDs. |
+| `omd rm <sitename>` | `omd rm example` | Remove a site and all its data. |
+| `omd disable <sitename>` | `omd disable example` | Stop a site, unmount its tmpfs, and remove its Apache hook. |
+| `omd enable <sitename>` | `omd enable example` | Reenable a disabled site. |
+| `omd mv <source> <target>` | `omd mv sitea siteb` | Rename a site. |
+| `omd cp <source> <target>` | `omd cp sitea siteb` | Copy a site. |
+| `omd su <site>` | `omd su example` | Open a shell as the site user. |
+| `omd restore <tarball>` | `omd restore /tmp/backup.tgz` | Restore a site from a backup. |
+
+</div>
 
 ## Site user commands
 
-Daily tasks should be done by the site user with these commands:
+Run daily monitoring tasks as the site user. Commands without a service name apply to all services in that site.
 
-| Command                   | Example                     | Description |
-| --------------------------|-----------------------------| ----------- |
-| omd update                | %> omd update               | Update site to newest installed version of OMD. |
-| omd -V <version> update   | %> omd -V 1.30 update       | Update site to this version. |
-| omd start                 | %> omd start                | Start all services of this site. |
-| omd start <service>       | %> omd start apache         | Start one specific service of this site. |
-| omd stop                  | %> omd stop                 | Stop all services of this site. |
-| omd stop <service>        | %> omd stop apache          | Stop one specific service of this site. |
-| omd reload                | %> omd reload               | Reload all services of this site. |
-| omd reload <service>      | %> omd reload apache        | Reload one specific service of this site. |
-| omd status                | %> omd status               | Display status all services of this site. |
-| omd status <service>      | %> omd status apache        | Display status one specific service of this site. |
-| omd config                | %> omd config               | Show and set site configuration parameters. |
-| omd backup <tarball>      | %> omd backup /tmp/site.tgz | Create a backup of this site. |
+<div class="omd-command-table">
 
-{{% pageinfo %}}
-Bash Completion: The latest OMD-Labs release comes with bash-completion, so you can tab-complete most commands and arguments.
-{{% /pageinfo %}}
+| Command | Example | Description |
+| --- | --- | --- |
+| `omd update` | `omd update` | Update the site to the newest installed OMD version. |
+| `omd -V <version> update` | `omd -V 5.80 update` | Update the site to a specific installed version. |
+| `omd start` | `omd start` | Start all site services. |
+| `omd start <service>` | `omd start apache` | Start a specific service. |
+| `omd stop` | `omd stop` | Stop all site services. |
+| `omd stop <service>` | `omd stop apache` | Stop a specific service. |
+| `omd reload` | `omd reload` | Reload all site services. |
+| `omd reload <service>` | `omd reload apache` | Reload a specific service. |
+| `omd status` | `omd status` | Display the status of all site services. |
+| `omd status <service>` | `omd status apache` | Display the status of a specific service. |
+| `omd config` | `omd config` | View and change the site configuration. |
+| `omd backup <tarball>` | `omd backup /tmp/site.tgz` | Create a backup of the site. |
 
+</div>
 
+## Bash completion
+
+OMD Labs-Edition includes Bash completion. Press **Tab** to complete most commands and arguments.
