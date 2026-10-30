@@ -467,6 +467,21 @@ h5, .h5, h6, .h6 {
   pre code { white-space: pre; }
 }
 
+// Keep package branding readable without stretching the official artwork.
+.td-content .omd-package-logo {
+  display: flex;
+  align-items: center;
+  width: 17rem;
+  max-width: 100%;
+  min-height: 6rem;
+  margin-block: 1rem 1.5rem;
+
+  img { width: auto; height: auto; max-width: 100%; max-height: 5rem; }
+  &--surface { padding: .75rem; border-radius: .5rem; background: #fff; }
+}
+
+[data-bs-theme="dark"] .td-content .omd-package-logo--surface-light { background: transparent; }
+
 // Group the package catalogue using the documentation palette.
 .td-content .omd-packages-grid {
   display: grid;

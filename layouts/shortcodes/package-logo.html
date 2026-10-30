@@ -1,0 +1,8 @@
+{{- $light := .Get "light" -}}
+{{- $dark := .Get "dark" -}}
+<div class="omd-package-logo{{ if .Get "surface" }} omd-package-logo--surface{{ end }}{{ if eq (.Get "surface") "light" }} omd-package-logo--surface-light{{ end }}">
+  <img{{ if $dark }} class="project-logo-light"{{ end }} src="{{ $light }}" alt="{{ .Get "alt" }}" width="{{ .Get "width" }}" height="{{ .Get "height" }}" decoding="async">
+  {{- with $dark }}
+  <img class="project-logo-dark" src="{{ . }}" alt="{{ $.Get "alt" }}" width="{{ $.Get "width" }}" height="{{ $.Get "height" }}" decoding="async">
+  {{- end }}
+</div>

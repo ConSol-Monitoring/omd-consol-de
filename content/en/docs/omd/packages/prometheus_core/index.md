@@ -7,7 +7,7 @@ title: Prometheus
     display: none;
   }
 </style>
-![](prometheus.png)
+{{< package-logo light="prometheus.svg" alt="Prometheus" width="113" height="113" surface="light" >}}
 ### Overview
 
 |||

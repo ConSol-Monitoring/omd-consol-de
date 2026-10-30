@@ -7,7 +7,7 @@ title: Mod-Gearman
     display: none;
   }
 </style>
-<span class="project-logo project-logo--mod-gearman"><img class="project-logo-light" src="/docs/mod-gearman/mod-gearman_light.svg" alt="Mod Gearman" width="104" height="80"><img class="project-logo-dark" src="/docs/mod-gearman/mod-gearman_dark.svg" alt="Mod Gearman" width="104" height="80"></span>
+{{< package-logo light="/docs/mod-gearman/mod-gearman_light.svg" alt="Mod-Gearman" width="104" height="80" dark="/docs/mod-gearman/mod-gearman_dark.svg" >}}
 
 ### Overview
 

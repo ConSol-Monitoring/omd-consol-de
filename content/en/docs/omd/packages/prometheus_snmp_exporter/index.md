@@ -2,7 +2,7 @@
 title: Prometheus SNMP Exporter
 ---
 
-![](images.png)
+{{< package-logo light="../prometheus_core/prometheus.svg" alt="Prometheus SNMP Exporter" width="113" height="113" surface="light" >}}
 
 ### Overview
 

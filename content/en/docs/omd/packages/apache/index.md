@@ -7,7 +7,7 @@ title: Apache HTTP Server
     display: none;
   }
 </style>
-![](apache.jpg)
+{{< package-logo light="apache.png" alt="Apache HTTP Server" width="720" height="275" surface="true" >}}
 ### Overview
 
 |||

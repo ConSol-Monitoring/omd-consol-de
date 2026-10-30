@@ -7,7 +7,7 @@ title: MariaDB
     display: none;
   }
 </style>
-![](mariadb.png)
+{{< package-logo light="mariadb.svg" alt="MariaDB" width="778" height="201" surface="true" >}}
 ### Overview
 
 |||

@@ -7,7 +7,7 @@ title: PNP4Nagios
     display: none;
   }
 </style>
-![](logo.jpg)
+{{< package-logo light="logo.jpg" alt="PNP4Nagios" width="265" height="66" surface="true" >}}
 ### Overview
 
 |||

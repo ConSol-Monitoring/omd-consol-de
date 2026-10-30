@@ -7,7 +7,7 @@ title: Grafana
     display: none;
   }
 </style>
-![](logo.jpg)
+{{< package-logo light="grafana.svg" alt="Grafana" width="351" height="365" >}}
 ### Overview
 
 |||

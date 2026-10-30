@@ -7,7 +7,7 @@ title: VMauth
     display: none;
   }
 </style>
-![](victoriametrics.png)
+{{< package-logo light="../victoriametrics_core/victoriametrics-light.png" alt="VictoriaMetrics (VMauth)" width="14915" height="4000" dark="../victoriametrics_core/victoriametrics-dark.png" >}}
 ### Overview
 
 |||

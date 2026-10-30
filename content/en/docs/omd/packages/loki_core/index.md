@@ -7,7 +7,7 @@ title: Loki
     display: none;
   }
 </style>
-![](loki.png)
+{{< package-logo light="loki.png" alt="Grafana Loki" width="500" height="500" >}}
 ### Overview
 
 |||

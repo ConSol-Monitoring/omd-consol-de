@@ -7,7 +7,7 @@ title: DokuWiki
     display: none;
   }
 </style>
-![](dokuwiki.png)
+{{< package-logo light="dokuwiki.svg" alt="DokuWiki" width="1024" height="1024" >}}
 ### Overview
 
 |||

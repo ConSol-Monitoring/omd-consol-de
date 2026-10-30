@@ -7,7 +7,7 @@ title: Thruk
     display: none;
   }
 </style>
-<span class="project-logo project-logo--thruk"><img class="project-logo-light" src="/docs/thruk/thruk_dark.svg" alt="Thruk" width="200" height="85"><img class="project-logo-dark" src="/docs/thruk/thruk_light.svg" alt="Thruk" width="200" height="85"></span>
+{{< package-logo light="/docs/thruk/thruk_dark.svg" alt="Thruk" width="200" height="85" dark="/docs/thruk/thruk_light.svg" >}}
 
 ### Overview
 

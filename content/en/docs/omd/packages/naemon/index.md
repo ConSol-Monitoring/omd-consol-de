@@ -7,7 +7,7 @@ title: Naemon
     display: none;
   }
 </style>
-<img class="project-logo project-logo--naemon p-2" src="/docs/naemon/naemon.svg" alt="Naemon" width="200" height="62"/>
+{{< package-logo light="/docs/naemon/naemon.svg" alt="Naemon" width="200" height="62" surface="true" >}}
 
 ### Overview
 

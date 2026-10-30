@@ -1,0 +1,35 @@
+{
+  "retrieved": "2026-10-30",
+  "assets": {
+    "apache/apache.png": "https://www.apache.org/logos/res/httpd/default.png",
+    "dokuwiki/dokuwiki.svg": "https://www.dokuwiki.org/_media/wiki:dokuwiki.svg",
+    "grafana/grafana.svg": "https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg",
+    "influxdb/influxdb.svg": "https://docs.influxdata.com/svgs/influxdb-logo-blue.svg",
+    "loki_core/loki.png": "https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png",
+    "prometheus_core/prometheus.svg": "https://prometheus.io/_next/static/media/prometheus-logo.7aa022e5.svg",
+    "victoriametrics_core/victoriametrics-light.png": {
+      "url": "https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/master/VM_logo.zip",
+      "member": "LOGO PACK GITHUB/HORIZONTAL-ORIENTATION/vm-com-ver-asset-black.png"
+    },
+    "victoriametrics_core/victoriametrics-dark.png": {
+      "url": "https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/master/VM_logo.zip",
+      "member": "LOGO PACK GITHUB/HORIZONTAL-ORIENTATION/vm-com-ver-asset-white.png"
+    },
+    "mariadb/mariadb.svg": "https://mariadb.org/wp-content/uploads/2019/10/mariadb_logo.svg"
+  },
+  "shared_documentation_assets": [
+    "/docs/coshsh/coshsh_light.svg",
+    "/docs/coshsh/coshsh_dark.svg",
+    "/docs/mod-gearman/mod-gearman_light.svg",
+    "/docs/mod-gearman/mod-gearman_dark.svg",
+    "/docs/naemon/naemon.svg",
+    "/docs/thruk/thruk_dark.svg",
+    "/docs/thruk/thruk_light.svg"
+  ],
+  "notes": [
+    "Upstream artwork is preserved without recoloring or changing its proportions.",
+    "Promtail uses the Loki project logo; SNMP Exporter uses the Prometheus project logo; VMauth uses the VictoriaMetrics project logo.",
+    "PNP4Nagios retains its existing local logo.jpg; the current upstream repository only supplies a small version badge.",
+    "Downtime API, Histou, LMD, Nagflux, NSCA, and Monitoring Plugins have no distinct project logo in the checked upstream sources; their existing text headings are retained."
+  ]
+}

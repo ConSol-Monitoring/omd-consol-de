@@ -7,7 +7,7 @@ title: Promtail
     display: none;
   }
 </style>
-![](loki.png)
+{{< package-logo light="../loki_core/loki.png" alt="Grafana Loki (Promtail)" width="500" height="500" >}}
 ### Overview
 
 |||

@@ -7,7 +7,7 @@ title: InfluxDB
     display: none;
   }
 </style>
-![](logo.jpg)
+{{< package-logo light="influxdb.svg" alt="InfluxDB" width="231" height="55" surface="true" >}}
 ### Overview
 
 |||

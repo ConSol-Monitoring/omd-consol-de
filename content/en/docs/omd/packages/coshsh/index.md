@@ -7,7 +7,7 @@ title: coshsh
     display: none;
   }
 </style>
-<span class="project-logo project-logo--coshsh"><img class="project-logo-light" src="/docs/coshsh/coshsh_light.svg" alt="Coshsh" width="200" height="58"><img class="project-logo-dark" src="/docs/coshsh/coshsh_dark.svg" alt="Coshsh" width="200" height="58"></span>
+{{< package-logo light="/docs/coshsh/coshsh_light.svg" alt="coshsh" width="200" height="58" dark="/docs/coshsh/coshsh_dark.svg" >}}
 ### Overview
 
 |||

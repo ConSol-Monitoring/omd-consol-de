@@ -7,7 +7,7 @@ title: Victoriametrics
     display: none;
   }
 </style>
-![](victoriametrics.png)
+{{< package-logo light="victoriametrics-light.png" alt="VictoriaMetrics" width="14915" height="4000" dark="victoriametrics-dark.png" >}}
 ### Overview
 
 |||
