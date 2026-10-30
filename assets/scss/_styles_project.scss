@@ -1594,8 +1594,7 @@ h5, .h5, h6, .h6 {
     color: var(--search-text);
     font-size: 1.1rem;
     letter-spacing: -.035em;
-    .navbar-brand__name { font-weight: 750; }
-    svg { height: 2rem; width: auto; }
+    svg { height: 3rem; width: auto; }
   }
   .td-navbar-nav-scroll {
     justify-self: end;
@@ -1658,7 +1657,7 @@ h5, .h5, h6, .h6 {
   .td-navbar.monitoring-navbar {
     padding-inline: 1rem;
     .monitoring-navbar__inner { column-gap: .65rem; }
-    .navbar-brand { font-size: 1rem; gap: .4rem; svg { height: 1.7rem; } }
+    .navbar-brand svg { height: 2.75rem; }
     .nav-link { padding-inline: .6rem; font-size: .8rem; }
     .td-search--offline { width: 11rem; }
   }
@@ -1667,7 +1666,7 @@ h5, .h5, h6, .h6 {
   .td-navbar.monitoring-navbar {
     padding: .75rem 1rem .6rem;
     .monitoring-navbar__inner { grid-template-columns: minmax(0, 1fr) auto; gap: .6rem; }
-    .navbar-brand { font-size: 1rem; gap: .45rem; svg { height: 1.7rem; } }
+    .navbar-brand svg { height: 2.75rem; }
     .monitoring-navbar__tools { grid-column: 2; grid-row: 1; }
     .td-navbar-nav-scroll { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
     #main_navbar > .navbar-nav { justify-content: space-between; gap: .15rem; }

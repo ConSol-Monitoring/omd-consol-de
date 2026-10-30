@@ -2,7 +2,7 @@
 
 <nav class="td-navbar monitoring-navbar" aria-label="Main navigation">
 <div class="container-fluid monitoring-navbar__inner">
-  <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
+  <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="ConSol Labs home">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
       {{- if ne .Site.Params.ui.navbar_logo false -}}
@@ -10,10 +10,6 @@
           {{ ( . | minify).Content | safeHTML -}}
         {{ end -}}
       {{ end -}}
-    </span>
-    {{- /**/ -}}
-    <span class="navbar-brand__name">
-      {{- .Site.Title -}}
     </span>
     {{- /**/ -}}
   </a>
