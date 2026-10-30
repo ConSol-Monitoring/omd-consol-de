@@ -1522,6 +1522,11 @@ h5, .h5, h6, .h6 {
 }
 .td-navbar .td-light-dark-menu {
   position: relative !important;
+  .bi {
+    display: block;
+    flex-shrink: 0;
+    overflow: visible;
+  }
   .dropdown-menu {
     top: 100%;
     right: 0;
@@ -1637,7 +1642,11 @@ h5, .h5, h6, .h6 {
     min-height: 2.5rem;
     padding: .5rem .65rem;
     color: var(--search-text);
-    .bi { margin: 0 !important; }
+    .bi {
+      width: 1rem;
+      height: 1rem;
+      margin: 0 !important;
+    }
     &::after { margin-left: 0; }
     &:hover, &[aria-expanded="true"] { background: var(--search-hover); }
   }
