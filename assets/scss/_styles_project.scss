@@ -1040,11 +1040,13 @@ h5, .h5, h6, .h6 {
 
     // Override the generated pe-md-3 utility on the outer tree list.
     > .td-sidebar-nav__section { padding: 0 !important; }
-    .ul-1 > li { margin-bottom: .25rem; }
+    .ul-1 li { margin-bottom: .25rem; }
     .ul-1 ul {
       margin: .25rem 0 .5rem .5rem;
       padding-left: .25rem;
       border-left: 1px solid var(--sidebar-border);
+      // Collapsed child rows must not leave their list's margins below a folder.
+      &:not(:has(> li:not(.collapse), > li.show)) { display: none; }
     }
   }
 
@@ -1086,7 +1088,6 @@ h5, .h5, h6, .h6 {
   }
 
   .active-path > .td-sidebar-link { color: var(--sidebar-text); font-weight: 700; }
-  .ul-1 > li > .td-sidebar-link { font-size: .85rem; font-weight: 600; }
   .td-sidebar-nav .td-sidebar-link[aria-current="page"] { font-weight: 700; }
 
   .td-sidebar-link.tree-root {
