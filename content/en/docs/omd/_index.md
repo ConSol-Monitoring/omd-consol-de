@@ -18,8 +18,6 @@ weight: 100
 - **Independent monitoring sites.** Run multiple instances on one server, including sites using different OMD versions. Each site has its own user, configuration, and data, and can be managed independently.
 - **A consistent lifecycle.** Use the same site management workflow to create, start, stop, back up, and update your monitoring instances.
 
-For a comparison with the original OMD distribution, see [Differences to OMD](differences/).
-
 ## Get started {#installation}
 
 <span id="download"></span>

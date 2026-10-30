@@ -185,7 +185,6 @@ R = Replaced by a page describing the same topic (check_*_health)
 [ ] omd/data/notify-by-email.host.html.tpl
 [ ] omd/data/notify-by-email.service.html.tpl
 [ ] omd/debian.png
-[ ] omd/differences.md
 [ ] omd/fedora.png
 [ ] omd/filesystem_layout.md
 [ ] omd/getting_started.md
