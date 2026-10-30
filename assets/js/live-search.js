@@ -14,34 +14,36 @@ function animateSearchPlaceholder(input) {
       delay = 1200;
     } else if (length === 0) {
       deleting = false;
-      word = (word + 1) % words.length;
+      word += 1;
+      if (word === words.length) {
+        input.placeholder = 'Search ...';
+        return;
+      }
       delay = 400;
     }
     timer = setTimeout(tick, delay);
   }
 
-  function reset() {
+  function update() {
     clearTimeout(timer);
-    word = 0;
-    length = 0;
-    deleting = false;
-    if (document.activeElement === input || input.value) {
+    if (reducedMotion.matches || word === words.length) {
+      word = words.length;
+      input.placeholder = 'Search ...';
+    } else if (document.activeElement === input || input.value) {
       input.placeholder = '';
-    } else if (reducedMotion.matches) {
-      input.placeholder = words[0];
     } else {
-      input.placeholder = '';
+      input.placeholder = words[word].slice(0, length);
       if (!document.hidden) timer = setTimeout(tick, 400);
     }
   }
 
   // Only the placeholder changes; example names never become actual queries.
-  input.addEventListener('focus', reset);
-  input.addEventListener('blur', reset);
-  input.addEventListener('input', reset);
-  reducedMotion.addEventListener('change', reset);
-  document.addEventListener('visibilitychange', reset);
-  reset();
+  input.addEventListener('focus', update);
+  input.addEventListener('blur', update);
+  input.addEventListener('input', update);
+  reducedMotion.addEventListener('change', update);
+  document.addEventListener('visibilitychange', update);
+  update();
 }
 
 function initializeLiveSearch() {
