@@ -1,0 +1,18 @@
+{{ $previous := .PrevInSection }}
+{{ $next := .NextInSection }}
+{{ if eq .Section "blog" }}
+  {{ $pages := partial "blog/filter-pages.html" (dict "pages" .CurrentSection.RegularPages "archive" (partialCached "blog/is-archived.html" . .RelPermalink)) }}
+  {{ $pages = sort $pages "Date" "desc" }}
+  {{ $previous = false }}
+  {{ $next = false }}
+  {{ range $i, $page := $pages }}
+    {{ if eq $page $ }}
+      {{ if lt (add $i 1) (len $pages) }}{{ $previous = index $pages (add $i 1) }}{{ end }}
+      {{ if gt $i 0 }}{{ $next = index $pages (sub $i 1) }}{{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li><a {{ with $previous }}href="{{ .RelPermalink }}" aria-label="{{ T "ui_pager_prev" }} - {{ .Title }}"{{ end }} class="btn btn-primary{{ if not $previous }} disabled{{ end }}"><span class="me-1">←</span>{{ T "ui_pager_prev" }}</a></li>
+  <li><a {{ with $next }}href="{{ .RelPermalink }}" aria-label="{{ T "ui_pager_next" }} - {{ .Title }}"{{ end }} class="btn btn-primary{{ if not $next }} disabled{{ end }}">{{ T "ui_pager_next" }}<span class="ms-1">→</span></a></li>
+</ul>

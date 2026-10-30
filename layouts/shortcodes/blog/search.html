@@ -1,5 +1,9 @@
 {{ $label := "Search news" }}
 {{ if ne .Page.RelPermalink ("blog/" | relURL) }}{{ $label = printf "Search %s" (.Page.LinkTitle | lower) }}{{ end }}
+{{ $archive := eq .Page.Layout "archive" }}
+{{ $indexName := cond $archive "archive-search-index.json" "offline-search-index.json" }}
+{{ $searchIndex := resources.Get (printf "json/%s" $indexName) | resources.ExecuteAsTemplate $indexName .Page }}
+{{ if hugo.IsProduction }}{{ $searchIndex = $searchIndex | fingerprint "md5" }}{{ end }}
 <form class="monitoring-blog-search" role="search" aria-label="{{ $label }}">
   <label for="blog-search">{{ $label }}</label>
   <div class="td-search td-search--offline">
@@ -7,8 +11,9 @@
     <input id="blog-search" type="search" name="q" class="td-search__input form-control"
       placeholder="{{ $label }}…" aria-label="{{ $label }}" autocomplete="off"
       data-search-mode="inline"
-      data-blog-search-section="{{ .Page.RelPermalink }}"
-      data-offline-search-index-json-src="{{ "offline-search-index.json" | relURL }}"
+      data-blog-search-section="{{ if $archive }}{{ "blog/" | relURL }}{{ else }}{{ .Page.RelPermalink }}{{ end }}"
+      data-blog-search-archive="{{ $archive }}"
+      data-offline-search-index-json-src="{{ $searchIndex.RelPermalink }}"
       data-offline-search-base-href="{{ "/" | relURL }}"
       data-offline-search-max-results="10">
   </div>

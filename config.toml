@@ -113,6 +113,8 @@ rel = "alternate"
 root = true
 
 [params]
+# Individual posts can override this cutoff with archived: true or false.
+blog_archive_before = "2018-01-01"
 description = "The ConSol monitoring portfolio"
 copyright = "ConSol Software GmbH"
 # privacy_policy = "https://policies.google.com/privacy"

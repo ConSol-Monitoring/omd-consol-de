@@ -1,5 +1,5 @@
 ---
-title: "New Releases"
+title: "Releases"
 linkTitle: "Releases"
 weight: 100
 ui:

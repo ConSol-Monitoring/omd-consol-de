@@ -1,6 +1,6 @@
 {{ $current := .Page.RelPermalink }}
 <nav class="monitoring-blog-nav" aria-label="Blog categories">
-  {{ range slice (dict "path" "blog/" "label" "All") (dict "path" "blog/releases/" "label" "Releases") (dict "path" "blog/insights/" "label" "Insights") }}
+  {{ range slice (dict "path" "blog/" "label" "All") (dict "path" "blog/releases/" "label" "Releases") (dict "path" "blog/insights/" "label" "Insights") (dict "path" "blog/archive/" "label" "Archive") }}
     {{ $href := .path | relURL }}
     <a href="{{ $href }}"{{ if eq $current $href }} aria-current="page"{{ end }}>{{ .label }}</a>
   {{ end }}

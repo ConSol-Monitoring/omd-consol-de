@@ -10,7 +10,8 @@
   {{$.Scratch.Set "blog-pages" .Pages -}}
 {{ end -}}
 
-{{ if .Pages -}}
+{{ $.Scratch.Set "blog-pages" (partial "blog/filter-pages.html" (dict "pages" ($.Scratch.Get "blog-pages") "archive" false)) }}
+{{ if $.Scratch.Get "blog-pages" -}}
 <div class="td-blog-posts">
   {{ $pager := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006" ) -}}
   {{ range $pager.PageGroups -}}

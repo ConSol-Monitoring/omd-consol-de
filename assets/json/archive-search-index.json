@@ -1,0 +1,1 @@
+{{- partial "blog/search-documents.html" (dict "site" .Site "archive" true) | jsonify -}}

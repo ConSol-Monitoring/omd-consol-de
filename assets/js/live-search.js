@@ -51,13 +51,14 @@ function initializeLiveSearch() {
   if (!inputs.length) return;
   // Retire change-only handlers if a browser still has an older Docsy bundle.
   if (window.jQuery) window.jQuery(inputs).off('change');
-  let indexPromise;
+  const indexPromises = new Map();
   const details = new Map();
   const searchable = new Map();
   const words = text => String(text || '').toLowerCase().match(/[\p{L}\p{N}]+(?:\.[\p{L}\p{N}]+)*/gu) || [];
-  function loadIndex() {
-    if (!indexPromise) {
-      indexPromise = fetch(inputs[0].dataset.offlineSearchIndexJsonSrc)
+  function loadIndex(input) {
+    const url = input.dataset.offlineSearchIndexJsonSrc;
+    if (!indexPromises.has(url)) {
+      const promise = fetch(url)
         .then(response => {
           if (!response.ok) throw new Error('Search index unavailable');
           return response.json();
@@ -77,9 +78,10 @@ function initializeLiveSearch() {
               terms: new Set(words([doc.title, doc.tags, doc.description, doc.body].flat().join(' ')))
             });
           });
-        })).catch(error => { indexPromise = null; throw error; });
+        })).catch(error => { indexPromises.delete(url); throw error; });
+      indexPromises.set(url, promise);
     }
-    return indexPromise;
+    return indexPromises.get(url);
   }
   function matchesTerm(tokens, term) {
     if (tokens.has(term)) return true;
@@ -290,7 +292,7 @@ function initializeLiveSearch() {
       const end = Math.min(shown + batchSize, matches.length);
       matches.slice(shown, end).forEach(match => appendGroupedResult(list, match, card(match), true));
       shown = end;
-      status.textContent = matches.length ? 'Showing ' + shown + ' of ' + matches.length + ' matching articles' : 'No news found for “' + input.value.trim() + '”.';
+      status.textContent = matches.length ? 'Showing ' + shown + ' of ' + matches.length + ' matching articles' : (input.dataset.blogSearchArchive === 'true' ? 'No archived articles found for “' : 'No news found for “') + input.value.trim() + '”.';
       moreControl.hidden = shown >= matches.length;
       moreButton.textContent = 'Load more (' + Math.min(batchSize, matches.length - shown) + ')';
     }
@@ -306,11 +308,12 @@ function initializeLiveSearch() {
       if (!active) return;
       status.textContent = 'Searching…';
       try {
-        const index = await loadIndex();
+        const index = await loadIndex(input);
         if (request !== sequence) return;
         matches = sortMatches(queryMatches(index, query, 'blog').filter(match => {
           const doc = details.get(match.ref);
-          return doc.kind === 'page' && doc.blogSection?.startsWith(input.dataset.blogSearchSection);
+          return doc.kind === 'page' && Boolean(doc.archived) === (input.dataset.blogSearchArchive === 'true')
+            && doc.blogSection?.startsWith(input.dataset.blogSearchSection);
         }), sort.value);
         renderMore();
       } catch (_) {
@@ -332,7 +335,8 @@ function initializeLiveSearch() {
     });
   }
   // Start loading immediately, including when the first query arrives before ready.
-  loadIndex().catch(() => {});
+  const defaultInput = inputs.find(input => input.dataset.blogSearchArchive !== 'true');
+  if (defaultInput) loadIndex(defaultInput).catch(() => {});
   inputs.forEach((input, number) => {
     if (input.dataset.liveSearchReady) return;
     input.dataset.liveSearchReady = 'true';
@@ -446,7 +450,7 @@ function initializeLiveSearch() {
       status.textContent = 'Searching…';
       show();
       try {
-        const index = await loadIndex();
+        const index = await loadIndex(input);
         if (request !== sequence) return;
         const matches = queryMatches(index, query, scope);
         if (scope !== 'docs') sortMatches(matches, sortSelect.value);

@@ -6,6 +6,7 @@
 ## Releases
 {{ $yearMonthGroups := slice -}}
 {{ $pages := where (where (.Site.GetPage "/blog/releases").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ $pages = partial "blog/filter-pages.html" (dict "pages" $pages "archive" false) -}}
 {{ if $pages }}
 {{ range (sort $pages "Date" "desc") -}}
 {{ if .Date -}}
@@ -25,6 +26,7 @@ date: "{{ .Date.Format "2006-01-02" }}"
 ## Insights
 {{ $yearMonthGroups := slice -}}
 {{ $pages := where (where (.Site.GetPage "/blog/insights").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ $pages = partial "blog/filter-pages.html" (dict "pages" $pages "archive" false) -}}
 {{ if $pages }}
 {{ range (sort $pages "Date" "desc") -}}
 {{ if .Date -}}
@@ -54,3 +56,7 @@ lastmod: "{{ .Date.Format "2006-01-02" }}"
 {{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
 {{ end -}}
 {{ end -}}
+
+## Archive
+
+Historical articles are available in the [news archive]({{ "blog/archive/" | absURL }}).

@@ -1340,6 +1340,33 @@ h5, .h5, h6, .h6 {
     overflow: hidden;
   }
 }
+.monitoring-blog-archive {
+  &__years { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.5rem 2rem; }
+  &__years a { padding: .4rem .65rem; border: 1px solid var(--bs-border-color); border-radius: .5rem; text-decoration: none; }
+  &__years span { color: var(--bs-secondary-color); font-size: .8rem; }
+  h2 { scroll-margin-top: 5rem; }
+  &__list { list-style: none; padding: 0; margin-bottom: 2rem; }
+  &__list li { display: flex; align-items: baseline; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--bs-border-color); }
+  &__list time { flex: 0 0 3.5rem; color: var(--bs-secondary-color); font-size: .8rem; }
+  &__list a { overflow-wrap: anywhere; }
+}
+.monitoring-archive-notice {
+  padding: 1rem 1.25rem;
+  margin-block: 1rem 2rem;
+  border: 1px solid var(--bs-border-color);
+  border-left: 3px solid #f8ce39;
+  border-radius: .65rem;
+  background: var(--bs-tertiary-bg);
+  p { margin-block: .5rem; }
+}
+.monitoring-tag-archive__historical {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--mh-border);
+  summary { cursor: pointer; font-weight: 600; }
+  li { margin-top: .75rem; }
+}
+
 // Shared search surfaces follow the page theme.
 :root {
   --search-bg: #fff;

@@ -1,0 +1,7 @@
+{{ if partialCached "blog/is-archived.html" . .RelPermalink }}
+<aside class="monitoring-archive-notice" aria-label="Archived article">
+  <strong>Archived article</strong>
+  <p>Published {{ .Date.Format "January 2, 2006" }}. Instructions and software versions may be outdated.</p>
+  <a href="{{ "blog/archive/" | relURL }}">Browse the archive</a> · <a href="{{ "blog/" | relURL }}">Latest news</a>
+</aside>
+{{ end }}

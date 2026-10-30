@@ -5,6 +5,7 @@
 ## Releases
 {{ $yearMonthGroups := slice -}}
 {{ $pages := where (where (.Site.GetPage "/blog/releases").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ $pages = partial "blog/filter-pages.html" (dict "pages" $pages "archive" false) -}}
 {{ if $pages }}
 {{ range (sort $pages "Date" "desc") -}}
 {{ if .Date -}}
@@ -23,6 +24,7 @@
 ## Insights
 {{ $yearMonthGroups := slice -}}
 {{ $pages := where (where (.Site.GetPage "/blog/insights").Pages "Draft" "ne" true) "Sitemap.Disable" "ne" true -}}
+{{ $pages = partial "blog/filter-pages.html" (dict "pages" $pages "archive" false) -}}
 {{ if $pages }}
 {{ range (sort $pages "Date" "desc") -}}
 {{ if .Date -}}
@@ -45,3 +47,7 @@
 * [Releases]({{ $baseURL }}/blog/releases/): Release notes for our software and events
 * [Insight]({{ $baseURL }}/blog/insights/): Blog posts about or software
 * [Repository]({{ $baseURL }}/repo/): The installation packages for the Open Monitoring Distribution
+
+## Archive
+
+Historical articles are available in the [news archive]({{ "blog/archive/" | absURL }}).

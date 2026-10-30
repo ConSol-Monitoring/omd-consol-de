@@ -1,4 +1,6 @@
 {{ define "main" }}
+{{ $activePages := partial "blog/filter-pages.html" (dict "pages" .Pages "archive" false) }}
+{{ $archivePages := partial "blog/filter-pages.html" (dict "pages" .Pages "archive" true) }}
 <div class="monitoring-home monitoring-page monitoring-tags-page monitoring-tag-page">
   <section class="monitoring-hero monitoring-page-hero" aria-labelledby="tag-title">
     <div class="monitoring-container">
@@ -10,10 +12,10 @@
   </section>
   <section class="monitoring-container monitoring-tag-archive" aria-labelledby="tag-pages-title">
     <div class="monitoring-tags__intro">
-      <h2 id="tag-pages-title">Explore this topic <span>{{ len .Pages }} {{ cond (eq (len .Pages) 1) "page" "pages" }}</span></h2>
+      <h2 id="tag-pages-title">Explore this topic <span>{{ len $activePages }} {{ cond (eq (len $activePages) 1) "page" "pages" }}</span></h2>
     </div>
     <ul class="monitoring-tag-archive__grid">
-      {{ range .Pages }}
+      {{ range $activePages }}
       <li>
         <article class="monitoring-tag-archive__card">
           <div class="monitoring-tag-archive__meta">
@@ -31,6 +33,14 @@
       </li>
       {{ end }}
     </ul>
+    {{ with $archivePages }}
+    <details class="monitoring-tag-archive__historical">
+      <summary>Archived articles ({{ len . }})</summary>
+      <ul>
+        {{ range .ByDate.Reverse }}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time> — <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+      </ul>
+    </details>
+    {{ end }}
   </section>
 </div>
 {{ end }}

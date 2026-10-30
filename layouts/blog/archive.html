@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="td-content">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+</div>
+{{ $pages := partial "blog/filter-pages.html" (dict "pages" (where .Site.RegularPages "Section" "blog") "archive" true) }}
+<div class="td-blog-posts monitoring-blog-archive">
+  <nav class="monitoring-blog-archive__years" aria-label="Archive years">
+    {{ range $pages.GroupByDate "2006" }}<a href="#archive-{{ .Key }}">{{ .Key }} <span>({{ len .Pages }})</span></a>{{ end }}
+  </nav>
+  {{ range $pages.GroupByDate "2006" }}
+  <section aria-labelledby="archive-{{ .Key }}">
+    <h2 id="archive-{{ .Key }}">{{ .Key }}</h2>
+    <ul class="monitoring-blog-archive__list">
+      {{ range .Pages }}
+      <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" }}</time><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

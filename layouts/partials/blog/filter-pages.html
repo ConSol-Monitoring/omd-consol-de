@@ -1,0 +1,7 @@
+{{- $result := first 0 .pages -}}
+{{- range .pages -}}
+  {{- if eq (partialCached "blog/is-archived.html" . .RelPermalink) $.archive -}}
+    {{- $result = $result | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $result -}}
