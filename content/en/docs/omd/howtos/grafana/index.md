@@ -1,5 +1,6 @@
 ---
 title: Grafana Graphing
+description: "Set up performance graphs with Grafana, InfluxDB, Nagflux, and Histou, and migrate or retain PNP4Nagios data."
 hidden: true
 ---
 

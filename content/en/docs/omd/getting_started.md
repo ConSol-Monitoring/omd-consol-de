@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+description: "Install OMD on Rocky Linux 10, create your first monitoring site, and start its services."
 weight: 10
 ---
 

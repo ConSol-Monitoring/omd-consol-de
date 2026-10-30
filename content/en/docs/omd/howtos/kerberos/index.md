@@ -1,5 +1,6 @@
 ---
 title: Kerberos
+description: "Configure Kerberos single sign-on for Thruk with Active Directory and share authentication across OMD sites."
 hidden: true
 ---
 

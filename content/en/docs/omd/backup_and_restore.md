@@ -1,5 +1,6 @@
 ---
 title: Backup / Restore
+description: "Back up and restore monitoring sites, preserve configuration with Git, and move sites between systems."
 weight: 50
 ---
 

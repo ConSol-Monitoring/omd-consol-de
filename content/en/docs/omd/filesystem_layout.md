@@ -1,5 +1,6 @@
 ---
 title: Filesystem Layout
+description: "Find site configuration, logs, data, and custom plugins in OMD's global and site directories."
 linkTitle: Filesystem Layout
 weight: 30
 ---

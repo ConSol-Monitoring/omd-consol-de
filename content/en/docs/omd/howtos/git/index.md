@@ -1,5 +1,6 @@
 ---
 title: GIT
+description: "Track your site's configuration in Git and automatically commit changes made through Thruk's configuration tool."
 hidden: true
 ---
 

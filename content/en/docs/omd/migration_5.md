@@ -1,5 +1,6 @@
 ---
 title: Migration to 5.x
+description: "Review component upgrades, configuration changes, and platform support when moving from OMD 4.x to 5.x."
 ---
 
 ## Migration to OMD-Labs 5.x

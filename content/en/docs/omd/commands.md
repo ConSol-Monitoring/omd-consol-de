@@ -1,5 +1,6 @@
 ---
 title: Commands
+description: "Manage OMD versions, monitoring sites, and services with commands for administrators and site users."
 weight: 20
 ---
 

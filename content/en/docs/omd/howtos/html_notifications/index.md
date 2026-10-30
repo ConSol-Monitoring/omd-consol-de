@@ -1,5 +1,6 @@
 ---
 title: HTML Notifications
+description: "Customize host and service email notifications with HTML templates and notification commands."
 hidden: true
 ---
 

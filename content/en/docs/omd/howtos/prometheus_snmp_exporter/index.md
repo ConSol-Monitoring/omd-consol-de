@@ -1,5 +1,6 @@
 ---
 title: SNMP Exporter
+description: "Collect metrics from SNMP devices with Prometheus SNMP Exporter and display them in Grafana dashboards."
 hidden: true
 ---
 
