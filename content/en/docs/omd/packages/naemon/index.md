@@ -15,7 +15,7 @@ title: Naemon
 |---|---|
 |Homepage:|https://www.naemon.io/|
 |Changelog:|https://www.naemon.io/documentation/usersguide/whatsnew.html|
-|Documentation:|https://www.naemon.io/documentation/|
+|Documentation:|[Naemon overview](../../../naemon/) · [Upstream documentation](https://www.naemon.io/documentation/)|
 |Get version:|naemon --version|
 |OMD default:|enabled|
 |OMD URL:|/&lt;site&gt;/thruk|

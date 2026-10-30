@@ -15,7 +15,7 @@ title: Thruk
 |---|---|
 |Homepage:|https://thruk.org|
 |Changelog:|https://thruk.org/changelog.html|
-|Documentation:|https://thruk.org/documentation/|
+|Documentation:|[Thruk overview](../../../thruk/) · [Upstream documentation](https://thruk.org/documentation/)|
 |Get version:|Version is displayed at WUI or type &quot;thruk --version&quot; on CLI|
 |OMD URL:|/&lt;site&gt;/thruk|
 

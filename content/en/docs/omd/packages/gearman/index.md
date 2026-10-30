@@ -15,7 +15,7 @@ title: Mod-Gearman
 |-------------------|---|
 | Homepage:         | https://mod-gearman.org |
 | Changelog:        | https://github.com/sni/mod_gearman/blob/master/Changes |
-| Documentation:    | https://labs.consol.de/nagios/mod-gearman/ |
+| Documentation:    | [Mod-Gearman guide](../../../mod-gearman/) · [Configuration](../../../mod-gearman/configuration/) · [Usage](../../../mod-gearman/usage/) |
 | Get version:      | mod_gearman_worker -V <br> gearmand -V |
 | OMD default:      | disabled |
 | OMD connectivity: | TCP:4730 |

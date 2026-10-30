@@ -14,6 +14,7 @@ title: coshsh
 |---|---|
 |Homepage:|https://labs.consol.de/nagios/coshsh|
 |Changelog:|https://github.com/lausser/coshsh/blob/master/Changelog|
+|Documentation:|[coshsh guide](../../../coshsh/)|
 |OMD default:|enabled|
 
 Coshsh is a configuration file generator for monitoring systems. It can read from any kind of CMDB and transform the CIs into host and service descriptions.
