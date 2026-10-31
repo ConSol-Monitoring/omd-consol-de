@@ -53,7 +53,7 @@ date: "{{ .Date.Format "2006-01-02" }}"
 title: "{{ .Title }}"
 lastmod: "{{ .Date.Format "2006-01-02" }}"
 --------------------------------------------------------------------------------
-{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RawContent -}}
+{{ replaceRE "{{<\\s*comment\\s*>}}(.|\n)*?{{<\\s*/comment\\s*>}}" "" .RenderShortcodes -}}
 {{ end -}}
 {{ end -}}
 
