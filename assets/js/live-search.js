@@ -47,6 +47,33 @@ function animateSearchPlaceholder(input) {
 }
 
 function initializeLiveSearch() {
+  const searchToggle = document.querySelector('.monitoring-navbar__search-toggle');
+  const headerSearch = document.getElementById('header-search');
+  if (searchToggle && headerSearch) {
+    const headerInput = headerSearch.querySelector('input');
+    function closeHeaderSearch(restoreFocus = false) {
+      headerSearch.classList.remove('is-open');
+      searchToggle.setAttribute('aria-expanded', 'false');
+      searchToggle.setAttribute('aria-label', 'Open search');
+      if (headerInput) headerInput.dispatchEvent(new Event('search:close'));
+      if (restoreFocus) searchToggle.focus();
+    }
+    searchToggle.addEventListener('click', () => {
+      if (headerSearch.classList.contains('is-open')) return closeHeaderSearch(true);
+      headerSearch.classList.add('is-open');
+      searchToggle.setAttribute('aria-expanded', 'true');
+      searchToggle.setAttribute('aria-label', 'Close search');
+      if (headerInput) headerInput.focus();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && headerSearch.classList.contains('is-open')) closeHeaderSearch(true);
+    });
+    document.addEventListener('pointerdown', event => {
+      if (!headerSearch.contains(event.target) && !searchToggle.contains(event.target) &&
+          !event.target.closest('.monitoring-search-results')) closeHeaderSearch();
+    });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', () => closeHeaderSearch());
+  }
   const inputs = [...document.querySelectorAll('.td-search--offline input')];
   if (!inputs.length) return;
   // Retire change-only handlers if a browser still has an older Docsy bundle.
@@ -340,6 +367,21 @@ function initializeLiveSearch() {
   inputs.forEach((input, number) => {
     if (input.dataset.liveSearchReady) return;
     input.dataset.liveSearchReady = 'true';
+    const clearButton = document.createElement('button');
+    clearButton.type = 'button';
+    clearButton.className = 'td-search__clear';
+    clearButton.title = 'Clear search';
+    clearButton.setAttribute('aria-label', 'Clear search');
+    clearButton.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
+    input.after(clearButton);
+    const updateClearButton = () => { clearButton.hidden = !input.value; };
+    updateClearButton();
+    input.addEventListener('input', updateClearButton);
+    clearButton.addEventListener('click', () => {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
+    });
     if (input.dataset.searchMode === 'inline') { initializeBlogSearch(input); return; }
     animateSearchPlaceholder(input);
     const panel = document.createElement('section');

@@ -51,14 +51,19 @@
       {{ end -}}
     </ul>
   </div>
-  {{ if .Site.Params.ui.showLightDarkModeMenu -}}
   <ul class="navbar-nav monitoring-navbar__tools">
+    <li class="nav-item d-lg-none">
+      <button type="button" class="monitoring-navbar__search-toggle" aria-label="Open search" aria-expanded="false" aria-controls="header-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      </button>
+    </li>
+    {{ if .Site.Params.ui.showLightDarkModeMenu -}}
     <li class="td-light-dark-menu nav-item dropdown">
       {{ partial "theme-toggler" . }}
     </li>
+    {{ end -}}
   </ul>
-  {{ end -}}
-  <div class="monitoring-navbar__search d-none d-lg-block">
+  <div class="monitoring-navbar__search" id="header-search">
     {{ partial "search-input.html" . }}
   </div>
 </div>
