@@ -31,9 +31,6 @@ nagios$ check_hpasm -H 10.0.73.30 -C public --snmpwalk /usr/bin/snmpwalk
 OK - hardware working fine
 ```
 
-### Comparison of the two modes: lokal und remote.
-{% asset_image check_hpasm_modes.jpg %}
-
 ### Verbosity
 For debugging purposes it can be called with the --verbose (or -v) option. It will then output the detailed status of each checked component:
 

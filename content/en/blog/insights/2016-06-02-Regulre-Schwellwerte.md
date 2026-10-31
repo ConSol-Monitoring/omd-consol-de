@@ -16,15 +16,6 @@ OK - return air temperature Unit 1.1 is 21.40C, humidity Unit 1.1 is 49.40%, ret
 Wir sehen hier die hartcodierten Default-Schwellwerte 25 und 28 für die Temperatur bzw. 40:60 und 35:65 für die Luftfeuchtigkeit.
 Bisher gab es zwei Möglichkeiten, diese zu ändern, z.b. in 20 und 30 für die Temperaturen zu ändern.
 <!--more-->
-<script type="text/javascript">
-$('#stickstick').bind('touchmove',function(e){
-      e.fadeOut('slow');
-      //CODE GOES HERE
-});
-</script>
-<div id="stickstick" onmouseover="$('#stickstick').fadeOut('slow');">
-{% labs_sticker top:50 left:200 text:'<a href="https://wiki.kaninken.de/doku.php">Monitoring-Workshop 2016</a><br />7/8.9.2016 in Kiel</a><br />Wir sind dabei</a><br /><span style="font-size: 50%;">(Klick/Wisch mich, dann verschwinde ich)</span>' %}
-</div>
 
 * Mit *\-\-warning 20 \-\-critical 30*. Damit gelten die Schwellwerte dann global für sämtliche Meßgrößen, also auch für die *hum_...*. Im vorliegenden Fall ist das Blödsinn, da Temperatur und Luftfeuchtigkeit nichts miteinander zu tun haben, in unterschiedlichen Wertebereichen liegen und einmal als Schwellwert eine Zahl und einmal ein Intervall angegeben wird. Wären z.b. noch Lüfterdrehzahlen im Tausenderbereich im Spiel, wären *\-\-warning/\-\-critical* hier völlig sinnlos.
 

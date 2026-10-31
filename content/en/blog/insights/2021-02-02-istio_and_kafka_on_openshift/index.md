@@ -36,7 +36,7 @@ The yaml-files and scripts for the setup can be found in my fork of the Red Hat 
 
 To set up the Kafka cluster I used the <a href="https://strimzi.io/" target="blank">Strimzi project</a>. The setup was pretty straight forward. I configured the listener for the Broker that the Kafka traffic is not encrypted. The next step was to set up the Kafka cluster in a way that the Istio sidecar was injected to the Kafka Broker and Zookeeper. I added a couple of labels to the Kafka Broker, Zookeeper and Entity Operator to be compliant to the Istio notation. I also added the annotation `sidecar.istio.io/inject: "true"` to the Kafka Broker, Zookeeper and Entity Operator. With this annotation, the Istio sidecar container is injected to the pod in OpenShift. From my experience, to inject the Istio sidecar container to the Entity Operator is not causing any problems. The final configuration looks like this:
 
-{% highlight yaml hl_lines="27 28 30 31 32 33 34 35 43 44 45 46 47 49 50 51 52 53 54 55 62 63 64 65 67 68 69 70 71 72"%}
+```yaml {hl_lines=[27,28,30,31,32,33,34,35,43,44,45,46,47,49,50,51,52,53,54,55,62,63,64,65,67,68,69,70,71,72]}
 - apiVersion: kafka.strimzi.io/v1beta1
   kind: Kafka
   metadata:
@@ -109,7 +109,7 @@ To set up the Kafka cluster I used the <a href="https://strimzi.io/" target="bla
               version: 1.0
             annotations:
               sidecar.istio.io/inject: "true"
-{% endhighlight %}
+```
 
 The highlighted sections are included to deploy Istio-compliant pods and to inject the sidecar container. The service of the Kafka Broker can only be used from within the OpenShift cluster. The configuration is not intended for a production use case, but only for testing purposes.
 
@@ -117,7 +117,7 @@ The highlighted sections are included to deploy Istio-compliant pods and to inje
 
 The next steps were to extend the customer-, preference- and the three recommendation-services that each time they are called, they send out messages to Kafka topics. I added a helper Pojo containing the information about the service calls. These changes to the services are all very similar. Here is the source code of the Pojo helper class:
 
-{% highlight java linenos %}
+```java {linenos=table}
 @RegisterForReflection
 public class RestServiceCall {
 
@@ -145,13 +145,13 @@ public class RestServiceCall {
 ... getter and setter for the fields ...
 
 }
-{% endhighlight %}
+```
 
 As you can see, the helper class contains an origin, a destination, the version of the origin service and a comment.
 
 Let us have a look at what has been changed in the customer service, for example:
 
-{% highlight java hl_lines="14 15 16 23 44 45 46 47 48 49 50"%}
+```java {hl_lines=[14,15,16,23,44,45,46,47,48,49,50]}
 @Path("/")
 public class CustomerResource {
 
@@ -203,13 +203,13 @@ public class CustomerResource {
         restServiceCall.send(msg);
     }
 }
-{% endhighlight %}
+```
 
 I added a field `restServiceCall` which is linked to a Kafka topic. The next change is the new method `writeLogMessage` which creates a `RestServiceCall` object, serializes it to JSON, creates a Kafka message with the key `1` and the value of the serialized RestServiceCall object. Finally, this message is sent to the Kafka Broker.
 
 The configuration for the Kafka integration is done in the `application.properties`. The file looks like this:
 
-{% highlight ini hl_lines="3 4 5 6 7"%}
+```ini {hl_lines=[3,4,5,6,7]}
 com.redhat.developer.demos.customer.rest.PreferenceService/mp-rest/url=http://preference:8080
 
 mp.messaging.outgoing.restServiceCall.connector=smallrye-kafka
@@ -226,7 +226,7 @@ quarkus.jaeger.propagation=${JAEGER_PROPAGATION:b3}
 quarkus.jaeger.sampler-type=const
 quarkus.jaeger.sampler-param=1
 quarkus.jaeger.endpoint=${JAEGER_ENDPOINT:http://jaeger-collector.istio-system.svc:14268/api/traces}
-{% endhighlight %}
+```
 
  I just needed to define and configure the connector `smallrye-kafka`, which is the Kafka framework that I am using. In the next line is the topic to which the message is sent, followed by the used classes for serializing the key and value. Finally, the service or URL of the Kafka bootstrap server, which is the service of my Kafka cluster.
 
@@ -238,7 +238,7 @@ Just writing a message to a topic is a bit boring, so I decided to create a cons
 
 It looks like this:
 
-{% highlight java linenos%}
+```java {linenos=table}
 @Traced
 @ApplicationScoped
 public class ConsumerResource {
@@ -273,7 +273,7 @@ public class ConsumerResource {
 
     }
 }
-{% endhighlight %}
+```
 
 The class is using KafkaStream to process the data. The processing is done in the method `getCalledServices`. In this method the messages for previous defined topics are grouped and aggregated with a duration of 5 minutes based on the new key (origin service + origin version + destination) and printed to system out.
 
@@ -290,7 +290,7 @@ When I made some requests the result looked liked this:
 
 With these changes the demo application is now using Kafka. The next step was to turn on mTLS for the connection between the demo application (including the new consumer service) and the Kafka cluster. I tried several configurations with `DestinationRule`s and `VirtualService`s which did not work. Enforcing mTLS via `PeerAuthentication` (one for each namespace), however, worked like a charm. The `PeerAuthentication`s look like this for my namespaces/projects:
 
-{% highlight yaml linenos%}
+```yaml {linenos=table}
 ...
 - kind: PeerAuthentication
   apiVersion: security.istio.io/v1beta1
@@ -309,7 +309,7 @@ With these changes the demo application is now using Kafka. The next step was to
     mtls:
       mode: STRICT
 ...
-{% endhighlight %}
+```
 
 I used `STRICT` mode to prohibit non-encrypted connections between the services and Kafka.
 As I looked at Kiali, I could see that the two namespaces demo-app and Kafka are marked to be secure. This is indicated by the padlock in the row `Istio Config`. However, the connection (the blue arrows) between the services and the Kafka Broker seemed to be insecure (the padlock is missing). Are these connections secured or not?
@@ -320,7 +320,7 @@ As I looked at Kiali, I could see that the two namespaces demo-app and Kafka are
 
 My first check was to look at the envoy metrics of the customer (as an example) and see if they contain any indication if the Kafka messages were using mTLS. Here are the results:
 
-{% highlight bash hl_lines="10 20"%}
+```bash {hl_lines=[10,20]}
 ...
 # TYPE istio_tcp_connections_closed_total counter
 istio_tcp_connections_closed_total{reporter="source",source_workload="consumer",
@@ -344,7 +344,7 @@ request_protocol="tcp",response_flags="-",connection_security_policy="unknown",
 source_canonical_service="consumer",destination_canonical_service="kafka",
 source_canonical_revision="v1",destination_canonical_revision="1"} 0
 ...
-{% endhighlight %}
+```
 
 This does not look like the connections with Kafka are using mTLS, otherwise the attribute `connection_security_policy` should have the value `mutual_tls`. Why it is not working would be speculation on my side. It is something that I need to investigate later on. I found another way to verify that the connection is secured or at least provides a strong indication. I opened a shell on one of the envoy proxies and queried the SSL certificate of the Kafka cluster. For the strict mode I got this reply:
 
@@ -478,7 +478,7 @@ From what I know, the Istio sidecar proxy is not forwarding the client certifica
 
 The definition of the Kafka cluster including authentication looks like this:
 
-{% highlight yaml hl_lines="9 10"%}
+```yaml {hl_lines=[9,10]}
 - apiVersion: kafka.strimzi.io/v1beta1
   kind: Kafka
   metadata:
@@ -493,7 +493,7 @@ The definition of the Kafka cluster including authentication looks like this:
         type: simple
       template:
       ...
-{% endhighlight %}
+```
 
 The plain authentication is now using `scram-sha-512`. I did not need to specify an external ingress since the messages are generated from the same cluster. The authorization is `simple` with using ACLs in KafkaUsers. This is fine for my use case, because I do not need authorization via KeyCloak or Open Policy Agent.
 
@@ -557,7 +557,7 @@ Side note: If you have an easier command, please let me know.
 
 The next step is to extend our Kafka configuration in the demo app to use the correct authentication and authorization with these properties. The result looks like this:
 
-{% highlight ini hl_lines="6 7 8 9 10"%}
+```ini {hl_lines=[6,7,8,9,10]}
 mp.messaging.outgoing.restServiceCall.connector=smallrye-kafka
 mp.messaging.outgoing.restServiceCall.topic=demo-application-log-customer
 mp.messaging.outgoing.restServiceCall.key.serializer=org.apache.kafka.common.serialization.IntegerSerializer
@@ -568,13 +568,13 @@ mp.messaging.outgoing.restServiceCall.sasl.mechanism=SCRAM-SHA-512
 mp.messaging.outgoing.restServiceCall.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required \
 	username="${KAFKA_USER_NAME:customer-writer}" \
 	password="${KAFKA_PASSWORD}";
-{% endhighlight %}
+```
 
 By this, I defined that I want to use `SASL_PLAINTEXT` as the protocol, and the mechanism to be `SCRAM-SHA-512`. Last but not least, which class should be used and what the user and password is. I am not a big fan of hard coding username and password in an application, so they are read from the environment variables of the container.
 
 For the last step, I needed to modify the deployment to use the copied secret in an environment variable. With the necessary changes, the deployment looks like this:
 
-{% highlight yaml hl_lines="10 11 12 13 14"%}
+```yaml {hl_lines=[10,11,12,13,14]}
 ...
         containers:
         - env:
@@ -591,7 +591,7 @@ For the last step, I needed to modify the deployment to use the copied secret in
                 key: password
           image: quay.io/omeyer/istio-tutorial-customer:v1.0-kafka
 ...
-{% endhighlight %}
+```
 
 This was the final setting. Now the demo application is using Kafka with RBAC. Both are in one data plane and are using mTLS for the communication.
 

@@ -72,9 +72,7 @@ The OpenShift command line interface is a very powerful tool which is quite usef
   * If you want to display values in the result that are not available in all resources or are put in a different location in the resources, you can use Go templates or jsonpath as a parameter, depending on your preferences. The next example uses a Go template to display all used base images in the build configurations in all projects.
 
     ```bash
-    {% raw%}
     oc get bc -o go-template='{{range .items}}{{.metadata.namespace}}{{"\t"}}{{.metadata.name}}{{"\t"}}{{if .spec.strategy.dockerStrategy}}{{.spec.strategy.dockerStrategy.from.name}}{{else if .spec.strategy.sourceStrategy}}{{ .spec.strategy.sourceStrategy.from.name}}{{else if .spec.strategy.customStrategy}}{{ .spec.strategy.customStrategy.from.name}}{{end}}{{"\n"}}{{end}}' --all-namespaces
-    {% endraw %}
     ```
 
     More information about Go templates can be found here: [https://golang.org/pkg/text/template/](https://golang.org/pkg/text/template/)

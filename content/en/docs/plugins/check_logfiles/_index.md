@@ -95,7 +95,7 @@ The single searches are further specified by the following parameters:
 |-----------|---------|
 | tag| A unique identifier. |
 | logfile| The name of the log file to scan. |
-| archivedir| The name of the directory where archives will be moved to after a log file rotation. The default is the directory where the logfile resides. {% asset_image rotation.png %}|
+| archivedir| The name of the directory where archives will be moved to after a log file rotation. The default is the directory where the logfile resides. |
 | rotation| One of the predefined methods or a regular expression, which helps identify the rotated archives. If this key is missing, check_logfiles assumes that the log file will be simply overwritten instead of rotated. |
 | type| One of "rotating" (default if rotation was given), "simple" (default if no rotation was given), "virtual" (for files which will strictly be scanned from the beginning), "errpt" (if instead of a logfile the output of the AIX errpt command should be scanned), "ipmitool" (if the IPMI System Event Log should be scanned), "oraclealertlog" (if the alertlog of an Oracle database should be scanned through a database connection) or "eventlog" if the windows Eventlog should be scanned. |
 | criticalpatterns| A regular expression or a reference to an array of such expressions. If one of these expressions matches a line in the logfile, this is considered a critical error. If the expression begins with a "!", then the meaning is reversed. It counts as a critical error if no match for this pattern is found. |
@@ -395,8 +395,7 @@ If you want to scan the alert log of an oracle database without having access to
 ```
 
 ### Preparations on the part of the database administrator
-Mapping external files to database tables has been possible since version 9. Use this script to prepare your database:
-{% asset_download create_alert_log_table.sql category:nagios %}
+Mapping external files to database tables has been possible since version 9.
 
 ### Preparations on the part of the Nagios administrator
 Installation of the Perl modules DBI and DBD::Oracle (https://search.cpan.org/~pythian/DBD-Oracle-1.74/lib/DBD/Oracle.pm).

@@ -130,7 +130,7 @@ Now that you've executed your first database integration tests, lets have a look
 *If you're completely new to Citrus, it might be helpful to start with the setup guides on [citrusframework.org](http://citrusframework.org/) to understand the basic concepts before you proceed.*
 
 This test performs a `GET` request to our SUT API, asking for the list of todo entries. Afterwards, when the `SELECT` statement hits the database, a result set is generated and sent to the SUT as query result. Finally the receive step of the http client verifies, that the SUT produces the correct data representation - here in XHTML. 
-{% highlight java hl_lines="22 23 25 26 27 28 29 30 31 32" %}
+```java {hl_lines=[22,23,25,26,27,28,29,30,31,32]}
 public class TodoListIT extends TestNGCitrusTestDesigner {
 
     @Autowired
@@ -172,7 +172,7 @@ public class TodoListIT extends TestNGCitrusTestDesigner {
             .xpath("(//xh:li[@class='list-group-item']/xh:span)[last()]", "${todoName}");
     }
 }
-{% endhighlight %}
+```
 As you can see in the highlighted sections, you're able to configure the database behavior, including the returned result sets, using the `receive` and `send` actions of the JDBC-Server endpoint. This empowers you to test your system without additional test-database deployments, test-schemas or other operative overhead. 
 
 You may ask yourself, where the `todoClient` and the `jdbcServer` are coming from. These components are specified in a spring configuration class.
@@ -209,7 +209,7 @@ Now that you know how these kind of tests are setup, lets talk about the feature
 ### Simulating database failures
 One of the core concepts of Citrus JDBC is the distinction between a `success` and an `error` concerning database operations. This concept makes it incredibly easy to simulate a database failure after a certain message has been received by the `jdbcServer`.
 
-{% highlight java hl_lines="6 7" %}
+```java {hl_lines=[6,7]}
 receive(jdbcServer)
         .message(JdbcMessage.execute("@startsWith(" +
                 "'INSERT INTO todo_entries (id, title, description, done) " +
@@ -217,7 +217,7 @@ receive(jdbcServer)
 
 send(jdbcServer)
         .message(JdbcMessage.error().exception("Something went wrong"));
-{% endhighlight %}
+```
 
 After the message has been sent from the Citrus-JDBC-Server to the Citrus-JDBC-Driver, the SUT receives the database failure as an `SQLException` and is then in charge to handle it. Afterwards you're able to validate the behavior of your SUT by using other Citrus components such as a Citrus HTTP Client.  
 
@@ -230,7 +230,7 @@ connection.prepareCall("{CALL limitedToDoList(?)}");
 ```
 Both kinds of statements are created from a JDBC connection with a SQL command expression as `String` parameter. Because of that, we're able to verify them in the same way as regular statements. The only difference between prepared and callable statements compared to regular statements is, that the parameters for the concrete call are attached to the query string for validation purposes.
 
-{% highlight java hl_lines="4 8" %}
+```java {hl_lines=[4,8]}
 http()
         .client(todoClient)
         .send()
@@ -248,12 +248,12 @@ send(jdbcServer)
                 "\"description\": \"${todoDescription}\"," +
                 "\"done\": \"false\"" +
                 "} ]"));
-{% endhighlight %}
+```
 As you can see, the API call path parameter `api/todolist/1` is reflected within the statement execution validation `"{CALL limitedToDoList(?)} - (1)"`. Multiple parameters would look as following `"{CALL limitedToDoList(?, ?, ?)} - (1,2,3)"`. Of course you're also able to work with the regular Citrus matcher as always. 
 
 ### Transaction handling
 When it comes to complex modifications of your database, transactions are commonly used. Citrus is able to verify the behavior of your system under test concerning start, commit and rollback actions of transactions. The verification of transactions has to be enabled in the server Citrus-JDBC-Server configuration.
-{% highlight java hl_lines="12" %}
+```java {hl_lines=[12]}
 @Configuration
 public class EndpointConfig {
     @Bean
@@ -269,11 +269,11 @@ public class EndpointConfig {
                 .build();
     }
 }
-{% endhighlight %}
+```
 
 With a `JdbcServer` endpoint configured that way, you are able to state and verify the transactional behavior of your SUT within your test cases. 
 
-{% highlight java hl_lines="1 2 10 11"%}
+```java {hl_lines=[1,2,10,11]}
 receive(jdbcServer)
         .message(JdbcMessage.startTransaction());
 
@@ -285,11 +285,11 @@ send(jdbcServer)
 
 receive(jdbcServer)
         .message(JdbcMessage.commitTransaction());
-{% endhighlight %}
+```
 
 Because of the ease of creating database failures, you could also cause failed transactions and check whether your SUT performs a proper rollback.
 
-{% highlight java hl_lines="1 2 10 11" %}
+```java {hl_lines=[1,2,10,11]}
 receive(jdbcServer)
         .message(JdbcMessage.startTransaction());
 
@@ -301,11 +301,11 @@ send(jdbcServer)
 
 receive(jdbcServer)
         .message(JdbcMessage.rollbackTransaction());
-{% endhighlight %}
+```
 
 Even the absolute worst case, a rollback failure, could be simulated with nothing more than another send statement.
 
-{% highlight java hl_lines="10 11 13 14" %}
+```java {hl_lines=[10,11,13,14]}
 receive(jdbcServer)
         .message(JdbcMessage.startTransaction());
 
@@ -320,13 +320,13 @@ receive(jdbcServer)
         
 send(jdbcServer)
         .message(JdbcMessage.error().exception("Could not perform database rollback"));
-{% endhighlight %}
+```
 
 ### Timeout simulation
 Simulating timeouts with a real database can be tricky if not impossible to achieve. With Citrus, you just configure your server to validate connection statements but leave them out of the test.
 
 Here is a server configuration enforcing connection validation.
-{% highlight java hl_lines="10" %}
+```java {hl_lines=[10]}
 @Bean
 public JdbcServer jdbcServer() {
     return CitrusEndpoints.jdbc()
@@ -339,7 +339,7 @@ public JdbcServer jdbcServer() {
             .autoConnect(false)
             .build();
 }
-{% endhighlight %}
+```
 
 The following test does not accept the connection attempt from the driver because the receive instruction for the server is missing. Therefore the connection will timeout, because no answer will be sent to the SUT. Nevertheless the Citrus HTTP client expects that the SUT responds as expected. 
 ```java
@@ -367,7 +367,7 @@ There are some advanced validation options to verify the very basic behavior of 
 
 Because most modern application use some kind of framework for their database operations, one as a developer is not responsible for managing these basic JDBC driver interactions, but in case you want to be sure, you're absolutely able to! As for transactions, connection and statement validation has to be activated via configuration of the `JdbcServer` endpoint.
 
-{% highlight java hl_lines="12 13" %}
+```java {hl_lines=[12,13]}
 @Configuration
 public class EndpointConfig {
     @Bean
@@ -384,10 +384,10 @@ public class EndpointConfig {
                 .build();
     }
 }
-{% endhighlight %}
+```
 
 Now the `JdbcServer` instance will validate the connection related operations including statement creation. 
-{% highlight java hl_lines="1 2 4 5 14 15 17 18" %}
+```java {hl_lines=[1,2,4,5,14,15,17,18]}
 receive(jdbcServer)
         .message(JdbcMessage.openConnection());
 
@@ -406,7 +406,7 @@ receive(jdbcServer)
 
 receive(jdbcServer)
         .message(JdbcMessage.closeConnection());
-{% endhighlight %}
+```
 
 ## Summary
 In this blog post you have executed your first citrus database tests, learned how these tests are setup, how to verify your database communication using the features of `citrus-jdbc` including low level JDBC driver related operations. This empowers you to get rid of most of your test database deployments by using Citrus. If you are interested in further readings, I highly recommend you to visit the following links. 

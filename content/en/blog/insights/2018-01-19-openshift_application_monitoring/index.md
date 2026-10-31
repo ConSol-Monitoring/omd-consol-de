@@ -26,7 +26,7 @@ The first step will be to deploy a simple demo application. It is a SpringBoot a
 
 The following code snip it shows how the Prometheus metrics are implemented in the Restful services:
 
-{% highlight java hl_lines="7 8 9 10 12 13 14 20 29 30 31 32 33"%}
+```java {hl_lines=[7,8,9,10,12,13,14,20,29,30,31,32,33]}
 @Component
 @Path("/")
 public class Metrics {
@@ -62,7 +62,7 @@ public class Metrics {
     };
   }
 }
-{% endhighlight %}
+```
 
 The highlighted section of the source code marks initialization of the request counter; the java hotspot metrics. The Restful service _"/metrics"_ returns the metrics of the demo application. 
 
@@ -157,7 +157,7 @@ If you press save the result should look like this:
 
 At the time being the deployed Prometheus will only search for in the project "prometheus". We are going to change that so that the service and the pods of the demo application will be scrapped as well. For this we need to adapt the configuration of Prometheus that is stored in the config map **prometheus** in the file **"prometheus.yaml"** in the project "prometheus". Edit the config map either in the browser or with the command line interface. Add the highlighted lines to the config map:
 
-{% highlight yaml hl_lines="23 69"%}
+```yaml {hl_lines=[23,69]}
 # A scrape configuration for running Prometheus on a Kubernetes cluster.
 # This uses separate scrape configs for cluster components (i.e. API server, node)
 # and services to allow each to use different authentication configs.
@@ -260,7 +260,7 @@ scrape_configs:
   - source_labels: [__meta_kubernetes_service_name]
     action: replace
     target_label: kubernetes_name
-{% endhighlight %}
+```
 
 A detailed description how applications in OpenShift/Kubernets can be discovered and then scrapped in Prometheus can be found here:
 [Kubernetes scrap configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#%3Ckubernetes_sd_config%3E)
@@ -302,7 +302,7 @@ If you want to scrap all pods respectivly services unless the specifed otherwise
 ```
 
 For our example we use the opt-in configuration. In case your are wondering, the template of the *"demoapplication"* already contains the setting for scrapping the pods and the service. For the pod's the configuration looks like this:
-{% highlight yaml hl_lines="6 7 8"%}
+```yaml {hl_lines=[6,7,8]}
 ...
     template:
       metadata:
@@ -321,10 +321,10 @@ For our example we use the opt-in configuration. In case your are wondering, the
           name: ${APP_NAME}
           resources: {}
 ...
-{% endhighlight %}
+```
 
 The configurations for the service look like this:
-{% highlight yaml hl_lines="6 7 8"%}
+```yaml {hl_lines=[6,7,8]}
 ...
 - apiVersion: v1
   kind: Service
@@ -338,7 +338,7 @@ The configurations for the service look like this:
       app: ${APP_NAME}
     name: ${APP_NAME}
 ...
-{% endhighlight %}
+```
 
 With these configurations the pods and services are not only enabled for scrapping, furthermore the port, path and the scheme (http/https) for the metrics can be overwritten. In our case the used port of the demo application is 8080 instead of the default port 80.
 

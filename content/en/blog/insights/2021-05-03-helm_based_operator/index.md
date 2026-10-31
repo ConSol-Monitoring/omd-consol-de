@@ -160,7 +160,7 @@ spec:
 
 To this strict and descriptive version (changes are highlighted):
 
-{% highlight yaml hl_lines="35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94"%}
+```yaml {hl_lines=[35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94]}
 
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -265,7 +265,7 @@ spec:
     storage: true
     subresources:
       status: {}
-{% endhighlight %}
+```
 
 Looks much better, doesn't it? A description about how to define CRD can be found [here](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
 
@@ -506,7 +506,7 @@ To change the information that is displayed in OpenShift, we need to modify the 
 
 I added the highlighted lines to the `nginx-sts.clusterserviceversion.yaml`:
 
-{% highlight bash hl_lines="8 9 10 11 12 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 46 66 67 69 70 73 74"%}
+```bash {hl_lines=[8,9,10,11,12,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,46,66,67,69,70,73,74]}
 apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
@@ -582,7 +582,7 @@ spec:
     name: ConSol Software GmbH
     url: https://www.consol.de/
   version: 0.0.0
-{% endhighlight %}
+```
 
 Most changes are self explaining. There are a couple of changes that I want to talk about:
 
@@ -835,7 +835,7 @@ status:
 
 In the last step we need to add the KUTTL tests to the Scorecard tests by adding the following line to the file `bundle/tests/scorecard/config.yaml`:
 
-{% highlight bash hl_lines="9 10 11 12"%}
+```bash {hl_lines=[9,10,11,12]}
 ...
   - entrypoint:
     - scorecard-test
@@ -848,7 +848,7 @@ In the last step we need to add the KUTTL tests to the Scorecard tests by adding
     labels:
       suite: kuttlsuite
       test: kuttltest1
-{% endhighlight %}
+```
 
 When calling the Scorecard tests, we need to provide the service account with sufficient permissions to create the nginx-sts CRD. Additionally, we need to add the attribute `--wait-time=60s` in order to wait a bit longer till Nginx is deployed (It is deploying quite quick, but not that quick that it passes the test). So the command to run the Scorecard and KUTTL tests looks like this:
 

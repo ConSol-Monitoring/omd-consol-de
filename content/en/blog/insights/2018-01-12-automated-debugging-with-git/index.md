@@ -130,10 +130,10 @@ When the process has been finished, git will show you the first bad commit as kn
 
 ### About git bisect and TDD
 If you're following the TDD life cycle to develop your software, you may have some troubles using git-bisect, because your software alternates between a erroneous and a functional sate from a software test perspective. As soon as you specified a new test, your software becomes unstable. If you would execute a simple `mvn clean install` in such a situation, `git bisect` would not find the revision containing the root cause of your problem, because it is confused by the failed builds caused by your TDD tests. This can also be shown with our *cake-factory* example, by removing `skip.unit.tests=true` from the maven instruction.
-{% highlight bash hl_lines="2" %}
+```bash {hl_lines=[2]}
 git bisect start broken stable
 git bisect run mvn clean verify -f ./cake-factory/pom.xml
-{% endhighlight %}
+```
 Now `git bisect` will react on every single unit test that is failing. This leads to a result as well, but it has nothing to do with the root cause of the issue we were looking for.
 ![](bisect-found-wrong.png)
 

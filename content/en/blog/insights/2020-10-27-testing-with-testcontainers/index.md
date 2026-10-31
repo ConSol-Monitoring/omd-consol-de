@@ -73,7 +73,7 @@ For our scenario we need now to define the containers for the database as well a
 
 In order to prevent from race conditions the containers should wait until the necessary service has been started.
 
-{% highlight java hl_lines="3 9" %}
+```java {hl_lines=[3,9]}
 @Container
 static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:alpine")
         .waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*\\s", 1));
@@ -83,7 +83,7 @@ static GenericContainer<?> activeMQContainer = new GenericContainer<>("vromero/a
         .withExposedPorts(61616)
         .withEnv("DISABLE_SECURITY", "true")
         .waitingFor(Wait.forLogMessage(".*AMQ221007: Server is now live.*\n", 1));;
-{% endhighlight %}
+```
 
 At this point both containers will boot up. As soon as they are ready, the spring application will be started as well. It is important to configure the Spring application to use random allocated ports of the test containers:
 

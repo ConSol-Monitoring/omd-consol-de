@@ -78,14 +78,12 @@ spec:
 To change the value from `v1` to `version1`, execute the following command:
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example -p '{"spec":{"template":{"metadata":{"labels":{"version":"version1"}}}}}'
-{% endraw %}
 ```
 
 And voilà the result looks like this:
 
-{% highlight yaml hl_lines="15" %}
+```yaml {hl_lines=[15]}
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
@@ -108,27 +106,23 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
-{% endhighlight %}
+```
 
 Easy, isn't it? But let's get rid of the label. You can do this with the following command:
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example --type json -p '[{ "op": "remove", "path": "/spec/template/metadata/labels/version" }]'
-{% endraw %}
 ```
 
 In the next step, add multiple values to different places of yaml file. So let's add a label to the deployment configuration itself and one label to the template.
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example -p '{"metadata":{"labels":{"version":"version1"}},"spec":{"template":{"metadata":{"labels":{"version":"version1"}}}}}'
-{% endraw %}
 ```
 
 The result is like expected:
 
-{% highlight yaml hl_lines="6 17" %}
+```yaml {hl_lines=[6,17]}
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
@@ -153,38 +147,30 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
-{% endhighlight %}
+```
 
 So far we were using the default merge type `strategic`. Lets repeat the example above with the merge type JSON Patch:
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example --type='json' -p='[{"op": "add", "path": "/metadata/labels/version", "value": "version1" },{"op": "add", "path": "/spec/template/metadata/labels/version", "value": "version1" }]'
-{% endraw %}
 ```
 
 Let's have a closer look what can be achieved by using JSON Patch. Another option would be to use `copy` to copy the first attribute instead of just adding it again with `add`. The command looks like this now:
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example --type='json' -p='[{"op": "add", "path": "/metadata/labels/version", "value": "version1" },{"op": "copy", "from":"/metadata/labels/version" , "path": "/spec/template/metadata/labels/version" }]'
-{% endraw %}
 ```
 
 To change  the values we can use `replace`. So let's change the value of the labels `version1` to `version2`.  This can be done with this command:
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example --type='json' -p='[{"op": "replace", "path": "/metadata/labels/version", "value": "version2" },{"op": "replace", "path": "/spec/template/metadata/labels/version", "value": "version2" }]'
-{% endraw %}
 ```
 
 Let's remove the new labels with this command:
 
 ``` bash
-{% raw%}
 oc patch dc deployment-example --type json -p '[{ "op": "remove", "path": "/spec/template/metadata/labels/version" },{ "op": "remove", "path": "/metadata/labels/version" }]'
-{% endraw %}
 ```
 
 You might have noticed that we used for the last command the parameter `type` to the value `json` to use JSON Patch. By default, the value of the parameter `type` is `strategic`. How resources are patched respectively merged for the type `strategic` is defined in the source code. This can be different between a resource and its subresources. How the resources are patched respective merged can be found in the OpenShift and Kubernetes Swagger documentation in the attribute "x-kubernetes-patch-strategy" of the resource. The value `merge` of the parameter `type` indicated that JSON Merge patch is used. With this type, you need to provide a complete new resource that you want to modify, because the new resource will replace the existing resource.

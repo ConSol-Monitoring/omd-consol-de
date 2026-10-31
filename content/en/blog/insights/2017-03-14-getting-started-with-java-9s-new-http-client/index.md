@@ -45,7 +45,7 @@ Basically, there are three classes involved when communicating via HTTP: a `Http
 
 #### Basic Example: GET Request to String
 
-{% highlight java %}
+```java
 HttpClient client = HttpClient.newHttpClient();
 
 HttpRequest request = HttpRequest.newBuilder()
@@ -56,7 +56,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandler.as
 
 System.out.println(response.statusCode());
 System.out.println(response.body());
-{% endhighlight %}
+```
 
 Beautiful, isn't it? No `InputStream` and `Reader` involved - instead, the API offers a `BodyHandler` which allows us to read the `String` directly from the response. We'll see other `BodyHandler`s below.
 
@@ -66,7 +66,7 @@ While `HttpClient`, `HttpRequest` and `HttpResponse` are the main actors in our 
 
 We can obtain an instance of `HttpRequest.Builder` by calling `HttpRequest.newBuilder()`, as we did above. We will use it to configure everything related to a specific request. Let's have a look at its most important methods:
 
-{% highlight java %}
+```java
 // HttpRequest.Builder
 public abstract static class Builder {
     // note: some methods left out for the sake of brevity
@@ -80,7 +80,7 @@ public abstract static class Builder {
     public abstract Builder DELETE(BodyProcessor body);
     public abstract HttpRequest build();
 }
-{% endhighlight%}
+```
 
 Pretty self-explaining, right? Just chain method calls until your request is fully configured, then call `build()` to get your `HttpRequest` instance. You can read up about the details in the [API docs of HttpRequest.Builder].
 
@@ -88,7 +88,7 @@ Pretty self-explaining, right? Just chain method calls until your request is ful
 
 As with `HttpRequest`, we can use `HttpClient.newBuilder()` to obtain an instance of `HttpClient.Builder`. It provides an API to configure some more generic stuff about our connection. Again, let's have a look at its methods:
 
-{% highlight java%}
+```java
 // HttpClient.Builder
 public abstract static class Builder {
     public abstract Builder cookieManager(CookieManager cookieManager);
@@ -102,7 +102,7 @@ public abstract static class Builder {
     public abstract Builder authenticator(Authenticator a);
     public abstract HttpClient build();
 }
-{% endhighlight%}
+```
 
 Awesome! Again, the API is self-explaining enough to just give it a go and let your IDE's auto completion guide you to your aims. If in doubt, consult the [API docs of HttpClient.Builder].
 
@@ -113,7 +113,7 @@ Above we got acquainted with the promising API of the HTTP client. Let's see som
 #### Save GET Request to File
 To save a downloaded file to the local file system, simple use `HttpResponse.BodyHandler.asFile(Path)`:
 
-{% highlight java hl_lines="9" %}
+```java {hl_lines=[9]}
 HttpClient client = HttpClient.newHttpClient();
 
 HttpRequest request = HttpRequest.newBuilder()
@@ -125,12 +125,12 @@ Path tempFile = Files.createTempFile("consol-labs-home", ".html");
 HttpResponse<Path> response = client.send(request, HttpResponse.BodyHandler.asFile(tempFile));
 System.out.println(response.statusCode());
 System.out.println(response.body());
-{% endhighlight%}
+```
 
 #### Upload a File Using POST
 Uploading a file from the local file system via POST is easy as well, we can add a POST body by using a `HttpRequest.BodyProcessor`:
 
-{% highlight java hl_lines="5"%}
+```java {hl_lines=[5]}
 HttpClient client = HttpClient.newHttpClient();
 
 HttpRequest request = HttpRequest.newBuilder()
@@ -140,12 +140,12 @@ HttpRequest request = HttpRequest.newBuilder()
 
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandler.discard(null));
 System.out.println(response.statusCode());
-{% endhighlight%}
+```
 
 #### Async HTTP Request
 Asynchronous HTTP is as easy as using `HttpClient#sendAsync()` instead of `HttpClient#send`. If the server side supports HTTP/2, you can even cancel a running request:
 
-{% highlight java hl_lines="8 11 15" %}
+```java {hl_lines=[8,11,15]}
 HttpClient client = HttpClient.newHttpClient();
 
 HttpRequest request = HttpRequest.newBuilder()
@@ -163,10 +163,10 @@ if(response.isDone()) {
     response.cancel(true);
     System.out.println("Request took more than 5 seconds... cancelling.");
 }
-{% endhighlight%}
+```
 
 #### Using the System Proxy Settings
-{% highlight java linenos hl_lines="2" %}
+```java {linenos=table hl_lines=[2]}
 HttpClient client = HttpClient.newBuilder()
     .proxy(ProxySelector.getDefault())
     .build();
@@ -179,10 +179,10 @@ HttpRequest request = HttpRequest.newBuilder()
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandler.asString());
 System.out.println(response.statusCode());
 System.out.println(response.body());
-{% endhighlight%}
+```
 
 #### Basic Authentication
-{% highlight java hl_lines="2 3 4 5 6 7" %}
+```java {hl_lines=[2,3,4,5,6,7]}
 HttpClient client = HttpClient.newBuilder()
     .authenticator(new Authenticator() {
         @Override
@@ -200,7 +200,7 @@ HttpRequest request = HttpRequest.newBuilder()
 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandler.asString());
 System.out.println(response.statusCode());
 System.out.println(response.body());
-{% endhighlight%}
+```
 
 ## Conclusion
 The examples above show that we will be able to send HTTP requests easily with Java 9's standard API. Furthermore, we will be able to process the responses in an elegant manner. 

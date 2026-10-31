@@ -115,7 +115,7 @@ Hello World 10 9 8 7 6 5 4 3 2 1
 
 We are at a point where we have an existing application up and running in one project. The Service mesh control plane is installed in another project. Let's bring them together by creating a resource of the type ServiceMeshMemberRoll. It contains the name of the service mesh control plane project and the projects of the service mesh data plane. The data plane consists only of the project with the demo application. Our setup looks like this:
 
-{% highlight yaml hl_lines="5 8"%}
+```yaml {hl_lines=[5,8]}
 apiVersion: maistra.io/v1
 kind: ServiceMeshMemberRoll
 metadata:
@@ -124,7 +124,7 @@ metadata:
 spec:
   members:
     - test-tracing
-{% endhighlight %}
+```
 
 Line 5 contains the project for the control plane. The project of the data plane is defined in line 8. So far, so good. Let's call the demo application to test if everything still works. The result looks like this:
 
@@ -281,7 +281,7 @@ The screenshot above shows that Jaeger gets only information about the request t
 
 How can we fix this issue? After some try and error, I came up with this modification in my source code, which will add the tracing HTTP header to outgoing calls as well as sent tracing information about internal calls to Jaeger:
 The source code of the REST-API look like this:
-{% highlight java hl_lines="1" %}
+```java {hl_lines=[1]}
 @Traced
 @Path("/")
 public class TestResource {
@@ -302,10 +302,10 @@ public class TestResource {
         return worker.doStuff(message,counter);
     }
 }
-{% endhighlight %}
+```
 
 The source code of the service looks like this
-{% highlight java hl_lines="1" %}
+```java {hl_lines=[1]}
 @Traced
 @ApplicationScoped
 public class WorkerService {
@@ -339,10 +339,10 @@ public class WorkerService {
     return message;
   }
 }
-{% endhighlight %}
+```
 
 The source code of the backend service looks like this:
-{% highlight java  hl_lines="3" %}
+```java {hl_lines=[3]}
 @RegisterRestClient(configKey = "backend-service")
 @RegisterProvider(LogClientRequestFilter.class)
 @Traced
@@ -353,11 +353,11 @@ public interface BackendService {
     @Produces("text/plain")
     public String getMessage(@PathParam String message,@QueryParam Integer counter);
 }
-{% endhighlight %}
+```
 
 To submit the tracing information, we need to provide the application, the Jaeger Endpoint (URL of the Jaeger server) and the name of the service in Jaeger. Environment variables are providing these values. The `application.properties` looks like this:
 
-{% highlight properties hl_lines="4 6" %}
+```properties {hl_lines=[4,6]}
 quarkus.log.level=INFO
 quarkus.log.category."de.consol".level=DEBUG
 quarkus.log.console.format=%d{HH:mm:ss} %-5p traceId=%X{traceId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t{id}) %s%e%n
@@ -365,7 +365,7 @@ backend-service/mp-rest/url=${BACKEND_SERVICE_URL:http://localhost:8080}
 backend-service/mp-rest/scope=javax.inject.Singleton
 quarkus.jaeger.service-name=${JAEGER_SERVICE_NAME:default-tracing-test}  
 quarkus.jaeger.sampler-param=1
-{% endhighlight %}
+```
 
 The OpenTracing annotations will take the tracing header parameter from request and add them to the outgoing request call. With this information, Jaeger can build a complete graph of the request, called application and Java methods.
 
