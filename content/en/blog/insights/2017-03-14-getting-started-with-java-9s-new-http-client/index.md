@@ -166,7 +166,7 @@ if(response.isDone()) {
 ```
 
 #### Using the System Proxy Settings
-```java {linenos=table hl_lines=[2]}
+```java {linenos=inline hl_lines=[2]}
 HttpClient client = HttpClient.newBuilder()
     .proxy(ProxySelector.getDefault())
     .build();

@@ -117,7 +117,7 @@ The highlighted sections are included to deploy Istio-compliant pods and to inje
 
 The next steps were to extend the customer-, preference- and the three recommendation-services that each time they are called, they send out messages to Kafka topics. I added a helper Pojo containing the information about the service calls. These changes to the services are all very similar. Here is the source code of the Pojo helper class:
 
-```java {linenos=table}
+```java {linenos=inline}
 @RegisterForReflection
 public class RestServiceCall {
 
@@ -238,7 +238,7 @@ Just writing a message to a topic is a bit boring, so I decided to create a cons
 
 It looks like this:
 
-```java {linenos=table}
+```java {linenos=inline}
 @Traced
 @ApplicationScoped
 public class ConsumerResource {
@@ -290,7 +290,7 @@ When I made some requests the result looked liked this:
 
 With these changes the demo application is now using Kafka. The next step was to turn on mTLS for the connection between the demo application (including the new consumer service) and the Kafka cluster. I tried several configurations with `DestinationRule`s and `VirtualService`s which did not work. Enforcing mTLS via `PeerAuthentication` (one for each namespace), however, worked like a charm. The `PeerAuthentication`s look like this for my namespaces/projects:
 
-```yaml {linenos=table}
+```yaml {linenos=inline}
 ...
 - kind: PeerAuthentication
   apiVersion: security.istio.io/v1beta1

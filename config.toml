@@ -40,7 +40,7 @@ pygmentsCodeFences = true
 pygmentsUseClasses = false
 # Use the new Chroma Go highlighter in Hugo.
 pygmentsUseClassic = false
-#pygmentsOptions = "linenos=table"
+#pygmentsOptions = "linenos=inline"
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "tango"
 
