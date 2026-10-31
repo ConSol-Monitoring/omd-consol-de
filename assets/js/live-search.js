@@ -1,7 +1,7 @@
 // Loaded separately with a content fingerprint so live search updates immediately.
 (() => {
 function animateSearchPlaceholder(input) {
-  const words = ['SNClient', 'OMD', 'Coshsh', 'Thruk', 'check_nwc_health'];
+  const words = ['OMD', 'SNClient', 'check_nwc_health', 'Search ...'];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let word = 0, length = 0, deleting = false, timer;
 
@@ -10,15 +10,15 @@ function animateSearchPlaceholder(input) {
     input.placeholder = words[word].slice(0, length);
     let delay = deleting ? 65 : 130;
     if (length === words[word].length) {
+      if (word === words.length - 1) {
+        word = words.length;
+        return;
+      }
       deleting = true;
       delay = 1200;
     } else if (length === 0) {
       deleting = false;
       word += 1;
-      if (word === words.length) {
-        input.placeholder = 'Search ...';
-        return;
-      }
       delay = 400;
     }
     timer = setTimeout(tick, delay);
