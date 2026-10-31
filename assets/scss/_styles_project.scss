@@ -339,7 +339,18 @@ h5, .h5, h6, .h6 {
 }
 
 @media (max-width: 767.98px) {
-  .td-footer.monitoring-footer { padding-inline: 1.25rem; }
+  .td-footer.monitoring-footer {
+    padding-inline: 1.25rem;
+
+    .monitoring-footer__inner { grid-template-columns: minmax(0, 1fr); }
+    .monitoring-footer__links,
+    .monitoring-footer__navigation,
+    .monitoring-footer__copyright {
+      justify-self: center;
+      text-align: center;
+    }
+    .monitoring-footer__navigation { justify-content: center; }
+  }
 
   .monitoring-legal-page {
     .monitoring-page-hero, .monitoring-legal { padding-block: 2rem; }
