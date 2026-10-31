@@ -8,6 +8,11 @@ pre.chroma > code {
   min-width: 100%;
 }
 
+// Long URLs in articles must fit narrow screens.
+.td-content a {
+  overflow-wrap: anywhere;
+}
+
 // No-sidebar pages use <main class="td-main"> (the main element IS td-main).
 // Docsy v0.14.3's fixed-navbar compensation targets ".td-main main" (a main
 // nested inside td-main), so these pages get no automatic offset. Add it here.

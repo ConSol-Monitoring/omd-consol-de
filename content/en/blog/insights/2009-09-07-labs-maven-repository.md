@@ -15,6 +15,7 @@ Labs got its own maven repository now:
 <!--more Read more about how to access and how to deploy into the repository -->
 <h3>How do I access the repo for my Maven project?</h3>
 Add the repos to your project POM. Here's an example for the release repository:
+
 ```xml
 <repository>
   <id>consol-labs-release</id>
@@ -38,8 +39,10 @@ Add the repos to your project POM. Here's an example for the release repository:
   </releases>
 </repository>
 ```
+
 <h3>How do I release to the repos?</h3>
 Simply add this profile to your project, and activate it when deploying:
+
 ```xml
 <profile>
   <id>dist-labs</id>
@@ -55,7 +58,9 @@ Simply add this profile to your project, and activate it when deploying:
   </distributionManagement>
 </profile>
 ```
+
 Additionally, you'll have to modify your <em>$HOME/.m2/settings.xml</em> and configure the user for SSH deployment:
+
 ```xml
 <server>
   <id>consol-labs-release</id>
@@ -66,8 +71,11 @@ Additionally, you'll have to modify your <em>$HOME/.m2/settings.xml</em> and con
   <username>maven-repository</username>
 </server>
 ```
+
 Now you can simply deploy using Maven:
+
 ```bash
 mvn clean install deploy -Pdist-labs
 ```
+
 Note: We only support SSH transport for now, using SSH authorized keys.

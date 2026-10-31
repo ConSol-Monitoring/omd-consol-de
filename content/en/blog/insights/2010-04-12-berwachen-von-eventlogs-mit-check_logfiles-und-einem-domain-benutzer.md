@@ -5,7 +5,9 @@ slug: berwachen-von-eventlogs-mit-check_logfiles-und-einem-domain-benutzer
 title: Überwachen von Eventlogs mit check_logfiles und einem Domain-Benutzer
 ---
 
-<p>Seit der Version 3.2 von check_logfiles ist es einfach geworden, Eventlogs von Windows-Servern auszulesen, ohne auf diesen das Plugin installieren zu müssen. Es wird jetzt nur noch ein &quot;Gatewayserver&quot; sowie ein Domainbenutzer <i>nagios</i> benötigt. </p> <!--more-->  <p>Auf dem Gatewayserver richtet man eine NSClient++-Umgebung ein und installiert das Plugin check_logfiles.exe. Der Zugriff auf die Eventlogs aller anderen Server geschieht dann mit Windows-Bordmitteln. Angenommen, zu diesem Zweck wurde der Benutzer <i>nagios</i> in der Domain <i>NAPRAX</i> eingerichtet, so formuliert man den Abschnitt &quot;eventlog&quot; in der check_logfiles-Konfigurationsdatei folgendermaßen:</p>  ```perl
+<p>Seit der Version 3.2 von check_logfiles ist es einfach geworden, Eventlogs von Windows-Servern auszulesen, ohne auf diesen das Plugin installieren zu müssen. Es wird jetzt nur noch ein &quot;Gatewayserver&quot; sowie ein Domainbenutzer <i>nagios</i> benötigt. </p> <!--more-->  <p>Auf dem Gatewayserver richtet man eine NSClient++-Umgebung ein und installiert das Plugin check_logfiles.exe. Der Zugriff auf die Eventlogs aller anderen Server geschieht dann mit Windows-Bordmitteln. Angenommen, zu diesem Zweck wurde der Benutzer <i>nagios</i> in der Domain <i>NAPRAX</i> eingerichtet, so formuliert man den Abschnitt &quot;eventlog&quot; in der check_logfiles-Konfigurationsdatei folgendermaßen:</p>
+
+```perl
 @searches = ({
   tag => 'evt_sec',
   type => 'eventlog',
@@ -18,6 +20,7 @@ title: Überwachen von Eventlogs mit check_logfiles und einem Domain-Benutzer
   criticalpatterns => '.*',
 });
 ```
+
 Damit man nun nicht für jeden Client so einen Abschnitt mit eigenem Tag erstelle muss, kann man Ziel-Eventlog und Zugangsdaten auch als Macros angeben:
 
 ```perl

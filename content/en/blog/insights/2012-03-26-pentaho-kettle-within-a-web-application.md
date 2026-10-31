@@ -42,6 +42,7 @@ JARs</p>
 <p>
 In maven parlance
 </p>
+
 ```xml
 <dependencies>
     <dependency>
@@ -62,10 +63,12 @@ In maven parlance
     ....
   </dependencies>
 ```
+
 <p>
 These JARs are not available from the standard maven
 repositories. Pentaho offers its own. So you have to add
 </p>
+
 ```xml
 <repositories>
     <repository>
@@ -81,19 +84,23 @@ repositories. Pentaho offers its own. So you have to add
     </repository>
   </repositories>
 ```
+
 <p>
 to your <code>pom.xml</code>. Alternatively you can install the
 required JARs in you local maven repository via
 </p>
+
 ```bash
 mvn install:install-file -DgroupId=pentaho.kettle -DartifactId=kettle-core -Dversion=3.2.0 -Dpackaging=jar -Dfile=/path/to/kettle-core-3.2.0.jar -DgeneratePom=true
 
   etc. etc.
 ```
+
 <p>
 But that's not all. By trial and error I've determined what additional
 JARs are required by Kettle.
 </p>
+
 ```xml
 <dependency>
     <groupId>commons-beanutils</groupId>
@@ -137,6 +144,7 @@ JARs are required by Kettle.
     <scope>test</scope>
   </dependency>
 ```
+
 <p>
 These JARs are all present in standard maven repositories except
 <code>commons-vfs-2.0-20090205.jar</code>. This appears to be an early
@@ -156,6 +164,7 @@ So I've decided to include the Kettle files (<code>kjb</code> and
 <code>ktr</code> files) into my WAR. I copy these files to a temporary
 file and remove these as soon as the ETL job is done.
 </p>
+
 ```java
 private File copyKettleFiles(List kettleFileNames) throws IOException {
         InputStream inStream = null;
@@ -189,12 +198,14 @@ private File copyKettleFiles(List kettleFileNames) throws IOException {
         }
     }
 ```
+
 <p>
 Put the Kettle files in <code>src/main/resources/[package]</code>
         where <code>[package]</code> has to be replaced by the slash
         delimited package of the class the above method is located
         in. After you are done the temporary directory is deleted with
 </p>
+
 ```java
 private void removeTempDir(File tempDir) {
         if (tempDir != null) {
@@ -207,10 +218,12 @@ private void removeTempDir(File tempDir) {
         }
     }
 ```
+
 <p>
 For the further steps you need to know the Kettle job
         (<code>kjb</code>) file.
 </p>
+
 ```java
 private String getKjbFileName(File tempDir) throws IOException {
         for (File file : tempDir.listFiles()) {
@@ -219,12 +232,14 @@ private String getKjbFileName(File tempDir) throws IOException {
         throw new IOException("KJB file not found in " + tempDir.toString());
     }
 ```
+
 <h2>Setting up Kettle</h2>
 <p>
   Now it's time to set up Kettle. I had a look at the main method of
   <code>Kitchen.java</code>, stripped everything that I deemed
   unnecessary for my usecase and got
 </p>
+
 ```java
 LogWriter log = LogWriter.getInstance(LogWriter.LOG_LEVEL_BASIC);
     StepLoader stepLoader = StepLoader.getInstance();
@@ -242,10 +257,12 @@ LogWriter log = LogWriter.getInstance(LogWriter.LOG_LEVEL_BASIC);
     job.getJobMeta().setInternalKettleVariables(job);
     job.copyParametersFrom(job.getJobMeta());
 ```
+
 <h2>Parameterizing</h2>
 <p>
 Your Kettle jobs and transformations may need some parameters set (e.g. names of files to read from). This is accomplished by
 </p>
+
 ```java
 Map<String,String> config = ....
     ....
@@ -265,6 +282,7 @@ Map<String,String> config = ....
     }
     job.activateParameters();
 ```
+
 <p>
 <code>config</code> holds your configuration. It's your task you decide where to get those data from. Maybe you want to read from some properties file or use a configuration service of your application
 </p>
@@ -276,10 +294,12 @@ Kettle uses its own logging class (<code>LogWriter</code>) that internally relie
 You see, Kettle was not supposed to be used as a library within another application.
 </p>
 <h2>Do it!</h2>
+
 ```java
 Result result = job.execute();
     job.endProcessing(Database.LOG_STATUS_END, result);
 ```
+
 <p>
 Again this was taken from <code>Kitchen.java</code>.
 </p>

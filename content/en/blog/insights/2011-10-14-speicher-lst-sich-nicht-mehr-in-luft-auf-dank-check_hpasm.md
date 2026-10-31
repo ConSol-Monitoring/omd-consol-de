@@ -5,10 +5,14 @@ slug: speicher-lst-sich-nicht-mehr-in-luft-auf-dank-check_hpasm
 title: Speicher löst sich nicht mehr in Luft auf dank check_hpasm
 ---
 
-<p>Während des Bootens von Proliant-Servern wird eine umfangreiche Prüfung der verbauten Speichermodule durchgeführt. Entdeckt das Bios dabei Ungereimtheiten oder schadhafte DIMMs, so werden diese auskonfiguriert und der Bootvorgang fortgesetzt. Ob dies bei einem Server vorgekommen ist, zeigt ein Blick ins Integrated Management Log. Dort erscheint dann folgende Meldung:</p>  ```text
+<p>Während des Bootens von Proliant-Servern wird eine umfangreiche Prüfung der verbauten Speichermodule durchgeführt. Entdeckt das Bios dabei Ungereimtheiten oder schadhafte DIMMs, so werden diese auskonfiguriert und der Bootvorgang fortgesetzt. Ob dies bei einem Server vorgekommen ist, zeigt ein Blick ins Integrated Management Log. Dort erscheint dann folgende Meldung:</p>
+
+```text
 Event: 26 Added: 03/08/2011 21:01
   CAUTION: POST Messages - POST Error: 207-Memory initialization error on Processor 1 DIMM 6. The operating system may not have access to all of the memory installed in the system..
-```<!--more--><p>Dies bedeutet nichts anderes, als dass teurer Hauptspeicher verbaut wurde, der dem Betriebssystem nicht zur Verfügung steht. Und das Schlimme daran ist, dass man es noch nicht mal merkt, wenn man nicht mit top o.ä. nachschaut und einem die Diskrepanz auffällt. In diesem System hier stecken eigentlich 48GB: </p>
+```
+
+<!--more--><p>Dies bedeutet nichts anderes, als dass teurer Hauptspeicher verbaut wurde, der dem Betriebssystem nicht zur Verfügung steht. Und das Schlimme daran ist, dass man es noch nicht mal merkt, wenn man nicht mit top o.ä. nachschaut und einem die Diskrepanz auffällt. In diesem System hier stecken eigentlich 48GB: </p>
 
 ```text
 top - 18:33:14 up 21 days,  8:21,  2 users,  load average: 0.00, 0.00, 0.00

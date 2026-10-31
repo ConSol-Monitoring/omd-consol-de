@@ -25,10 +25,7 @@ In this article, I will show you how to install Red Hat OpenShift Container Plat
 
 <!--more-->
 
-* TOC
-{:toc}
-
-Since this article will not describe basic requirements like the minimum VMware vSphere version, a good start would be to consult the official OpenShift documentation: [https://docs.openshift.com/container-platform/4.3/installing/installing_vsphere/installing-vsphere.html](https://docs.openshift.com/container-platform/4.3/installing/installing_vsphere/installing-vsphere.html){:target="_blank"}
+Since this article will not describe basic requirements like the minimum VMware vSphere version, a good start would be to consult the official OpenShift documentation: <a href="https://docs.openshift.com/container-platform/4.3/installing/installing_vsphere/installing-vsphere.html" target="_blank" rel="noopener noreferrer">https://docs.openshift.com/container-platform/4.3/installing/installing_vsphere/installing-vsphere.html</a>
 
 
 # Infrastructure / Nodes
@@ -107,10 +104,10 @@ lb.ocp4-cluster-001.int.consol.de has address 10.0.5.64
 
 
 ## Terraform
-For the fully automated VM provisioning, we'll use an infrastructure-as-code tool called [terraform](https://www.terraform.io/){:target="_blank"}. Take care of the version - currently only version 11.x of terraform is working with the installer github template. Version 12.x will most likely fail (at the time of writing).
+For the fully automated VM provisioning, we'll use an infrastructure-as-code tool called <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">terraform</a>. Take care of the version - currently only version 11.x of terraform is working with the installer github template. Version 12.x will most likely fail (at the time of writing).
 
 
-Link: [https://www.terraform.io/downloads.html](https://www.terraform.io/downloads.html){:target="_blank"}
+Link: <a href="https://www.terraform.io/downloads.html" target="_blank" rel="noopener noreferrer">https://www.terraform.io/downloads.html</a>
 
 Quick setup:
 ```bash
@@ -126,7 +123,7 @@ Terraform v0.11.14
 ## govc
 govc is a VMware/vSphere CLI. For faster deployment of an OVA Image, we will use govc. Alternatively you can deploy the template manually via vSphere web console.
 
-Link: [https://github.com/vmware/govmomi/tree/master/govc](https://github.com/vmware/govmomi/tree/master/govc){:target="_blank"}
+Link: <a href="https://github.com/vmware/govmomi/tree/master/govc" target="_blank" rel="noopener noreferrer">https://github.com/vmware/govmomi/tree/master/govc</a>
 
 Quick setup:
 ```bash
@@ -250,15 +247,15 @@ Restart httpd: `systemctl restart httpd`
 
 ## OCP pull secret
 For installing Red Hat OpenShift Container Platform 4.3, you'll need a pull secret:
-Link: [https://cloud.redhat.com/openshift/install/vsphere/user-provisioned](https://cloud.redhat.com/openshift/install/vsphere/user-provisioned){:target="_blank"}
+Link: <a href="https://cloud.redhat.com/openshift/install/vsphere/user-provisioned" target="_blank" rel="noopener noreferrer">https://cloud.redhat.com/openshift/install/vsphere/user-provisioned</a>
 
 
 
 ## OCP openshift-installer
-From [https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/){:target="_blank"}, fetch the appropriate openshift-installer version and extract the binary to `~/bin/`, e.g. `openshift-install-linux-4.3.0.tar.gz`.
+From <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/" target="_blank" rel="noopener noreferrer">https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/</a>, fetch the appropriate openshift-installer version and extract the binary to `~/bin/`, e.g. `openshift-install-linux-4.3.0.tar.gz`.
 
 ## oc client
-From [https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/){:target="_blank"}, fetch the appropriate oc version and extract the binary to `~/bin/`, e.g. `openshift-client-linux-4.3.0.tar.gz`.
+From <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/" target="_blank" rel="noopener noreferrer">https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/</a>, fetch the appropriate oc version and extract the binary to `~/bin/`, e.g. `openshift-client-linux-4.3.0.tar.gz`.
 
 
 ## VMware vSphere / vCenter
@@ -276,7 +273,7 @@ A ressource group will be generated automatically and named like your OCP cluste
 
 ## OVA image
 The base image for all our CoreOS VMs will be a Red Hat CoreOS Image 4.3. This image can be found here:
-[https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.3/4.3.0/rhcos-4.3.0-x86_64-vmware.ova](https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.3/4.3.0/rhcos-4.3.0-x86_64-vmware.ova){:target="_blank"}
+<a href="https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.3/4.3.0/rhcos-4.3.0-x86_64-vmware.ova" target="_blank" rel="noopener noreferrer">https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.3/4.3.0/rhcos-4.3.0-x86_64-vmware.ova</a>
 
 
 
@@ -431,7 +428,7 @@ HTTP/1.1 200 OK
 
 ## Prepare the terraform installer
 For the installation, we will use a modified version of the UPI vSphere installer, which is available at:
-[https://github.com/openshift/installer/tree/master/upi/vsphere](https://github.com/openshift/installer/tree/master/upi/vsphere){:target="_blank"}
+<a href="https://github.com/openshift/installer/tree/master/upi/vsphere" target="_blank" rel="noopener noreferrer">https://github.com/openshift/installer/tree/master/upi/vsphere</a>
 
 Clone the repo and change to the upi vSphere directory:
 ```bash
@@ -660,7 +657,7 @@ config.imageregistry.operator.openshift.io/cluster patched
 ```
 
 *(for OCP 4.3)*
-When there is no Object Storage available at initial setup of the registry, you will have to set manually the managementState for OpenShift bringing up the image registry successfully, see [https://docs.openshift.com/container-platform/4.3/registry/configuring-registry-storage/configuring-registry-storage-vsphere.html#registry-removed_configuring-registry-storage-vsphere](https://docs.openshift.com/container-platform/4.3/registry/configuring-registry-storage/configuring-registry-storage-vsphere.html#registry-removed_configuring-registry-storage-vsphere){:target="_blank"}:
+When there is no Object Storage available at initial setup of the registry, you will have to set manually the managementState for OpenShift bringing up the image registry successfully, see <a href="https://docs.openshift.com/container-platform/4.3/registry/configuring-registry-storage/configuring-registry-storage-vsphere.html#registry-removed_configuring-registry-storage-vsphere" target="_blank" rel="noopener noreferrer">https://docs.openshift.com/container-platform/4.3/registry/configuring-registry-storage/configuring-registry-storage-vsphere.html#registry-removed_configuring-registry-storage-vsphere</a>:
 ```bash
 $ oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"managementState": "Managed"}}'
 config.imageregistry.operator.openshift.io/cluster patched
@@ -803,6 +800,6 @@ Virtual machine
 ```
 
 # Contact
-If you have any questions or remarks, feel free to contact me via zisis(dot)lianas(at)consol(dot)de or [Twitter](https://twitter.com/zisisli){:target="_blank"}.
+If you have any questions or remarks, feel free to contact me via zisis(dot)lianas(at)consol(dot)de or <a href="https://twitter.com/zisisli" target="_blank" rel="noopener noreferrer">Twitter</a>.
  
-If you need professional OpenShift support, visit us at  [https://www.consol.de/it-consulting/openshift/](https://www.consol.de/it-consulting/openshift/){:target="_blank"}.
+If you need professional OpenShift support, visit us at  <a href="https://www.consol.de/it-consulting/openshift/" target="_blank" rel="noopener noreferrer">https://www.consol.de/it-consulting/openshift/</a>.

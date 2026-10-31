@@ -7,7 +7,9 @@ tags:
 title: Wie man das Setzen der Schwellwerte an den DBA delegiert
 ---
 
-<p>Die Plugins check_oracle_health und check_mssql_health haben mit den Versionen 1.6.6 bzw. 1.5.6 ein neues Feature bekommen. Critical- und Warning-Schwellwerte können jetzt auch direkt in der Datenbank hinterlegt werden. Bei Änderungswünschen muss der DBA nun nicht mehr den Nagios-Administrator belästigen, damit dieser die entsprechenden Servicedefinitionen anpasst. </p> <!--more-->  <p>Mit dem neuen Kommandozeilenparameter --dbthresholds werden die Plugins angewiesen, eine bestimmte Tabelle in der Datenbank auszulesen und, falls in dieser die passenden Einträge gefunden wurden, die Argumente von --warning bzw. --critical zu überschreiben. Am Beispiel von check_oracle_health soll gezeigt werden, wie so eine Tabelle auszusehen hat.</p>  ```sql
+<p>Die Plugins check_oracle_health und check_mssql_health haben mit den Versionen 1.6.6 bzw. 1.5.6 ein neues Feature bekommen. Critical- und Warning-Schwellwerte können jetzt auch direkt in der Datenbank hinterlegt werden. Bei Änderungswünschen muss der DBA nun nicht mehr den Nagios-Administrator belästigen, damit dieser die entsprechenden Servicedefinitionen anpasst. </p> <!--more-->  <p>Mit dem neuen Kommandozeilenparameter --dbthresholds werden die Plugins angewiesen, eine bestimmte Tabelle in der Datenbank auszulesen und, falls in dieser die passenden Einträge gefunden wurden, die Argumente von --warning bzw. --critical zu überschreiben. Am Beispiel von check_oracle_health soll gezeigt werden, wie so eine Tabelle auszusehen hat.</p>
+
+```sql
 create table check_oracle_health_thresholds (
   pluginmode varchar2(32),
   name varchar2(32) NULL,

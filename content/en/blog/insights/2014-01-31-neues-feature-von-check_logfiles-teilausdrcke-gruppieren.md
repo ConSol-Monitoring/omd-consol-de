@@ -5,7 +5,9 @@ slug: neues-feature-von-check_logfiles-teilausdrcke-gruppieren
 title: 'Neues Feature von check_logfiles: Teilausdrücke gruppieren'
 ---
 
-<p>Reguläre Ausdrücke in Perl erlauben die Bildung von Teilausdrücken. Mit runden Klammern kann man bestimmte Abschnitte eines Ausdrucks zusammenfassen, um sie an anderer Stelle oder nach dem Mustervergleich weiterzuverwenden.</p>  ```perl
+<p>Reguläre Ausdrücke in Perl erlauben die Bildung von Teilausdrücken. Mit runden Klammern kann man bestimmte Abschnitte eines Ausdrucks zusammenfassen, um sie an anderer Stelle oder nach dem Mustervergleich weiterzuverwenden.</p>
+
+```perl
 $line =~ /Fatal: error (\d+) occured/;
 $errorcode = $1;
 ```

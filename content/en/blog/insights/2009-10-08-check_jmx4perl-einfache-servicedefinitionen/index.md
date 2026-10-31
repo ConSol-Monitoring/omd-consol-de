@@ -10,10 +10,12 @@ title: check_jmx4perl -- Einfache Servicedefinitionen
 Im Rahmen des Münchner Nagios-Stammtisches hielt Roland Huß gestern einen Vortrag über sein Framework Jmx4Perl. Mittlerweile haben sich mehrere Leute erkundigt, wie die Service- und Commanddefinitionen für das dazugehörige Plugin check_jmx4perl aussehen könnten. Deshalb soll hier erläutert werden, wie man ein paar grundlegende Messwerte aus einem Applicationserver ausliest und mit Nagios überwacht.
 
 <!-- --><!--more-->Zunächst muss natürlich erstmal <em>jmx4perl</em> installiert werden. Nachdem die aktuelle <a href="http://www.jmx4perl.org" target="_blank">Version</a> heruntergeladen und entpackt wurde, werden die Perl Module und das Nagios Plugin <em><strong>check_jmx4perl</strong></em> mit
+
 ```bash
 perl Build.PL
 ./Build install
 ```
+
 systemweit installiert. Alternativ kann man natürlich auch <strong>CPAN</strong> in gewohnter Weise zur Installation verwenden. Zusätzlich muss noch der Java Agent <strong><em>j4p.war</em></strong> auf dem Applicationserver deployed werden, der sich im Unterverzeichnis <em>agent/</em> befindet. Weitere Informationen zur Installation finden sich auch im <em>README</em>.
 
 Danach legt man sich ein paar Command-Definitionen an, die die drei Betriebsarten des Plugins abbilden.
@@ -23,6 +25,7 @@ Danach legt man sich ein paar Command-Definitionen an, die die drei Betriebsarte
 	<li>den Anstieg eines Werts pro Zeit ermitteln (z.B. Anzahl der erzeugten Threads / Sekunde bzw. wie im folgenden Beispiel, pro Minute)</li>
 </ul>
 Dabei wird jeweils unterschieden, ob man die MBeans mit ihrem vollständigen Objektnamen adressiert oder Aliase verwendet.
+
 ```bash
 define command {
    command_name         check_jmx4perl
@@ -83,6 +86,7 @@ define command {
 Darauf aufbauend legt man die Servicedefinitionen an. Als Beispiel soll die WebLogic-Applikation SHOP dienen, die auf dem Host bea läuft und unter der Url http://www.naprax.de:8001/j4p abgefragt wird.
 
 Zunächst packt man die URL und den Host in ein Servicetemplate:
+
 ```bash
 define service {
    register               0
@@ -92,9 +96,11 @@ define service {
    _agenturl              http://www.naprax.de:8001/j4p
 }
 ```
+
 Im Folgenden werden Servicedescriptions verwendet, die einem hierarchischem Namensschema folgen. Darin steckt die Information, dass eine Applikation überwacht wird (app_), dass es sich um den Applikationstyp WebLogic (_weblogic_) handelt sowie ein Name für den Applicationserver (_SHOP_).
 
 Zunächst wird eine Zwischenschicht eingezogen, in der die soeben erstellten SHOP-spezifischen Attribute mit einem weiteren Template app_weblogic_default gemischt werden. Der Sinn dahinter ist, dass es z.B. ein Betriebsteam für Java-Applicationserver gibt und man die entsprechenden Contact- und Notification-Optionen in diesem Template (app_weblogic_default) unterbringen kann.
+
 ```bash
 define service {
    register               0
@@ -102,7 +108,9 @@ define service {
    use                    app_weblogic_default,app_weblogic_SHOP
 }
 ```
+
 Die eigentlichen Services (eine kleine Auswahl für den Anfang) sehen dann so aus:
+
 ```css
 define service {
    service_description    app_weblogic_default_SHOP_check_uptime
@@ -153,7 +161,9 @@ define service {
 }
 ...
 ```
+
 Die Uptime wird mit überwacht, damit der entsprechende Service als Parent in einer Servicedependency zur Verfügung steht. Er sorgt dafür, dass die anderen Checks ausgesetzt werden, solange der Applicationserver nicht verfügbar ist.
+
 ```bash
 define servicedependency {
    name                             dependency_bea_SHOP_uptime_uc
@@ -165,6 +175,7 @@ define servicedependency {
    notification_failure_criteria    u,c
 }
 ```
+
 Und so in etwa könnte es in Nagios aussehen:
 
 <a ref="lightbox" href="jmx4perl_services.png"><img class="alignnone size-full wp-image-752" title="jmx4perl_services_s" src="jmx4perl_services_s.png" alt="jmx4perl_services_s" width="518" height="116" /></a>

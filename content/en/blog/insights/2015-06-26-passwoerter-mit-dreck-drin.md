@@ -8,12 +8,14 @@ title: check_*_health-Plugins und die Passwörter mit Sonderzeichen
 
 Jeder Icinga-Admin kennt das: Ein Gerät, eine Applikation oder eine Datenbank soll überwacht werden, es gibt auch eine extra Monitoring-Kennung dafür, aber das zugehörige Passwort ist einfach nur grauenhaft. Sei es aufgrund einer Vorschrift oder weil der DBA ein Sadist ist, häufig enthält das Passwort Zeichen, welche bei der Ausführung des Plugins durch eine Shell Probleme bereiten können. Dazu zählen alle Arten von Anführungszeichen, Strichpunkt, Kaufmanns-Und oder gar nicht druckbare Zeichen. 
 So eine Command-Definition
+
 ```bash
 define command {
   command_name check_mssql_health
   command_line $USER1$/check_mssql_health \--hostname $ARG1$ \--username '$ARG2$' \--password '$ARG3$' ...
 }
 ```
+
 schließt zwar den ganzen Dreck in einfache Hochkommas ein, aber was, wenn das Passwort selber ein Hochkomma enthält?
 
 <table style="border-collapse: collapse; background-color: #F0F1EE;">
@@ -60,6 +62,7 @@ Lautet beispielsweise ein Datenbank-Passwort **Die Gold Hühner's** (Gefunden au
 Einfacher ist es, gleich **\--password rfc3986://Die%20Gold%27%20H%fchners** zu schreiben, das Plugin kümmert sich dann um den Rest.
 
 Und im Grunde genommen muss man auch gar nichts selber schreiben, denn verwendet man [coshsh](/docs/coshsh), so können DBAs und Applikationsbenutzer etc. in der CMDB oder irgendwelchen Inventar-Sheets die wüstesten Passwörter eintragen, der Generator encodiert sie automatisch. So sieht es beispielsweise in einer Class *app_db_mssql.py* aus:
+
 ```python
 ...
         # url encode sql statement, remove trailing semicolon
@@ -90,6 +93,7 @@ object Service "app_db_mssql_maintenance_job" {
  </pre>
 </div>
 basierend auf...
+
 ```text
 object CheckCommand "check_mssql_health_sql" {
     import "plugin-check-command"

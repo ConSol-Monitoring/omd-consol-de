@@ -138,9 +138,12 @@ If you are coming from Citrus 1.1 final you may have to look at the following po
 	<li>Renamed packages and classes: We try to keep rename operations to a minimum, as we know that this may cause some adjustments in your code that directly uses the Citrus classes. But sometimes names do change in order to reach consistency and avoid cyclic dependencies. So with this release some classes have moved some were renamed. This mostly applies to the validation classes as we have changed the model here in order to enable validation of message formats other than pure XML.</li>
 
 	<li>Message validator: You need to specify at least one message validator in the citrus-context.xml. Before this was internally a static XML message validator, but now we offer different validators for several message formats like XML and JSON. Please see the Java API doc on MessageValidator interface for available implementations. If you just like to keep it as it was before add this bean to the citrus-context.xml:
-      ```xml
+
+```xml
 <bean id="xmlMessageValidator" class="com.consol.citrus.validation.xml.DomXmlMessageValidator"/>
-```</li>
+```
+
+</li>
 
 	<li>JUnit vs. TestNG: We support both famous unit testing frameworks JUnit and TestNG. With this release you are free to choose your prefered one. In this manner you need to add either a JUnit dependency or a TestNG dependency to your project on your own. We do not have static dependencies in our Maven POM to neither of those two. On our side these dependencies are declared optional so you feel free to add the one you like best to your Maven POM. Just add a JUnit or TestNG dependency to your Maven project or add the respective jar file to your project if you use ANT instead.</li>
 </ul>

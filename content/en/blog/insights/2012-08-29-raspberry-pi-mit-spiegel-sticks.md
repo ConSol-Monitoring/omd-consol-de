@@ -10,6 +10,7 @@ title: Raspberry Pi mit Spiegel-Sticks
 In diesem Post wird gezeigt, wie man einen Raspberry Pi Miniatur-Computer mit einem Root-Filesystem ausstattet, das auf zwei gespiegelten USB-Sticks liegt.<br/>
 <!--more-->
 Der Raspberry Pi (Modell B) wird mit einem SD-Karten-Leser und zwei USB-Ports geliefert. Das Betriebssystem Raspbian, eine Variante von Debian, wird als Image heruntergeladen und auf eine SD-Karte kopiert. Diese enthält danach zwei Partitionen, eine für das /boot- und eine für das /-Filesystem. Nach dem Booten zeigt sich folgendes Bild:
+
 ```text
 root@raspberrypi:~# df
 Filesystem     1K-blocks    Used Available Use% Mounted on
@@ -29,6 +30,7 @@ Das /boot-Filesystem mit dem Kernel <i>kernel.img</i> kann nirgendwo anders lieg
 
 <h3>Stick einstecken und Device-Namen ermitteln</h3>
 Beim Einstecken der Sticks wird man in /var/log/messages sehen, dass es ein neues Device /dev/sda gibt.
+
 ```text
 Aug 29 17:17:14 raspberrypi kernel: [    7.784278] usb 1-1.3.7: New USB device found, idVendor=1f75, idProduct=0916
 Aug 29 17:17:14 raspberrypi kernel: [    7.802488] usb 1-1.3.7: New USB device strings: Mfr=1, Product=2, SerialNumber=3
@@ -65,9 +67,11 @@ THIS OPERATON IS POTENTIALLY DESTRUCTIVE! Exit by typing 'q' if
 you don't want to convert your MBR partitions to GPT format!
 ***************************************************************
 ```
+
 Das geht in Ordnung, da der Stick mit dem GPT-Schema partitioniert werden soll. (GUID Partition Table hat gegenüber dem MBR-Partitionsschema den Vorteil, dass Partitionen eine eindeutige GUID bekommen)
 Mit dem d-Kommando werden evt. vorhandene Partitionen dann gelöscht und mit dem n-Kommando eine neue angelegt.
 Beim Speichern mit w erscheint wieder eine Warnung, die ebenfalls mit Y beantwortet werden kann.
+
 ```text
 Command (? for help): w
 
@@ -77,6 +81,7 @@ DATA, YOU HAVE ONLY YOURSELF TO BLAME IF YOU ANSWER 'Y' BELOW!
 
 Do you want to proceed, possibly destroying your data? (Y/N)
 ```
+
 Das Wichtige ist jetzt, dass die Partition /dev/sda1 eine eindeutige UID bekommen hat. Mit dem Kommando i von gdisk lässt man sie sich anzeigen:
 <pre>Command (? for help): i
 Using 1
@@ -91,11 +96,13 @@ Partition name: 'Linux/Windows data'
 
 <h3>/-Filesystem kopieren</h3>
 Auf der neuen Partition wird nun ein Filesystem erstellt, in das die Inhalte des derzeitigen Root-Filesystems hineinkopiert werden.
+
 ```text
 root@raspberrypi:~# mke2fs -t ext4 -L rootfs /dev/sda1
 root@raspberrypi:~# mount /dev/sda1 /mnt
 root@raspberrypi:~# rsync -axv / /mnt
 ```
+
 Das neue Filesystem hat ebenfalls eine eindeutige ID erhalten. Man lässt sie sich mit dem tune2fs-Befehl anzeigen.
 <pre>root@raspberrypi:~# tune2fs -l /dev/sda1
 tune2fs 1.42.5 (29-Jul-2012)
@@ -124,6 +131,7 @@ Damit wird die Root-Partition immer erkannt, egal wieviele Sticks angeschlossen 
 Unter Umständen wird nach dem Einschalten der Kernel gestartet, noch bevor sich die USB-Devices gemeldet haben. Hängt man ein "rootdelay=5" an die Parameterliste, dann wird eine Pause von 5 Sekunden eingelegt, bevor versucht wird, das Rootfilesystem zu mounten. Bis dahin sollte sich der USB-Stick initialisiert haben.
 
 Der Ordnung halber wird noch die /etc/fstab angepasst. Das Rootfilesystem bzw. die Device-Spalte kann auf eine der drei folgenden Arten angegeben werden:
+
 ```text
 /dev/sda1                                  /   ext4    defaults,noatime,async  0       0
 LABEL=rootfs                               /   ext4    defaults,noatime,async  0       0
@@ -140,6 +148,7 @@ Im nächsten Abschnitt wird das Rootfilesystem auf einen Spiegel, bestehend aus 
 <h3>Firmware updaten</h3>
 
 Auch ohne diese Raid- und USB-Spielereien kann es nicht schaden, immer wieder mal den von Raspberry gebauten Kernel zu aktualisieren.
+
 ```text
 root@raspberrypi:~# mkdir raspberry
 root@raspberrypi:~# cd raspberry
@@ -149,6 +158,7 @@ root@raspberrypi:~# cp arm128_start.elf arm192_start.elf arm224_start.elf arm240
 ```
 
 In den .elf-Dateien steckt die Firmware für die GPU. Sie entscheiden darüber, wieviel Speicher für die CPU und somit für Linux reserviert wird. Je nachdem, welche dieser Dateien nach start.elf kopiert wird, sind das 128, 192, 224 oder 240 Megabytes. Für das Kompilieren des Kernels sollte man sich so viel Speicher wie möglich sichern. Das geschieht mit
+
 ```text
 cp /boot/arm240_start.elf /boot/start.elf
 ```
@@ -157,6 +167,7 @@ Nach einem Reboot hat der Linux-Kernel den grösstmöglichen Anteil am eh schon 
 Nun werden die Kernelsourcen heruntergeladen und so konfiguriert, dass der MD-Driver und Raid0 fest eincompiliert werden.
 
 <h3>Eigenen Kernel kompilieren</h3>
+
 ```text
 root@raspberrypi:~# cd raspberry
 root@raspberrypi:~# git clone --depth 1 git://github.com/raspberrypi/linux.git
@@ -197,6 +208,7 @@ root@raspberrypi:~# make ARCH=arm modules_install INSTALL_MOD_PATH=/
 ```
 
 Nach einem Reboot kann man prüfen, ob der neue Kernel mit Raid-1 umgehen kann:
+
 ```text
 root@raspberrypi:~# dmesg|grep raid
 [    2.148591] md: raid1 personality registered for level 1
@@ -205,6 +217,7 @@ root@raspberrypi:~# dmesg|grep raid
 
 <h3>Aufbauen des Spiegels</h3>
 Als nächstes wird der zweite USB-Stick eingesteckt. Wenn man mit <b>tail -f /var/log/messages</b> die Systemmeldungen mitliest, sieht man, dass er unter /dev/sdb angesprochen werden kann. Da er ein Zwillingsbruder des ersten Sticks sein soll, muss dessen Partitionstabelle auf ihn übertragen werden.
+
 ```text
 root@raspberrypi:~# sgdisk --replicate /dev/sdb /dev/sda
 The operation has completed successfully.
@@ -216,11 +229,13 @@ root@raspberrypi:~# sgdisk --typecode=1:fd00 /dev/sdb
 Mit dem zweiten Kommando wurde für die Partition sdb1 eine neue GUID generiert, da sie beim Replizieren unverändert vom sda1 übernommen wurde. Abschliessend wird der Partitionstyp noch auf "fd00 = Linux RAID" gesetzt.
 
 Mit dem mdadm-Befehl wird nun ein neues Device angelegt, das zunächst nur aus einer Spiegelhälfte besteht:
+
 ```text
 root@raspberrypi:~# mdadm --create /dev/md0 --level 1 --raid-devices=2 --metadata=0.90 missing /dev/sdb1
 ```
 
 Auf dem Raid1-Device wird dann ein Filesystem angelegt, gemountet und mit dem Inhalt des bisherigen Rootfilesystems befüllt:
+
 ```text
 root@raspberrypi:~# mke2fs -t ext4 /dev/md0
 root@raspberrypi:~# mount /dev/md0 /mnt
@@ -228,12 +243,15 @@ root@raspberrypi:~# rsync -axv / /mnt
 ```
 
 Anschliessend wird das System so vorbereitet, dass es beim Booten den Spiegel als Rootfilesystem mountet. Dazu ändert man /boot/cmdline.txt folgendermassen:
+
 ```text
 dwc_otg.lpm_enable=0 rpitestmode=1 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/md0 rootfstype=ext4 rootwait rootdelay=5
 ```
+
 Auch in der /etc/fstab wird /dev/md0 als Device für das Rootfilesystem eingetragen.
 Mit dem Kommando "poweroff" schaltet man den Raspberry Pi nun ab und zieht den ersten Stick (mit dem bisherigen Rootfilesystem auf sda1) ab.
 Nach einem Reboot sollte nun der Spiegel unter / gemountet sein.
+
 ```text
 root@raspberrypi:~# df
 Filesystem     1K-blocks    Used Available Use% Mounted on
@@ -251,12 +269,14 @@ lrwxrwxrwx 1 root root 3 Aug 30 22:11 /dev/root -> md0
 
 <h3>Zweite Hälfte des Spiegels hinzufügen</h3>
 Nun wird der Stick Nr.1 wieder eingesteckt. Diesmal wird er unter dem Namen /dev/sdb in /var/log/messages auftauchen. Nachdem auch hier der Partitionstyp auf "Linux RAID" geändert wurde, kann der Spiegel vervollständigt werden:
+
 ```text
 root@raspberrypi:~# sgdisk --typecode=1:fd00 /dev/sdb
 root@raspberrypi:~# mdadm --manage /dev/md0 --add /dev/sdb1
 ```
 
 In der Datei /proc/mdstat kann nun beobachtet werden, wie sich die beiden Spiegelhälften synchronisieren:
+
 ```text
 root@raspberrypi:~# cat /proc/mdstat
 Personalities : [raid1]
@@ -267,6 +287,7 @@ md0 : active raid1 sdb1[2] sda1[1]
 
 <h3>Die Blamage</h3>
 Und nun die schlechte Nachricht. Das ganze Zeugs läuft nicht stabil.
+
 ```text
 Aug 31 17:11:44 raspberrypi kernel: [  149.862492] usb 1-1.3.4: reset high-speed USB device number 7 using dwc_otg
 Aug 31 17:11:58 raspberrypi kernel: [  163.743122] usb 1-1.3.7: reset high-speed USB device number 15 using dwc_otg
@@ -276,6 +297,7 @@ Aug 31 17:12:59 raspberrypi kernel: [  225.045706] usb 1-1.3.7: reset high-speed
 ```
 
 Ständig gibt es USB-Ausfälle und eine Hälfte des Spiegels verschwindet. Ich habe es sowohl mit USB3.0 als auch mit USB2.0-Sticks probiert. Gleiches Ergebnis. Nach ein paar Sekunden hängt "cat /proc/mdstat" und irgendwann bleibt es bei
+
 ```text
 Personalities : [raid1]
 md0 : active raid1 sdb1[2](F) sda1[1]

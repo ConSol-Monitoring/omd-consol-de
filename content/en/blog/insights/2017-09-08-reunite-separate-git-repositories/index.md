@@ -21,9 +21,6 @@ So for the rest of this post lets call the original project project_a. The offsp
 
 My task basically consisted of four parts:
 
-* TOC
-{:toc}
-
 
 ## Get both projects into one repository
 
@@ -110,7 +107,6 @@ Now you can happily apply `git merge` or `git rebase` to get the changes from on
 
 
 ## Some final notes
-{:.no_toc}
 
 It's worth mentioning that actually all commits of branch project_b/master get changed as you can see by the changed SHA1 checksums. The change with the first commit is obvious - we add a new parent. The SHA1 checksum changes consequently. Semantically the following commits do not change. BUT: As the very first commit is the parent of the second commit and the first commit's SHA1 has changed so changes the SHA1 of the parent of the second commit. Consequently the second commit also gets another SHA1. And so on for the third commit, the 4th commit, etc.
 

@@ -6,6 +6,7 @@ title: check_oracle_health kann EZCONNECT
 ---
 
 <p>Üblicherweise ruft man check_oracle_health mit den Kommandozeilenparametern </p>
+
 ```bash
 check_oracle_health --username <user> --password <pass> --connect <sid>
 ```
