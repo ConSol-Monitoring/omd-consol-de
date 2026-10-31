@@ -2,7 +2,13 @@
   <div class="monitoring-footer__inner">
     <div class="monitoring-footer__links">
       {{ range .Site.Params.links.user }}
-      <a href="{{ .url }}" title="{{ .desc }}"><i class="{{ .icon }}" aria-hidden="true"></i><span>{{ .name }}</span></a>
+      <a href="{{ .url }}" title="{{ .desc }}"{{ if .logo }} aria-label="{{ .name }}"{{ end }}>
+        {{- if .logo -}}
+          <span class="monitoring-footer__logo" aria-hidden="true">{{ with resources.Get .logo }}{{ (. | minify).Content | safeHTML }}{{ end }}</span>
+        {{- else -}}
+          <i class="{{ .icon }}" aria-hidden="true"></i><span>{{ .name }}</span>
+        {{- end -}}
+      </a>
       {{ end }}
     </div>
     <nav class="monitoring-footer__navigation" aria-label="Footer">

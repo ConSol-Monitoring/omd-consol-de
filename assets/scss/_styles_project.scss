@@ -270,6 +270,14 @@ h5, .h5, h6, .h6 {
 
   .monitoring-footer__navigation { justify-self: center; }
   .monitoring-footer__links { justify-self: start; }
+  .monitoring-footer__logo {
+    display: inline-flex;
+    // The footer uses a dark surface in both themes; keep the official yellow
+    // mark and give the lettering enough contrast on that shared background.
+    color: #edf0f2;
+
+    svg { width: 112px; height: auto; }
+  }
   .monitoring-footer__copyright { justify-self: end; text-align: right; }
 
   .monitoring-footer__navigation, .monitoring-footer__links {
