@@ -21,7 +21,7 @@ All conference videos are available on the [PromCon Youtube playlist].
 
 Watch the [grok_exporter] introduction here:
 
-{{< youtube jFX8BVT4V_g >}}
+[Watch the video on YouTube](https://www.youtube.com/watch?v=jFX8BVT4V_g)
 
 ---
 

@@ -13,4 +13,4 @@ Soeben erschienen: die <a href="https://www.youtube.com/watch?v=AmhYtj9J3gY">zwe
 
 Beim "Schweizer Taschenmesser" <strong>OMD</strong> (erhältlich über das <a href="http://labs.consol.de/OMD/">ConSol-Repository</a>) ist <strong>Mod-Gearman</strong> bereits <strong>integriert</strong>.
 <p style="text-align: center;"><!--more--></p>
-<p style="text-align: center;">httpvh://www.youtube.com/watch?v=AmhYtj9J3gY</p>
+<p style="text-align: center;"><a href="https://www.youtube.com/watch?v=AmhYtj9J3gY">Watch the video on YouTube</a></p>

@@ -35,4 +35,4 @@ Bilder sagen hier aber mehr als 1000 Worte, daher lohnt sich ein Blick auf die O
 Und hier sind die Folien des Vortrags:
 
 <center>
-<iframe type="opt-in" data-name="youtube" data-src="http://www.slideshare.net/slideshow/embed_code/34799577" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://de.slideshare.net/SvenNierlein/naemon-thruk" title="Naemon &amp; Thruk" target="_blank">Naemon &amp; Thruk</a> </strong> from <strong><a href="http://www.slideshare.net/SvenNierlein" target="_blank">Sven Nierlein</a></strong> </div></center>
+<div style="margin-bottom:5px"> <strong> <a href="https://de.slideshare.net/SvenNierlein/naemon-thruk" title="Naemon &amp; Thruk" target="_blank">Naemon &amp; Thruk</a> </strong> from <strong><a href="https://www.slideshare.net/SvenNierlein" target="_blank">Sven Nierlein</a></strong> </div></center>

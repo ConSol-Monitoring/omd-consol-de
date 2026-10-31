@@ -20,7 +20,7 @@ Es wird zeigt, wie z.B. parallele GUI-Tests in verschiedenen Umgebungen zur Qual
 
 Der Vortrag beinhaltet einen großen Anteil an Live-Demo. Die zugehörige Codebasis wird den Zuhören auch zugänglich gemacht.
 
-<iframe type="opt-in" data-name="youtube" data-src="//www.slideshare.net/slideshow/embed_code/key/HnKtIKZ3cCQf6V" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TobiasSchneck/skale-your-test-environment-containerized-end2endtesting-herbstcampus-nrnberg" title="Skale your test environment! Containerized End-2-End-Testing @Herbstcampus Nürnberg" target="_blank">Skale your test environment! Containerized End-2-End-Testing @Herbstcampus Nürnberg</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/TobiasSchneck">Tobias Schneck</a></strong> </div>
+<div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/TobiasSchneck/skale-your-test-environment-containerized-end2endtesting-herbstcampus-nrnberg" title="Skale your test environment! Containerized End-2-End-Testing @Herbstcampus Nürnberg" target="_blank">Skale your test environment! Containerized End-2-End-Testing @Herbstcampus Nürnberg</a> </strong> from <strong><a target="_blank" href="https://www.slideshare.net/TobiasSchneck">Tobias Schneck</a></strong> </div>
 
 [Herbstcampus]: http://www.herbstcampus.de/
 [Sakuli]: http://www.sakuli.org/

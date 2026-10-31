@@ -57,4 +57,4 @@ res.close()
 This code beats the old one easily when it comes to performance. After i patched the Shinken arbiter, the time necessary to process the thousands of config files dropped dramatically.
 
 
-httpvh://www.youtube.com/watch?v=RUrWL-FBPvs
+<a href="https://www.youtube.com/watch?v=RUrWL-FBPvs">Watch the video on YouTube</a>

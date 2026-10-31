@@ -1,1 +1,2 @@
-<iframe src="{{ .Get "src" }}" width="100%" height="50%" title="{{ .Get "title" }}" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+{{- $url := replaceRE `/embed/?(\?.*)?$` "" (.Get "src") -}}
+<p><a href="{{ $url }}">{{ .Get "title" | default "View presentation on Slides.com" }}</a></p>

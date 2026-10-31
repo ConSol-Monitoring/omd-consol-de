@@ -69,4 +69,4 @@ OK - FRITZ!DECT 200 #1 WZ consumes 0.15 kwh per day | 'kwh_day'=0.15;1000;1000 '
 
   <br />Etwas ausführlicher und anschaulicher wird all das in der fünften Ausgabe der ConSol Monitoring Minutes beschrieben. Viel Spass beim Anschauen! </p>
 
-{{< youtube S6jogBPvfyo >}}
+[Watch the video on YouTube](https://www.youtube.com/watch?v=S6jogBPvfyo)

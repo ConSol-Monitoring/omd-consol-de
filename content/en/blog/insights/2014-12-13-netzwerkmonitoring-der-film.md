@@ -8,4 +8,4 @@ title: Netzwerkmonitoring mit check_nwc_health - Der Film
 ---
 
 Wem meine Folien zum Thema __Netzwerkmonitoring mit check_nwc_health__ zu trocken sind kann sich meinen Vortrag auch als Video anschauen. Film ab!
-{% youtube njf24B9i3v4 %}
+[Watch the video on YouTube](https://www.youtube.com/watch?v=njf24B9i3v4)

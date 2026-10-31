@@ -21,7 +21,6 @@ At this year's [JavaZone] conference, Fabian Stäber did a [talk] on how to inst
 
 <!--more-->
 
-<iframe type="opt-in" data-name="youtube" data-src="https://player.vimeo.com/video/289521258" width="640" height="349" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 <p><a href="https://vimeo.com/289521258">Prometheus Monitoring without Modifying Source Code Using Java Agents and Byte Buddy : Fabian St&auml;ber</a> from <a href="https://vimeo.com/javazone">JavaZone</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 The talk is an extended version (15 minutes longer) of [last year's Devoxx] talk, and also highlights some of the common pitfalls with that approach.

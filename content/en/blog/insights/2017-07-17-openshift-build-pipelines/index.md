@@ -35,7 +35,7 @@ For the complete sourcecode and description please visit:
 
 #### Slides:
 
-<iframe type="opt-in" data-name="youtube" data-src="//www.slideshare.net/slideshow/embed_code/key/uVbNeeVrEIN76S" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TobiasSchneck/continuous-testing-integration-und-uitesting-mit-openshiftbuildpipelines" title="Continuous Testing: Integration- und UI-Testing mit OpenShift-Build-Pipelines" target="_blank">Continuous Testing: Integration- und UI-Testing mit OpenShift-Build-Pipelines</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/TobiasSchneck">Tobias Schneck</a></strong> </div>
+<div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/TobiasSchneck/continuous-testing-integration-und-uitesting-mit-openshiftbuildpipelines" title="Continuous Testing: Integration- und UI-Testing mit OpenShift-Build-Pipelines" target="_blank">Continuous Testing: Integration- und UI-Testing mit OpenShift-Build-Pipelines</a> </strong> from <strong><a target="_blank" href="https://www.slideshare.net/TobiasSchneck">Tobias Schneck</a></strong> </div>
 
 
 [newest posts on ConSol Labs]: https://labs.consol.de

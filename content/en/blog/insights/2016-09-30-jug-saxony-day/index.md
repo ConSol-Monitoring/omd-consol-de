@@ -19,7 +19,7 @@ In dem Talk **[Containerized End-2-End Testing](http://de.slideshare.net/TobiasS
 
 Code-Beispiel: **[toschneck/sakuli-example-bakery-testing](https://github.com/toschneck/sakuli-example-bakery-testing)**
  
- <iframe type="opt-in" data-name="youtube" data-src="//www.slideshare.net/slideshow/embed_code/key/atxpaF7iJdylr6" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/TobiasSchneck/containerized-end2end-testing-jug-saxony-day" title="Containerized End-2-End Testing - JUG Saxony Day" target="_blank">Containerized End-2-End Testing - JUG Saxony Day</a> </strong> von <strong><a href="//www.slideshare.net/TobiasSchneck" target="_blank">Tobias Schneck</a></strong> </div>
+ <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/TobiasSchneck/containerized-end2end-testing-jug-saxony-day" title="Containerized End-2-End Testing - JUG Saxony Day" target="_blank">Containerized End-2-End Testing - JUG Saxony Day</a> </strong> von <strong><a href="https://www.slideshare.net/TobiasSchneck" target="_blank">Tobias Schneck</a></strong> </div>
  ---
 
 For more posts about Sakuli, view [https://labs.consol.de/tags/sakuli]()

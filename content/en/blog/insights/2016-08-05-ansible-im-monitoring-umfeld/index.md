@@ -24,16 +24,12 @@ Die Fachsimpelei bei Augustiner und Pizza wurde immer wieder durch einen Vortrag
 
 Den Anfang machte Michael Kraus.....
 <br/>
-<iframe type="opt-in" data-name="youtube" data-src="https://drive.google.com/file/d/0BzB2vg1DijBLZTVpM1o2QzJWR3c/preview" width="640" height="480" style="border: 2px solid #0096d6;"></iframe>
-<br/>
-<a href="https://drive.google.com/file/d/0BzB2vg1DijBLZTVpM1o2QzJWR3c/preview" target="_blank">https://drive.google.com/file/d/0BzB2vg1DijBLZTVpM1o2QzJWR3c/preview</a>
+<a href="https://drive.google.com/file/d/0BzB2vg1DijBLZTVpM1o2QzJWR3c/view" target="_blank">https://drive.google.com/file/d/0BzB2vg1DijBLZTVpM1o2QzJWR3c/view</a>
 <br/>
 <br/>
 Danach folgte Simon Meggle....
 <br/>
-<iframe type="opt-in" data-name="youtube" data-src="https://drive.google.com/file/d/0BzB2vg1DijBLX0k5R1hfaG9udDA/preview" width="640" height="480" style="border: 2px solid #0096d6;"></iframe>
-<br/>
-<a href="https://drive.google.com/file/d/0BzB2vg1DijBLX0k5R1hfaG9udDA/preview" target="_blank">https://drive.google.com/file/d/0BzB2vg1DijBLX0k5R1hfaG9udDA/preview</a>
+<a href="https://drive.google.com/file/d/0BzB2vg1DijBLX0k5R1hfaG9udDA/view" target="_blank">https://drive.google.com/file/d/0BzB2vg1DijBLX0k5R1hfaG9udDA/view</a>
 <br/>
 <br/>
 Und zum Schluß kam Matthias Gallinger dran. Der hat eine Methode entwickelt, mit der Ansible die Verteilung von Plugins auf Client-Systeme übernimmt und sich dabei wiederum wie ein Nagios-Plugin verhält. Das bedeutet, daß jeder Client einen Service *Plugin-Update* o.ä. erhält, welcher Ansible aufruft und über Nagios alarmiert, wenn bei der Verteilung bzw. beim Update etwas schiefgegangen ist.

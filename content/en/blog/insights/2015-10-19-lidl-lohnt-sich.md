@@ -12,4 +12,4 @@ Unser Kunde [Lidl](http://www.lidl.de) setzt beim Monitoring seiner europaweiten
 Unter [https://www.it-bei-lidl.com/](https://www.it-bei-lidl.com/) findet sich eine Stellenausschreibung für den Bereich Geschäftsprozess-Monitoring. Ich habe das technische und menschliche Umfeld von Lidl kennengelernt und kann nur empfehlen, sich dort zu bewerben. Es erwartet einen eine tiptop gemanagte IT-Landschaft, die so ziemlich jede zeitgemäße Technologie umfasst. Und natürlich Monitoring made by ConSol.
 
 Und jetzt kommt Werbung....
-{% youtube zvZAfu_A-Dc %}
+[Watch the video on YouTube](https://www.youtube.com/watch?v=zvZAfu_A-Dc)

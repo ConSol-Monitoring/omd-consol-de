@@ -18,22 +18,11 @@ At this year's [FOSDEM] conference I did a 30 minutes presentation on _[Monitori
 * JMX ([jmx_exporter])
 * Write your own Java agent ([promagent.io])
 
-The video is available below.
+The video is available on the FOSDEM website linked below.
 
 <!--more-->
 
-<div class="video">
-  <video width="100%" controls="controls">
-    <source src="http://video.fosdem.org/2018/UD2.120/monitoring_legacy_java_applications_with_prometheus.webm" type="video/webm; codecs=&quot;vp8, vorbis&quot;">
-    <source src="http://video.fosdem.org/2018/UD2.120/monitoring_legacy_java_applications_with_prometheus.mp4" type="video/mp4">
-    <object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.15.swf">
-      <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.15.swf">
-      <param name="allowfullscreen" value="true">
-      <param name="flashvars" value="config={'clip': {'url': 'http://video.fosdem.org/2018/UD2.120/monitoring_legacy_java_applications_with_prometheus.webm', 'autoPlay':false, 'autoBuffering':false}}">
-      <p>Video tag not supported. Download the video <a href="http://video.fosdem.org/2018/UD2.120/monitoring_legacy_java_applications_with_prometheus.mp4">here</a>.</p>
-    </object>
-  </video>
-</div>
+[Watch the video on the FOSDEM website](https://fosdem.org/2018/schedule/event/monitoring_legacy_java_applications_with_prometheus/)
 
 Link to the talk: [https://fosdem.org/2018/schedule/event/monitoring_legacy_java_applications_with_prometheus/].
 

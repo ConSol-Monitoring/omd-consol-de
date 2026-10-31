@@ -44,6 +44,6 @@ check_logfiles.exe --config config.cfg
 
 Wie sorgt man aber dafür, daß der Domainbenutzer NAPRAX\nagios überall die Berechtigung zum Lesen der Eventlogs besitzt? In einer homogenen Umgebung, in der nur Windows Server 2008 zum Einsatz kommen, ist das ein Kinderspiel. Bei dieser Betriebssystemversion gibt es die Gruppe &quot;Ereignisprotokolleser&quot;, die genau diese gewünschte Berechtigung bereitstellt. Man muss nur noch dafür sorgen, daß der Domain-User NAPRAX\nagios auf allen Clients Mitglied in dieser Gruppe ist. Das erreicht man ganz einfach mittels einer Group Policy, deren Einrichtung im folgenden Video gezeigt wird.
 
-<object width="640" height="505"><param name="movie" value="http://www.youtube.com/v/oNs2zcWmIBY&amp;hl=de_DE&amp;fs=1&amp;"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/oNs2zcWmIBY&amp;hl=de_DE&amp;fs=1&amp;" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="505"></embed></object>
+<p><a href="https://www.youtube.com/watch?v=oNs2zcWmIBY">Watch the video on YouTube</a></p>
 
 Bei einem AD-Controller und Clients unter Windows Server 2003 geht es leider nicht so einfach. Machbar ist die domainweite Rechtevergabe aber trotzdem. Wie das geht, ist unter <a href="http://support.microsoft.com/kb/323076/EN-US/">http://support.microsoft.com/kb/323076/EN-US/</a> beschrieben.

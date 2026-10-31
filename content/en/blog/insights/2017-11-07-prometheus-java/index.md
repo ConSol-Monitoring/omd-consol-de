@@ -17,7 +17,7 @@ At this year's [Devoxx] conference, Fabian Stäber did a [talk] on how to instru
 
 <!--more-->
 
-{{< youtube BjyI93c8ltA >}}
+[Watch the video on YouTube](https://www.youtube.com/watch?v=BjyI93c8ltA)
 
 <p/>
 This talk focuses on how to use the [Byte Buddy] library to write a Java agent instrumenting Java applications with Prometheus metrics. **If you are looking for a general introduction to Prometheus monitoring for Java developers**, you might want to watch my talk on [Prometheus Monitoring for Java Developers] from last year's Devoxx.
