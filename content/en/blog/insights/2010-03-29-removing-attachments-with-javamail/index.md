@@ -161,9 +161,6 @@ This example could be extended to remove multipart containers on the fly, if onl
 
 Hopefully, I could sketch out that there are several points to take care of when manipulating existing JavaMail `Messages` (it's not that difficult if you build up one from scratch). The code shown above is only a starting point, but it hopefully saves you some time when you start wondering why on earth your nicely trimmed message isn't stored correctly on the IMAP store.
 
-<script type="text/javascript">var dzone_url = 'http://labs.consol.de/java mail/2010/03/29/removing-attachments-with-javamail.html';</script>
-<script type="text/javascript">var dzone_style = '2';</script>
-<script language="javascript" src="http://widgets.dzone.com/links/widgets/zoneit.js"></script>
 
  [1]: http://java.sun.com/products/javamail/
  [2]: http://java.sun.com/products/javamail/FAQ.html

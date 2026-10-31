@@ -26,13 +26,13 @@ title: Docker Headless VNC Container 1.2.0 Released
   
 ## Provided Images
 
-`consol/centos-xfce-vnc:1.2.0` [![](https://images.microbadger.com/badges/version/consol/centos-xfce-vnc:1.2.0.svg)](https://hub.docker.com/r/consol/centos-xfce-vnc/) [![](https://images.microbadger.com/badges/image/consol/centos-xfce-vnc:1.2.0.svg)](http://microbadger.com/images/consol/centos-xfce-vnc)
+`consol/centos-xfce-vnc:1.2.0` [Image version](https://hub.docker.com/r/consol/centos-xfce-vnc/) [Image details](http://microbadger.com/images/consol/centos-xfce-vnc)
 
-`consol/ubuntu-xfce-vnc:1.2.0` [![](https://images.microbadger.com/badges/version/consol/ubuntu-xfce-vnc:1.2.0.svg)](https://hub.docker.com/r/consol/ubuntu-xfce-vnc/) [![](https://images.microbadger.com/badges/image/consol/ubuntu-xfce-vnc:1.2.0.svg)](http://microbadger.com/images/consol/ubuntu-xfce-vnc)
+`consol/ubuntu-xfce-vnc:1.2.0` [Image version](https://hub.docker.com/r/consol/ubuntu-xfce-vnc/) [Image details](http://microbadger.com/images/consol/ubuntu-xfce-vnc)
 
-`consol/centos-icewm-vnc:1.2.0` [![](https://images.microbadger.com/badges/version/consol/centos-icewm-vnc:1.2.0.svg)](https://hub.docker.com/r/consol/centos-icewm-vnc/) [![](https://images.microbadger.com/badges/image/consol/centos-icewm-vnc:1.2.0.svg)](http://microbadger.com/images/consol/centos-icewm-vnc)
+`consol/centos-icewm-vnc:1.2.0` [Image version](https://hub.docker.com/r/consol/centos-icewm-vnc/) [Image details](http://microbadger.com/images/consol/centos-icewm-vnc)
 
-`consol/ubuntu-icewm-vnc:1.2.0` [![](https://images.microbadger.com/badges/version/consol/ubuntu-icewm-vnc:1.2.0.svg)](https://hub.docker.com/r/consol/ubuntu-icewm-vnc/) [![](https://images.microbadger.com/badges/image/consol/ubuntu-icewm-vnc:1.2.0.svg)](http://microbadger.com/images/consol/ubuntu-icewm-vnc)
+`consol/ubuntu-icewm-vnc:1.2.0` [Image version](https://hub.docker.com/r/consol/ubuntu-icewm-vnc/) [Image details](http://microbadger.com/images/consol/ubuntu-icewm-vnc)
 
 ## Usage
 The usage is for all provide images **similar**, for instance see following the usage of the `consol/centos-xfce-vnc` image:

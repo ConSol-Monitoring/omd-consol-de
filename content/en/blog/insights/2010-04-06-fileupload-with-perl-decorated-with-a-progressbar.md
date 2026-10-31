@@ -78,9 +78,6 @@ sub create_content_reader {
 }
 ```
 
-<script type="text/javascript">var dzone_url = 'http://labs.consol.de/misc/2010/04/06/fileupload-with-perl-decorated-with-a-progressbar.html';</script>
-<script type="text/javascript">var dzone_style = '2';</script>
-<script language="javascript" src="http://widgets.dzone.com/links/widgets/zoneit.js"></script>
 
  [1]: http://search.cpan.org/~gaas/libwww-perl
  [2]: http://search.cpan.org/~fluffy/Term-ProgressBar

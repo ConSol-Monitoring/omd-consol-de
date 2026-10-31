@@ -7,7 +7,15 @@
     </div>
     <nav class="monitoring-footer__navigation" aria-label="Footer">
       <a href="{{ "legal-notice/" | relURL }}">Legal notice</a>
+      <a href="{{ "data-privacy/" | relURL }}" data-storage-details>Data privacy</a>
     </nav>
     <span class="monitoring-footer__copyright">&copy; {{ now.Year }} {{ .Site.Params.copyright }}</span>
   </div>
 </footer>
+<aside class="monitoring-storage-notice d-print-none" id="storage-notice" aria-label="Cookies and browser storage" hidden>
+  <p>We use local storage to remember your chosen theme and that you dismissed this notice. No tracking or advertising cookies.</p>
+  <div class="monitoring-storage-notice__actions">
+    <a href="{{ "data-privacy/" | relURL }}">Details</a>
+    <button type="button" class="btn btn-sm btn-primary" id="storage-notice-dismiss">Got it</button>
+  </div>
+</aside>

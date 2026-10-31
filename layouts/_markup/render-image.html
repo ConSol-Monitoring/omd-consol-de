@@ -1,0 +1,23 @@
+{{- $src := .Destination -}}
+{{- $url := urls.Parse $src -}}
+{{- $badge := and (eq $url.Scheme "https") (or (eq $url.Host "img.shields.io") (and (eq $url.Host "github.com") (hasSuffix $url.Path "/badge.svg"))) -}}
+{{- if $badge -}}
+  {{- /* A new UTC-hour key refreshes badges even when there are no Git changes. */ -}}
+  {{- $key := printf "badge-%s-%s" (crypto.SHA256 $src) (now.UTC.Format "2006010215") -}}
+  {{- with try (resources.GetRemote $src (dict "key" $key "timeout" "20s")) -}}
+    {{- with .Err -}}
+      {{- errorf "Unable to cache badge %s: %s" $src . -}}
+    {{- else with .Value -}}
+      {{- if ne .MediaType.Type "image/svg+xml" -}}
+        {{- errorf "Expected an SVG badge from %s, received %s" $src .MediaType.Type -}}
+      {{- else -}}
+        {{- $local := . | resources.Copy (printf "assets/badges/%s.svg" (crypto.SHA256 $src)) | fingerprint -}}
+        {{- $src = $local.RelPermalink -}}
+      {{- end -}}
+    {{- else -}}
+      {{- errorf "Badge not found: %s" $src -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<img src="{{ $src | safeURL }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }}>
+{{- /* Keep inline images adjacent to their surrounding links and text. */ -}}

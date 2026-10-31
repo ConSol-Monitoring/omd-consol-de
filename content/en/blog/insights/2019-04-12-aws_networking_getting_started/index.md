@@ -75,7 +75,7 @@ The VPC can further be subdivided into Subnets. Again, each Subnet is configured
 
 Why do we not create multiple VPCs, and subdivide a VPC in multiple Subnets instead? To understand this, we need some background information on how Amazon organizes its data centers. The largest organizational unit in which data centers are divided are **regions**.
 
-![AWS Regions][AWSRegions]
+[View the AWS Regions map][AWSRegions]
 (<a href="https://aws.amazon.com/about-aws/global-infrastructure/" target="blank">*Source*</a>)
 
 

@@ -2014,3 +2014,28 @@ h5, .h5, h6, .h6 {
 }
 
 img.project-logo--omd { max-width: 100%; height: auto; }
+.monitoring-storage-notice {
+  position: fixed;
+  z-index: 1040;
+  left: 50%;
+  bottom: .75rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem 1rem;
+  width: 58rem;
+  max-width: calc(100% - 1.5rem);
+  padding: .6rem .8rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: .6rem;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  box-shadow: 0 .25rem 1.5rem rgba(0, 0, 0, .16);
+  font-size: .8125rem;
+  line-height: 1.4;
+
+  &[hidden] { display: none; }
+  p { flex: 1 1 28rem; margin: 0; }
+  &__actions { display: flex; align-items: center; gap: .8rem; margin-left: auto; }
+}

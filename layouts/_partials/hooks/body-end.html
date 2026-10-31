@@ -1,0 +1,2 @@
+{{ $notice := resources.Get "js/storage-notice.js" | minify | fingerprint }}
+<script defer src="{{ $notice.RelPermalink }}" integrity="{{ $notice.Data.Integrity }}" crossorigin="anonymous"></script>

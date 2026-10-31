@@ -327,4 +327,4 @@ rsync_path: /usr/local/bin/rsync
 profile: .profile
 ```
 
-<a href="http://www.meetup.com/r/inbound/0/0/shareimg/https://www.meetup.com/de-DE/Munchner-Monitoring-Stammtisch/?a=shareimg"><img border="0" alt="Münchner Monitoring-Stammtisch" src="http://img.meetup.com/img/logo_45.png"></a>
+<a href="http://www.meetup.com/r/inbound/0/0/shareimg/https://www.meetup.com/de-DE/Munchner-Monitoring-Stammtisch/?a=shareimg">Münchner Monitoring-Stammtisch</a>

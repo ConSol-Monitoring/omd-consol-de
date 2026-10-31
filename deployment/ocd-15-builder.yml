@@ -1,7 +1,7 @@
 ---
 # Builder Deployment: pulls the git repo and rebuilds the Hugo site on every
-# new commit, writing the output to /srv/omd on the node. Crucially, this
-# Deployment is *separate* from the serving pods — a runaway Hugo rebuild is
+# new commit and once per UTC hour to refresh badges, writing to /srv/omd.
+# This Deployment is *separate* from the serving pods — a runaway Hugo rebuild is
 # contained to this pod's cgroup and cannot affect ocd-web.
 apiVersion: apps/v1
 kind: Deployment
@@ -75,26 +75,33 @@ spec:
             set -eu
             mkdir -p /srv/omd
             last=""
+            last_hour=""
+            retry_after=0
             echo "[hugo] waiting for first sync trigger"
             while true; do
               if [ -f /var/run/trigger/go ]; then
-                now=$(cat /var/run/trigger/go 2>/dev/null || echo "")
-                if [ -n "$now" ] && [ "$now" != "$last" ]; then
-                  last="$now"
-                  ts=$(date +%s)
+                revision=$(cat /var/run/trigger/go 2>/dev/null || echo "")
+                hour=$(date -u +%Y%m%d%H)
+                ts=$(date +%s)
+                if [ -n "$revision" ] && [ "$ts" -ge "$retry_after" ] &&
+                   { [ "$revision" != "$last" ] || [ "$hour" != "$last_hour" ]; }; then
                   dest=/srv/omd/html-$ts
-                  echo "[hugo] building rev=$now → $dest"
+                  echo "[hugo] building rev=$revision hour=$hour → $dest"
                   if hugo --minify --gc --environment production \
                           --source /tmp/git/ocd \
                           --destination $dest; then
                     ln -sfn html-$ts /srv/omd/current.new
                     mv -Tf /srv/omd/current.new /srv/omd/current
-                    echo "[hugo] published rev=$now as $ts"
+                    last="$revision"
+                    last_hour="$hour"
+                    retry_after=0
+                    echo "[hugo] published rev=$revision hour=$hour as $ts"
                     ls -1dt /srv/omd/html-* 2>/dev/null \
                       | tail -n +4 | xargs -r rm -rf
                   else
-                    echo "[hugo] build FAILED for rev=$now — keeping previous"
+                    echo "[hugo] build FAILED for rev=$revision — keeping previous; retry in 60s"
                     rm -rf $dest
+                    retry_after=$((ts + 60))
                   fi
                 fi
               fi
