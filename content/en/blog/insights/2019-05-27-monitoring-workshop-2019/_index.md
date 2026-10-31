@@ -5,6 +5,8 @@ description: "Programm, Vorträge und Unterlagen des Monitoring-Workshops 2019 i
 url: /blog/insights/monitoring-workshop-2019/
 aliases:
   - /wiki/workshop/2019/
+  - /wiki/workshop/2019/start/
+  - /blog/insights/monitoring-workshop-2019/start/
 tags: [workshop]
 blog_post: true
 layout: article
@@ -21,4 +23,4 @@ cascade:
 legacy_resource_path: /wiki/workshop/2019/
 ---
 
-{{< blog/subpages "start" "veranstaltungsdaten" "ablauf" "vortraege" "anmeldung" "hotels" "vorabendtreff" "abendveranstaltung" "codeofconduct" >}}
+{{< blog/subpages "veranstaltungsdaten" "ablauf" "vortraege" "anmeldung" "hotels" "vorabendtreff" "abendveranstaltung" "codeofconduct" >}}
