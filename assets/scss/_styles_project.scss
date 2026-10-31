@@ -1,6 +1,13 @@
 // Project CSS overrides (loaded last by Docsy's td/_main.scss).
 // Keep this file minimal — prefer Docsy v0.14.3 defaults where possible.
 
+// Size all highlighted rows to the longest line, including when scrolled.
+pre.chroma > code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+
 // No-sidebar pages use <main class="td-main"> (the main element IS td-main).
 // Docsy v0.14.3's fixed-navbar compensation targets ".td-main main" (a main
 // nested inside td-main), so these pages get no automatic offset. Add it here.
