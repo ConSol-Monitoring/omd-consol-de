@@ -1,5 +1,7 @@
 ---
 title: Promtail
+tags:
+  - promtail
 ---
 <style>
   thead th:empty {

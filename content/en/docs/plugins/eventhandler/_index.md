@@ -1,6 +1,7 @@
 +++
 title = "eventhandler"
 tags = [
+  "eventhandler",
   "events",
   "auto-repair",
 ]

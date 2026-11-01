@@ -1,5 +1,7 @@
 ---
 title: Nagflux
+tags:
+  - nagflux
 ---
 
 ### Overview

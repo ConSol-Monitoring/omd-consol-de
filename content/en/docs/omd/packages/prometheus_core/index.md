@@ -1,5 +1,7 @@
 ---
 title: Prometheus
+tags:
+  - prometheus
 ---
 <style>
   thead th:empty {

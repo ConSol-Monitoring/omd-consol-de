@@ -1,5 +1,7 @@
 ---
 title: Apache HTTP Server
+tags:
+  - apache
 ---
 <style>
   thead th:empty {

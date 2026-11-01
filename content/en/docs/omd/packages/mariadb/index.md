@@ -1,5 +1,7 @@
 ---
 title: MariaDB
+tags:
+  - mariadb
 ---
 <style>
   thead th:empty {

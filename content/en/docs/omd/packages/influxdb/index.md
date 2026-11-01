@@ -1,5 +1,7 @@
 ---
 title: InfluxDB
+tags:
+  - influxdb
 ---
 <style>
   thead th:empty {

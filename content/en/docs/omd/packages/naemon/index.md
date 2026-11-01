@@ -1,5 +1,7 @@
 ---
 title: Naemon
+tags:
+  - naemon
 ---
 <style>
   thead th:empty {

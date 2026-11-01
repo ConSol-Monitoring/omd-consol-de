@@ -1,5 +1,7 @@
 ---
 title: Histou
+tags:
+  - histou
 ---
 
 ### Overview

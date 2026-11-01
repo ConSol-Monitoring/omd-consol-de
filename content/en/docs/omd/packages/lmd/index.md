@@ -1,5 +1,7 @@
 ---
 title: LMD - Livestatus Multitool Daemon
+tags:
+  - lmd
 ---
 <style>
   thead th:empty {

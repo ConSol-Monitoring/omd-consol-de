@@ -6,6 +6,7 @@ tags:
   - gearmand
   - gearman worker
   - naemon
+  - mod-gearman
 weight: 600
 ---
 <div class="pb-4">

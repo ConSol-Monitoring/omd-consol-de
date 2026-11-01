@@ -1,5 +1,7 @@
 ---
 title: Downtime API
+tags:
+  - downtimeapi
 ---
 <style>
   thead th:empty {

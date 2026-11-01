@@ -1,5 +1,7 @@
 ---
 title: coshsh
+tags:
+  - coshsh
 ---
 <style>
   thead th:empty {

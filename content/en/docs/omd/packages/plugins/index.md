@@ -1,5 +1,7 @@
 ---
 title: Monitoring Plugins
+tags:
+  - plugins
 ---
 <style>
   thead th:empty {

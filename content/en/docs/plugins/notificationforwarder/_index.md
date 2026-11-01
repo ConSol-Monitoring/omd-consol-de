@@ -1,6 +1,7 @@
 +++
 title = "notificationforwarder"
 tags = [
+  "notificationforwarder",
   "notifications"
 ]
 +++

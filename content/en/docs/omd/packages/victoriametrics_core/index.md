@@ -1,5 +1,7 @@
 ---
 title: Victoriametrics
+tags:
+  - victoriametrics
 ---
 <style>
   thead th:empty {

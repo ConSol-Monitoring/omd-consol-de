@@ -4,6 +4,7 @@ description: "Generate monitoring configurations from inventory and CMDB data."
 tags:
   - cmdb
   - generator
+  - coshsh
 weight: 300
 ---
 <span class="project-logo project-logo--coshsh"><img class="project-logo-light" src="/docs/coshsh/coshsh_light.svg" alt="Coshsh" width="200" height="58"><img class="project-logo-dark" src="/docs/coshsh/coshsh_dark.svg" alt="Coshsh" width="200" height="58"></span>

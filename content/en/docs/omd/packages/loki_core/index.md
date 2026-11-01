@@ -1,5 +1,7 @@
 ---
 title: Loki
+tags:
+  - loki
 ---
 <style>
   thead th:empty {

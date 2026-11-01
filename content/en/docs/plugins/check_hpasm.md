@@ -1,5 +1,7 @@
 ---
 title: check_hpasm
+tags:
+  - check_hpasm
 ---
 ## Description
 

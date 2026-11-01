@@ -1,5 +1,7 @@
 ---
 title: Thruk
+tags:
+  - thruk
 ---
 <style>
   thead th:empty {

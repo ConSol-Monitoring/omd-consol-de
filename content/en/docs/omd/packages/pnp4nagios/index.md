@@ -1,5 +1,7 @@
 ---
 title: PNP4Nagios
+tags:
+  - pnp4nagios
 ---
 <style>
   thead th:empty {

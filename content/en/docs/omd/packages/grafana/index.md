@@ -1,5 +1,7 @@
 ---
 title: Grafana
+tags:
+  - grafana
 ---
 <style>
   thead th:empty {

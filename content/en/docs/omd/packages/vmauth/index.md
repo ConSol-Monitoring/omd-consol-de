@@ -1,5 +1,7 @@
 ---
 title: VMauth
+tags:
+  - vmauth
 ---
 <style>
   thead th:empty {

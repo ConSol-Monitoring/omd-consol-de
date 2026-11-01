@@ -1,5 +1,7 @@
 ---
 title: DokuWiki
+tags:
+  - dokuwiki
 ---
 <style>
   thead th:empty {
