@@ -51,8 +51,13 @@ blog = "/:section/:year/:month/:day/:slug/"
 # Image processing configuration.
 [imaging]
 resampleFilter = "CatmullRom"
-quality = 75
 anchor = "smart"
+
+[imaging.jpeg]
+quality = 75
+
+[imaging.webp]
+quality = 75
 
 [services]
 [services.googleAnalytics]
@@ -163,7 +168,6 @@ lunr = "/assets/lunr/lunr-2.3.9.min.js"
 # Enable syntax highlighting and copy buttons on code blocks with Prism
 prism_syntax_highlighting = false
 
-jquery = "/assets/jquery/jquery-3.7.1.min.js"
 
 # User interface configuration
 [params.ui]
@@ -211,15 +215,12 @@ enable = false
 
 [module]
   # uncomment line below for temporary local development of module
-  # replacements = "github.com/google/docsy -> ../../docsy"
+  # replacements = "github.com/docsy/docsy/theme -> ../../docsy/theme"
   [module.hugoVersion]
     extended = true
-    min = "0.75.0"
+    min = "0.160.1"
   [[module.imports]]
-    path = "github.com/google/docsy"
-    disable = false
-  [[module.imports]]
-    path = "github.com/google/docsy/dependencies"
+    path = "github.com/docsy/docsy/theme"
     disable = false
 
 # move caches to a place inside the container

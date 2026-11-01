@@ -76,8 +76,6 @@ function initializeLiveSearch() {
   }
   const inputs = [...document.querySelectorAll('.td-search--offline input')];
   if (!inputs.length) return;
-  // Retire change-only handlers if a browser still has an older Docsy bundle.
-  if (window.jQuery) window.jQuery(inputs).off('change');
   const indexPromises = new Map();
   const details = new Map();
   const searchable = new Map();
@@ -563,8 +561,6 @@ function initializeLiveSearch() {
   });
 
 }
-// Run after Docsy's ready callbacks so an older bundle cannot restore its handler.
-if (window.jQuery) window.jQuery(initializeLiveSearch);
-else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLiveSearch);
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLiveSearch);
 else initializeLiveSearch();
 })();

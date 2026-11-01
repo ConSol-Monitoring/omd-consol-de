@@ -1936,7 +1936,7 @@ h5, .h5, h6, .h6 {
 .td-breadcrumbs {
   margin-bottom: 1.5rem;
 
-  .breadcrumb {
+  .td-breadcrumbs__list {
     align-items: baseline;
     row-gap: .2rem;
     padding: .6rem .85rem;
@@ -1948,13 +1948,13 @@ h5, .h5, h6, .h6 {
     font-size: .75rem;
     line-height: 1.7;
   }
-  .breadcrumb-item {
+  .td-breadcrumbs__item {
     min-width: 0;
     max-width: 100%;
     padding: 0;
     overflow-wrap: anywhere;
 
-    + .breadcrumb-item::before {
+    + .td-breadcrumbs__item::before {
       content: '\203A';
       display: inline-block;
       float: none;

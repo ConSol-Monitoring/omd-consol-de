@@ -7,6 +7,35 @@ docker run --rm -p 1313:1313 -v `pwd`:/src consol/omd-consol-de server
 podman run --security-opt label=disable --rm -p 1313:1313 -v "$(pwd):/src" consol/omd-consol-de server --poll 700ms
 ```
 
+## Build compatibility
+
+The container image installs Dart Sass (`sass-embedded@1.102.0`); npm-based
+builds get the same compiler from `package.json`. Both build paths use Hugo
+0.169.0. Kubernetes installs the compiler in an init container; see
+[deployment instructions](deployment/README.md#updating-the-hugo-image).
+
+Docsy is pinned to 0.18.1 through `github.com/docsy/docsy/theme`. Its upstream
+Sass pipeline and base templates are used directly. The remaining overrides
+provide the site's custom navigation, archive, search, privacy policy, and design.
+
+Docsy's Bootstrap and Font Awesome dependencies are pinned in the generated
+`packages/hugoautogen` workspace and `package-lock.json`. After changing Docsy
+or `package.json`, run `hugo mod npm pack` and `npm install`, then commit the
+workspace files and lockfile. Container startup installs the asset workspace
+when its pinned versions are missing; the Kubernetes builder does the same
+before publishing a revision. Native npm builds use `npm ci` normally.
+
+## Local fonts and browser resources
+
+`assets/scss/_variables_project.scss` disables Docsy's Google Fonts loading
+with `$td-enable-google-fonts: false` and loads Open Sans from
+`static/assets/open-sans/`. Keep these settings when updating the theme.
+
+The custom `layouts/_partials/head.html` loads the local Lunr library and sets
+a Content Security Policy that restricts browser resources to this site.
+jQuery is no longer loaded. Badge images are fetched during the Hugo build
+and published locally by `layouts/_markup/render-image.html`.
+
 ## Blog archive
 
 Blog posts published before `params.blog_archive_before` in `config.toml`

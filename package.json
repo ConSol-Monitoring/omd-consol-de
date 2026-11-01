@@ -37,9 +37,10 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
-    "hugo-extended": "0.140.2",
+    "hugo-extended": "0.169.0",
     "postcss-cli": "^11.0.0",
-    "rtlcss": "^4.3.0"
+    "rtlcss": "^4.3.0",
+    "sass-embedded": "1.102.0"
   },
   "optionalDependencies": {
     "npm-check-updates": "^17.1.4"
@@ -48,5 +49,8 @@
   "prettier": {
     "proseWrap": "always",
     "singleQuote": true
-  }
+  },
+  "workspaces": [
+    "packages/hugoautogen"
+  ]
 }

@@ -216,11 +216,25 @@ This is idempotent for all existing objects.
 
 ## Updating the Hugo image
 
+Production does not use `ghcr.io/consol-monitoring/ocd`. No `image-*` Git tag
+or custom-image publication is required to deploy this site. Those tags only
+trigger the optional `.github/workflows/build_image.yml` publishing workflow.
+Source updates follow `main`; builder configuration changes require applying
+`ocd-15-builder.yml` to the cluster.
+
 The builder uses `docker.io/floryn90/hugo:<version>-ext-alpine` directly — the
-extended Alpine variant is required for SCSS. To upgrade:
+extended Alpine variant is retained for image processing. The `install-sass`
+init container installs pinned `sass-embedded@1.102.0` into an `emptyDir` volume;
+the builder adds its `sass` CLI to `PATH`. This requires npm registry access when
+a pod starts. The local Dockerfile installs the same compiler at image build
+time. Before each Hugo build, `scripts/install-theme-deps.sh` checks the pinned
+Bootstrap and Font Awesome versions and installs the locked npm asset workspace
+in the git checkout if needed. Dependency installation failures keep the
+previously published site in place. To upgrade Hugo, update both container image
+references:
 
 ```yaml
-# ocd-15-builder.yml
+# ocd-15-builder.yml: install-sass and hugo containers
 image: docker.io/floryn90/hugo:<new-version>-ext-alpine
 ```
 

@@ -39,6 +39,19 @@ spec:
         - name: trigger
           mountPath: /var/run/trigger
 
+      # The upstream Hugo image does not include Dart Sass. Install it once per
+      # pod into a shared volume before the builder starts.
+      - name: install-sass
+        image: docker.io/floryn90/hugo:0.169.0-ext-alpine
+        command: ["npm", "install", "--prefix", "/opt/dart-sass", "--ignore-scripts", "--no-audit", "--no-fund", "sass-embedded@1.102.0"]
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          allowPrivilegeEscalation: false
+        volumeMounts:
+        - name: dart-sass
+          mountPath: /opt/dart-sass
+
       containers:
       - name: git-sync
         image: registry.k8s.io/git-sync/git-sync:v4.6.0
@@ -68,11 +81,12 @@ spec:
             memory: 128Mi
 
       - name: hugo
-        image: docker.io/floryn90/hugo:0.160.1-ext-alpine
+        image: docker.io/floryn90/hugo:0.169.0-ext-alpine
         command: ["/bin/sh", "-c"]
         args:
           - |
             set -eu
+            export PATH="/opt/dart-sass/node_modules/.bin:$PATH"
             mkdir -p /srv/omd
             last=""
             last_hour=""
@@ -87,7 +101,8 @@ spec:
                    { [ "$revision" != "$last" ] || [ "$hour" != "$last_hour" ]; }; then
                   dest=/srv/omd/html-$ts
                   echo "[hugo] building rev=$revision hour=$hour → $dest"
-                  if hugo --minify --gc --environment production \
+                  if sh /tmp/git/ocd/scripts/install-theme-deps.sh /tmp/git/ocd &&
+                     hugo --minify --gc --environment production \
                           --source /tmp/git/ocd \
                           --destination $dest; then
                     ln -sfn html-$ts /srv/omd/current.new
@@ -111,6 +126,9 @@ spec:
         - name: HOME
           value: /tmp
         volumeMounts:
+        - name: dart-sass
+          mountPath: /opt/dart-sass
+          readOnly: true
         - name: content
           mountPath: /tmp/git
         - name: trigger
@@ -133,6 +151,8 @@ spec:
             memory: 1024Mi
 
       volumes:
+      - name: dart-sass
+        emptyDir: {}
       - name: content
         emptyDir: {}
       - name: trigger
