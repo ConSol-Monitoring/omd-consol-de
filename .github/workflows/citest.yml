@@ -13,6 +13,12 @@ jobs:
         run: |
           make preparetest
 
+      - name: verify theme installation in git-sync checkout
+        run: |
+          docker run --rm --entrypoint /bin/sh \
+            -v "$PWD:/src:ro" consol/omd-consol-de \
+            /src/scripts/test-install-theme-deps.sh
+
       - name: run tests
         run: |
           make test
