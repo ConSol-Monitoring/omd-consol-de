@@ -3,6 +3,25 @@
 {{/* Keep page loads local: external services are reached only through links. */}}
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{ $darkMode := partialCached "dark-mode-config.html" "dark-mode-global" -}}
+{{ if $darkMode.enable -}}
+{{/* Apply the saved theme before CSS loads and before the main bundle runs. */}}
+<script>
+(function () {
+  var theme;
+  try { theme = localStorage.getItem('td-color-theme'); } catch (_) {}
+  if (theme !== 'light' && theme !== 'dark') {
+    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-bs-theme', theme);
+})();
+</script>
+<style>
+  html { color-scheme: light; background: #fff; color: #212529; }
+  html[data-bs-theme="dark"] { color-scheme: dark; background: #212529; color: #dee2e6; }
+  html[data-theme-init] * { transition: none !important; }
+</style>
+{{ end -}}
 <link rel="canonical" href="{{ .Permalink }}" />
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
