@@ -1,6 +1,7 @@
 ---
 author: Sven Nierlein
 date: '2018-10-29T10:00:00+02:00'
+archived: true
 featured_image: /docs/omd/omd_light.svg
 tags:
 - "omd"

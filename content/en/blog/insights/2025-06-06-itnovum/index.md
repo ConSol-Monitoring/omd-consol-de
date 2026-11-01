@@ -1,7 +1,7 @@
 ---
 date: 2025-06-06T00:00:00.000Z
 title: "Mein Besuch beim openITCOCKPIT Community Meetup 2025 in Fulda"
-linkTitle: "openitcockpit-meetup-2025"
+linkTitle: "openITCOCKPIT Meetup 2025"
 tags:
   - workshop
 ---
