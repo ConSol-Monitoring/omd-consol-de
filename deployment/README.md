@@ -216,12 +216,6 @@ This is idempotent for all existing objects.
 
 ## Updating the Hugo image
 
-Production does not use `ghcr.io/consol-monitoring/ocd`. No `image-*` Git tag
-or custom-image publication is required to deploy this site. Those tags only
-trigger the optional `.github/workflows/build_image.yml` publishing workflow.
-Source updates follow `main`; builder configuration changes require applying
-`ocd-15-builder.yml` to the cluster.
-
 The builder uses `docker.io/floryn90/hugo:<version>-ext-alpine` directly — the
 extended Alpine variant is retained for image processing. The `install-sass`
 init container installs pinned `sass-embedded@1.102.0` into an `emptyDir` volume;
@@ -238,11 +232,47 @@ references:
 image: docker.io/floryn90/hugo:<new-version>-ext-alpine
 ```
 
-```bash
-kubectl apply -f ocd-15-builder.yml
-```
+Run these steps from `deployment/` on the machine managing the production
+cluster. The web containers continue serving the previous site throughout.
 
-`ocd-builder` restarts with the new image; the serving tier is unaffected.
+1. Check the Kubernetes context, then pause the builder before pushing source
+   changes that require the updated build environment:
+
+   ```bash
+   kubectl config current-context
+   kubectl -n ocd scale deployment/ocd-builder --replicas=0
+   kubectl -n ocd wait --for=delete pod \
+     -l app=ocd-builder --timeout=120s
+   ```
+
+2. Push the update to `main`, wait for CI to pass, and refresh this deployment
+   checkout. Apply the updated manifest; it restores the builder to one replica:
+
+   ```bash
+   kubectl apply -f ocd-15-builder.yml
+   kubectl -n ocd rollout status deployment/ocd-builder --timeout=10m
+   ```
+
+3. Follow the build logs until `[hugo] published rev=<expected-commit-sha> ...`
+   appears, then press `Ctrl+C`:
+
+   ```bash
+   kubectl -n ocd logs deployment/ocd-builder -c hugo -f
+   ```
+
+   A successful rollout confirms that the pod started; the publication message
+   confirms that the new site was built and published.
+
+4. Verify the Hugo version, deployment readiness, and website response:
+
+   ```bash
+   kubectl -n ocd exec deployment/ocd-builder -c hugo -- hugo version
+   kubectl -n ocd get deployments
+   curl -fI https://omd.consol.de/
+   ```
+
+   Expect the configured Hugo version, builder `1/1`, and web `2/2`. No serving
+   or telemetry manifest changes are needed for a builder-only upgrade.
 
 ---
 
