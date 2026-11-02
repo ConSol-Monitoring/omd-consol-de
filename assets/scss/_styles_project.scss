@@ -1169,6 +1169,35 @@ h5, .h5, h6, .h6 {
   --sidebar-current: #f8ce3926;
 }
 
+.td-sidebar-nav__collapsible {
+  position: relative;
+
+  > .td-sidebar-link { padding-right: 2rem; }
+  > ul[hidden] { display: none !important; }
+  &:has(> .tree-root) > .td-sidebar-nav__collapse { top: .75rem; z-index: 3; }
+}
+
+.td-sidebar-nav__collapse {
+  position: absolute;
+  top: .5rem;
+  right: .125rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: .25rem;
+  background: transparent;
+  color: var(--sidebar-muted);
+  cursor: pointer;
+
+  &:hover { background: var(--sidebar-hover); color: var(--sidebar-text); }
+  &:focus-visible { outline: 2px solid #b49630; outline-offset: 2px; }
+  &[aria-expanded="false"] svg { transform: rotate(-90deg); }
+}
+
 @media (min-width: 768px) {
   .td-sidebar__inner {
     display: flex;
@@ -1204,6 +1233,9 @@ h5, .h5, h6, .h6 {
       overflow-y: auto;
       overscroll-behavior: contain;
       padding-bottom: 1rem;
+      // Overlay scrollbars still paint over content even with a stable gutter.
+      padding-inline-end: .75rem;
+      scrollbar-gutter: stable;
       scrollbar-width: thin;
     }
   }
@@ -1252,6 +1284,8 @@ h5, .h5, h6, .h6 {
       max-height: 60vh;
       max-height: 60dvh;
       overflow-y: auto;
+      padding-inline-end: .75rem;
+      scrollbar-gutter: stable;
       // Keep the collapsing box free of spacing so it can shrink to zero.
       border-top: 0;
       padding-bottom: 0;
@@ -1286,6 +1320,7 @@ h5, .h5, h6, .h6 {
     flex-shrink: 0;
     z-index: 2;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: .5rem;
@@ -1310,15 +1345,21 @@ h5, .h5, h6, .h6 {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    min-width: 1.6rem;
+    gap: .35rem;
     min-height: 1.6rem;
-    padding: 0;
+    margin-left: auto;
+    padding: .2rem .45rem;
+    border: 1px solid var(--sidebar-border);
     border-radius: 4px;
+    background: var(--sidebar-hover);
     color: var(--sidebar-muted);
-    font-size: .75rem;
+    font-size: .7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
     visibility: visible;
 
-    &::after { font-weight: 900; }
+    &::after { content: none; }
     &:hover { color: var(--sidebar-text); text-decoration: none; }
     &:focus-visible { outline: 2px solid #b49630; outline-offset: 2px; }
   }
