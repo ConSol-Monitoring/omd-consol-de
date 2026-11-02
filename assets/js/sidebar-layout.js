@@ -40,6 +40,16 @@
     setCollapsed(!children.querySelector(':scope > li:not(.collapse)'));
   });
 
+  main.querySelectorAll('.td-sidebar-nav__year details').forEach((details) => {
+    const summary = details.querySelector(':scope > summary');
+    const year = summary.textContent.trim();
+    function updateTitle() {
+      summary.title = (details.open ? 'Collapse ' : 'Expand ') + year;
+    }
+    details.addEventListener('toggle', updateTitle);
+    updateTitle();
+  });
+
   // Keep the full-height sidebar surface separate from its sticky contents.
   const toc = main.querySelector('.td-sidebar-toc');
   if (toc && !toc.querySelector(':scope > .td-sidebar-toc__inner')) {

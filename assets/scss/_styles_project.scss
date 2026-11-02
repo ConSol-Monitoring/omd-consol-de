@@ -1177,6 +1177,19 @@ h5, .h5, h6, .h6 {
   &:has(> .tree-root) > .td-sidebar-nav__collapse { top: .75rem; z-index: 3; }
 }
 
+.td-sidebar-nav__year {
+  summary.td-sidebar-link {
+    padding-right: 2rem;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker { display: none; }
+  }
+
+  details:not([open]) > summary svg { transform: rotate(-90deg); }
+  &.active-path > details > summary { color: var(--sidebar-text); font-weight: 700; }
+}
+
 .td-sidebar-nav__collapse {
   position: absolute;
   top: .5rem;

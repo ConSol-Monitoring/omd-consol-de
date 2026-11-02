@@ -102,6 +102,11 @@
         $truncatedEntryCount (len $pages_tmp) $sidebarMenuTruncate  $s.Path -}}
   {{ end -}}
 
+  {{ $groupByYear := in (slice "/blog/insights" "/blog/releases") $s.Path -}}
+  {{/* Only expose year headings inside the section being browsed. */}}
+  {{ if and $groupByYear (not (or (eq $p $s) ($p.IsDescendant $s))) }}
+    {{ $pages = slice }}
+  {{ end }}
   {{ $withChild := gt (len $pages) 0 -}}
   {{ $manualLink :=
       cond
@@ -184,11 +189,32 @@
     {{ if $withChild -}}
     {{ $ulNr := add $ulNr 1 }}
     <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
+      {{ if $groupByYear }}
+        {{/* Years are navigation groups only; keep the existing article URLs. */}}
+        {{ range $index, $group := $pages.GroupByDate "2006" "desc" }}
+          {{ $currentYear := and ($p.IsDescendant $s) (eq ($p.Date.Format "2006") $group.Key) }}
+          {{ $open := or $currentYear (and (eq $p $s) (eq $index 0)) }}
+          <li class="td-sidebar-nav__section td-sidebar-nav__year{{ if $currentYear }} active-path{{ end }}">
+            <details{{ if $open }} open{{ end }}>
+              <summary class="td-sidebar-link td-sidebar-link__section" title="{{ if $open }}Collapse{{ else }}Expand{{ end }} {{ $group.Key }}">
+                {{ $group.Key }}
+                <span class="td-sidebar-nav__collapse" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12"><path d="m3 6 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </summary>
+              <ul class="ul-{{ add $ulNr 1 }}">
+                {{ range $group.Pages.ByDate.Reverse }}
+                  {{ template "section-tree-nav-section" (dict "page" $p "section" . "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" (add $ulNr 1) "ulShow" (add $ulNr 2)) }}
+                {{ end }}
+              </ul>
+            </details>
+          </li>
+        {{ end }}
+      {{ else }}
       {{ range $pages -}}
         {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
           {{ template "section-tree-nav-section" (dict "page" $p "section" . "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" $ulNr "ulShow" $ulShow) }}
         {{- end }}
       {{- end }}
+      {{ end }}
     </ul>
     {{- end }}
   </li>
