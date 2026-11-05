@@ -13,12 +13,21 @@
                 <div class="monitoring-map__heading"><span>Our monitoring stack</span></div>
                 <div class="monitoring-map__body">
                     <p class="monitoring-map__label">ONE PLATFORM. CONNECTED TOOLS.</p>
-                    <a class="monitoring-map__platform" href="/docs/omd/"><span class="monitoring-map__symbol" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span><span><strong>OMD Labs</strong><small>Your monitoring platform</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                    <div class="monitoring-map__connector" aria-hidden="true"></div>
-                    <div class="monitoring-map__nodes">
-                        <a href="/docs/snclient/"><i class="fa-solid fa-server" aria-hidden="true"></i><strong>SNClient</strong><small>Collect</small></a>
-                        <a href="/docs/naemon/"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i><strong>Naemon</strong><small>Monitor</small></a>
-                        <a href="/docs/thruk/"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><strong>Thruk</strong><small>Visualize</small></a>
+                    <div class="monitoring-map__diagram" role="group" aria-label="OMD includes Naemon, Thruk, Grafana and Prometheus. Thruk visualizes Naemon data; Grafana visualizes Prometheus data. SNClient sends check results to Naemon and exporter metrics to Prometheus.">
+                        <div class="monitoring-map__omd">
+                            <a class="monitoring-map__platform" href="/docs/omd/"><span class="monitoring-map__symbol" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span><span><strong>OMD Labs</strong><small>Your monitoring platform</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                            <div class="monitoring-map__nodes">
+                                <a class="monitoring-map__node monitoring-map__node--paired" href="/docs/naemon/"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i><strong>Naemon</strong><small>Monitor</small><span class="monitoring-map__pair-line" aria-hidden="true"></span></a>
+                                <a class="monitoring-map__node" href="/docs/thruk/"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><strong>Thruk</strong><small>Visualize</small></a>
+                                <a class="monitoring-map__node monitoring-map__node--paired" href="/docs/omd/packages/grafana/"><i class="fa-solid fa-chart-area" aria-hidden="true"></i><strong>Grafana</strong><small>Visualize</small><span class="monitoring-map__pair-line" aria-hidden="true"></span></a>
+                                <a class="monitoring-map__node" href="/docs/omd/packages/prometheus_core/"><i class="fa-solid fa-fire" aria-hidden="true"></i><strong>Prometheus</strong><small>Monitor</small></a>
+                            </div>
+                        </div>
+                        <div class="monitoring-map__inputs">
+                            <span class="monitoring-map__feed"><span>Check results</span></span>
+                            <span class="monitoring-map__feed"><span>Exporter metrics</span></span>
+                        </div>
+                        <a class="monitoring-map__node monitoring-map__node--agent" href="/docs/snclient/"><i class="fa-solid fa-server" aria-hidden="true"></i><strong>SNClient</strong><small>Collect</small></a>
                     </div>
                 </div>
             </div>
