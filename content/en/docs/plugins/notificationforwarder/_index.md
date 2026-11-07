@@ -33,7 +33,7 @@ Imagine you have a command definition like this:
 define command{
     command_name    notify-service-victorops
     command_line    $USER1$/notificationforwarder \
-                        --forwarder myspecialreceiver \
+                        --forwarder myspecialforwarder \
                         --forwarderopt company_id='$_CONTACTCOMPANY_ID$' \
                         --forwarderopt company_key='$_CONTACTCOMPANY_KEY$' \
                         --forwarderopt routing_key='$_CONTACTROUTING_KEY$' \
@@ -51,13 +51,13 @@ define command{
 Your service notifications should be sent to some ticket tool. The notification script will talk to a REST API and upload a well-formatted JSON payload. Therefore the notification framework has two jobs.
 First, take the event attributes (all the --eventopt arguments) and transform them into a JSON structure. Then, upload it with a POST request.
 
-In your OMD site you create a folder *~/local/lib/python/notificationforwarder/myspecialreceiver* and add two files, *formatter.py* and *forwarder.py*.
+In your OMD site you create a folder *~/local/lib/python/notificationforwarder/myspecialforwarder* and add two files, *formatter.py* and *forwarder.py*.
 A skeleton for the *formatter.py* looks like this:
 
 ```python
 from notificationforwarder.baseclass import NotificationFormatter
 
-class MyspecialreceiverFormatter(NotificationFormatter):
+class MyspecialforwarderFormatter(NotificationFormatter):
 
     def format_event(self, event):
         json_payload = {}
@@ -72,6 +72,8 @@ class MyspecialreceiverFormatter(NotificationFormatter):
         elif event.eventopts['NOTIFICATIONTYPE'] == "DOWNTIMECANCELLED":
             event.discard(silently=False)
 ```
+A formatter can also split one event into several. If the formatter class has a method *split_events(raw_event)* which returns a list of raw events, the framework will call *format_event* for each of the returned events and forward them individually. This is useful for a destination which wants one message per item of a bulk event.
+
 The class name is, by default, derived from the argument provided to the *\-\-forwarder* parameter with the first letter capitalized, followed by "Formatter". Alternatively, the parameter *\-\-formatter* can be used. The formatter class must have a method *format_event*. This method is called with an event object, which has an attribute *event.eventopts*. This is a dictionary consisting of keys and values extracted from the *\-\-eventopt* parameters of the **\\$USER1\\$/notificationforwarder** command. The method should then set the attributes *payload* and *summary* of the event object.  
 The formatter also has the ability to decide not to forward an event at all. If it chooses to halt the processing of an event, it can invoke the method *discard()*. The event will then simply be dropped without any trace. Invoking *discard* with the parameter *silently=False* will log a discard message in the log file. If event.summary has not yet been created, a dump of the raw event will be written.
 
@@ -81,7 +83,7 @@ A skeleton for the *forwarder.py* looks like this:
 import requests
 from notificationforwarder.baseclass import NotificationForwarder, NotificationFormatter, timeout
 
-class MyspecialreceiverForwarder(NotificationForwarder):
+class MyspecialforwarderForwarder(NotificationForwarder):
     def __init__(self, opts):
         super(self.__class__, self).__init__(opts)
         self.url = "https://alert.someapi.com/v1/tickets/"+self.company_id+"/alert/"+self.company_key+"/"+self.routing_key
@@ -107,7 +109,18 @@ class MyspecialreceiverForwarder(NotificationForwarder):
 ```
 
 Again, the class name has to be the argument of the *\-\-forwarder* parameter with the first letter in upper case, but this time with "Forwarder" appended. This class must have a method *submit()*, which gets the event object which was supplied with payload and summary in the formatting step. If submit() returns a False value, the framework will spool the event in a database.
-The next time Naemon is executing the notificationforwarder script for this receiver, it will try to submit the events which have been spooled so far. If the Forwarder class has an optional method *probe()*, it will first check if the receiver is now up again before it flushes the spooled events with the *submit()* method.
+The next time Naemon is executing the notificationforwarder script for this forwarder instance, it will try to submit the events which have been spooled so far. If the Forwarder class has an optional method *probe()*, it will first check if the receiving system is now up again before it flushes the spooled events with the *submit()* method.
+
+## Multiple forwarder instances: \-\-forwardertag
+
+The *--forwarder* parameter selects the forwarder module, the optional *--forwardertag* selects the *instance* of it. Two instances of the same forwarder with different tags are completely independent: each has its own spool database and its own logfile (*var/log/notificationforwarder_*\<forwarder\>_*\<tag\>***.log**). This lets you use one forwarder module for several destinations with different settings, e.g. a *webhook* for ServiceNow and a *webhook* for a local Splunk forwarder, without writing a new module.
+
+```
+    --forwarder webhook --forwardertag servicenow --forwarderopt url='...' \
+    --forwarder webhook --forwardertag splunk     --forwarderopt url='...' \
+```
+
+Note: the old parameter names *\-\-receiver* and *\-\-receivertag* are deprecated and will soon be removed; use *\-\-forwarder* and *\-\-forwardertag*.
 
 There are two special *forwarderopt* parameters.
 * \-\-forwarderopt logfile_backups=n  
@@ -127,23 +140,31 @@ This is a generic class, which is used to upload arbitrary JSON payloads (that's
 |username |a username for basic auth |-      |
 |password |a basic auth passwod      |-      |
 |headers  |a string in json format   |-      |
+|insecure |set to `no` to verify TLS certificates|yes   |
+
+The payload is submitted in one of three modes, selected per event with `event.forwarderopts['mode']` (default `json`):
+* `json` — the payload is sent as a JSON body
+* `form` — a dict payload is sent as url-encoded form data (anything else is wrapped as `{"data": ...}`)
+* `raw`  — a string payload is sent as-is; a dict or list payload is JSON-encoded and labeled `text/xml` unless the headers set a Content-Type
+
+A formatter can also steer the request by setting `event.forwarderopts['headers']` (extra headers, merged into that request's headers only) or `event.forwarderopts['url']`. Note the asymmetry: the headers override is per request, but the url override replaces the forwarder's url for the rest of the process and is not restored afterwards.
 
 First, the forwarder will make a plain, unauthenticated POST request.
 ```
     command_line    $USER1$/notificationforwarder \
                         --forwarder webhook \
-                        --forwarderopt url=https://cm.consol.de/api/v2/crticket \
+                        --forwarderopt url=https://api.example.com/api/v2/crticket \
                         --eventopt HOSTNAME='$HOSTNAME$' \
-
+ 
 ```
 
 Second, the same but with basic auth.
 ```
     command_line    $USER1$/notificationforwarder \
                         --forwarder webhook \
-                        --forwarderopt url=https://cm.consol.de/api/v2/crticket \
-                        --forwarderopt username=lausser \
-                        --forwarderopt username=consol123 \
+                        --forwarderopt url=https://api.example.com/api/v2/crticket \
+                        --forwarderopt username=svcaccount \
+                        --forwarderopt password=supersecret \
                         --eventopt HOSTNAME='$HOSTNAME$' \
 
 ```
@@ -152,7 +173,7 @@ And this one shows how to set additional headers.
 ```
     command_line    $USER1$/notificationforwarder \
                         --forwarder webhook \
-                        --forwarderopt url=https://cm.consol.de/api/v2/crticket \
+                        --forwarderopt url=https://api.example.com/api/v2/crticket \
                         --forwarderopt headers='{"Authentication": "Bearer 0x00hex0der8ase64schlonz", "Max-Livetime": "10"}' \
                         --eventopt HOSTNAME='$HOSTNAME$' \
 ```
@@ -245,6 +266,99 @@ There is also a SyslogFormatter, which creates the log line as:
 *host: \<HOSTNAME\>, service: \<SERVICEDESC\>, state: \<SERVICESTATE\>, output: \<SERVICEOUTPUT\>*
 
 If you want a different format, then copy *lib/python/notificationforwarder/syslog/formatter.py* to *local/lib/python/notificationforwarder/syslog/formatter.py* and modify it as needed. Or, with *--formatter*, you can use whatever formatter is suitable, as long as its payload attribute consists of a line of text.
+
+### Oauth2WebhookForwarder
+
+The Oauth2WebhookForwarder is a WebhookForwarder with OAuth2 client-credentials support. It fetches an access token from the token endpoint, caches it in *$OMD_ROOT/var/tmp/notificationforwarder_*\<forwarder_name\>*\_oauth2token.json* (for a tagged instance, *\<forwarder_name\>* includes the tag, e.g. *notificationforwarder_oauth2webhook_prod_oauth2token.json*; shared between processes via a file lock), and re-fetches it before it expires. All parameters of the WebhookForwarder are supported, and as with the webhook it needs a formatter which creates the payload.
+
+|parameter|description|default|
+|---------|-----------|-------|
+|token_url|the OAuth2 token endpoint|-|
+|client_id|the client id|-|
+|client_secret|the client secret|-|
+|token_scope|the scope requested for the token|-|
+|token_grant_type|the grant type|client_credentials|
+|token_expiry_buffer|re-fetch the token this many seconds before expiry|30|
+
+```
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder oauth2webhook \
+                        --forwarderopt url=https://api.example.com/events \
+                        --forwarderopt token_url=https://auth.example.com/oauth/token \
+                        --forwarderopt client_id='...' \
+                        --forwarderopt client_secret='...' \
+                        --formatter syslog \
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+                        --eventopt SERVICEDESC='$SERVICEDESC$' \
+                        --eventopt SERVICESTATE='$SERVICESTATE$' \
+                        --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
+```
+
+### TelegramForwarder
+
+The TelegramForwarder posts the event to a chat of a Telegram bot. The payload is one line of text; it is URL-quoted and then sent with `parse_mode=MarkdownV2`, so the chat shows the quoted line.
+
+|parameter|description|default|
+|---------|-----------|-------|
+|bot_token|the bot token|-|
+|chat_id|the chat id|-|
+
+```
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder telegram \
+                        --forwarderopt bot_token='123456:ABC-DEF' \
+                        --forwarderopt chat_id='42' \
+                        --formatter syslog \
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+                        --eventopt SERVICEDESC='$SERVICEDESC$' \
+                        --eventopt SERVICESTATE='$SERVICESTATE$' \
+                        --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
+```
+
+### EmailForwarder / EmailFormatter
+
+The EmailForwarder sends the event as an SMTP mail. The payload must carry *subject* and either *html* or *text*; if both *html* and *text* are present, only the *html* part is sent. The built-in EmailFormatter creates both from the event attributes (Jinja2 templates) and uses the fixed subject *thesubtschek*.
+
+|parameter|description|default|
+|---------|-----------|-------|
+|smtp_server|the smtp server|localhost|
+|smtp_port|the port|25|
+|sender|the SMTP envelope sender (the visible From header stays the OS user)|the OS user|
+|recipient|the recipient address (required)|-|
+
+```
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder email \
+                        --formatter email \
+                        --forwarderopt recipient='admin@example.com' \
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+```
+
+### RabbitMQ
+
+The RabbitMQ pair publishes the event as a JSON message to a queue. The formatter builds a payload with the host/service attributes, the state, and the check output; extra attributes can be added with the *extra_payload_attributes* eventopt (comma-separated key=value pairs). The payload is a list, so the forwarder can publish several messages.
+
+|parameter|description|default|
+|---------|-----------|-------|
+|server|the rabbitmq server|localhost|
+|port|the port|5672|
+|vhost|the virtual host|/|
+|queue|the queue|AE|
+|username|the username|guest|
+|password|the password|guest|
+
+```
+    command_line    $USER1$/notificationforwarder \
+                        --forwarder rabbitmq \
+                        --formatter rabbitmq \
+                        --forwarderopt server='rabbit.example.com' \
+                        --forwarderopt queue='alerts' \
+                        --eventopt HOSTNAME='$HOSTNAME$' \
+                        --eventopt NOTIFICATIONTYPE='$NOTIFICATIONTYPE$' \
+                        --eventopt SERVICEDESC='$SERVICEDESC$' \
+                        --eventopt SERVICESTATE='$SERVICESTATE$' \
+                        --eventopt SERVICEOUTPUT='$SERVICEOUTPUT$' \
+```
 
 ### Nostr
 
@@ -447,9 +561,27 @@ define command{
 
 When forwarding to a recipient fails, the event is saved in a local SQLite database. The framework automatically attempts to re-submit these spooled events on every subsequent call to notificationforwarder for the same forwarder.
 
-The flush mechanism runs inside `forward_formatted()` for **every event** — not just heartbeats or special cases. Before submitting the current event, the framework checks if there are spooled events waiting. If there are, it attempts to flush them by calling `submit()` for each one. Events that are successfully submitted are deleted from the spool. Events that still fail stay in the queue for the next attempt.
+The flush mechanism runs inside `forward_formatted()` for **every event** — not just heartbeats or special cases. Before submitting the current event, the framework checks if there are spooled events waiting. If there are — and the forwarder has no `probe()` method or `probe()` returns true (see the Probe Method below) — it takes a flush lock, replays the spooled events by calling `submit()` for each one, and releases the lock. Events that are successfully submitted are deleted from the spool. **The replay stops at the first event which still fails** — if the receiving system is down, all the following submits would fail as well, and paying the submit timeout for every one of a large backlog would far exceed the notification timeout.
+
+A failed replay does not poison the queue. If the live event of the same process has been submitted successfully, the process tries to move the failed event to the end of the spool: it gets a new record id behind all the other events, keeps its payload and its original spool time, and therefore still expires on schedule. This move only happens if the process gets the flush lock again and the failed row is not already the last one; if it is the last row, it stays in place until it expires. Either way a receiving system rejecting one event permanently (e.g. HTTP 400 for a broken payload) cannot block the queue — it is re-tried once per live event and then expires.
+
+Several notificationforwarder processes of the same forwarder instance share the spool. Only one of them takes the flush lock at a time; the others log *concurrent flush suppressed* and skip the flush.
 
 This means that in a busy monitoring environment where notifications flow regularly, spooled events get drained naturally — each new notification triggers a flush attempt on its way through.
+
+### Spool log lines
+
+Every spool-related log line carries the spool record id, and most of them carry the event content (summary and raw payload) as well, so the lines can be correlated with each other. With the default text logger the lines read:
+
+* `forward failed, spool id <id>` — the event was spooled (with summary and raw payload)
+* `delete spooled event <id>` — the event was re-submitted successfully (with summary and raw payload)
+* `event <id> stays in spool` — the replay stopped at this event (with summary and raw payload)
+* `event <id> was rejected while the receiver accepts other events and moved to the end of the spool as <new id>` — the failed event was moved to the end; this line names only the old and the new id, not the payload
+* `expired spooled event <id>` — the event expired from the spool (with the raw payload)
+
+An operator can follow one event from its spooling to its deletion — or to its expiry — through these lines alone. With `--logger json` the same lines carry the structured fields `event_id` and, for the queue length line, `queue_length`.
+
+The log line `spooling queue length is <n>` is written when an event is spooled and additionally at the end of every flush which took the flush lock, so that the queue length also goes down again while the spool drains. A flush which lost the lock (`concurrent flush suppressed`) does not write a queue length. This is the value to monitor and alert on.
 
 ### Probe Method
 
@@ -460,10 +592,10 @@ The framework uses `probe()` as a pre-check with three possible scenarios:
 |Forwarder has probe()?|probe() result|What happens|Why|
 |---|---|---|---|
 |No|—|flush proceeds|No way to check availability, must try|
-|Yes|True|flush proceeds|Receiver is confirmed reachable|
-|Yes|False|flush skipped|Receiver is known to be down, avoid wasted submit() calls|
+|Yes|True|flush proceeds|The receiving system is confirmed reachable|
+|Yes|False|flush skipped|The receiving system is known to be down, avoid wasted submit() calls|
 
-Without `probe()`, every flush attempt would call `submit()` for each spooled event even when the receiver is known to be down — wasting time and producing noisy error logs. With `probe()`, the framework can short-circuit: if the receiver is unreachable, the flush is skipped entirely and spooled events wait in the database until the next call.
+Without `probe()`, every flush attempt would call `submit()` for each spooled event even when the receiving system is known to be down — wasting time and producing noisy error logs. With `probe()`, the framework can short-circuit: if the receiving system is unreachable, the flush is skipped entirely and spooled events wait in the database until the next call.
 
 Example implementation:
 
@@ -538,10 +670,33 @@ The key settings:
 - `notification_interval 0` — no Nagios-level notifications
 - `notification_options n` — don't send notifications on state changes
 
-The heartbeat goes through the normal notificationforwarder flow: the formatter sets `is_heartbeat = True`, the flush phase checks for spooled events (and calls `probe()` if available), and the heartbeat itself is submitted to the receiver. If the receiver accepts it, the receiving system knows the monitoring infrastructure is alive (dead-man switch). If the receiver is down, the heartbeat is simply dropped — it won't add to the spool queue.
+The heartbeat goes through the normal notificationforwarder flow: the formatter sets `is_heartbeat = True`, the flush phase checks for spooled events (and calls `probe()` if available), and the heartbeat itself is submitted to the destination. If the destination accepts it, the receiving system knows the monitoring infrastructure is alive (dead-man switch). If the destination is down, the heartbeat is simply dropped — it won't add to the spool queue.
 
 The two use cases for periodic heartbeats:
 - **Dead-man switch**: The receiving system (e.g., ServiceNow) gets a regular "I'm alive" signal. If heartbeats stop, it knows the monitoring system is down.
-- **Spool draining**: Even when nothing breaks, the heartbeat triggers flush attempts at regular intervals, so spooled events are delivered quickly once the receiver recovers — without waiting for the next real notification.
+- **Spool draining**: Even when nothing breaks, the heartbeat triggers flush attempts at regular intervals, so spooled events are delivered quickly once the receiving system recovers — without waiting for the next real notification.
+
+## Spool Inspection: \-\-dump-spool
+
+The spool is a local sqlite database per forwarder instance. To inspect which events are stuck, when they were spooled, and what they contain, without hand-crafting `sqlite3` queries, the notificationforwarder command has a read-only dump mode:
+
+```
+$USER1$/notificationforwarder --forwarder webhook --forwardertag prod --dump-spool
+```
+
+The dump mode reads the spool database and table of the forwarder instance named by *--forwarder* and, optionally, *--forwardertag* — the same instance the delivery path writes to. In this mode *--forwarder* is required (the syslog default of the regular command does not apply), and whenever the spool is opened or reported empty, the resolved database path and table are named on standard error.
+
+The dump is strictly read-only. It does not load the forwarder, formatter, or reporter modules, does not contact the destination, does not acquire the flush lock, and does not modify the spool. It also works when the forwarder module cannot be imported — that is often exactly the situation in which the spool has to be inspected.
+
+|parameter|description|default|
+|---------|-----------|-------|
+|--dump-spool|dump the spool of the selected forwarder instance and exit|-|
+|--order|`oldest` lists the records oldest spool time first, `newest` the reverse (ties broken by record id)|oldest|
+|--limit|display at most N records, applied after ordering|all|
+|--dump-format|`text`: one line per record on stdout; `json`: one parseable JSON array on stdout|text|
+
+Record data goes to standard output, the header (database path, table, order, total and shown record counts) to standard error, in both formats — so `--dump-format json` can be piped into `jq`. The text output carries exactly one line per record: *#\<record id\> \<spool time\> \<payload\>*. The JSON output is one array with one element per record, with the keys `id`, `spooled_at`, and `payload`. The spool time is the stored timestamp verbatim (UTC); it is the original spool time and survives the move-to-end replays.
+
+An empty spool (missing database file or empty table) is a healthy outcome: the dump reports *spool empty* on standard error and exits with status 0. Note that a wrong forwarder name produces a healthy empty spool for a database which was never written — a typo in *--forwarder* looks like an empty queue. A spool database which cannot be read (locked, corrupt, or missing the expected table) is an error with a non-zero exit status, and an invalid *--limit* is a usage error with an empty standard output. A record whose stored content is not valid JSON is listed with the marker `[undecodable payload]` and the first 120 characters of the stored text (the JSON element additionally carries `undecodable: true` and `raw_prefix` with `payload` null); the dump never aborts on a corrupt record.
 
 
