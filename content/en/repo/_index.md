@@ -7,7 +7,7 @@ menu:
     weight: 40
 ---
 
-<div class="monitoring-home monitoring-page">
+<div class="monitoring-home monitoring-page monitoring-repository-page">
     <section class="monitoring-hero monitoring-page-hero" aria-labelledby="repository-title">
         <div class="monitoring-container">
             <p class="monitoring-eyebrow"><span></span> SOFTWARE PACKAGES</p>
@@ -29,7 +29,7 @@ menu:
                     <span class="monitoring-project__category">STABLE RELEASES</span>
                     <i class="fa-solid fa-box" aria-hidden="true"></i>
                 </div>
-                <h3>Stable</h3>
+                <h3><a href="/repo/stable/">Stable</a></h3>
                 <p>Regular stable releases, usually published every six months.</p>
                 <div class="monitoring-project__links"><a href="/repo/stable/">Stable packages <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
             </article>
@@ -38,7 +38,7 @@ menu:
                     <span class="monitoring-project__category">INTERMEDIATE RELEASES</span>
                     <i class="fa-solid fa-code-branch" aria-hidden="true"></i>
                 </div>
-                <h3>Stream</h3>
+                <h3><a href="/repo/stream/">Stream</a></h3>
                 <p>Intermediate releases between the regular stable versions.</p>
                 <div class="monitoring-project__links"><a href="/repo/stream/">Stream packages <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
             </article>
@@ -47,7 +47,7 @@ menu:
                     <span class="monitoring-project__category">DEVELOPMENT SNAPSHOTS</span>
                     <i class="fa-solid fa-flask" aria-hidden="true"></i>
                 </div>
-                <h3>Testing</h3>
+                <h3><a href="/repo/testing/">Testing</a></h3>
                 <p>Daily development snapshots for trying the latest changes.</p>
                 <div class="monitoring-project__links"><a href="/repo/testing/">Testing packages <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
             </article>

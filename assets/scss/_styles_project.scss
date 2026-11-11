@@ -878,8 +878,10 @@ h5, .h5, h6, .h6 {
   --blog-border: #434b51;
 }
 
+.monitoring-repository-page .monitoring-page-hero { padding-bottom: 2rem; }
+
 .monitoring-home {
-  .monitoring-repository { padding-block: 4rem; }
+  .monitoring-repository { padding-block: 1.5rem 4rem; }
   .monitoring-repository__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
   .monitoring-project--stable { border-top: 4px solid #f8ce39; }
   .monitoring-repository__note {
@@ -897,7 +899,7 @@ h5, .h5, h6, .h6 {
 }
 
 @media (max-width: 767.98px) {
-  .monitoring-home .monitoring-repository { padding-block: 3rem; }
+  .monitoring-home .monitoring-repository { padding-block: 1.5rem 3rem; }
 }
 
 // Shared presentation for the stable, stream and testing installation guides.
