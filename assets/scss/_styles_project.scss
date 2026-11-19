@@ -1202,6 +1202,13 @@ h5, .h5, h6, .h6 {
   &.active-path > details > summary { color: var(--sidebar-text); font-weight: 700; }
 }
 
+// Rapid clicks on disclosure controls must not start a text selection as rows move.
+.td-sidebar-nav__year summary,
+.td-sidebar-nav__collapse {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .td-sidebar-nav__collapse {
   position: absolute;
   top: .5rem;
