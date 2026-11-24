@@ -19,7 +19,7 @@ Check temperature sensors.
 
 | Argument      | Default Value                                                                |
 | ------------- | ---------------------------------------------------------------------------- |
-| filter        | temperature != 0 and temperature != 1                                        |
+| filter        | temperature != 0 and temperature != 1 and temperature >= -270                |
 | warning       | (min != 0 && temperature < %(min)) \|\| (crit != 0 && temperature > %(crit)) |
 | critical      | (min != 0 && temperature < %(min)) \|\| (crit != 0 && temperature > %(crit)) |
 | empty-state   | 3 (UNKNOWN)                                                                  |
@@ -38,17 +38,17 @@ Check temperature sensors.
 
 ### Filter Keywords
 
-these can be used in filters and thresholds (along with the default attributes):
+Use these attributes in filters and thresholds, along with the default attributes:
 
 | Attribute   | Description                                    |
 | ----------- | ---------------------------------------------- |
-| sensor      | full name of this sensor, e.g. coretemp_core_0 |
-| name        | name of this sensor, e.g. coretemp             |
-| label       | label for this sensor, e.g. core 0             |
-| temperature | current temperature                            |
-| crit        | critical value supplied from sensor            |
-| max         | max value supplied from sensor                 |
-| min         | min value supplied from sensor                 |
+| sensor      | Full name of this sensor, e.g. coretemp_core_0 |
+| name        | Name of this sensor, e.g. coretemp             |
+| label       | Label for this sensor, e.g. core 0             |
+| temperature | Current temperature                            |
+| crit        | Critical value supplied from sensor            |
+| max         | Max value supplied from sensor                 |
+| min         | Min value supplied from sensor                 |
 
 ## Examples
 
@@ -61,6 +61,8 @@ Show all temperature sensors and apply custom thresholds:
 
     check_temperature filter=none warn="temperature > 85" crit="temperature > 90"
     OK - Package id 0: 65.0 °C, Core 0: 62.0 °C, Core 1: 61.0 °C, Core 2: 65.0 °C |...
+
+Sensors with invalid values are filtered out.
 
 ### Example using check_snclient and Naemon
 

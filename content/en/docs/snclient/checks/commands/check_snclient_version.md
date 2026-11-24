@@ -33,13 +33,13 @@ None
 
 ### Filter Keywords
 
-these can be used in filters and thresholds (along with the default attributes):
+Use these attributes in filters and thresholds, along with the default attributes:
 
 | Attribute | Description                 |
 | --------- | --------------------------- |
 | name      | The name of this agent      |
 | version   | Version string              |
-| build     | git commit id of this build |
+| build     | Git commit ID of this build |
 
 ## Examples
 

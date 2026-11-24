@@ -30,33 +30,33 @@ Checks the number of TCP connections.
 
 ## Check Specific Arguments
 
-| Argument | Description                                                        |
-| -------- | ------------------------------------------------------------------ |
-| inet     | Use specific address family only. Can be: total, any, ipv4 or ipv6 |
+| Argument | Description                                                     |
+| -------- | --------------------------------------------------------------- |
+| inet     | Use only the specified address family: total, any, ipv4 or ipv6 |
 
 ## Attributes
 
 ### Filter Keywords
 
-these can be used in filters and thresholds (along with the default attributes):
+Use these attributes in filters and thresholds, along with the default attributes:
 
 | Attribute    | Description                                                                             |
 | ------------ | --------------------------------------------------------------------------------------- |
-| inet         | address family, can be total (sum of any), all (any+total), any (v4+v6), inet4 or inet6 |
-| prefix       | address family as prefix, will be empty, inet4 or inet6                                 |
-| total        | total number of connections                                                             |
-| established  | total number of connections of type: established                                        |
-| syn_sent     | total number of connections of type: syn_sent                                           |
-| syn_recv     | total number of connections of type: syn_recv                                           |
-| fin_wait1    | total number of connections of type: fin_wait1                                          |
-| fin_wait2    | total number of connections of type: fin_wait2                                          |
-| time_wait    | total number of connections of type: time_wait                                          |
-| close        | total number of connections of type: close                                              |
-| close_wait   | total number of connections of type: close_wait                                         |
-| last_ack     | total number of connections of type: last_ack                                           |
-| listen       | total number of connections of type: listen                                             |
-| closing      | total number of connections of type: closing                                            |
-| new_syn_recv | total number of connections of type: new_syn_recv                                       |
+| inet         | Address family, can be total (sum of any), all (any+total), any (v4+v6), inet4 or inet6 |
+| prefix       | Address family prefix: empty, inet4 or inet6                                            |
+| total        | Total number of connections                                                             |
+| established  | Total number of connections of type: established                                        |
+| syn_sent     | Total number of connections of type: syn_sent                                           |
+| syn_recv     | Total number of connections of type: syn_recv                                           |
+| fin_wait1    | Total number of connections of type: fin_wait1                                          |
+| fin_wait2    | Total number of connections of type: fin_wait2                                          |
+| time_wait    | Total number of connections of type: time_wait                                          |
+| close        | Total number of connections of type: close                                              |
+| close_wait   | Total number of connections of type: close_wait                                         |
+| last_ack     | Total number of connections of type: last_ack                                           |
+| listen       | Total number of connections of type: listen                                             |
+| closing      | Total number of connections of type: closing                                            |
+| new_syn_recv | Total number of connections of type: new_syn_recv                                       |
 
 ## Examples
 
